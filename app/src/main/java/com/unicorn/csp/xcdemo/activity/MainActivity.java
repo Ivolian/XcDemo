@@ -10,6 +10,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
 import com.unicorn.csp.xcdemo.adaper.pager.ViewPagerAdapter;
+import com.unicorn.csp.xcdemo.utils.ToastUtils;
 
 import butterknife.Bind;
 import io.karim.MaterialTabs;
@@ -73,5 +74,25 @@ public class MainActivity extends ToolbarActivity {
                 withName("待定")
                 .withIcon(GoogleMaterial.Icon.gmd_assignment_ind);
     }
+
+    // ========================== 再按一次退出 ==========================
+
+    long exitTime = 0;
+
+    @Override
+    public void onBackPressed() {
+
+        if (drawer.isDrawerOpen()) {
+            drawer.closeDrawer();
+        } else {
+            if (System.currentTimeMillis() - exitTime > 2000) {
+                ToastUtils.show("再按一次退出");
+                exitTime = System.currentTimeMillis();
+            } else {
+                super.onBackPressed();
+            }
+        }
+    }
+
 
 }
