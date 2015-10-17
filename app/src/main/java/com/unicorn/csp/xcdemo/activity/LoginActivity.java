@@ -8,8 +8,6 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
 import com.unicorn.csp.xcdemo.utils.DialogUtils;
-import com.unicorn.csp.xcdemo.utils.EditTextUtils;
-import com.unicorn.csp.xcdemo.utils.ToastUtils;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -44,22 +42,25 @@ public class LoginActivity extends ToolbarActivity {
 
     private void copeLogin(final MaterialDialog mask) {
 
-        if (EditTextUtils.isEmpty(etAccount)){
-            ToastUtils.show("账号不能为空");
-            mask.dismiss();
-            return;
-        }
-        if (EditTextUtils.isEmpty(etPassword)) {
-            ToastUtils.show("密码不能为空");
-            mask.dismiss();
-            return;
-        }
+//        if (EditTextUtils.isEmpty(etAccount)) {
+//            ToastUtils.show("账号不能为空");
+//            mask.dismiss();
+//            return;
+//        }
+//        if (EditTextUtils.isEmpty(etPassword)) {
+//            ToastUtils.show("密码不能为空");
+//            mask.dismiss();
+//            return;
+//        }
+
+        int delay = 1500;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 mask.dismiss();
+                startActivity(MainActivity.class);
             }
-        }, 2000);
+        }, delay);
     }
 
 }
