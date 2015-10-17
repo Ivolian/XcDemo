@@ -9,7 +9,7 @@ import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
-import com.unicorn.csp.xcdemo.adaper.pager.ViewPagerAdapter;
+import com.unicorn.csp.xcdemo.adaper.viewpager.ViewPagerAdapter;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
 
 import butterknife.Bind;
@@ -53,9 +53,7 @@ public class MainActivity extends ToolbarActivity {
                 .withHeaderDivider(false)
                 .addDrawerItems(
                         getFirstDrawerItem(),
-                        getOtherDrawerItem(),
-                        getOtherDrawerItem(),
-                        getOtherDrawerItem()
+                        getSecondDrawerItem()
                 )
                 .build();
     }
@@ -68,7 +66,7 @@ public class MainActivity extends ToolbarActivity {
                 .withBadge("10");
     }
 
-    private PrimaryDrawerItem getOtherDrawerItem() {
+    private PrimaryDrawerItem getSecondDrawerItem() {
 
         return new PrimaryDrawerItem().
                 withName("待定")

@@ -4,29 +4,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
         android:orientation="vertical">
 
-        <io.karim.MaterialTabs
-            android:id="@+id/tabs"
+        <app.mosn.zdepthshadowlayout.ZDepthShadowLayout xmlns:shadow="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/toolbar_shadow_layout"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="?attr/colorPrimary"
-            android:textColor="@color/white"
-            app:mtIndicatorColor="@color/white"
-            app:mtSameWeightTabs="true"
-            app:mtTextColorSelected="@color/white" />
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            shadow:z_depth="z_depth1"
+            shadow:z_depth_paddingBottom="z_depth1"
+            shadow:z_depth_paddingLeft="z_depth0"
+            shadow:z_depth_paddingRight="z_depth0"
+            shadow:z_depth_paddingTop="z_depth0"
+            shadow:z_depth_shape="rect">
+
+            <io.karim.MaterialTabs
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="?attr/colorPrimary"
+                android:textColor="@color/white"
+                app:mtIndicatorColor="?attr/colorAccent"
+                app:mtSameWeightTabs="true"
+                app:mtTextColorSelected="@color/white" />
+
+        </app.mosn.zdepthshadowlayout.ZDepthShadowLayout>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/viewpager"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_height="match_parent"
+            android:layout_marginTop="48dp" />
 
-    </LinearLayout>
+    </FrameLayout>
 
     <include layout="@layout/toolbar" />
 

@@ -1,4 +1,4 @@
-package com.unicorn.csp.xcdemo.adaper.pager;
+package com.unicorn.csp.xcdemo.adaper.viewpager;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
