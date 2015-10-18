@@ -1,19 +1,26 @@
 package com.unicorn.csp.xcdemo.adaper.recycleview;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
+import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.unicorn.csp.xcdemo.R;
+import com.unicorn.csp.xcdemo.activity.FinishActivity;
 import com.unicorn.csp.xcdemo.model.Model;
+import com.unicorn.csp.xcdemo.utils.ToastUtils;
 import com.wangqiang.libs.labelviewlib.LabelView;
 
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
@@ -45,6 +52,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         @Bind(R.id.label)
         LabelView labelView;
 
+        @Bind(R.id.cardview)
+        CardView cardView;
 
         ViewHolder(View view) {
             super(view);
@@ -52,6 +61,30 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
 
         }
+
+        @OnClick(R.id.cardview)
+        public void showDialog() {
+
+            new MaterialDialog.Builder(activity)
+                    .title("选择操作")
+                    .items(new CharSequence[]{"接单", "挂单"})
+                    .itemsCallback(new MaterialDialog.ListCallback() {
+                        @Override
+                        public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                            if (which == 0) {
+                                ToastUtils.show("接单成功！");
+                            } else {
+                                startFinishActivity(cardView);
+                            }
+                        }
+                    })
+                    .show();
+        }
+    }
+
+    public void startFinishActivity(View shareView) {
+        Intent intent = new Intent(activity, FinishActivity.class);
+        activity.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity,shareView , "cardview").toBundle());
     }
 
 
@@ -64,12 +97,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
-        Model model = modelList.get(position);
-//        viewHolder.tvBookName.setText(model.getText());
-        if (position % 2 == 0) {
+        if (position % 2 != 0) {
             viewHolder.labelView.setBackgroundResource(R.color.blue);
             viewHolder.labelView.setText("新");
-        }else {
+        } else {
             viewHolder.labelView.setBackgroundResource(R.color.colorAccent);
             viewHolder.labelView.setText("限");
         }

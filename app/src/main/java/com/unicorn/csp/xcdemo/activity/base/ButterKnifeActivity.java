@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
 
+import com.r0adkll.slidr.Slidr;
+import com.r0adkll.slidr.model.SlidrConfig;
+
 import butterknife.ButterKnife;
 
 
@@ -27,10 +30,10 @@ public abstract class ButterKnifeActivity extends AppCompatActivity {
 
     // ========================== 滑动移除 ==========================
 
-    public void enableSlidr() {
+    public void slidr() {
 
-//        SlidrConfig config = new SlidrConfig.Builder().edge(true).build();
-//        Slidr.attach(this, config);
+        SlidrConfig config = new SlidrConfig.Builder().edge(true).build();
+        Slidr.attach(this, config);
     }
 
 

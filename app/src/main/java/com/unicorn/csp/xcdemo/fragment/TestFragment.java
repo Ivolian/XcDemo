@@ -1,6 +1,7 @@
 package com.unicorn.csp.xcdemo.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
@@ -41,12 +42,28 @@ public class TestFragment extends ButterKnifeFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        initSwipeRefreshLayout();
         initRecyclerView();
         return rootView;
     }
 
+    private void initSwipeRefreshLayout() {
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                }, 1500);
+            }
+        });
+    }
+
     private void initRecyclerView() {
-        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         recyclerView.setLayoutManager(getLinearLayoutManager());
         customAdapter = new CustomAdapter(getActivity(), getData());
         recyclerView.setAdapter(customAdapter);
@@ -65,7 +82,7 @@ public class TestFragment extends ButterKnifeFragment {
             public void onBottom() {
 
                 customAdapter.addModelList(getData());
-        customAdapter.notifyDataSetChanged();
+                customAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -90,5 +107,6 @@ public class TestFragment extends ButterKnifeFragment {
         }
         return modelList;
     }
+
 
 }
