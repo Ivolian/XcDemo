@@ -37,15 +37,14 @@ public class TestFragment extends ButterKnifeFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView =  super.onCreateView(inflater, container, savedInstanceState);
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
         initRecyclerView();
         return rootView;
     }
 
     private void initRecyclerView() {
-
         recyclerView.setLayoutManager(getLinearLayoutManager());
-        customAdapter = new CustomAdapter(getData());
+        customAdapter = new CustomAdapter(getActivity(),getData());
         recyclerView.setAdapter(customAdapter);
         recyclerView.addOnScrollListener(new OnRecyclerViewScrollListener() {
             @Override
@@ -62,7 +61,11 @@ public class TestFragment extends ButterKnifeFragment {
             public void onBottom() {
 
                 customAdapter.addModelList(getData());
-                customAdapter.notifyDataSetChanged();
+                int size = customAdapter.getModelList().size();
+                customAdapter.notifyItemRangeInserted(size - 10, size);
+//                        customAdapter.addModelList(getData());
+//                        customAdapter.notifyDataSetChanged();
+
             }
 
             @Override
