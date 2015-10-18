@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.unicorn.csp.xcdemo.R;
+import com.unicorn.csp.xcdemo.activity.ArrivalActivity;
 import com.unicorn.csp.xcdemo.activity.FinishActivity;
 import com.unicorn.csp.xcdemo.activity.GetActivity;
 import com.unicorn.csp.xcdemo.model.Model;
@@ -73,6 +74,9 @@ public class CustomAdapter2 extends RecyclerView.Adapter<CustomAdapter2.ViewHold
                         public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                            if (which ==0){
                                Intent intent = new Intent(activity, GetActivity.class);
+                               activity.startActivity(intent);
+                           }else {
+                               Intent intent = new Intent(activity, ArrivalActivity.class);
                                activity.startActivity(intent);
                            }
                         }
