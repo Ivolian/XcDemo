@@ -2,20 +2,72 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cardview"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="wrap_content"
     android:layout_margin="8dp"
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground">
 
-        <com.wangqiang.libs.labelviewlib.LabelView
-            android:id="@+id/label"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorAccent"
-            android:textColor="@android:color/white"
-            android:text="限"
-            android:textSize="10sp"
-            app:label_distance="8dp"
-            app:label_position="TOP_RIGHT" />
+            android:text="报修电话:  9300（分）马老师" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="下单时间:  2015-09-06 10:00" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="维修地点:  急3F(三床)" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="维修类型:  给排水" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="维修内容:  马桶（堵）" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="是否时限:  否" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/expand_container"
+        android:layout_width="36dp"
+        android:layout_height="32dp"
+        android:layout_gravity="bottom|right">
+
+        <com.mikepenz.iconics.view.IconicsImageView
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_gravity="center"
+            app:iiv_icon="gmd-expand-more" />
+
+    </FrameLayout>
+
+    <com.wangqiang.libs.labelviewlib.LabelView
+        android:id="@+id/label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorAccent"
+        android:text="限"
+        android:textColor="@android:color/white"
+        android:textSize="10dp"
+        app:label_distance="8dp"
+        app:label_position="TOP_RIGHT" />
 
 </android.support.v7.widget.CardView>

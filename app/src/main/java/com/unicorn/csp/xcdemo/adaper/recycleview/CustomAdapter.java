@@ -69,6 +69,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         if (position % 2 == 0) {
             viewHolder.labelView.setBackgroundResource(R.color.blue);
             viewHolder.labelView.setText("新");
+        }else {
+            viewHolder.labelView.setBackgroundResource(R.color.colorAccent);
+            viewHolder.labelView.setText("限");
         }
     }
 
