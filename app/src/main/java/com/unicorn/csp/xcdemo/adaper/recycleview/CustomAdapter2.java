@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.FinishActivity;
+import com.unicorn.csp.xcdemo.activity.GetActivity;
 import com.unicorn.csp.xcdemo.model.Model;
-import com.unicorn.csp.xcdemo.utils.ToastUtils;
 import com.wangqiang.libs.labelviewlib.LabelView;
 
 import java.util.List;
@@ -71,7 +71,10 @@ public class CustomAdapter2 extends RecyclerView.Adapter<CustomAdapter2.ViewHold
                     .itemsCallback(new MaterialDialog.ListCallback() {
                         @Override
                         public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                           
+                           if (which ==0){
+                               Intent intent = new Intent(activity, GetActivity.class);
+                               activity.startActivity(intent);
+                           }
                         }
                     })
                     .show();
