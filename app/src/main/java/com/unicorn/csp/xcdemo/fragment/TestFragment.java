@@ -1,6 +1,7 @@
 package com.unicorn.csp.xcdemo.fragment;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,8 @@ import kale.recycler.OnRecyclerViewScrollListener;
 
 public class TestFragment extends ButterKnifeFragment {
 
+    @Bind(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Bind(R.id.recyclerView)
     ExRecyclerView recyclerView;
@@ -43,8 +46,9 @@ public class TestFragment extends ButterKnifeFragment {
     }
 
     private void initRecyclerView() {
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
         recyclerView.setLayoutManager(getLinearLayoutManager());
-        customAdapter = new CustomAdapter(getActivity(),getData());
+        customAdapter = new CustomAdapter(getActivity(), getData());
         recyclerView.setAdapter(customAdapter);
         recyclerView.addOnScrollListener(new OnRecyclerViewScrollListener() {
             @Override
@@ -61,11 +65,7 @@ public class TestFragment extends ButterKnifeFragment {
             public void onBottom() {
 
                 customAdapter.addModelList(getData());
-                int size = customAdapter.getModelList().size();
-                customAdapter.notifyItemRangeInserted(size - 10, size);
-//                        customAdapter.addModelList(getData());
-//                        customAdapter.notifyDataSetChanged();
-
+        customAdapter.notifyDataSetChanged();
             }
 
             @Override
