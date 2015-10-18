@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.unicorn.csp.xcdemo.fragment.TestFragment;
+import com.unicorn.csp.xcdemo.fragment.TestFragment2;
 
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
@@ -20,6 +21,9 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
+        if (position==1){
+            return new TestFragment2();
+        }
         return new TestFragment();
     }
 

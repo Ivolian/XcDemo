@@ -99,7 +99,7 @@ public class FinishActivity extends ToolbarActivity {
         });
     }
 
-    @OnClick(R.id.expand_container)
+    @OnClick(R.id.cardview)
     public void toggle() {
         expandableLayout.toggle();
     }
