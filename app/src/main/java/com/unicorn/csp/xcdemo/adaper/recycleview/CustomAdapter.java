@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.FinishActivity;
@@ -62,6 +63,31 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
         }
 
+        @OnClick(R.id.btn_finish)
+        public void finish(){
+
+            startFinishActivity(cardView);
+
+        }
+
+        @OnClick(R.id.btn_get)
+        public void get(){
+
+                        new MaterialDialog.Builder(activity)
+//                    .title("")
+                    .content("确认接单？")
+                    .positiveText("确认")
+                    .negativeText("取消")
+                    .onPositive(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                            ToastUtils.show("接单成功！");
+                            CustomAdapter.this.notifyItemRemoved(getLayoutPosition());
+                        }
+                    })
+                    .show();
+        }
+
         @OnClick(R.id.cardview)
         public void showDialog() {
 
@@ -73,6 +99,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
                         public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                             if (which == 0) {
                                 ToastUtils.show("接单成功！");
+                                CustomAdapter.this.notifyItemRemoved(getLayoutPosition());
                             } else {
                                 startFinishActivity(cardView);
                             }
