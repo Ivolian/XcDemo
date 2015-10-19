@@ -27,9 +27,15 @@ public class ArrivalActivity extends ToolbarActivity {
     }
 
     @OnClick(R.id.btn_get)
-    public void startGetActivity(){
+    public void startGetActivity() {
 
         startActivity(GetActivity.class);
+    }
+
+    @OnClick(R.id.btn_over)
+    public void startOverActivity() {
+
+        startActivity(OverActivity.class);
     }
 
 }
