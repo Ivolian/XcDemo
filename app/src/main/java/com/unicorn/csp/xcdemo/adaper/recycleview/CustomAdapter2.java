@@ -3,12 +3,14 @@ package com.unicorn.csp.xcdemo.adaper.recycleview;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.ArrivalActivity;
@@ -63,26 +65,31 @@ public class CustomAdapter2 extends RecyclerView.Adapter<CustomAdapter2.ViewHold
 
         }
 
-        @OnClick(R.id.cardview)
-        public void showDialog() {
+        @OnClick(R.id.btn_get)
+        public void get(){
+            Intent intent = new Intent(activity,GetActivity.class);
+            activity.startActivity(intent);
+        }
+
+        @OnClick(R.id.btn_arrival)
+        public void arrival(){
 
             new MaterialDialog.Builder(activity)
-                    .title("选择操作")
-                    .items(new CharSequence[]{"领料", "到达"})
-                    .itemsCallback(new MaterialDialog.ListCallback() {
+                    .content("确认到达？")
+                    .positiveText("确认")
+                    .negativeText("取消")
+                    .onPositive(new MaterialDialog.SingleButtonCallback() {
                         @Override
-                        public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                           if (which ==0){
-                               Intent intent = new Intent(activity, GetActivity.class);
-                               activity.startActivity(intent);
-                           }else {
-                               Intent intent = new Intent(activity, ArrivalActivity.class);
-                               activity.startActivity(intent);
-                           }
+                        public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+                            Intent intent = new Intent(activity, ArrivalActivity.class);
+                            activity.startActivity(intent);
                         }
                     })
                     .show();
+
         }
+
+
     }
 
     public void startFinishActivity(View shareView) {
@@ -93,7 +100,7 @@ public class CustomAdapter2 extends RecyclerView.Adapter<CustomAdapter2.ViewHold
 
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
-        return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_custom, viewGroup, false));
+        return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_custom2, viewGroup, false));
     }
 
 
