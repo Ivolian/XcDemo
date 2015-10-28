@@ -1,9 +1,13 @@
 package com.unicorn.csp.xcdemo.activity;
 
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.view.MenuItem;
 
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
@@ -37,6 +41,7 @@ public class MainActivity extends ToolbarActivity {
 
     public void initViews() {
 
+        viewPager.setOffscreenPageLimit(4);
         viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
         tabs.setViewPager(viewPager);
         initDrawer();
@@ -53,7 +58,8 @@ public class MainActivity extends ToolbarActivity {
                 .withHeaderDivider(false)
                 .addDrawerItems(
                         getFirstDrawerItem(),
-                        getSecondDrawerItem()
+                        getSecondDrawerItem(),
+                        getThindDrawerItem()
                 )
                 .build();
     }
@@ -69,9 +75,17 @@ public class MainActivity extends ToolbarActivity {
     private PrimaryDrawerItem getSecondDrawerItem() {
 
         return new PrimaryDrawerItem().
-                withName("待定")
+                withName("统计分析")
+                .withIcon(GoogleMaterial.Icon.gmd_assessment);
+    }
+
+    private PrimaryDrawerItem getThindDrawerItem() {
+
+        return new PrimaryDrawerItem().
+                withName("我的收益")
                 .withIcon(GoogleMaterial.Icon.gmd_assignment_ind);
     }
+
 
     // ========================== 再按一次退出 ==========================
 
@@ -92,5 +106,27 @@ public class MainActivity extends ToolbarActivity {
         }
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+
+        getMenuInflater().inflate(R.menu.main, menu);
+        menu.findItem(R.id.search).setIcon(getActionDrawable());
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    private Drawable getActionDrawable() {
+
+       return new IconicsDrawable(this)
+                .icon(GoogleMaterial.Icon.gmd_search)
+                .color(Color.WHITE)
+                .sizeDp(18);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        return super.onOptionsItemSelected(item);
+    }
 
 }

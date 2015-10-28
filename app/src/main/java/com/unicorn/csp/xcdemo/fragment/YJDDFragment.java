@@ -9,19 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.adaper.recycleview.CustomAdapter2;
+import com.unicorn.csp.xcdemo.adaper.recycleview.YJDAdapter;
+import com.unicorn.csp.xcdemo.adaper.recycleview.YJDDAdapter;
 import com.unicorn.csp.xcdemo.fragment.base.ButterKnifeFragment;
-import com.unicorn.csp.xcdemo.model.Model;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 import kale.recycler.ExRecyclerView;
-import kale.recycler.OnRecyclerViewScrollListener;
 
 
-public class TestFragment2 extends ButterKnifeFragment {
+public class YJDDFragment extends ButterKnifeFragment {
 
     @Bind(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
@@ -29,7 +25,7 @@ public class TestFragment2 extends ButterKnifeFragment {
     @Bind(R.id.recyclerView)
     ExRecyclerView recyclerView;
 
-    CustomAdapter2 customAdapter2;
+   public YJDDAdapter yjddAdapter;
 
 
     @Override
@@ -65,31 +61,8 @@ public class TestFragment2 extends ButterKnifeFragment {
     private void initRecyclerView() {
         swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         recyclerView.setLayoutManager(getLinearLayoutManager());
-        customAdapter2 = new CustomAdapter2(getActivity(), getData());
-        recyclerView.setAdapter(customAdapter2);
-        recyclerView.addOnScrollListener(new OnRecyclerViewScrollListener() {
-            @Override
-            public void onScrollUp() {
-
-            }
-
-            @Override
-            public void onScrollDown() {
-
-            }
-
-            @Override
-            public void onBottom() {
-
-                customAdapter2.addModelList(getData());
-                customAdapter2.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onMoved(int i, int i1) {
-
-            }
-        });
+        yjddAdapter = new YJDDAdapter(getActivity());
+        recyclerView.setAdapter(yjddAdapter);
     }
 
     public LinearLayoutManager getLinearLayoutManager() {
@@ -97,15 +70,6 @@ public class TestFragment2 extends ButterKnifeFragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         return linearLayoutManager;
-    }
-
-    private List<Model> getData() {
-
-        List<Model> modelList = new ArrayList<>();
-        for (int i = 0; i != 10; i++) {
-            modelList.add(new Model(i + ""));
-        }
-        return modelList;
     }
 
 }

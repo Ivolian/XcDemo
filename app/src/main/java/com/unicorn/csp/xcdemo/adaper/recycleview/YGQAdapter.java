@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,12 +14,13 @@ import android.view.ViewGroup;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.activity.ArrivalActivity;
-import com.unicorn.csp.xcdemo.activity.FinishActivity;
-import com.unicorn.csp.xcdemo.activity.GetActivity;
+import com.unicorn.csp.xcdemo.activity.GDActivity;
+import com.unicorn.csp.xcdemo.activity.LLActivity;
+import com.unicorn.csp.xcdemo.activity.OperationActivity;
 import com.unicorn.csp.xcdemo.model.Model;
 import com.wangqiang.libs.labelviewlib.LabelView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -26,27 +28,23 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class CustomAdapter2 extends RecyclerView.Adapter<CustomAdapter2.ViewHolder> {
+public class YGQAdapter extends RecyclerView.Adapter<YGQAdapter.ViewHolder> {
 
     private Activity activity;
 
-    private List<Model> modelList;
+    private List<Model> modelList = new ArrayList<>();
 
-    public List<Model> getModelList() {
-        return modelList;
+    public void addModel() {
+
+        if (modelList.size() == 0) {
+            modelList.add(new Model());
+            notifyDataSetChanged();
+        }
     }
 
-    public void setModelList(List<Model> modelList) {
-        this.modelList = modelList;
-    }
+    public YGQAdapter(Activity activity) {
 
-    public void addModelList(List<Model> modelList) {
-        this.modelList.addAll(modelList);
-    }
-
-    public CustomAdapter2(Activity activity, List<Model> modelList) {
         this.activity = activity;
-        this.modelList = modelList;
     }
 
     // 绑定视图，添加事件
@@ -58,34 +56,39 @@ public class CustomAdapter2 extends RecyclerView.Adapter<CustomAdapter2.ViewHold
         @Bind(R.id.cardview)
         CardView cardView;
 
+        @Bind(R.id.btn_ll)
+        AppCompatButton btnLL;
+
+        @Bind(R.id.btn_arrival)
+        AppCompatButton btnArrail;
+
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
 
-
+            btnLL.setVisibility(View.INVISIBLE);
+            btnArrail.setText("操作");
         }
 
-        @OnClick(R.id.btn_get)
-        public void get(){
-            Intent intent = new Intent(activity,GetActivity.class);
+
+
+        @OnClick(R.id.btn_ll)
+        public void get() {
+            Intent intent = new Intent(activity, LLActivity.class);
             activity.startActivity(intent);
         }
 
         @OnClick(R.id.btn_arrival)
-        public void arrival(){
+        public void arrival() {
 
-            new MaterialDialog.Builder(activity)
-                    .content("确认到达？")
-                    .positiveText("确认")
-                    .negativeText("取消")
-                    .onPositive(new MaterialDialog.SingleButtonCallback() {
-                        @Override
-                        public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                            Intent intent = new Intent(activity, ArrivalActivity.class);
-                            activity.startActivity(intent);
-                        }
-                    })
-                    .show();
+//            if (btnArrail.getText().equals("操作")){
+//
+//                Intent intent = new Intent(activity, OperationActivity.class);
+//                activity.startActivity(intent);
+//                return;
+//            }
+
+
 
         }
 
@@ -93,14 +96,14 @@ public class CustomAdapter2 extends RecyclerView.Adapter<CustomAdapter2.ViewHold
     }
 
     public void startFinishActivity(View shareView) {
-        Intent intent = new Intent(activity, FinishActivity.class);
-        activity.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity,shareView , "cardview").toBundle());
+        Intent intent = new Intent(activity, GDActivity.class);
+        activity.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity, shareView, "cardview").toBundle());
     }
 
 
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
-        return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_custom2, viewGroup, false));
+        return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_yjd, viewGroup, false));
     }
 
 

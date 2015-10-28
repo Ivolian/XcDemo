@@ -10,13 +10,13 @@ import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
 import butterknife.OnClick;
 
 
-public class ArrivalActivity extends ToolbarActivity {
+public class OperationActivity extends ToolbarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_arrival);
-        initToolbar("到达", true);
+        setContentView(R.layout.activity_operation);
+        initToolbar("操作", true);
     }
 
     @OnClick(R.id.btn_take_photo)
@@ -26,16 +26,22 @@ public class ArrivalActivity extends ToolbarActivity {
         startActivityForResult(intent, 233);
     }
 
-    @OnClick(R.id.btn_get)
+    @OnClick(R.id.btn_ll)
     public void startGetActivity() {
 
-        startActivity(GetActivity.class);
+        startActivity(LLActivity.class);
     }
 
     @OnClick(R.id.btn_over)
     public void startOverActivity() {
 
         startActivity(OverActivity.class);
+    }
+
+    @OnClick(R.id.btn_gd)
+    public void onBtnGdClick(){
+
+//        startActivity(GDActivity.class);
     }
 
 }

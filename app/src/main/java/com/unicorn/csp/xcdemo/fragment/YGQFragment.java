@@ -9,19 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.adaper.recycleview.CustomAdapter;
+import com.unicorn.csp.xcdemo.adaper.recycleview.YGQAdapter;
 import com.unicorn.csp.xcdemo.fragment.base.ButterKnifeFragment;
-import com.unicorn.csp.xcdemo.model.Model;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 import kale.recycler.ExRecyclerView;
-import kale.recycler.OnRecyclerViewScrollListener;
 
 
-public class TestFragment extends ButterKnifeFragment {
+public class YGQFragment extends ButterKnifeFragment {
 
     @Bind(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
@@ -29,7 +24,7 @@ public class TestFragment extends ButterKnifeFragment {
     @Bind(R.id.recyclerView)
     ExRecyclerView recyclerView;
 
-    CustomAdapter customAdapter;
+   public YGQAdapter ygqAdapter;
 
 
     @Override
@@ -65,31 +60,8 @@ public class TestFragment extends ButterKnifeFragment {
     private void initRecyclerView() {
         swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         recyclerView.setLayoutManager(getLinearLayoutManager());
-        customAdapter = new CustomAdapter(getActivity(), getData());
-        recyclerView.setAdapter(customAdapter);
-        recyclerView.addOnScrollListener(new OnRecyclerViewScrollListener() {
-            @Override
-            public void onScrollUp() {
-
-            }
-
-            @Override
-            public void onScrollDown() {
-
-            }
-
-            @Override
-            public void onBottom() {
-
-                customAdapter.addModelList(getData());
-                customAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onMoved(int i, int i1) {
-
-            }
-        });
+        ygqAdapter = new YGQAdapter(getActivity());
+        recyclerView.setAdapter(ygqAdapter);
     }
 
     public LinearLayoutManager getLinearLayoutManager() {
@@ -98,15 +70,5 @@ public class TestFragment extends ButterKnifeFragment {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         return linearLayoutManager;
     }
-
-    private List<Model> getData() {
-
-        List<Model> modelList = new ArrayList<>();
-        for (int i = 0; i != 10; i++) {
-            modelList.add(new Model(i + ""));
-        }
-        return modelList;
-    }
-
 
 }

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?attr/actionBarSize">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:transitionName="cardview">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="报修电话:  9300（分）马老师" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="下单时间:  2015-09-06 10:00" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="维修地点:  急3F(三床)" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="维修类型:  给排水" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="维修内容:  马桶（堵）" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="是否时限:  否" />
+
+                    <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                        android:id="@+id/expandableLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:ael_duration="400"
+                        app:ael_expanded="true"
+                        app:ael_orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="领料情况:  无" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="受理人员:  工号1237" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="派单时间:  2015-09-06 10:00" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="拍单人员:  张某某" />
+
+                        </LinearLayout>
+
+                    </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@android:color/transparent"
+                        android:orientation="horizontal"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp">
+
+                        <android.support.v7.widget.AppCompatButton
+                            android:id="@+id/btn_ll"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+                            android:background="@color/colorPrimary"
+                            android:padding="12dp"
+
+                            android:text="领料"
+                            android:textColor="@android:color/white"
+                            android:textSize="15dp" />
+
+                        <android.support.v7.widget.AppCompatButton
+                            android:id="@+id/btn_take_photo"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+                            android:background="@color/colorPrimary"
+                            android:padding="12dp"
+                            android:text="拍照"
+                            android:textColor="@android:color/white"
+                            android:textSize="15dp" />
+
+                        <android.support.v7.widget.AppCompatButton
+                            android:id="@+id/btn_over"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+                            android:background="@color/colorAccent"
+                            android:padding="12dp"
+                            android:text="结单"
+                            android:textColor="@android:color/white"
+                            android:textSize="15dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:orientation="horizontal"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp">
+
+                        <android.support.v7.widget.AppCompatButton
+                            android:id="@+id/btn_gd"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_weight="1"
+                            android:background="@android:color/darker_gray"
+                            android:padding="12dp"
+                            android:text="挂单"
+                            android:textColor="@android:color/white"
+                            android:textSize="15dp" />
+
+                        <android.support.v7.widget.AppCompatButton
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_weight="1"
+                            android:background="@android:color/darker_gray"
+                            android:padding="12dp"
+                            android:text="移单"
+
+                            android:textColor="@android:color/white"
+                            android:textSize="15dp" />
+
+                        <android.support.v7.widget.AppCompatButton
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:layout_weight="1"
+                            android:background="@android:color/darker_gray"
+                            android:padding="12dp"
+                            android:text="退单"
+                            android:textColor="@android:color/white"
+                            android:textSize="15dp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <com.wangqiang.libs.labelviewlib.LabelView
+                    android:id="@+id/label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/colorAccent"
+                    android:text="限"
+                    android:textColor="@android:color/white"
+                    android:textSize="10dp"
+                    app:label_distance="8dp"
+                    app:label_position="TOP_RIGHT" />
+
+            </android.support.v7.widget.CardView>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <include layout="@layout/toolbar_with_shadow" />
+
+</FrameLayout>
+
+
+
+
+
+

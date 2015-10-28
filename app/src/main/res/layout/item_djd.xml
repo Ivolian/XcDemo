@@ -64,7 +64,7 @@
                 android:textSize="15dp" />
 
             <android.support.v7.widget.AppCompatButton
-                android:id="@+id/btn_get"
+                android:id="@+id/btn_ll"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"

@@ -28,10 +28,11 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".activity.FinishActivity" />
-        <activity android:name=".activity.GetActivity" />
-        <activity android:name=".activity.ArrivalActivity" />
+        <activity android:name=".activity.GDActivity" />
+        <activity android:name=".activity.LLActivity" />
+        <activity android:name=".activity.OperationActivity" />
         <activity android:name=".activity.OverActivity" />
+        <activity android:name=".activity.DetailActivity"/>
     </application>
 
 </manifest>

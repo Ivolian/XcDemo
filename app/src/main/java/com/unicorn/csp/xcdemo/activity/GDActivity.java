@@ -4,18 +4,22 @@ import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.github.aakira.expandablelayout.ExpandableLayout;
 import com.github.aakira.expandablelayout.ExpandableLayoutListener;
 import com.github.aakira.expandablelayout.Utils;
+import com.unicorn.csp.xcdemo.MyApplication;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 
 
-public class FinishActivity extends ToolbarActivity {
+public class GDActivity extends ToolbarActivity {
 
     @Bind(R.id.expandableLayout)
     ExpandableLayout expandableLayout;
@@ -23,18 +27,34 @@ public class FinishActivity extends ToolbarActivity {
     @Bind(R.id.expand_container)
     FrameLayout expandContainer;
 
-
-
+    @Bind({R.id.text1, R.id.text2})
+    public List<TextView> textList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_finish);
+        setContentView(R.layout.activity_gd);
         initToolbar("挂单", true);
         initViews();
     }
 
+    @OnClick(R.id.btn_finish)
+    public void btnFinishOnClick(){
+
+        MyApplication.ygqFragment.ygqAdapter.addModel();
+        finish();
+    }
+
+    @OnClick({R.id.text1, R.id.text2})
+    public void onTextClick(TextView clicked) {
+        for (TextView text : textList) {
+            text.setTextColor(getResources().getColor(android.R.color.black));
+            text.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+        }
+        clicked.setTextColor(getResources().getColor(android.R.color.white));
+        clicked.setBackgroundResource(R.color.blue);
+    }
 
 
     private void initViews() {
@@ -82,4 +102,5 @@ public class FinishActivity extends ToolbarActivity {
         animator.setInterpolator(Utils.createInterpolator(Utils.LINEAR_INTERPOLATOR));
         return animator;
     }
+
 }

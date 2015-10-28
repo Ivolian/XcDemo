@@ -197,7 +197,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="#5B5B5B"
                 android:orientation="horizontal"
                 android:padding="12dp">
 
@@ -214,6 +213,7 @@
                     android:textSize="15dp" />
 
                 <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/btn_finish"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
