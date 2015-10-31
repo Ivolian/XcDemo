@@ -43,18 +43,18 @@
             app:met_iconLeft="@drawable/login_password"
             app:met_primaryColor="?attr/colorAccent" />
 
-        <!-- login btn -->
-        <android.support.v7.widget.AppCompatButton
+        <!-- login button -->
+        <com.unicorn.csp.xcdemo.PaperButton
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:layout_marginTop="44dp"
-            android:background="@color/colorPrimary"
-            android:padding="12dp"
-            android:text="登录"
-            android:textColor="@android:color/white"
-            android:textSize="15dp" />
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="50dp"
+            app:paper_color="@color/colorPrimary"
+            app:paper_text="登 录"
+            app:paper_text_color="@color/white"
+            app:paper_text_size="18dp" />
 
     </LinearLayout>
 

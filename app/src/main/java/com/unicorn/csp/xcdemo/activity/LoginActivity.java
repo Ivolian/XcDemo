@@ -23,7 +23,6 @@ public class LoginActivity extends ToolbarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initToolbar("登录", false);
@@ -42,23 +41,12 @@ public class LoginActivity extends ToolbarActivity {
 
     private void copeLogin(final MaterialDialog mask) {
 
-//        if (EditTextUtils.isEmpty(etAccount)) {
-//            ToastUtils.show("账号不能为空");
-//            mask.dismiss();
-//            return;
-//        }
-//        if (EditTextUtils.isEmpty(etPassword)) {
-//            ToastUtils.show("密码不能为空");
-//            mask.dismiss();
-//            return;
-//        }
-
         int delay = 1500;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 mask.dismiss();
-                startActivity(MainActivity.class);
+                startActivityAndFinish(MainActivity.class);
             }
         }, delay);
     }
