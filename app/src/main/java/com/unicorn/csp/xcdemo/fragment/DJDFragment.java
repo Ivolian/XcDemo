@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import jp.wasabeef.recyclerview.animators.adapters.ScaleInAnimationAdapter;
 import kale.recycler.ExRecyclerView;
 import kale.recycler.OnRecyclerViewScrollListener;
 
@@ -62,11 +63,13 @@ public class DJDFragment extends ButterKnifeFragment {
         });
     }
 
+    private ScaleInAnimationAdapter scaleInAnimationAdapter;
+
     private void initRecyclerView() {
         swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         recyclerView.setLayoutManager(getLinearLayoutManager());
         DJDAdapter = new DJDAdapter(getActivity(), getData());
-        recyclerView.setAdapter(DJDAdapter);
+        recyclerView.setAdapter(scaleInAnimationAdapter =new ScaleInAnimationAdapter(DJDAdapter));
         recyclerView.addOnScrollListener(new OnRecyclerViewScrollListener() {
             @Override
             public void onScrollUp() {
@@ -82,7 +85,7 @@ public class DJDFragment extends ButterKnifeFragment {
             public void onBottom() {
 
                 DJDAdapter.addModelList(getData());
-                DJDAdapter.notifyDataSetChanged();
+                scaleInAnimationAdapter.notifyDataSetChanged();
             }
 
             @Override

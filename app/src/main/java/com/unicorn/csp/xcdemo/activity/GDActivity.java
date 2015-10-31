@@ -37,6 +37,7 @@ public class GDActivity extends ToolbarActivity {
         setContentView(R.layout.activity_gd);
         initToolbar("挂单", true);
         initViews();
+        slidr();
     }
 
     @OnClick(R.id.btn_finish)

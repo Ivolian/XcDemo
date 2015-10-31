@@ -5,7 +5,6 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
@@ -23,15 +22,12 @@
             shadow:z_depth_paddingTop="z_depth0"
             shadow:z_depth_shape="rect">
 
-            <io.karim.MaterialTabs
+            <android.support.design.widget.TabLayout
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:background="?attr/colorPrimary"
-                android:textColor="@color/white"
-                app:mtIndicatorColor="?attr/colorAccent"
-                app:mtSameWeightTabs="true"
-                app:mtTextColorSelected="@color/white" />
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
         </app.mosn.zdepthshadowlayout.ZDepthShadowLayout>
 
@@ -43,7 +39,19 @@
 
     </LinearLayout>
 
-    <include layout="@layout/toolbar" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/toolbar" />
+
+        <com.miguelcatalan.materialsearchview.MaterialSearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </FrameLayout>
 
 </FrameLayout>
 
