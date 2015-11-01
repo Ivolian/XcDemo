@@ -31,7 +31,7 @@ public class YJDFragment extends ButterKnifeFragment {
     @Override
     public int getLayoutResId() {
 
-        return R.layout.fragment_test;
+        return R.layout.fragment_basic_refresh_recycle;
     }
 
     @Override

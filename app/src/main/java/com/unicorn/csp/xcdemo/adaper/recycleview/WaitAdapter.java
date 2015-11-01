@@ -14,7 +14,6 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.unicorn.csp.xcdemo.MyApplication;
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.activity.DetailActivity;
 import com.unicorn.csp.xcdemo.activity.GDActivity;
 import com.unicorn.csp.xcdemo.model.Model;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
@@ -27,7 +26,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class DJDAdapter extends RecyclerView.Adapter<DJDAdapter.ViewHolder> {
+public class WaitAdapter extends RecyclerView.Adapter<WaitAdapter.ViewHolder> {
 
     private Activity activity;
 
@@ -45,7 +44,7 @@ public class DJDAdapter extends RecyclerView.Adapter<DJDAdapter.ViewHolder> {
         this.modelList.addAll(modelList);
     }
 
-    public DJDAdapter(Activity activity, List<Model> modelList) {
+    public WaitAdapter(Activity activity, List<Model> modelList) {
         this.activity = activity;
         this.modelList = modelList;
     }
@@ -66,12 +65,7 @@ public class DJDAdapter extends RecyclerView.Adapter<DJDAdapter.ViewHolder> {
 
         }
 
-        @OnClick(R.id.cardview)
-        public void startDetailActivity(){
 
-            Intent intent =new Intent(activity, DetailActivity.class);
-            activity.startActivity(intent);
-        }
 
         @OnClick(R.id.btn_finish)
         public void finish() {
@@ -92,7 +86,7 @@ public class DJDAdapter extends RecyclerView.Adapter<DJDAdapter.ViewHolder> {
                         @Override
                         public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                             ToastUtils.show("接单成功！");
-                            DJDAdapter.this.notifyItemRemoved(getLayoutPosition());
+                            WaitAdapter.this.notifyItemRemoved(getLayoutPosition());
                             MyApplication.yjdFragment.YJDAdapter.addModel();
                         }
                     })

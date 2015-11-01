@@ -32,7 +32,6 @@
         <activity android:name=".activity.LLActivity" />
         <activity android:name=".activity.OperationActivity" />
         <activity android:name=".activity.OverActivity" />
-        <activity android:name=".activity.DetailActivity"/>
     </application>
 
 </manifest>

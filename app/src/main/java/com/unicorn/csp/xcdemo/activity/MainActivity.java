@@ -53,8 +53,7 @@ public class MainActivity extends ToolbarActivity {
         initToolbar("工作清单", false);
         initViews(savedInstanceState);
 
-//        searchView = (MaterialSearchView) findViewById(R.id.search_view);
-//        searchView.setVoiceSearch(false);
+
     }
 
     public void initViews(Bundle savedInstanceState) {
@@ -63,7 +62,6 @@ public class MainActivity extends ToolbarActivity {
         viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
         tabs.setupWithViewPager(viewPager);
         initDrawer(savedInstanceState);
-
     }
 
     private void initDrawer(Bundle savedInstanceState) {

@@ -3,21 +3,15 @@ package com.unicorn.csp.xcdemo.adaper.recycleview;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
-import com.unicorn.csp.xcdemo.MyApplication;
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.activity.DetailActivity;
 import com.unicorn.csp.xcdemo.activity.GDActivity;
 import com.unicorn.csp.xcdemo.model.Model;
-import com.unicorn.csp.xcdemo.utils.ToastUtils;
 import com.wangqiang.libs.labelviewlib.LabelView;
 
 import java.util.ArrayList;
@@ -25,7 +19,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 
 public class YJDDAdapter extends RecyclerView.Adapter<YJDDAdapter.ViewHolder> {
@@ -73,12 +66,6 @@ public class YJDDAdapter extends RecyclerView.Adapter<YJDDAdapter.ViewHolder> {
 
         }
 
-        @OnClick(R.id.cardview)
-        public void startDetailActivity(){
-
-            Intent intent =new Intent(activity, DetailActivity.class);
-            activity.startActivity(intent);
-        }
 
 
     }

@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.adaper.recycleview.DJDAdapter;
+import com.unicorn.csp.xcdemo.adaper.recycleview.WaitAdapter;
 import com.unicorn.csp.xcdemo.fragment.base.ButterKnifeFragment;
 import com.unicorn.csp.xcdemo.model.Model;
 
@@ -17,12 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import jp.wasabeef.recyclerview.animators.adapters.ScaleInAnimationAdapter;
 import kale.recycler.ExRecyclerView;
 import kale.recycler.OnRecyclerViewScrollListener;
 
 
-public class DJDFragment extends ButterKnifeFragment {
+public class WaitFragment extends ButterKnifeFragment {
 
     @Bind(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
@@ -30,13 +29,12 @@ public class DJDFragment extends ButterKnifeFragment {
     @Bind(R.id.recyclerView)
     ExRecyclerView recyclerView;
 
-    DJDAdapter DJDAdapter;
-
+    WaitAdapter adapter;
 
     @Override
     public int getLayoutResId() {
 
-        return R.layout.fragment_test;
+        return R.layout.fragment_basic_refresh_recycle;
     }
 
     @Override
@@ -56,6 +54,7 @@ public class DJDFragment extends ButterKnifeFragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+
                         swipeRefreshLayout.setRefreshing(false);
                     }
                 }, 1500);
@@ -63,13 +62,12 @@ public class DJDFragment extends ButterKnifeFragment {
         });
     }
 
-    private ScaleInAnimationAdapter scaleInAnimationAdapter;
 
     private void initRecyclerView() {
         swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         recyclerView.setLayoutManager(getLinearLayoutManager());
-        DJDAdapter = new DJDAdapter(getActivity(), getData());
-        recyclerView.setAdapter(scaleInAnimationAdapter =new ScaleInAnimationAdapter(DJDAdapter));
+        adapter = new WaitAdapter(getActivity(), getData());
+        recyclerView.setAdapter(adapter);
         recyclerView.addOnScrollListener(new OnRecyclerViewScrollListener() {
             @Override
             public void onScrollUp() {
@@ -84,8 +82,8 @@ public class DJDFragment extends ButterKnifeFragment {
             @Override
             public void onBottom() {
 
-                DJDAdapter.addModelList(getData());
-                scaleInAnimationAdapter.notifyDataSetChanged();
+                adapter.addModelList(getData());
+                adapter.notifyDataSetChanged();
             }
 
             @Override

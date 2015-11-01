@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.adaper.recycleview.YJDAdapter;
 import com.unicorn.csp.xcdemo.adaper.recycleview.YJDDAdapter;
 import com.unicorn.csp.xcdemo.fragment.base.ButterKnifeFragment;
 
@@ -31,7 +30,7 @@ public class YJDDFragment extends ButterKnifeFragment {
     @Override
     public int getLayoutResId() {
 
-        return R.layout.fragment_test;
+        return R.layout.fragment_basic_refresh_recycle;
     }
 
     @Override
