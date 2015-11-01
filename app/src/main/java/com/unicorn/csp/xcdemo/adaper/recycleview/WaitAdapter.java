@@ -58,13 +58,22 @@ public class WaitAdapter extends RecyclerView.Adapter<WaitAdapter.ViewHolder> {
         @Bind(R.id.cardview)
         CardView cardView;
 
+
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
 
-
+//            expandableLayout.collapse();
         }
 
+        @OnClick(R.id.cardview)
+        public void toggle() {
+            ToastUtils.show("hehe");
+//            if (!expandableLayout.isExpanded()){
+//                setIsRecyclable(false);
+//            }
+
+        }
 
 
         @OnClick(R.id.btn_finish)
@@ -102,18 +111,19 @@ public class WaitAdapter extends RecyclerView.Adapter<WaitAdapter.ViewHolder> {
 
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
-        return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_djd, viewGroup, false));
+        return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_wait, viewGroup, false));
     }
 
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
+        viewHolder.setIsRecyclable(false);
         if (position % 2 != 0) {
             viewHolder.labelView.setBackgroundResource(R.color.blue);
             viewHolder.labelView.setText("新");
         } else {
-            viewHolder.labelView.setBackgroundResource(R.color.colorAccent);
+            viewHolder.labelView.setBackgroundResource(R.color.orange);
             viewHolder.labelView.setText("限");
         }
     }

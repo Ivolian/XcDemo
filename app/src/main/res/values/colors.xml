@@ -6,6 +6,8 @@
     <color name="colorAccent">@color/md_orange_300</color>
 
     <color name="white">@color/md_white</color>
+    <color name="black">@color/md_black</color>
     <color name="blue">@color/md_light_blue_400</color>
+    <color name="orange">@color/md_orange_500</color>
 
 </resources>
