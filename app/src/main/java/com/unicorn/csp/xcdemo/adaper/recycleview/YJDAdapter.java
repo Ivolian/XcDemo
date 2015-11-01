@@ -15,7 +15,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.OperationActivity;
-import com.unicorn.csp.xcdemo.activity.GDActivity;
+import com.unicorn.csp.xcdemo.activity.SuspendActivity;
 import com.unicorn.csp.xcdemo.activity.LLActivity;
 import com.unicorn.csp.xcdemo.model.Model;
 import com.wangqiang.libs.labelviewlib.LabelView;
@@ -111,7 +111,7 @@ public class YJDAdapter extends RecyclerView.Adapter<YJDAdapter.ViewHolder> {
     }
 
     public void startFinishActivity(View shareView) {
-        Intent intent = new Intent(activity, GDActivity.class);
+        Intent intent = new Intent(activity, SuspendActivity.class);
         activity.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity, shareView, "cardview").toBundle());
     }
 

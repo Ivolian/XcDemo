@@ -41,7 +41,7 @@ public class OperationActivity extends ToolbarActivity {
     @OnClick(R.id.btn_gd)
     public void onBtnGdClick(){
 
-//        startActivity(GDActivity.class);
+//        startActivity(SuspendActivity.class);
     }
 
 }

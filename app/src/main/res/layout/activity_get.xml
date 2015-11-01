@@ -60,42 +60,6 @@
                         android:layout_height="wrap_content"
                         android:text="是否时限:  否" />
 
-                    <com.github.aakira.expandablelayout.ExpandableRelativeLayout
-                        android:id="@+id/expandableLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:ael_duration="400"
-                        app:ael_expanded="false"
-                        app:ael_orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="领料情况:  无" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="受理人员:  工号1237" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="派单时间:  2015-09-06 10:00" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="拍单人员:  张某某" />
-
-                        </LinearLayout>
-
-                    </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
                 </LinearLayout>
 

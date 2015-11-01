@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.activity.GDActivity;
+import com.unicorn.csp.xcdemo.activity.SuspendActivity;
 import com.unicorn.csp.xcdemo.model.Model;
 import com.wangqiang.libs.labelviewlib.LabelView;
 
@@ -71,7 +71,7 @@ public class YJDDAdapter extends RecyclerView.Adapter<YJDDAdapter.ViewHolder> {
     }
 
     public void startFinishActivity(View shareView) {
-        Intent intent = new Intent(activity, GDActivity.class);
+        Intent intent = new Intent(activity, SuspendActivity.class);
         activity.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity, shareView, "cardview").toBundle());
     }
 

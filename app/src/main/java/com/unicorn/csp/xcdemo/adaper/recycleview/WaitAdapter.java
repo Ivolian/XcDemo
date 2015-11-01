@@ -1,7 +1,6 @@
 package com.unicorn.csp.xcdemo.adaper.recycleview;
 
 import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
@@ -14,7 +13,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.unicorn.csp.xcdemo.MyApplication;
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.activity.GDActivity;
+import com.unicorn.csp.xcdemo.activity.SuspendActivity;
 import com.unicorn.csp.xcdemo.model.Model;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
 import com.wangqiang.libs.labelviewlib.LabelView;
@@ -104,8 +103,10 @@ public class WaitAdapter extends RecyclerView.Adapter<WaitAdapter.ViewHolder> {
     }
 
     public void startFinishActivity(View shareView) {
-        Intent intent = new Intent(activity, GDActivity.class);
-        activity.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity, shareView, "cardview").toBundle());
+
+        Intent intent = new Intent(activity, SuspendActivity.class);
+        activity.startActivity(intent);
+        activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
 
@@ -118,7 +119,6 @@ public class WaitAdapter extends RecyclerView.Adapter<WaitAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
-        viewHolder.setIsRecyclable(false);
         if (position % 2 != 0) {
             viewHolder.labelView.setBackgroundResource(R.color.blue);
             viewHolder.labelView.setText("新");

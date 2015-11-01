@@ -9,5 +9,6 @@
     <color name="black">@color/md_black</color>
     <color name="blue">@color/md_light_blue_400</color>
     <color name="orange">@color/md_orange_500</color>
+    <color name="default_background">#eee</color>
 
 </resources>
