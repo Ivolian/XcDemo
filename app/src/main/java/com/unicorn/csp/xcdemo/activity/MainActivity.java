@@ -160,8 +160,6 @@ public class MainActivity extends ToolbarActivity {
                 }
             }
         }
-
-
     }
 
     @Bind(R.id.search_view)

@@ -101,4 +101,23 @@
         <attr name="track_slider_bar_height" format="dimension"/>
         <attr name="slider_thumb_border_width" format="dimension"/>
     </declare-styleable>
+
+
+
+    <declare-styleable name="SegmentedGroup">
+
+        <attr name="mainColor" format="color"/>
+        <attr name="subColor" format="color"/>
+        <attr name="cornerRadius" format="float"/>
+        <attr name="strokeWidth" format="integer"/>
+
+    </declare-styleable>
+    <style name="RadioButton">
+        <item name="android:minHeight">33dp</item>
+        <item name="android:minWidth">70dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:button">@null</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
 </resources>

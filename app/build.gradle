@@ -44,5 +44,4 @@ dependencies {
     compile 'com.github.gcacace:signature-pad:1.0.3'
     compile 'com.miguelcatalan:materialsearchview:1.3.0'
     compile 'com.wada811:android-material-design-colors:2.0.0'
-    compile 'org.honorato.multistatetogglebutton:multistatetogglebutton:0.1.3'
 }

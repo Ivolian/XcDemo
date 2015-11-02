@@ -6,28 +6,26 @@ import com.unicorn.csp.xcdemo.MyApplication;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
 
-import org.honorato.multistatetogglebutton.MultiStateToggleButton;
-
-import butterknife.Bind;
 import butterknife.OnClick;
 
 
 public class SuspendActivity extends ToolbarActivity {
 
 
-@Bind(R.id.multi)
-public MultiStateToggleButton button;
+//@Bind(R.id.multi)
+//public MultiStateToggleButton button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suspend);
         initToolbar("挂单", true);
         slidr();
         CharSequence[] texts = new CharSequence[]{"无材料", "预约","其他"};
-        button.setElements(texts);
-        button.setValue(0);
+//        button.setElements(texts);
+//        button.setValue(0);
     }
 
     @OnClick(R.id.btn_finish)

@@ -3,7 +3,7 @@
 
     <color name="colorPrimary">@color/md_teal_300</color>
     <color name="colorPrimaryDark">@color/md_teal_600</color>
-    <color name="colorAccent">@color/md_orange_300</color>
+    <color name="colorAccent">@color/md_orange_200</color>
 
     <color name="white">@color/md_white</color>
     <color name="black">@color/md_black</color>
