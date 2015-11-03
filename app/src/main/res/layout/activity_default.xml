@@ -17,7 +17,7 @@
         <include layout="@layout/toolbar" />
 
         <com.miguelcatalan.materialsearchview.MaterialSearchView
-            android:id="@+id/search_view"
+            android:id="@+id/searchview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

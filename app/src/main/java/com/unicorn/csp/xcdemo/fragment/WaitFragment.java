@@ -12,6 +12,10 @@ import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.adaper.recycleview.WaitAdapter;
 import com.unicorn.csp.xcdemo.fragment.base.ButterKnifeFragment;
 import com.unicorn.csp.xcdemo.model.Model;
+import com.unicorn.csp.xcdemo.utils.ToastUtils;
+
+import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +50,18 @@ public class WaitFragment extends ButterKnifeFragment {
         return rootView;
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
+
     private void initSwipeRefreshLayout() {
         swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -62,6 +78,11 @@ public class WaitFragment extends ButterKnifeFragment {
         });
     }
 
+
+    @Subscriber(tag = "search")
+    private void search(String ss) {
+        ToastUtils.show("接收到来自主界面的消息");
+    }
 
     private void initRecyclerView() {
         swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);

@@ -21,30 +21,30 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
-import com.mikepenz.materialize.util.UIUtils;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
 import com.unicorn.csp.xcdemo.adaper.viewpager.ViewPagerAdapter;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
+
+import org.simple.eventbus.EventBus;
 
 import butterknife.Bind;
 
 
 public class MainActivity extends ToolbarActivity {
 
-    private CrossfadeDrawerLayout crossfadeDrawerLayout = null;
 
-    @Bind(R.id.tabs)
-    TabLayout tabs;
+    // ================================== views ==================================
+
+    @Bind(R.id.tabslayout)
+    TabLayout tabLayout;
 
     @Bind(R.id.viewpager)
     ViewPager viewPager;
 
-    Drawer drawer;
 
-    MiniDrawer miniResult = null;
+    // ================================== onCreate ==================================
 
-//    MaterialSearchView searchView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -52,90 +52,127 @@ public class MainActivity extends ToolbarActivity {
         setContentView(R.layout.activity_main);
         initToolbar("工作清单", false);
         initViews(savedInstanceState);
-
-
     }
 
     public void initViews(Bundle savedInstanceState) {
 
         viewPager.setOffscreenPageLimit(4);
         viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
-        tabs.setupWithViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager);
         initDrawer(savedInstanceState);
     }
 
+
+    // ================================== drawer ==================================
+
+    Drawer drawer;
+
+    MiniDrawer miniDrawer;
+
     private void initDrawer(Bundle savedInstanceState) {
 
-        crossfadeDrawerLayout = new CrossfadeDrawerLayout(this);
+        CrossfadeDrawerLayout crossfadeDrawerLayout = new CrossfadeDrawerLayout(this);
         drawer = new DrawerBuilder()
                 .withActivity(this)
-                .withTranslucentStatusBar(false)
                 .withToolbar(getToolbar())
                 .withActionBarDrawerToggleAnimated(true)
+                .withTranslucentStatusBar(false)
                 .withDrawerLayout(crossfadeDrawerLayout)
-                .withSavedInstance(savedInstanceState)
-                .withHeader(R.layout.drawer_header)
-                .withHasStableIds(true)
                 .withDrawerWidthDp(72)
+                .withHeader(R.layout.drawer_header)
                 .withHeaderDivider(false)
-                .addDrawerItems(
-                        getFirstDrawerItem(),
-                        getSecondDrawerItem(),
-                        getThindDrawerItem()
-                )
-                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                    @Override
-                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        if (drawerItem instanceof Nameable) {
-                            Toast.makeText(MainActivity.this, ((Nameable) drawerItem).getName().getText(MainActivity.this), Toast.LENGTH_SHORT).show();
-                        }
-
-                        return miniResult.onItemClick(drawerItem);
-                    }
-                })
-                .withShowDrawerOnFirstLaunch(true)
-
+                .addDrawerItems(getDrawerItems())
+                .withOnDrawerItemClickListener(getOnDrawItemClickListener())
+                .withSavedInstance(savedInstanceState)
                 .build();
 
-
         crossfadeDrawerLayout.setMaxWidthPx(DrawerUIUtils.getOptimalDrawerWidth(this));
-        //add second view (which is the miniDrawer)
-
-        miniResult = new MiniDrawer().withDrawer(drawer);
-        View view = miniResult.build(this);
-        view.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(this, com.mikepenz.materialdrawer.R.attr.material_drawer_background, com.mikepenz.materialdrawer.R.color.material_drawer_background));
-        //we do not have the MiniDrawer view during CrossfadeDrawerLayout creation so we will add it here
+        miniDrawer = new MiniDrawer().withDrawer(drawer);
+        View view = miniDrawer.build(this);
+        view.setBackgroundColor(getResources().getColor(R.color.white));
         crossfadeDrawerLayout.getSmallView().addView(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
     }
 
+    private IDrawerItem[] getDrawerItems() {
+
+        return new IDrawerItem[]{
+                new PrimaryDrawerItem().withName("工作清单").withIcon(GoogleMaterial.Icon.gmd_assignment),
+                new PrimaryDrawerItem().withName("统计分析").withIcon(GoogleMaterial.Icon.gmd_insert_chart),
+                new PrimaryDrawerItem().withName("统计分析").withIcon(GoogleMaterial.Icon.gmd_insert_chart)
+        };
+    }
+
+    private Drawer.OnDrawerItemClickListener getOnDrawItemClickListener() {
+
+        return new Drawer.OnDrawerItemClickListener() {
+            @Override
+            public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                // todo delete
+                if (drawerItem instanceof Nameable) {
+                    Toast.makeText(MainActivity.this, ((Nameable) drawerItem).getName().getText(MainActivity.this), Toast.LENGTH_SHORT).show();
+                }
+                return miniDrawer.onItemClick(drawerItem);
+            }
+        };
+    }
+
+
+    // ================================== onSaveInstanceState ==================================
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        //add the values which need to be saved from the drawer to the bundle
+
         outState = drawer.saveInstanceState(outState);
-        //add the values which need to be saved from the accountHeader to the bundle
         super.onSaveInstanceState(outState);
     }
 
 
-    private PrimaryDrawerItem getFirstDrawerItem() {
+    // ================================== toolbar menu ==================================
 
-        return new PrimaryDrawerItem().
-                withName("工作清单")
-                .withIcon(GoogleMaterial.Icon.gmd_assignment);
+    @Bind(R.id.searchview)
+    MaterialSearchView searchView;
+
+    @Override
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+
+        getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+        menuItem.setIcon(getSearchDrawable());
+        initSearchView(menuItem);
+        return super.onCreateOptionsMenu(menu);
     }
 
-    private PrimaryDrawerItem getSecondDrawerItem() {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
-        return new PrimaryDrawerItem().
-                withName("统计分析")
-                .withIcon(GoogleMaterial.Icon.gmd_insert_chart);
+        return super.onOptionsItemSelected(item);
     }
 
-    private PrimaryDrawerItem getThindDrawerItem() {
+    private Drawable getSearchDrawable() {
 
-        return new PrimaryDrawerItem().
-                withName("我的收益")
-                .withIcon(GoogleMaterial.Icon.gmd_assignment_ind);
+        return new IconicsDrawable(this)
+                .icon(GoogleMaterial.Icon.gmd_search)
+                .color(Color.WHITE)
+                .sizeDp(18);
+    }
+
+    private void initSearchView(MenuItem menuItem) {
+
+        searchView.setMenuItem(menuItem);
+        searchView.setHint("请输入查询内容");
+//        searchView.setSuggestions(new String[]{"给排水", "风扇"});
+        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                EventBus.getDefault().post("sdfs", "search");
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
     }
 
 
@@ -162,37 +199,5 @@ public class MainActivity extends ToolbarActivity {
         }
     }
 
-    @Bind(R.id.search_view)
-    MaterialSearchView searchView;
-
-
-    @Override
-    public boolean onCreateOptionsMenu(android.view.Menu menu) {
-
-        getMenuInflater().inflate(R.menu.main, menu);
-        MenuItem item = menu.findItem(R.id.action_search);
-        item.setIcon(getActionDrawable());
-
-        searchView.setMenuItem(item);
-        searchView.setHint("请输入查询内容");
-        searchView.setSuggestions(new String[]{"给排水", "风扇"});
-//        searchView.setVoiceSearch(false);
-        return super.onCreateOptionsMenu(menu);
-
-    }
-
-    private Drawable getActionDrawable() {
-
-        return new IconicsDrawable(this)
-                .icon(GoogleMaterial.Icon.gmd_search)
-                .color(Color.WHITE)
-                .sizeDp(18);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        return super.onOptionsItemSelected(item);
-    }
 
 }
