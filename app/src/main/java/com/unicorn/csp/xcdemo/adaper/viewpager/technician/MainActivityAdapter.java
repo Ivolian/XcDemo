@@ -5,10 +5,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.unicorn.csp.xcdemo.SimpleApplication;
-import com.unicorn.csp.xcdemo.fragment.technician.WaitReceiveFragment;
-import com.unicorn.csp.xcdemo.fragment.YGQFragment;
 import com.unicorn.csp.xcdemo.fragment.YJDDFragment;
-import com.unicorn.csp.xcdemo.fragment.YJDFragment;
+import com.unicorn.csp.xcdemo.fragment.technician.AlreadyReceiveFragment;
+import com.unicorn.csp.xcdemo.fragment.technician.WaitReceiveFragment;
 
 
 public class MainActivityAdapter extends FragmentStatePagerAdapter {
@@ -28,11 +27,10 @@ public class MainActivityAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return new WaitReceiveFragment();
             case 1:
-                SimpleApplication.yjdFragment = new YJDFragment();
-                return SimpleApplication.yjdFragment;
+               return  new AlreadyReceiveFragment();
             case 2:
-                SimpleApplication.ygqFragment = new YGQFragment();
-                return SimpleApplication.ygqFragment;
+                SimpleApplication.alreadyReceiveFragment = new AlreadyReceiveFragment();
+                return SimpleApplication.alreadyReceiveFragment;
             case 3:
                 SimpleApplication.yjddFragment = new YJDDFragment();
                 return SimpleApplication.yjddFragment;
@@ -52,6 +50,5 @@ public class MainActivityAdapter extends FragmentStatePagerAdapter {
 
         return titles[position];
     }
-
 
 }

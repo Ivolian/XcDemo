@@ -26,7 +26,9 @@ public class WaitReceiveFragment extends BasicRefreshRecycleFragment {
 
     public void initRecyclerView() {
         recyclerView.setLayoutManager(RecycleViewUtils.getLinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(adapter = new WaitReceiveAdapter(getData()));
+        recyclerView.setAdapter(adapter = new WaitReceiveAdapter());
+        adapter.setModelList(getData());
+        adapter.notifyDataSetChanged();
         recyclerView.addOnScrollListener(new OnRecyclerViewScrollListener() {
             @Override
             public void onScrollUp() {

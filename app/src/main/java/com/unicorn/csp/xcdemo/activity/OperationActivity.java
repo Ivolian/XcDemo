@@ -6,6 +6,7 @@ import android.provider.MediaStore;
 
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
+import com.unicorn.csp.xcdemo.activity.technician.PackActivity;
 
 import butterknife.OnClick;
 
@@ -29,7 +30,7 @@ public class OperationActivity extends ToolbarActivity {
     @OnClick(R.id.btn_ll)
     public void startGetActivity() {
 
-        startActivity(LLActivity.class);
+        startActivity(PackActivity.class);
     }
 
     @OnClick(R.id.btn_over)

@@ -16,7 +16,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.OperationActivity;
 import com.unicorn.csp.xcdemo.activity.technician.SuspendActivity;
-import com.unicorn.csp.xcdemo.activity.LLActivity;
+import com.unicorn.csp.xcdemo.activity.technician.PackActivity;
 import com.unicorn.csp.xcdemo.model.Model;
 import com.wangqiang.libs.labelviewlib.LabelView;
 
@@ -77,7 +77,7 @@ public class YJDAdapter extends RecyclerView.Adapter<YJDAdapter.ViewHolder> {
 
         @OnClick(R.id.btn_ll)
         public void get() {
-            Intent intent = new Intent(activity, LLActivity.class);
+            Intent intent = new Intent(activity, PackActivity.class);
             activity.startActivity(intent);
         }
 
@@ -118,7 +118,7 @@ public class YJDAdapter extends RecyclerView.Adapter<YJDAdapter.ViewHolder> {
 
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
-        return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_yjd, viewGroup, false));
+        return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_already_receive, viewGroup, false));
     }
 
 
