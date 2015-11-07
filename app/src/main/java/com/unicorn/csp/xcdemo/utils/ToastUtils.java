@@ -3,7 +3,7 @@ package com.unicorn.csp.xcdemo.utils;
 import android.view.Gravity;
 import android.widget.Toast;
 
-import com.unicorn.csp.xcdemo.MyApplication;
+import com.unicorn.csp.xcdemo.SimpleApplication;
 
 public class ToastUtils {
 
@@ -12,7 +12,7 @@ public class ToastUtils {
     public static void show(String text) {
 
         if (mToast == null) {
-            mToast = Toast.makeText(MyApplication.getInstance(), text, Toast.LENGTH_SHORT);
+            mToast = Toast.makeText(SimpleApplication.getInstance(), text, Toast.LENGTH_SHORT);
         } else {
             mToast.setText(text);
             mToast.setGravity(Gravity.CENTER, 0, 0);

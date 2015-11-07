@@ -17,15 +17,16 @@ import java.util.List;
 import kale.recycler.OnRecyclerViewScrollListener;
 
 
+//@P
 public class WaitReceiveFragment extends BasicRefreshRecycleFragment {
 
 
     WaitReceiveAdapter adapter;
 
+
     public void initRecyclerView() {
         recyclerView.setLayoutManager(RecycleViewUtils.getLinearLayoutManager(getActivity()));
-        adapter = new WaitReceiveAdapter( getData());
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(adapter = new WaitReceiveAdapter(getData()));
         recyclerView.addOnScrollListener(new OnRecyclerViewScrollListener() {
             @Override
             public void onScrollUp() {
@@ -60,7 +61,6 @@ public class WaitReceiveFragment extends BasicRefreshRecycleFragment {
         }
         return modelList;
     }
-
 
 
     // ================================== EventBus ==================================

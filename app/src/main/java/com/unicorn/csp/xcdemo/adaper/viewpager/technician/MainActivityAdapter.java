@@ -1,23 +1,23 @@
-package com.unicorn.csp.xcdemo.adaper.viewpager;
+package com.unicorn.csp.xcdemo.adaper.viewpager.technician;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.unicorn.csp.xcdemo.MyApplication;
+import com.unicorn.csp.xcdemo.SimpleApplication;
 import com.unicorn.csp.xcdemo.fragment.technician.WaitReceiveFragment;
 import com.unicorn.csp.xcdemo.fragment.YGQFragment;
 import com.unicorn.csp.xcdemo.fragment.YJDDFragment;
 import com.unicorn.csp.xcdemo.fragment.YJDFragment;
 
 
-public class ViewPagerAdapter extends FragmentStatePagerAdapter {
+public class MainActivityAdapter extends FragmentStatePagerAdapter {
 
     private String[] titles = {
             "待接单", "已接单", "已挂起", "已结单",
     };
 
-    public ViewPagerAdapter(FragmentManager fm) {
+    public MainActivityAdapter(FragmentManager fm) {
         super(fm);
     }
 
@@ -28,14 +28,14 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return new WaitReceiveFragment();
             case 1:
-                MyApplication.yjdFragment = new YJDFragment();
-                return MyApplication.yjdFragment;
+                SimpleApplication.yjdFragment = new YJDFragment();
+                return SimpleApplication.yjdFragment;
             case 2:
-                MyApplication.ygqFragment = new YGQFragment();
-                return MyApplication.ygqFragment;
+                SimpleApplication.ygqFragment = new YGQFragment();
+                return SimpleApplication.ygqFragment;
             case 3:
-                MyApplication.yjddFragment = new YJDDFragment();
-                return MyApplication.yjddFragment;
+                SimpleApplication.yjddFragment = new YJDDFragment();
+                return SimpleApplication.yjddFragment;
 
             default:
                 return null;

@@ -3,17 +3,21 @@ package com.unicorn.csp.xcdemo.adaper.recycleview.technician;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.unicorn.csp.xcdemo.PaperButton;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.technician.DetailActivity;
 import com.unicorn.csp.xcdemo.activity.technician.SuspendActivity;
 import com.unicorn.csp.xcdemo.model.Model;
+import com.unicorn.csp.xcdemo.utils.ToastUtils;
 import com.wangqiang.libs.labelviewlib.LabelView;
 
 import java.util.List;
@@ -52,7 +56,7 @@ public class WaitReceiveAdapter extends RecyclerView.Adapter<WaitReceiveAdapter.
             Context context = cardView.getContext();
             Intent intent = new Intent(context, DetailActivity.class);
             context.startActivity(intent);
-            ((Activity)context).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            ((Activity) context).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
 
         @OnClick(R.id.btn_suspend)
@@ -60,26 +64,24 @@ public class WaitReceiveAdapter extends RecyclerView.Adapter<WaitReceiveAdapter.
             Context context = paperButton.getContext();
             Intent intent = new Intent(context, SuspendActivity.class);
             context.startActivity(intent);
-            ((Activity)context).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            ((Activity) context).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
 
-        @OnClick(R.id.btn_ll)
-        public void get() {
+        @OnClick(R.id.btn_receive)
+        public void confirmReceive(PaperButton paperButton) {
 
-//            new MaterialDialog.Builder(activity)
-////                    .title("")
-//                    .content("确认接单？")
-//                    .positiveText("确认")
-//                    .negativeText("取消")
-//                    .onPositive(new MaterialDialog.SingleButtonCallback() {
-//                        @Override
-//                        public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-//                            ToastUtils.show("接单成功！");
-//                            WaitReceiveAdapter.this.notifyItemRemoved(getLayoutPosition());
-//                            MyApplication.yjdFragment.YJDAdapter.addModel();
-//                        }
-//                    })
-//                    .show();
+            new MaterialDialog.Builder(paperButton.getContext())
+                    .content("确认接单？")
+                    .positiveText("确认")
+                    .negativeText("取消")
+                    .onPositive(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+                            ToastUtils.show("接单成功！");
+                            WaitReceiveAdapter.this.notifyItemRemoved(getLayoutPosition());
+                        }
+                    })
+                    .show();
         }
 
     }
@@ -89,7 +91,7 @@ public class WaitReceiveAdapter extends RecyclerView.Adapter<WaitReceiveAdapter.
 
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
-        return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_wait, viewGroup, false));
+        return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_wait_receive, viewGroup, false));
     }
 
 

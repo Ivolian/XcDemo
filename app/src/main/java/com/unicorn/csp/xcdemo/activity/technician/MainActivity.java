@@ -17,7 +17,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
-import com.unicorn.csp.xcdemo.adaper.viewpager.ViewPagerAdapter;
+import com.unicorn.csp.xcdemo.adaper.viewpager.technician.MainActivityAdapter;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
 
 import org.simple.eventbus.EventBus;
@@ -52,7 +52,7 @@ public class MainActivity extends ToolbarActivity {
     public void initViews(Bundle savedInstanceState) {
 
         viewPager.setOffscreenPageLimit(4);
-        viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
+        viewPager.setAdapter(new MainActivityAdapter(getSupportFragmentManager()));
         tabLayout.setupWithViewPager(viewPager);
         initDrawer(savedInstanceState);
     }

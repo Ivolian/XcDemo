@@ -10,7 +10,7 @@ import android.support.v7.widget.AppCompatButton;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.github.gcacace.signaturepad.views.SignaturePad;
-import com.unicorn.csp.xcdemo.MyApplication;
+import com.unicorn.csp.xcdemo.SimpleApplication;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
 
@@ -40,8 +40,8 @@ public class OverActivity extends ToolbarActivity {
     @OnClick(R.id.btn_finish)
     public void onBtnFinishClick(){
 
-        MyApplication.yjdFragment.YJDAdapter.clear();
-        MyApplication.yjddFragment.yjddAdapter.addModel();
+        SimpleApplication.yjdFragment.YJDAdapter.clear();
+        SimpleApplication.yjddFragment.yjddAdapter.addModel();
         finish();
     }
 

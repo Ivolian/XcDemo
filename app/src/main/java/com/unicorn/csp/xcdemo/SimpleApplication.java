@@ -7,11 +7,11 @@ import com.unicorn.csp.xcdemo.fragment.YJDDFragment;
 import com.unicorn.csp.xcdemo.fragment.YJDFragment;
 
 
-public class MyApplication extends Application {
+public class SimpleApplication extends Application {
 
-    private static MyApplication instance;
+    private static SimpleApplication instance;
 
-    public static MyApplication getInstance() {
+    public static SimpleApplication getInstance() {
 
         return instance;
     }
