@@ -38,9 +38,9 @@
                     android:orientation="vertical"
                     android:padding="10dp">
 
-                    <include layout="@layout/card_top_part" />
+                    <include layout="@layout/word_order_card_top" />
 
-                    <include layout="@layout/card_bottom_part" />
+                    <include layout="@layout/word_order_card_bottom" />
 
                 </LinearLayout>
 

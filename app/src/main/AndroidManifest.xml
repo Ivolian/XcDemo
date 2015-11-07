@@ -17,6 +17,7 @@
         android:theme="@style/AppTheme.NoActionBar"
         tools:replace="android:allowBackup,android:theme">
 
+        <!-- shared -->
         <activity android:name=".activity.shared.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,8 +27,11 @@
         </activity>
         <activity android:name=".activity.shared.LoginActivity" />
 
-
+        <!-- technician -->
         <activity android:name=".activity.technician.MainActivity" />
+        <activity
+            android:name=".activity.technician.DetailActivity"
+            android:theme="@style/AppTheme.NoActionBar.NoWindow" />
         <activity
             android:name=".activity.technician.SuspendActivity"
             android:theme="@style/AppTheme.NoActionBar.NoWindow" />
@@ -35,9 +39,7 @@
             android:theme="@style/AppTheme.NoActionBar.NoWindow" />
         <activity android:name=".activity.OperationActivity" />
         <activity android:name=".activity.OverActivity" />
-        <activity
-            android:name=".activity.technician.DetailActivity"
-            android:theme="@style/AppTheme.NoActionBar.NoWindow" />
+
     </application>
 
 </manifest>

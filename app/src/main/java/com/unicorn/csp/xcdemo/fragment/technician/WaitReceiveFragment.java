@@ -14,46 +14,53 @@ import org.simple.eventbus.Subscriber;
 import java.util.ArrayList;
 import java.util.List;
 
-import kale.recycler.OnRecyclerViewScrollListener;
-
 
 //@P
 public class WaitReceiveFragment extends BasicRefreshRecycleFragment {
 
 
+    // ================================== adapter ==================================
+
     WaitReceiveAdapter adapter;
 
 
+    // ================================== override methods ==================================
+
+    @Override
     public void initRecyclerView() {
         recyclerView.setLayoutManager(RecycleViewUtils.getLinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter = new WaitReceiveAdapter());
         adapter.setModelList(getData());
         adapter.notifyDataSetChanged();
-        recyclerView.addOnScrollListener(new OnRecyclerViewScrollListener() {
-            @Override
-            public void onScrollUp() {
-
-            }
-
-            @Override
-            public void onScrollDown() {
-
-            }
-
-            @Override
-            public void onBottom() {
-
-//                adapter.addModelList(getData());
-//                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onMoved(int i, int i1) {
-
-            }
-        });
+//        recyclerView.addOnScrollListener(new OnRecyclerViewScrollListener() {
+//            @Override
+//            public void onScrollUp() {
+//
+//            }
+//
+//            @Override
+//            public void onScrollDown() {
+//
+//            }
+//
+//            @Override
+//            public void onBottom() {
+//
+////                adapter.addModelList(getData());
+////                adapter.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onMoved(int i, int i1) {
+//
+//            }
+//        });
     }
 
+    @Override
+    public void onRefreshFinish() {
+            ToastUtils.show("刷新完毕");
+    }
 
     private List<Model> getData() {
 
@@ -68,7 +75,7 @@ public class WaitReceiveFragment extends BasicRefreshRecycleFragment {
     // ================================== EventBus ==================================
 
     @Subscriber(tag = "search")
-    private void search(String ss) {
+    private void search(String str) {
         ToastUtils.show("接收到来自主界面的消息");
     }
 
@@ -83,6 +90,5 @@ public class WaitReceiveFragment extends BasicRefreshRecycleFragment {
         EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
-
 
 }

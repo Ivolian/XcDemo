@@ -14,7 +14,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 
-//@P
+// todo refactor
 public class SuspendActivity extends ToolbarActivity {
 
 
@@ -42,6 +42,7 @@ public class SuspendActivity extends ToolbarActivity {
     private void initViews() {
 
         etSuspendDescription.setGravity(Gravity.TOP);
+        etSuspendDescription.setPadding(20,20,20,20);
     }
 
 

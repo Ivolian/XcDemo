@@ -20,8 +20,6 @@ import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
 import com.unicorn.csp.xcdemo.adaper.viewpager.technician.MainActivityAdapter;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
 
-import org.simple.eventbus.EventBus;
-
 import butterknife.Bind;
 
 
@@ -72,7 +70,7 @@ public class MainActivity extends ToolbarActivity {
                 .withHeader(R.layout.drawer_header)
                 .withHeaderDivider(false)
                 .addDrawerItems(getDrawerItems())
-                .withOnDrawerItemClickListener(getOnDrawItemClickListener())
+//                .withOnDrawerItemClickListener(getOnDrawItemClickListener())
                 .withSavedInstance(savedInstanceState)
                 .build();
     }
@@ -81,8 +79,8 @@ public class MainActivity extends ToolbarActivity {
 
         return new IDrawerItem[]{
                 new PrimaryDrawerItem().withName("工作清单").withIcon(GoogleMaterial.Icon.gmd_assignment),
-                new PrimaryDrawerItem().withName("统计分析").withIcon(GoogleMaterial.Icon.gmd_insert_chart),
-                new PrimaryDrawerItem().withName("我的收益").withIcon(GoogleMaterial.Icon.gmd_assignment_ind)
+                new PrimaryDrawerItem().withName("统计分析").withIcon(GoogleMaterial.Icon.gmd_chart),
+                new PrimaryDrawerItem().withName("我的收益").withIcon(GoogleMaterial.Icon.gmd_assignment_account)
         };
     }
 
@@ -115,7 +113,7 @@ public class MainActivity extends ToolbarActivity {
     @Override
     public boolean onCreateOptionsMenu(android.view.Menu menu) {
 
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         MenuItem menuItem = menu.findItem(R.id.action_search);
         menuItem.setIcon(getSearchDrawable());
         initSearchView(menuItem);
@@ -128,30 +126,30 @@ public class MainActivity extends ToolbarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void initSearchView(MenuItem menuItem) {
+
+        searchView.setMenuItem(menuItem);
+        searchView.setHint("请输入查询内容");
+//        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                EventBus.getDefault().post("some word", "search");
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                return false;
+//            }
+//        });
+    }
+
     private Drawable getSearchDrawable() {
 
         return new IconicsDrawable(this)
                 .icon(GoogleMaterial.Icon.gmd_search)
                 .color(Color.WHITE)
                 .sizeDp(18);
-    }
-
-    private void initSearchView(MenuItem menuItem) {
-
-        searchView.setMenuItem(menuItem);
-        searchView.setHint("请输入查询内容");
-        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                EventBus.getDefault().post("some word", "search");
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
     }
 
 
@@ -177,6 +175,5 @@ public class MainActivity extends ToolbarActivity {
             }
         }
     }
-
 
 }

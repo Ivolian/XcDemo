@@ -8,7 +8,6 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
 import com.unicorn.csp.xcdemo.activity.technician.MainActivity;
-import com.unicorn.csp.xcdemo.utils.DialogUtils;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -47,7 +46,12 @@ public class LoginActivity extends ToolbarActivity {
 
     private MaterialDialog showMask() {
 
-        return DialogUtils.showIndeterminateDialog(this, "登录中", "请稍后...");
+        return new MaterialDialog.Builder(this)
+                .title("登录中")
+                .content("请稍后...")
+                .progress(true, 0)
+                .cancelable(false)
+                .show();
     }
 
     private void copeLogin(final MaterialDialog mask) {

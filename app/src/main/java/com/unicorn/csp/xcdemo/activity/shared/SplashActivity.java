@@ -14,10 +14,10 @@ public class SplashActivity extends ButterKnifeActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        toLogin();
+        delayToLogin();
     }
 
-    private void toLogin() {
+    private void delayToLogin() {
 
         int delay = 1000;
         new Handler().postDelayed(new Runnable() {

@@ -4,11 +4,11 @@ import android.support.annotation.StringRes;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.unicorn.csp.xcdemo.R;
 
 import butterknife.Bind;
-import me.grantland.widget.AutofitTextView;
 
 
 public abstract class ToolbarActivity extends ButterKnifeActivity {
@@ -19,8 +19,8 @@ public abstract class ToolbarActivity extends ButterKnifeActivity {
     @Bind(R.id.toolbar)
     Toolbar toolbar;
 
-    @Bind(R.id.atv_toolbar_title)
-    public AutofitTextView atvToolbarTitle;
+    @Bind(R.id.tv_toolbar_title)
+    public TextView tvToolbarTitle;
 
 
     // ========================== home键后退 ==========================
@@ -46,12 +46,12 @@ public abstract class ToolbarActivity extends ButterKnifeActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(displayHomeAsUpEnable);
         }
-        atvToolbarTitle.setText(toolbarTitle);
+        tvToolbarTitle.setText(toolbarTitle);
     }
 
     protected void setToolbarTitle(@StringRes int toolbarTitle) {
 
-        atvToolbarTitle.setText(toolbarTitle);
+        tvToolbarTitle.setText(toolbarTitle);
     }
 
     protected boolean isToolbarHidden() {

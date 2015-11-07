@@ -104,13 +104,13 @@ public class WaitReceiveAdapter extends RecyclerView.Adapter<WaitReceiveAdapter.
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
-        if (position % 2 != 0) {
-            viewHolder.labelView.setBackgroundResource(R.color.blue);
-            viewHolder.labelView.setText("新");
-        } else {
-            viewHolder.labelView.setBackgroundResource(R.color.orange);
-            viewHolder.labelView.setText("限");
-        }
+//        if (position % 2 != 0) {
+//            viewHolder.labelView.setBackgroundResource(R.color.blue);
+//            viewHolder.labelView.setText("新");
+//        } else {
+//            viewHolder.labelView.setBackgroundResource(R.color.orange);
+//            viewHolder.labelView.setText("限");
+//        }
     }
 
 
