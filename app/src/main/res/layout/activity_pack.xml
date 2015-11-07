@@ -67,11 +67,13 @@
                 android:textColor="@color/black"
                 android:textSize="16dp" />
 
-            <LinearLayout
+            <com.liangfeizc.flowlayout.FlowLayout
+                android:id="@+id/flow_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+                app:horizontal_spacing="8dp"
+                app:vertical_spacing="8dp">
 
                 <com.beardedhen.androidbootstrap.BootstrapButton
                     android:id="@+id/btn1"
@@ -114,19 +116,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:padding="4dp"
-                    android:text="机器(2)"
+                    android:text="机器人(2)"
                     app:bootstrapBrand="info"
                     app:bootstrapSize="md"
                     app:roundedCorners="true"
                     app:showOutline="true" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:orientation="horizontal">
 
                 <com.beardedhen.androidbootstrap.BootstrapButton
                     android:id="@+id/btn5"
@@ -169,13 +163,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:padding="4dp"
-                    android:text="机器(2)"
+                    android:text="机器人(2)"
                     app:bootstrapBrand="info"
                     app:bootstrapSize="md"
                     app:roundedCorners="true"
                     app:showOutline="true" />
 
-            </LinearLayout>
+            </com.liangfeizc.flowlayout.FlowLayout>
 
 
             <!-- 小配件 -->
@@ -230,7 +224,6 @@
 
             </LinearLayout>
 
-
             <!-- -->
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btn_finish"
@@ -243,6 +236,7 @@
                 android:text="完成"
                 android:textColor="@android:color/white"
                 android:textSize="15dp" />
+
 
         </LinearLayout>
 
