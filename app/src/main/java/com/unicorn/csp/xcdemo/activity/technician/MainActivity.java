@@ -1,4 +1,4 @@
-package com.unicorn.csp.xcdemo.activity;
+package com.unicorn.csp.xcdemo.activity.technician;
 
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -7,20 +7,14 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
-import com.mikepenz.crossfadedrawerlayout.view.CrossfadeDrawerLayout;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.MiniDrawer;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.Nameable;
-import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
 import com.unicorn.csp.xcdemo.adaper.viewpager.ViewPagerAdapter;
@@ -31,6 +25,7 @@ import org.simple.eventbus.EventBus;
 import butterknife.Bind;
 
 
+//@P
 public class MainActivity extends ToolbarActivity {
 
 
@@ -67,30 +62,19 @@ public class MainActivity extends ToolbarActivity {
 
     Drawer drawer;
 
-    MiniDrawer miniDrawer;
-
     private void initDrawer(Bundle savedInstanceState) {
 
-        CrossfadeDrawerLayout crossfadeDrawerLayout = new CrossfadeDrawerLayout(this);
         drawer = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(getToolbar())
                 .withActionBarDrawerToggleAnimated(true)
                 .withTranslucentStatusBar(false)
-                .withDrawerLayout(crossfadeDrawerLayout)
-                .withDrawerWidthDp(72)
                 .withHeader(R.layout.drawer_header)
                 .withHeaderDivider(false)
                 .addDrawerItems(getDrawerItems())
                 .withOnDrawerItemClickListener(getOnDrawItemClickListener())
                 .withSavedInstance(savedInstanceState)
                 .build();
-
-        crossfadeDrawerLayout.setMaxWidthPx(DrawerUIUtils.getOptimalDrawerWidth(this));
-        miniDrawer = new MiniDrawer().withDrawer(drawer);
-        View view = miniDrawer.build(this);
-        view.setBackgroundColor(getResources().getColor(R.color.white));
-        crossfadeDrawerLayout.getSmallView().addView(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
     }
 
     private IDrawerItem[] getDrawerItems() {
@@ -98,7 +82,7 @@ public class MainActivity extends ToolbarActivity {
         return new IDrawerItem[]{
                 new PrimaryDrawerItem().withName("工作清单").withIcon(GoogleMaterial.Icon.gmd_assignment),
                 new PrimaryDrawerItem().withName("统计分析").withIcon(GoogleMaterial.Icon.gmd_insert_chart),
-                new PrimaryDrawerItem().withName("统计分析").withIcon(GoogleMaterial.Icon.gmd_insert_chart)
+                new PrimaryDrawerItem().withName("我的收益").withIcon(GoogleMaterial.Icon.gmd_assignment_ind)
         };
     }
 
@@ -107,11 +91,7 @@ public class MainActivity extends ToolbarActivity {
         return new Drawer.OnDrawerItemClickListener() {
             @Override
             public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                // todo delete
-                if (drawerItem instanceof Nameable) {
-                    Toast.makeText(MainActivity.this, ((Nameable) drawerItem).getName().getText(MainActivity.this), Toast.LENGTH_SHORT).show();
-                }
-                return miniDrawer.onItemClick(drawerItem);
+                return true;
             }
         };
     }
@@ -127,7 +107,7 @@ public class MainActivity extends ToolbarActivity {
     }
 
 
-    // ================================== toolbar menu ==================================
+    // ================================== searchView & menu ==================================
 
     @Bind(R.id.searchview)
     MaterialSearchView searchView;
@@ -160,11 +140,10 @@ public class MainActivity extends ToolbarActivity {
 
         searchView.setMenuItem(menuItem);
         searchView.setHint("请输入查询内容");
-//        searchView.setSuggestions(new String[]{"给排水", "风扇"});
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                EventBus.getDefault().post("sdfs", "search");
+                EventBus.getDefault().post("some word", "search");
                 return false;
             }
 

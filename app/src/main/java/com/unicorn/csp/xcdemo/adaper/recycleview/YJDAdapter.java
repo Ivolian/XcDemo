@@ -15,7 +15,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.OperationActivity;
-import com.unicorn.csp.xcdemo.activity.SuspendActivity;
+import com.unicorn.csp.xcdemo.activity.technician.SuspendActivity;
 import com.unicorn.csp.xcdemo.activity.LLActivity;
 import com.unicorn.csp.xcdemo.model.Model;
 import com.wangqiang.libs.labelviewlib.LabelView;

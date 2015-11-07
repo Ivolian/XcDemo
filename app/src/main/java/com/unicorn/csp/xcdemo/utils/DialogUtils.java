@@ -13,6 +13,7 @@ public class DialogUtils {
                 .title(title)
                 .content(content)
                 .progress(true, 0)
+                .cancelable(false)
                 .show();
     }
 

@@ -1,4 +1,4 @@
-package com.unicorn.csp.xcdemo.activity;
+package com.unicorn.csp.xcdemo.activity.shared;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -7,13 +7,18 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
+import com.unicorn.csp.xcdemo.activity.technician.MainActivity;
 import com.unicorn.csp.xcdemo.utils.DialogUtils;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 
 
+// @P
 public class LoginActivity extends ToolbarActivity {
+
+
+    // ================================== views ==================================
 
     @Bind(R.id.et_account)
     MaterialEditText etAccount;
@@ -21,12 +26,18 @@ public class LoginActivity extends ToolbarActivity {
     @Bind(R.id.et_password)
     MaterialEditText etPassword;
 
+
+    // ================================== onCreate ==================================
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initToolbar("登录", false);
     }
+
+
+    // ================================== OnClick ==================================
 
     @OnClick(R.id.btn_login)
     public void login() {
@@ -50,5 +61,6 @@ public class LoginActivity extends ToolbarActivity {
             }
         }, delay);
     }
+
 
 }

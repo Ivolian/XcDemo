@@ -4,34 +4,36 @@
     package="com.unicorn.csp.xcdemo">
 
     <uses-sdk tools:overrideLibrary="uk.co.imallan.jellyrefresh" />
+
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <application
+    <uses-permission android:name="android.permission.INTERNET" />
 
+    <application
         android:name=".MyApplication"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
-        tools:replace="android:theme">
-        <activity
-            android:name=".activity.MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
+        tools:replace="android:allowBackup,android:theme">
 
-        <activity android:name=".activity.LoginActivity">
+        <activity android:name=".activity.shared.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-        <activity android:name=".activity.SuspendActivity" />
+        <activity android:name=".activity.shared.LoginActivity" />
+
+
+        <activity android:name=".activity.technician.MainActivity" />
+        <activity android:name=".activity.technician.SuspendActivity"
+            android:theme="@style/AppTheme.NoActionBar.NoWindow"/>
         <activity android:name=".activity.LLActivity" />
         <activity android:name=".activity.OperationActivity" />
         <activity android:name=".activity.OverActivity" />
+
     </application>
 
 </manifest>

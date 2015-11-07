@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.activity.SuspendActivity;
+import com.unicorn.csp.xcdemo.activity.technician.SuspendActivity;
 import com.unicorn.csp.xcdemo.model.Model;
 import com.wangqiang.libs.labelviewlib.LabelView;
 

@@ -7,6 +7,7 @@
     android:focusable="true"
     android:focusableInTouchMode="true">
 
+    <!-- real part -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,49 +20,28 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/cardview"
+            <!-- 工作清单 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="工单详情"
+                android:textColor="@color/black"
+                android:textSize="16dp" />
+
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:transitionName="cardview">
+                android:layout_marginTop="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="10dp">
 
                     <include layout="@layout/card_top_part" />
 
-                    <LinearLayout
-                        android:id="@+id/ll"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="领料情况:  无" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="受理人员:  工号1237" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="派单时间:  2015-09-06 10:00" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="拍单人员:  张某某" />
-
-                    </LinearLayout>
-
+                    <include layout="@layout/card_bottom_part" />
 
                 </LinearLayout>
 
@@ -69,7 +49,7 @@
                     android:id="@+id/label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="?attr/colorAccent"
+                    android:background="@color/orange"
                     android:text="限"
                     android:textColor="@android:color/white"
                     android:textSize="10dp"
@@ -78,67 +58,83 @@
 
             </android.support.v7.widget.CardView>
 
-
-            <android.support.v7.widget.CardView
+            <!-- 挂单选项 -->
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="30dp"
+                android:text="挂单选项"
+                android:textColor="@color/black"
+                android:textSize="16dp" />
 
-                <com.unicorn.csp.xcdemo.SegmentedGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:cornerRadius="0"
-                    app:mainColor="@color/colorAccent"
-                    app:strokeWidth="0">
-
-                    <RadioButton
-                        style="@style/RadioButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="无材料"
-                        android:textSize="15dp" />
-
-                    <RadioButton
-                        style="@style/RadioButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="预约"
-                        android:textSize="15dp" />
-
-                    <RadioButton
-                        style="@style/RadioButton"
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="其他"
-                        android:textSize="15dp" />
-
-                    <RadioButton
-                        style="@style/RadioButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="其他2"
-                        android:textSize="15dp" />
-
-                </com.unicorn.csp.xcdemo.SegmentedGroup>
-
-            </android.support.v7.widget.CardView>
-
-            <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/et_detail"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:hint="挂单详情"
-                app:met_floatingLabel="normal"
-                app:met_primaryColor="?attr/colorAccent" />
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:id="@+id/btn_suspend_option1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:text="无材料"
+                    app:bootstrapBrand="info"
+                    app:bootstrapSize="md"
+                    app:roundedCorners="true"
+                    app:showOutline="true" />
+
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:id="@+id/btn_suspend_option2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:padding="4dp"
+                    android:text="没有预约"
+                    app:bootstrapBrand="info"
+                    app:bootstrapSize="md"
+                    app:roundedCorners="true"
+                    app:showOutline="true" />
+
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:id="@+id/btn_suspend_option3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:padding="4dp"
+                    android:text="其他原因"
+                    app:bootstrapBrand="info"
+                    app:bootstrapSize="md"
+                    app:roundedCorners="true"
+                    app:showOutline="true" />
+
+            </LinearLayout>
+
+            <!-- 挂单说明 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="挂单说明"
+                android:textColor="@color/black"
+                android:textSize="16dp" />
+
+            <com.beardedhen.androidbootstrap.BootstrapEditText
+                android:id="@+id/et_suspend_description"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@android:color/primary_text_light"
+                app:bootstrapBrand="regular"
+                app:roundedCorners="true" />
+
+            <!-- 挂单按钮 -->
             <com.unicorn.csp.xcdemo.PaperButton
-                android:id="@+id/btn_finish"
+                android:id="@+id/btn_suspend"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="36dp"
                 app:paper_color="@color/colorPrimary"
                 app:paper_text="挂单"
                 app:paper_text_color="@color/white"
