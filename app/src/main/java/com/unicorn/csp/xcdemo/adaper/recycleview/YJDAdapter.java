@@ -54,7 +54,7 @@ public class YJDAdapter extends RecyclerView.Adapter<YJDAdapter.ViewHolder> {
     // 绑定视图，添加事件
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.label)
+        @Bind(R.id.labelview)
         LabelView labelView;
 
         @Bind(R.id.cardview)

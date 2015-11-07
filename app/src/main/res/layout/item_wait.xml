@@ -21,7 +21,7 @@
             android:orientation="horizontal">
 
             <com.unicorn.csp.xcdemo.PaperButton
-                android:id="@+id/btn_finish"
+                android:id="@+id/btn_suspend"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -45,7 +45,7 @@
     </LinearLayout>
 
     <com.wangqiang.libs.labelviewlib.LabelView
-        android:id="@+id/label"
+        android:id="@+id/labelview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorAccent"

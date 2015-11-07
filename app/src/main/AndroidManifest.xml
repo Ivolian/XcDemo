@@ -28,12 +28,15 @@
 
 
         <activity android:name=".activity.technician.MainActivity" />
-        <activity android:name=".activity.technician.SuspendActivity"
-            android:theme="@style/AppTheme.NoActionBar.NoWindow"/>
+        <activity
+            android:name=".activity.technician.SuspendActivity"
+            android:theme="@style/AppTheme.NoActionBar.NoWindow" />
         <activity android:name=".activity.LLActivity" />
         <activity android:name=".activity.OperationActivity" />
         <activity android:name=".activity.OverActivity" />
-
+        <activity
+            android:name=".activity.technician.DetailActivity"
+            android:theme="@style/AppTheme.NoActionBar.NoWindow" />
     </application>
 
 </manifest>
