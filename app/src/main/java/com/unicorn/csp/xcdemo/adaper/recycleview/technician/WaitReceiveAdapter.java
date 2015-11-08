@@ -72,7 +72,7 @@ public class WaitReceiveAdapter extends RecyclerView.Adapter<WaitReceiveAdapter.
         }
 
         @OnClick(R.id.btn_receive)
-        public void confirmReceive(PaperButton paperButton) {
+        public void showConfirmReceiveDialog(PaperButton paperButton) {
 
             new MaterialDialog.Builder(paperButton.getContext())
                     .content("确认接单？")

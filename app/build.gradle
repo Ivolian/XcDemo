@@ -44,4 +44,5 @@ dependencies {
     compile 'com.scottyab:secure-preferences-lib:0.1.4'
     compile 'com.beardedhen:androidbootstrap:2.0.0'
     compile 'com.liangfeizc:flowlayout:1.0.0@aar'
+    compile 'com.nispok:snackbar:2.11.0'
 }

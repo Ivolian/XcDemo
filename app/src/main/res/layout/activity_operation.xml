@@ -2,184 +2,120 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:layout_height="match_parent">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="?attr/actionBarSize">
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:background="@color/default_background"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <LinearLayout
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp">
 
-            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/cardview"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:transitionName="cardview">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <include layout="@layout/word_order_card_top" />
+
+                <include layout="@layout/word_order_card_bottom" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="5dp">
+                    android:layout_height="60dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="match_parent"
+                    <com.unicorn.csp.xcdemo.PaperButton
+                        android:id="@+id/btn_pack"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="报修电话:  9300（分）马老师" />
+                        android:layout_weight="1"
+                        app:paper_color="@color/colorPrimary"
+                        app:paper_text="领料"
+                        app:paper_text_color="@color/white"
+                        app:paper_text_size="15dp" />
 
-                    <TextView
-                        android:layout_width="match_parent"
+                    <com.unicorn.csp.xcdemo.PaperButton
+                        android:id="@+id/btn_take_photo"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="下单时间:  2015-09-06 10:00" />
+                        android:layout_weight="1"
+                        app:paper_color="@color/colorPrimary"
+                        app:paper_text="拍照"
+                        app:paper_text_color="@color/white"
+                        app:paper_text_size="15dp" />
 
-                    <TextView
-                        android:layout_width="match_parent"
+                    <com.unicorn.csp.xcdemo.PaperButton
+                        android:id="@+id/btn_achieve"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="维修地点:  急3F(三床)" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="维修类型:  给排水" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="维修内容:  马桶（堵）" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="是否时限:  否" />
-
-
-                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:background="@android:color/transparent"
-                        android:orientation="horizontal"
-                        android:paddingLeft="8dp"
-                        android:paddingRight="8dp">
-
-                        <android.support.v7.widget.AppCompatButton
-                            android:id="@+id/btn_ll"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
-                            android:layout_marginRight="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_weight="1"
-                            android:background="@color/colorPrimary"
-                            android:padding="12dp"
-
-                            android:text="领料"
-                            android:textColor="@android:color/white"
-                            android:textSize="15dp" />
-
-                        <android.support.v7.widget.AppCompatButton
-                            android:id="@+id/btn_take_photo"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
-                            android:layout_marginRight="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_weight="1"
-                            android:background="@color/colorPrimary"
-                            android:padding="12dp"
-                            android:text="拍照"
-                            android:textColor="@android:color/white"
-                            android:textSize="15dp" />
-
-                        <android.support.v7.widget.AppCompatButton
-                            android:id="@+id/btn_over"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_weight="1"
-                            android:background="@color/colorAccent"
-                            android:padding="12dp"
-                            android:text="结单"
-                            android:textColor="@android:color/white"
-                            android:textSize="15dp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:orientation="horizontal"
-                        android:paddingLeft="8dp"
-                        android:paddingRight="8dp">
-
-                        <android.support.v7.widget.AppCompatButton
-                            android:id="@+id/btn_gd"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
-                            android:layout_marginRight="8dp"
-                            android:layout_weight="1"
-                            android:background="@android:color/darker_gray"
-                            android:padding="12dp"
-                            android:text="挂单"
-                            android:textColor="@android:color/white"
-                            android:textSize="15dp" />
-
-                        <android.support.v7.widget.AppCompatButton
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
-                            android:layout_marginRight="8dp"
-                            android:layout_weight="1"
-                            android:background="@android:color/darker_gray"
-                            android:padding="12dp"
-                            android:text="移单"
-
-                            android:textColor="@android:color/white"
-                            android:textSize="15dp" />
-
-                        <android.support.v7.widget.AppCompatButton
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
-                            android:layout_weight="1"
-                            android:background="@android:color/darker_gray"
-                            android:padding="12dp"
-                            android:text="退单"
-                            android:textColor="@android:color/white"
-                            android:textSize="15dp" />
-
-                    </LinearLayout>
+                        android:layout_weight="1"
+                        app:paper_color="@color/colorPrimary"
+                        app:paper_text="结单"
+                        app:paper_text_color="@color/white"
+                        app:paper_text_size="15dp" />
 
                 </LinearLayout>
 
-                <com.wangqiang.libs.labelviewlib.LabelView
-                    android:id="@+id/labelview"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/colorAccent"
-                    android:text="限"
-                    android:textColor="@android:color/white"
-                    android:textSize="10dp"
-                    app:label_distance="8dp"
-                    app:label_position="TOP_RIGHT" />
+                    android:layout_height="60dp"
+                    android:orientation="horizontal">
 
-            </android.support.v7.widget.CardView>
+                    <com.unicorn.csp.xcdemo.PaperButton
+                        android:id="@+id/btn_suspend"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:paper_color="@color/colorPrimary"
+                        app:paper_text="挂单"
+                        app:paper_text_color="@color/white"
+                        app:paper_text_size="15dp" />
 
+                    <com.unicorn.csp.xcdemo.PaperButton
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:paper_color="@color/colorPrimary"
+                        app:paper_text="移单"
+                        app:paper_text_color="@color/white"
+                        app:paper_text_size="15dp" />
 
-        </LinearLayout>
+                    <com.unicorn.csp.xcdemo.PaperButton
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:paper_color="@color/colorPrimary"
+                        app:paper_text="退单"
+                        app:paper_text_color="@color/white"
+                        app:paper_text_size="15dp" />
 
-    </ScrollView>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <com.wangqiang.libs.labelviewlib.LabelView
+                android:id="@+id/labelview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorAccent"
+                android:text="限"
+                android:textColor="@color/white"
+                android:textSize="10dp"
+                app:label_distance="8dp"
+                app:label_position="TOP_RIGHT" />
+
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
 
     <include layout="@layout/toolbar_with_shadow" />
 

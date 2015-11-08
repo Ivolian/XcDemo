@@ -35,10 +35,15 @@
         <activity
             android:name=".activity.technician.SuspendActivity"
             android:theme="@style/AppTheme.NoActionBar.NoWindow" />
-        <activity android:name=".activity.technician.PackActivity"
+        <activity
+            android:name=".activity.technician.PackActivity"
             android:theme="@style/AppTheme.NoActionBar.NoWindow" />
-        <activity android:name=".activity.OperationActivity" />
-        <activity android:name=".activity.OverActivity" />
+        <activity
+            android:name=".activity.technician.OperationActivity"
+            android:theme="@style/AppTheme.NoActionBar.NoWindow" />
+        <activity
+            android:name=".activity.technician.AchieveActivity"
+            android:theme="@style/AppTheme.NoActionBar.NoWindow" />
 
     </application>
 

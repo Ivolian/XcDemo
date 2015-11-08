@@ -59,7 +59,8 @@ public class WaitReceiveFragment extends BasicRefreshRecycleFragment {
 
     @Override
     public void onRefreshFinish() {
-            ToastUtils.show("刷新完毕");
+
+       EventBus.getDefault().post("共 128 条记录", "onFragmentRefreshFinish");
     }
 
     private List<Model> getData() {

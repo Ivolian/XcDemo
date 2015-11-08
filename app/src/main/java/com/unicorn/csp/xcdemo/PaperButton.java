@@ -147,6 +147,10 @@ public class PaperButton extends View {
         invalidate();
     }
 
+    public String getText(){
+        return mText.toString();
+    }
+
     private RectF getRectF() {
         if (backgroundRectF == null) {
             backgroundRectF = new RectF();

@@ -15,10 +15,15 @@ import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.SnackbarManager;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
 import com.unicorn.csp.xcdemo.adaper.viewpager.technician.MainActivityAdapter;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
+
+import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
 
 import butterknife.Bind;
 
@@ -42,6 +47,7 @@ public class MainActivity extends ToolbarActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
         setContentView(R.layout.activity_main);
         initToolbar("工作清单", false);
         initViews(savedInstanceState);
@@ -130,18 +136,18 @@ public class MainActivity extends ToolbarActivity {
 
         searchView.setMenuItem(menuItem);
         searchView.setHint("请输入查询内容");
-//        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
+        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
 //                EventBus.getDefault().post("some word", "search");
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                return false;
-//            }
-//        });
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
     }
 
     private Drawable getSearchDrawable() {
@@ -176,4 +182,31 @@ public class MainActivity extends ToolbarActivity {
         }
     }
 
+
+    //
+
+    @Subscriber(tag = "onFragmentRefreshFinish")
+    private void onFragmentRefreshFinish(String text) {
+
+        showSnackBar(text);
+    }
+
+
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
+
+    public void showSnackBar(String text) {
+
+        SnackbarManager.show(
+                Snackbar.with(this)
+                        .position(Snackbar.SnackbarPosition.TOP)
+                        .color(getResources().getColor(R.color.blue))
+                        .textColor(getResources().getColor(R.color.white))
+                        .text(text)
+                        .duration(800)
+                , (android.view.ViewGroup) findViewById(R.id.fl_for_snack_bar));
+    }
 }

@@ -3,16 +3,20 @@ package com.unicorn.csp.xcdemo.adaper.recycleview.technician;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.unicorn.csp.xcdemo.PaperButton;
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.activity.technician.PackActivity;
+import com.unicorn.csp.xcdemo.activity.technician.OperationActivity;
 import com.unicorn.csp.xcdemo.activity.technician.DetailActivity;
+import com.unicorn.csp.xcdemo.activity.technician.PackActivity;
 import com.unicorn.csp.xcdemo.model.Model;
 import com.wangqiang.libs.labelviewlib.LabelView;
 
@@ -68,19 +72,40 @@ public class AlreadyReceiveAdapter extends RecyclerView.Adapter<AlreadyReceiveAd
             ((Activity) context).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
 
+        @OnClick(R.id.btn_arrival_or_operation)
+        public void arrivalOrOperate(PaperButton btnArrivalOrOperation) {
 
+            switch (btnArrivalOrOperation.getText()) {
+                case "到达":
+                    showConfirmArrivalDialog(btnArrivalOrOperation);
+                    break;
+                case "操作":
+                    startOperationActivity(btnArrivalOrOperation);
+                    break;
+            }
+        }
 
+        private void showConfirmArrivalDialog(final PaperButton btnArrivalOrOperate) {
 
+            new MaterialDialog.Builder(btnArrivalOrOperate.getContext())
+                    .content("确认到达？")
+                    .positiveText("确认")
+                    .negativeText("取消")
+                    .onPositive(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+                            btnArrivalOrOperate.setText("操作");
+                        }
+                    })
+                    .show();
+        }
 
-        @OnClick(R.id.btn_arrival)
-        public void arrival() {
+        private void startOperationActivity(final PaperButton btnArrivalOrOperation){
 
-//            if (btnArrail.getText().equals("操作")){
-//
-//                Intent intent = new Intent(activity, OperationActivity.class);
-//                activity.startActivity(intent);
-//                return;
-//            }
+            Context context = btnArrivalOrOperation.getContext();
+            Intent intent = new Intent(context, OperationActivity.class);
+            context.startActivity(intent);
+            ((Activity) context).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
 
     }
@@ -99,13 +124,6 @@ public class AlreadyReceiveAdapter extends RecyclerView.Adapter<AlreadyReceiveAd
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
-        if (position % 2 != 0) {
-            viewHolder.labelView.setBackgroundResource(R.color.blue);
-            viewHolder.labelView.setText("新");
-        } else {
-            viewHolder.labelView.setBackgroundResource(R.color.orange);
-            viewHolder.labelView.setText("限");
-        }
     }
 
 

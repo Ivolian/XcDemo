@@ -1,4 +1,4 @@
-package com.unicorn.csp.xcdemo.activity;
+package com.unicorn.csp.xcdemo.activity.technician;
 
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
@@ -20,7 +20,7 @@ import java.io.IOException;
 import butterknife.Bind;
 import butterknife.OnClick;
 
-public class OverActivity extends ToolbarActivity {
+public class AchieveActivity extends ToolbarActivity {
 
     private MediaRecorder mRecorder = null;
 

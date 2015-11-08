@@ -14,9 +14,8 @@ import android.view.ViewGroup;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.activity.OperationActivity;
+import com.unicorn.csp.xcdemo.activity.technician.OperationActivity;
 import com.unicorn.csp.xcdemo.activity.technician.SuspendActivity;
-import com.unicorn.csp.xcdemo.activity.technician.PackActivity;
 import com.unicorn.csp.xcdemo.model.Model;
 import com.wangqiang.libs.labelviewlib.LabelView;
 
@@ -60,10 +59,9 @@ public class YJDAdapter extends RecyclerView.Adapter<YJDAdapter.ViewHolder> {
         @Bind(R.id.cardview)
         CardView cardView;
 
-        @Bind(R.id.btn_ll)
-        AppCompatButton btnLL;
 
-        @Bind(R.id.btn_arrival)
+
+        @Bind(R.id.btn_arrival_or_operation)
         AppCompatButton btnArrail;
 
         ViewHolder(View view) {
@@ -75,13 +73,8 @@ public class YJDAdapter extends RecyclerView.Adapter<YJDAdapter.ViewHolder> {
 
 
 
-        @OnClick(R.id.btn_ll)
-        public void get() {
-            Intent intent = new Intent(activity, PackActivity.class);
-            activity.startActivity(intent);
-        }
 
-        @OnClick(R.id.btn_arrival)
+        @OnClick(R.id.btn_arrival_or_operation)
         public void arrival() {
 
             if (btnArrail.getText().equals("操作")){
@@ -99,7 +92,6 @@ public class YJDAdapter extends RecyclerView.Adapter<YJDAdapter.ViewHolder> {
                     .onPositive(new MaterialDialog.SingleButtonCallback() {
                         @Override
                         public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                            btnLL.setVisibility(View.INVISIBLE);
                             btnArrail.setText("操作");
                         }
                     })
