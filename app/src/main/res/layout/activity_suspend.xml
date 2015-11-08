@@ -20,15 +20,18 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+
             <!-- 工作清单 -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:text="工单详情"
                 android:textColor="@color/black"
                 android:textSize="16dp" />
 
             <include layout="@layout/word_order_card_whole" />
+
 
             <!-- 挂单选项 -->
             <TextView
@@ -39,48 +42,14 @@
                 android:textColor="@color/black"
                 android:textSize="16dp" />
 
-            <LinearLayout
+            <com.liangfeizc.flowlayout.FlowLayout
+                android:id="@+id/fl_suspend_options"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+                app:horizontal_spacing="8dp"
+                app:vertical_spacing="8dp" />
 
-                <com.beardedhen.androidbootstrap.BootstrapButton
-                    android:id="@+id/btn_suspend_option1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="4dp"
-                    android:text="无材料"
-                    app:bootstrapBrand="info"
-                    app:bootstrapSize="md"
-                    app:roundedCorners="true"
-                    app:showOutline="true" />
-
-                <com.beardedhen.androidbootstrap.BootstrapButton
-                    android:id="@+id/btn_suspend_option2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:padding="4dp"
-                    android:text="没有预约"
-                    app:bootstrapBrand="info"
-                    app:bootstrapSize="md"
-                    app:roundedCorners="true"
-                    app:showOutline="true" />
-
-                <com.beardedhen.androidbootstrap.BootstrapButton
-                    android:id="@+id/btn_suspend_option3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:padding="4dp"
-                    android:text="其他原因"
-                    app:bootstrapBrand="info"
-                    app:bootstrapSize="md"
-                    app:roundedCorners="true"
-                    app:showOutline="true" />
-
-            </LinearLayout>
 
             <!-- 挂单说明 -->
             <TextView
@@ -96,8 +65,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_marginTop="10dp"
-                android:textColor="@color/md_grey_800"
-                android:textSize="16dp"
                 app:bootstrapBrand="regular"
                 app:roundedCorners="true" />
 
@@ -106,12 +73,13 @@
                 android:id="@+id/btn_suspend"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="36dp"
+                android:layout_marginBottom="25dp"
+                android:layout_marginTop="35dp"
                 app:paper_color="@color/colorPrimary"
                 app:paper_text="挂单"
                 app:paper_text_color="@color/white"
-                app:paper_text_size="18dp" />
+                app:paper_text_size="18dp"
+                />
 
         </LinearLayout>
 

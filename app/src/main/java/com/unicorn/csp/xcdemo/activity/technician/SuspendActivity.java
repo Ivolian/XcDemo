@@ -2,29 +2,31 @@ package com.unicorn.csp.xcdemo.activity.technician;
 
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
+import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand;
+import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapSize;
+import com.liangfeizc.flowlayout.FlowLayout;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
 
-import java.util.List;
-
 import butterknife.Bind;
-import butterknife.OnClick;
 
 
-// todo refactor
+// @P
 public class SuspendActivity extends ToolbarActivity {
 
 
     // ================================== views ==================================
 
-    @Bind({R.id.btn_suspend_option1, R.id.btn_suspend_option2, R.id.btn_suspend_option3})
-    List<BootstrapButton> btnSuspendOptionList;
-
     @Bind(R.id.et_suspend_description)
     BootstrapEditText etSuspendDescription;
+
+    @Bind(R.id.fl_suspend_options)
+    FlowLayout flSuspendOptions;
 
 
     // ================================== onCreate ==================================
@@ -41,16 +43,41 @@ public class SuspendActivity extends ToolbarActivity {
 
     private void initViews() {
 
-        etSuspendDescription.setGravity(Gravity.TOP);
-        etSuspendDescription.setPadding(20,20,20,20);
+        initSuspendOptions();
+        initSuspendDescription();
     }
 
+    private void initSuspendOptions(){
 
-    // ================================== onClick ==================================
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        for (String suspendOptionText : new String[]{"无材料", "没有预约", "其他原因1", "其他原因2"}) {
+            flSuspendOptions.addView(getSuspendOptionButton(suspendOptionText), layoutParams);
+        }
+    }
 
-    @OnClick({R.id.btn_suspend_option1, R.id.btn_suspend_option2, R.id.btn_suspend_option3})
-    void onSuspendOptionClick(BootstrapButton btnClicked) {
-        btnClicked.setShowOutline(!btnClicked.isShowOutline());
+    private void initSuspendDescription() {
+
+        etSuspendDescription.setGravity(Gravity.TOP);
+        etSuspendDescription.setPadding(20, 20, 20, 20);
+        etSuspendDescription.setBootstrapSize(DefaultBootstrapSize.MD);
+    }
+
+    private BootstrapButton getSuspendOptionButton(String suspendOptionText) {
+
+        final BootstrapButton btnSuspendOption = new BootstrapButton(this);
+        btnSuspendOption.setText(suspendOptionText);
+        btnSuspendOption.setPadding(4, 4, 4, 4);
+        btnSuspendOption.setBootstrapBrand(DefaultBootstrapBrand.INFO);
+        btnSuspendOption.setBootstrapSize(DefaultBootstrapSize.MD);
+        btnSuspendOption.setRounded(true);
+        btnSuspendOption.setShowOutline(true);
+        btnSuspendOption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnSuspendOption.setShowOutline(!btnSuspendOption.isShowOutline());
+            }
+        });
+        return btnSuspendOption;
     }
 
 
@@ -61,6 +88,5 @@ public class SuspendActivity extends ToolbarActivity {
         super.finish();
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
-
 
 }
