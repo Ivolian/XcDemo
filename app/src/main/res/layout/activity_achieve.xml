@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fl_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:background="@color/default_background">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- 工作清单 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="工单详情"
+                android:textColor="@color/black"
+                android:textSize="16dp" />
+
+            <include layout="@layout/word_order_card_whole" />
+
+            <!-- 签字 & 录音 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="请确认签字" />
+
+                <com.unicorn.csp.xcdemo.PaperButton
+                    android:id="@+id/btn_record"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:paper_color="@color/colorPrimary"
+                    app:paper_text="录音"
+                    app:paper_text_color="@color/white"
+                    app:paper_text_size="15dp" />
+
+                <com.unicorn.csp.xcdemo.PaperButton
+                    android:id="@+id/btn_sign"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:paper_color="@color/colorPrimary"
+                    app:paper_text="签字"
+                    app:paper_text_color="@color/white"
+                    app:paper_text_size="15dp" />
+
+            </LinearLayout>
+
+            <!-- 评价 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="请进行评价" />
+
+                <io.techery.properratingbar.ProperRatingBar
+                    android:id="@+id/ratingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:prb_clickable="true"
+                    app:prb_tickSpacing="5dp"
+                    app:prb_totalTicks="5" />
+
+            </LinearLayout>
+
+            <!-- 结单说明 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="结单说明"
+                android:textColor="@color/black"
+                android:textSize="16dp" />
+
+            <com.beardedhen.androidbootstrap.BootstrapEditText
+                android:id="@+id/et_achieve_description"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="10dp"
+                app:bootstrapBrand="regular"
+                app:roundedCorners="true" />
+
+            <!-- 待复核 & 结单 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.unicorn.csp.xcdemo.PaperButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:paper_color="@color/white"
+                    app:paper_text="待复核"
+                    app:paper_text_color="@color/black"
+                    app:paper_text_size="16dp" />
+
+                <com.unicorn.csp.xcdemo.PaperButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:paper_color="@color/colorPrimary"
+                    app:paper_text="结单"
+                    app:paper_text_color="@color/white"
+                    app:paper_text_size="16dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <include layout="@layout/toolbar_with_shadow" />
+
+</FrameLayout>
+
+
+
+
+
+

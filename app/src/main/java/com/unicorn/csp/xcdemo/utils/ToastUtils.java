@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import com.unicorn.csp.xcdemo.SimpleApplication;
 
+
 public class ToastUtils {
 
     private static Toast mToast = null;
@@ -13,10 +14,10 @@ public class ToastUtils {
 
         if (mToast == null) {
             mToast = Toast.makeText(SimpleApplication.getInstance(), text, Toast.LENGTH_SHORT);
-        } else {
-            mToast.setText(text);
             mToast.setGravity(Gravity.CENTER, 0, 0);
-            mToast.setDuration(Toast.LENGTH_SHORT);
+        }
+        else {
+            mToast.setText(text);
         }
         mToast.show();
     }
