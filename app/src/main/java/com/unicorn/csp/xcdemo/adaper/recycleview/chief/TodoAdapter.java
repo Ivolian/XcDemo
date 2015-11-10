@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.unicorn.csp.xcdemo.activity.chief.AssignActivity;
 import com.unicorn.csp.xcdemo.component.PaperButton;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.shared.SuspendActivity;
@@ -69,8 +70,10 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
 
         @OnClick(R.id.btn_assign)
         public void startAssignActivity(PaperButton paperButton) {
-
-            // todo
+            Context context = paperButton.getContext();
+            Intent intent = new Intent(context, AssignActivity.class);
+            context.startActivity(intent);
+            ((Activity) context).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
 
     }
