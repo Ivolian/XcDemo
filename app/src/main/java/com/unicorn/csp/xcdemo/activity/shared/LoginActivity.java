@@ -8,6 +8,7 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
 import com.unicorn.csp.xcdemo.activity.chief.TodoActivity;
+import com.unicorn.csp.xcdemo.activity.technician.WorkOrderActivity;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -61,7 +62,7 @@ public class LoginActivity extends ToolbarActivity {
             @Override
             public void run() {
                 mask.dismiss();
-                startActivityAndFinish(TodoActivity.class);
+                startActivityAndFinish(etAccount.getText().toString().equals("") ? WorkOrderActivity.class : TodoActivity.class);
             }
         }, delay);
     }
