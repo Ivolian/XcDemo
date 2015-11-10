@@ -69,7 +69,7 @@
                 app:roundedCorners="true" />
 
             <!-- 挂单按钮 -->
-            <com.unicorn.csp.xcdemo.PaperButton
+            <com.unicorn.csp.xcdemo.component.PaperButton
                 android:id="@+id/btn_suspend"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"

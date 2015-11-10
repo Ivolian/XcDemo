@@ -1,4 +1,4 @@
-package com.unicorn.csp.xcdemo;
+package com.unicorn.csp.xcdemo.component;
 
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -10,6 +10,8 @@ import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+
+import com.unicorn.csp.xcdemo.R;
 
 /**
  * Created by IntelliJ IDEA.

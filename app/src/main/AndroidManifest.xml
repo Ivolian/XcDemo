@@ -28,12 +28,12 @@
         <activity android:name=".activity.shared.LoginActivity" />
 
         <!-- technician -->
-        <activity android:name=".activity.technician.MainActivity" />
+        <activity android:name=".activity.technician.WorkOrderActivity" />
         <activity
             android:name=".activity.technician.DetailActivity"
             android:theme="@style/AppTheme.NoActionBar.NoWindow" />
         <activity
-            android:name=".activity.technician.SuspendActivity"
+            android:name=".activity.shared.SuspendActivity"
             android:theme="@style/AppTheme.NoActionBar.NoWindow" />
         <activity
             android:name=".activity.technician.PackActivity"
@@ -44,6 +44,10 @@
         <activity
             android:name=".activity.technician.AchieveActivity"
             android:theme="@style/AppTheme.NoActionBar.NoWindow" />
+
+        <!-- chief -->
+        <activity android:name=".activity.chief.TodoActivity" />
+
 
     </application>
 

@@ -45,7 +45,7 @@
             app:met_primaryColor="?attr/colorAccent" />
 
         <!-- login button -->
-        <com.unicorn.csp.xcdemo.PaperButton
+        <com.unicorn.csp.xcdemo.component.PaperButton
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
             android:layout_height="65dp"

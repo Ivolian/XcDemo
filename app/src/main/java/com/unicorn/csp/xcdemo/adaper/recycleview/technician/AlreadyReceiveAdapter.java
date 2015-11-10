@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.unicorn.csp.xcdemo.PaperButton;
+import com.unicorn.csp.xcdemo.component.PaperButton;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.technician.OperationActivity;
 import com.unicorn.csp.xcdemo.activity.technician.DetailActivity;

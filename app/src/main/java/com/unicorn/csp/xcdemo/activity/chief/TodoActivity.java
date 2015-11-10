@@ -1,4 +1,4 @@
-package com.unicorn.csp.xcdemo.activity.technician;
+package com.unicorn.csp.xcdemo.activity.chief;
 
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
@@ -19,7 +18,7 @@ import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
-import com.unicorn.csp.xcdemo.adaper.viewpager.technician.MainActivityAdapter;
+import com.unicorn.csp.xcdemo.adaper.viewpager.chief.TodoActivityAdapter;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
 
 import org.simple.eventbus.EventBus;
@@ -28,8 +27,9 @@ import org.simple.eventbus.Subscriber;
 import butterknife.Bind;
 
 
+// 移单，退单都会进待办工单。
 //@P
-public class MainActivity extends ToolbarActivity {
+public class TodoActivity extends ToolbarActivity {
 
 
     // ================================== views ==================================
@@ -49,14 +49,14 @@ public class MainActivity extends ToolbarActivity {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
         setContentView(R.layout.activity_main);
-        initToolbar("工作清单", false);
+        initToolbar("待办工单", false);
         initViews(savedInstanceState);
     }
 
     public void initViews(Bundle savedInstanceState) {
 
         viewPager.setOffscreenPageLimit(4);
-        viewPager.setAdapter(new MainActivityAdapter(getSupportFragmentManager()));
+        viewPager.setAdapter(new TodoActivityAdapter(getSupportFragmentManager()));
         tabLayout.setupWithViewPager(viewPager);
         initDrawer(savedInstanceState);
     }
@@ -84,19 +84,9 @@ public class MainActivity extends ToolbarActivity {
     private IDrawerItem[] getDrawerItems() {
 
         return new IDrawerItem[]{
-                new PrimaryDrawerItem().withName("工作清单").withIcon(GoogleMaterial.Icon.gmd_assignment),
-                new PrimaryDrawerItem().withName("统计分析").withIcon(GoogleMaterial.Icon.gmd_chart),
-                new PrimaryDrawerItem().withName("我的收益").withIcon(GoogleMaterial.Icon.gmd_assignment_account)
-        };
-    }
-
-    private Drawer.OnDrawerItemClickListener getOnDrawItemClickListener() {
-
-        return new Drawer.OnDrawerItemClickListener() {
-            @Override
-            public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                return true;
-            }
+                new PrimaryDrawerItem().withName("待办工单").withIcon(GoogleMaterial.Icon.gmd_assignment),
+                new PrimaryDrawerItem().withName("工单监控").withIcon(GoogleMaterial.Icon.gmd_assignment_check),
+                new PrimaryDrawerItem().withName("工单预警").withIcon(GoogleMaterial.Icon.gmd_notifications_active)
         };
     }
 

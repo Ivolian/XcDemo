@@ -20,7 +20,7 @@
             android:layout_marginTop="8dp"
             android:orientation="horizontal">
 
-            <com.unicorn.csp.xcdemo.PaperButton
+            <com.unicorn.csp.xcdemo.component.PaperButton
                 android:id="@+id/btn_suspend"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
                 app:paper_text_color="@color/black"
                 app:paper_text_size="15dp" />
 
-            <com.unicorn.csp.xcdemo.PaperButton
+            <com.unicorn.csp.xcdemo.component.PaperButton
                 android:id="@+id/btn_receive"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

@@ -1,4 +1,4 @@
-package com.unicorn.csp.xcdemo.activity.technician;
+package com.unicorn.csp.xcdemo.activity.shared;
 
 import android.os.Bundle;
 import android.view.Gravity;

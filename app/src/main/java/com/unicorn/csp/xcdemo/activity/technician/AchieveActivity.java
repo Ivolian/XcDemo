@@ -15,7 +15,7 @@ import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapSize;
 import com.github.gcacace.signaturepad.views.SignaturePad;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
-import com.unicorn.csp.xcdemo.PaperButton;
+import com.unicorn.csp.xcdemo.component.PaperButton;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
 

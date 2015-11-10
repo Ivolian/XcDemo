@@ -4,19 +4,20 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.unicorn.csp.xcdemo.SimpleApplication;
-import com.unicorn.csp.xcdemo.fragment.YJDDFragment;
+import com.unicorn.csp.xcdemo.fragment.technician.AlreadyAchieveFragment;
 import com.unicorn.csp.xcdemo.fragment.technician.AlreadyReceiveFragment;
+import com.unicorn.csp.xcdemo.fragment.technician.AlreadySuspendFragment;
 import com.unicorn.csp.xcdemo.fragment.technician.WaitReceiveFragment;
 
 
-public class MainActivityAdapter extends FragmentStatePagerAdapter {
+// @P
+public class WorkOrderActivityAdapter extends FragmentStatePagerAdapter {
 
     private String[] titles = {
             "待接单", "已接单", "已挂起", "已结单",
     };
 
-    public MainActivityAdapter(FragmentManager fm) {
+    public WorkOrderActivityAdapter(FragmentManager fm) {
         super(fm);
     }
 
@@ -27,17 +28,13 @@ public class MainActivityAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return new WaitReceiveFragment();
             case 1:
-               return  new AlreadyReceiveFragment();
+                return new AlreadyReceiveFragment();
             case 2:
-                SimpleApplication.alreadyReceiveFragment = new AlreadyReceiveFragment();
-                return SimpleApplication.alreadyReceiveFragment;
+                return new AlreadySuspendFragment();
             case 3:
-                SimpleApplication.yjddFragment = new YJDDFragment();
-                return SimpleApplication.yjddFragment;
-
-            default:
-                return null;
+                return new AlreadyAchieveFragment();
         }
+        return null;
     }
 
     @Override
@@ -50,5 +47,6 @@ public class MainActivityAdapter extends FragmentStatePagerAdapter {
 
         return titles[position];
     }
+
 
 }

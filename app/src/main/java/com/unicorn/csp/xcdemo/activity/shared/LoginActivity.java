@@ -7,7 +7,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
-import com.unicorn.csp.xcdemo.activity.technician.MainActivity;
+import com.unicorn.csp.xcdemo.activity.chief.TodoActivity;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -61,7 +61,7 @@ public class LoginActivity extends ToolbarActivity {
             @Override
             public void run() {
                 mask.dismiss();
-                startActivityAndFinish(MainActivity.class);
+                startActivityAndFinish(TodoActivity.class);
             }
         }, delay);
     }

@@ -21,22 +21,22 @@
             android:orientation="horizontal">
 
             <com.unicorn.csp.xcdemo.component.PaperButton
-                android:id="@+id/btn_pack"
+                android:id="@+id/btn_suspend"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 app:paper_color="@color/white"
-                app:paper_text="领料"
+                app:paper_text="挂单"
                 app:paper_text_color="@color/black"
                 app:paper_text_size="15dp" />
 
             <com.unicorn.csp.xcdemo.component.PaperButton
-                android:id="@+id/btn_arrival_or_operation"
+                android:id="@+id/btn_assign"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 app:paper_color="@color/colorPrimary"
-                app:paper_text="到达"
+                app:paper_text="派单"
                 app:paper_text_color="@color/white"
                 app:paper_text_size="15dp" />
 
