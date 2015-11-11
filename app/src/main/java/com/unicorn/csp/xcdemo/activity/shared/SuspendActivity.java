@@ -38,7 +38,7 @@ public class SuspendActivity extends ToolbarActivity {
         setContentView(R.layout.activity_suspend);
         initToolbar("挂单", true);
         initViews();
-        slidr();
+        enableSlideFinish();
     }
 
     private void initViews() {

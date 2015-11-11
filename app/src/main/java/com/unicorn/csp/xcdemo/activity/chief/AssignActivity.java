@@ -33,7 +33,7 @@ public class AssignActivity extends ToolbarActivity {
         setContentView(R.layout.activity_assign);
         initToolbar("派单", true);
         initViews();
-        slidr();
+        enableSlideFinish();
     }
 
     private void initViews() {
@@ -53,7 +53,8 @@ public class AssignActivity extends ToolbarActivity {
     private BootstrapButton getSuspendOptionButton(int i) {
 
         final BootstrapButton btnSuspendOption = new BootstrapButton(this);
-        btnSuspendOption.setText("技师" + i);
+        String text = "技师" + i;
+        btnSuspendOption.setText(text);
         btnSuspendOption.setPadding(4, 4, 4, 4);
         btnSuspendOption.setBootstrapBrand(DefaultBootstrapBrand.INFO);
         if (i==5 || i==6){

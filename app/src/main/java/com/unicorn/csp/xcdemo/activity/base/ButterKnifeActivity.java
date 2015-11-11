@@ -30,7 +30,7 @@ public abstract class ButterKnifeActivity extends AppCompatActivity {
 
     // ========================== 滑动移除 ==========================
 
-    public void slidr() {
+    public void enableSlideFinish() {
 
         SlidrConfig config = new SlidrConfig.Builder().edge(true).build();
         Slidr.attach(this, config);

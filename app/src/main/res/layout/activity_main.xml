@@ -24,7 +24,7 @@
             shadow:z_depth_shape="rect">
 
             <android.support.design.widget.TabLayout
-                android:id="@+id/tabslayout"
+                android:id="@+id/tabs_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary"
@@ -53,7 +53,7 @@
         <include layout="@layout/toolbar" />
 
         <com.miguelcatalan.materialsearchview.MaterialSearchView
-            android:id="@+id/searchview"
+            android:id="@+id/search_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

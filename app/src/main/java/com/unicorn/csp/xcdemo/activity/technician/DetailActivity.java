@@ -17,7 +17,7 @@ public class DetailActivity extends ToolbarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         initToolbar("工单详情", true);
-        slidr();
+        enableSlideFinish();
     }
 
 

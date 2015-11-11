@@ -34,7 +34,7 @@ public class WorkOrderActivity extends ToolbarActivity {
 
     // ================================== views ==================================
 
-    @Bind(R.id.tabslayout)
+    @Bind(R.id.tabs_layout)
     TabLayout tabLayout;
 
     @Bind(R.id.viewpager)
@@ -113,7 +113,7 @@ public class WorkOrderActivity extends ToolbarActivity {
 
     // ================================== searchView & menu ==================================
 
-    @Bind(R.id.searchview)
+    @Bind(R.id.search_view)
     MaterialSearchView searchView;
 
     @Override

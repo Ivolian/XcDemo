@@ -66,17 +66,16 @@ public abstract class BasicRefreshRecycleFragment extends ButterKnifeFragment {
 
     // ================================== methods to override ==================================
 
-    public void onRefreshFinish(){
+     public void onRefreshFinish(){
+         //
+     }
 
-    }
+     public void initRecyclerView(){
+         //
+     }
 
-    public void initRecyclerView(){
-
-    }
-
-    public void initOtherViews(){
-
-    }
-
+     public void initOtherViews(){
+         //
+     }
 
 }

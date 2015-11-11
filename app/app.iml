@@ -91,8 +91,6 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.nispok/snackbar/2.11.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.r0adkll/slidableactivity/2.0.4/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.rengwuxian.materialedittext/library/2.1.4/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.scottyab/aes-crypto/0.0.4/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.scottyab/secure-preferences-lib/0.1.4/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.wada811/android-material-design-colors/2.0.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.wangqiang.libs/labelviewlib/1.0.1/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/de.hdodenhof/circleimageview/2.0.0/jars" />
@@ -146,8 +144,6 @@
     <orderEntry type="library" exported="" name="circleimageview-2.0.0" level="project" />
     <orderEntry type="library" exported="" name="core-0.8.5.0" level="project" />
     <orderEntry type="library" exported="" name="ratingbar-" level="project" />
-    <orderEntry type="library" exported="" name="aes-crypto-0.0.4" level="project" />
-    <orderEntry type="library" exported="" name="secure-preferences-lib-0.1.4" level="project" />
     <orderEntry type="library" exported="" name="usb-android-23" level="project" />
     <orderEntry type="library" exported="" name="effects-android-23" level="project" />
     <orderEntry type="library" exported="" name="maps-android-23" level="project" />

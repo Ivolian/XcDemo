@@ -6,6 +6,7 @@ import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -15,9 +16,10 @@ import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapSize;
 import com.github.gcacace.signaturepad.views.SignaturePad;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
-import com.unicorn.csp.xcdemo.component.PaperButton;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
+import com.unicorn.csp.xcdemo.component.PaperButton;
+import com.unicorn.csp.xcdemo.utils.ToastUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,17 +33,16 @@ import io.techery.properratingbar.ProperRatingBar;
 public class AchieveActivity extends ToolbarActivity {
 
 
-
-
     // ================================== onCreate ==================================
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_achieve);
         initToolbar("结单", true);
         initViews();
-        slidr();
+        enableSlideFinish();
     }
 
     private void initViews() {
@@ -155,6 +156,9 @@ public class AchieveActivity extends ToolbarActivity {
         File dir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "csp");
         if (!dir.exists()) {
             boolean result = dir.mkdir();
+            if (!result) {
+                ToastUtils.show("创建下载目录失败!");
+            }
         }
         return dir.getAbsolutePath() + "/1.mp3";
     }
@@ -176,7 +180,7 @@ public class AchieveActivity extends ToolbarActivity {
 
         return new IconicsDrawable(this)
                 .icon(GoogleMaterial.Icon.gmd_star)
-                .color(getResources().getColor(R.color.md_orange_300))
+                .color(ContextCompat.getColor(this, R.color.md_orange_400))
                 .sizeDp(28);
     }
 
@@ -184,7 +188,7 @@ public class AchieveActivity extends ToolbarActivity {
 
         return new IconicsDrawable(this)
                 .icon(GoogleMaterial.Icon.gmd_star_outline)
-                .color(getResources().getColor(R.color.md_orange_300))
+                .color(ContextCompat.getColor(this, R.color.md_orange_400))
                 .sizeDp(28);
     }
 

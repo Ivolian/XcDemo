@@ -36,7 +36,7 @@ public class PackActivity extends ToolbarActivity {
         setContentView(R.layout.activity_pack);
         initToolbar("领料", true);
         initMaterialGroup();
-        slidr();
+        enableSlideFinish();
     }
 
     private void initMaterialGroup() {

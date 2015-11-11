@@ -22,7 +22,7 @@ public class OperationActivity extends ToolbarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_operation);
         initToolbar("操作", true);
-        slidr();
+        enableSlideFinish();
     }
 
 

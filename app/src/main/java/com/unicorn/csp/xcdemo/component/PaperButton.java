@@ -3,9 +3,17 @@ package com.unicorn.csp.xcdemo.component;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.content.res.TypedArray;
-import android.graphics.*;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.Point;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -67,7 +75,8 @@ public class PaperButton extends View {
         mPadding = getResources().getDimensionPixelSize(R.dimen.paper_padding);
         TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.PaperButton);
         mColor = attributes.getColor(R.styleable.PaperButton_paper_color,
-                getResources().getColor(R.color.paper_button_color));
+                ContextCompat.getColor(context, R.color.paper_button_color)
+        );
         mShadowColor = attributes.getColor(R.styleable.PaperButton_paper_shadow_color,
                 getResources().getColor(R.color.paper_button_shadow_color));
         mCornerRadius = attributes.getDimensionPixelSize(R.styleable.PaperButton_paper_corner_radius,
