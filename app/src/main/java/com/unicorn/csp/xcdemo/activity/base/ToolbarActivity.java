@@ -36,7 +36,7 @@ public abstract class ToolbarActivity extends ButterKnifeActivity {
     }
 
 
-    // ========================== toolbar ==========================
+    // ========================== m_toolbar ==========================
 
     protected void initToolbar(String toolbarTitle, boolean displayHomeAsUpEnable) {
 

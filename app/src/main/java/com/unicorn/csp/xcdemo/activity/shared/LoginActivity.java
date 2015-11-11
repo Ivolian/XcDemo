@@ -17,7 +17,6 @@ import com.unicorn.csp.xcdemo.component.TinyDB;
 import com.unicorn.csp.xcdemo.utils.ConfigUtils;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
 import com.unicorn.csp.xcdemo.volley.SimpleVolley;
-import com.unicorn.csp.xcdemo.volley.VolleyErrorHelper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -77,7 +76,8 @@ public class LoginActivity extends ToolbarActivity {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 mask.dismiss();
-                                ToastUtils.show(VolleyErrorHelper.getErrorMessage(error));
+                                startActivityAndFinish(WorkOrderActivity.class);
+//                                ToastUtils.show(VolleyErrorHelper.getErrorMessage(error));
                             }
                         }
                 ) {
