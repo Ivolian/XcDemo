@@ -46,5 +46,7 @@ dependencies {
     compile 'com.liangfeizc:flowlayout:1.0.0@aar'
     compile 'com.nispok:snackbar:2.11.0'
     compile(name: 'ratingbar', ext: 'aar')
+    compile 'com.mcxiaoke.volley:library:1.0.19'
+    compile 'joda-time:joda-time:2.9'
 
 }

@@ -20,7 +20,7 @@ public abstract class BasicRefreshRecycleFragment extends ButterKnifeFragment {
     // ================================== views ==================================
 
     @Bind(R.id.swipeRefreshLayout)
-    SwipeRefreshLayout swipeRefreshLayout;
+    public SwipeRefreshLayout swipeRefreshLayout;
 
     @Bind(R.id.recyclerView)
     public ExRecyclerView recyclerView;
@@ -47,7 +47,7 @@ public abstract class BasicRefreshRecycleFragment extends ButterKnifeFragment {
         return rootView;
     }
 
-    private void initSwipeRefreshLayout() {
+    public void initSwipeRefreshLayout() {
         swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

@@ -2,6 +2,8 @@ package com.unicorn.csp.xcdemo;
 
 import android.app.Application;
 
+import com.unicorn.csp.xcdemo.volley.SimpleVolley;
+
 
 public class SimpleApplication extends Application {
 
@@ -17,6 +19,7 @@ public class SimpleApplication extends Application {
 
         super.onCreate();
         instance = this;
+        SimpleVolley.init(instance);
     }
 
 }

@@ -9,18 +9,33 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.unicorn.csp.xcdemo.component.PaperButton;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.unicorn.csp.xcdemo.R;
+import com.unicorn.csp.xcdemo.activity.shared.LoginActivity;
 import com.unicorn.csp.xcdemo.activity.technician.DetailActivity;
-import com.unicorn.csp.xcdemo.activity.shared.SuspendActivity;
-import com.unicorn.csp.xcdemo.model.Model;
+import com.unicorn.csp.xcdemo.component.PaperButton;
+import com.unicorn.csp.xcdemo.component.TinyDB;
+import com.unicorn.csp.xcdemo.model.WorkOrder;
+import com.unicorn.csp.xcdemo.utils.ConfigUtils;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
+import com.unicorn.csp.xcdemo.volley.SimpleVolley;
+import com.unicorn.csp.xcdemo.volley.VolleyErrorHelper;
 import com.wangqiang.libs.labelviewlib.LabelView;
 
+import org.joda.time.DateTime;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -32,23 +47,29 @@ public class WaitReceiveAdapter extends RecyclerView.Adapter<WaitReceiveAdapter.
 
     // ================================== data  ==================================
 
-    private List<Model> modelList;
+    private List<WorkOrder> workOrderList = new ArrayList<>();
 
-    public List<Model> getModelList() {
-        return modelList;
+    public List<WorkOrder> getWorkOrderList() {
+        return workOrderList;
     }
 
-    public void setModelList(List<Model> modelList) {
-        this.modelList = modelList;
+    public void setWorkOrderList(List<WorkOrder> workOrderList) {
+        this.workOrderList = workOrderList;
     }
 
 
     // ================================== viewHolder ==================================
 
-    public  class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.labelview)
         LabelView labelView;
+
+        @Bind(R.id.tv_request_user_and_call_number)
+        TextView tvRequestUserAndallNumber;
+
+        @Bind(R.id.tv_request_time)
+        TextView tvRequestTime;
 
         ViewHolder(View view) {
             super(view);
@@ -63,14 +84,6 @@ public class WaitReceiveAdapter extends RecyclerView.Adapter<WaitReceiveAdapter.
             ((Activity) context).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
 
-        @OnClick(R.id.btn_suspend)
-        public void startSuspendActivity(PaperButton paperButton) {
-            Context context = paperButton.getContext();
-            Intent intent = new Intent(context, SuspendActivity.class);
-            context.startActivity(intent);
-            ((Activity) context).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-        }
-
         @OnClick(R.id.btn_receive)
         public void showConfirmReceiveDialog(PaperButton paperButton) {
 
@@ -81,8 +94,7 @@ public class WaitReceiveAdapter extends RecyclerView.Adapter<WaitReceiveAdapter.
                     .onPositive(new MaterialDialog.SingleButtonCallback() {
                         @Override
                         public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                            ToastUtils.show("接单成功！");
-                            WaitReceiveAdapter.this.notifyItemRemoved(getAdapterPosition());
+                            receiveWorkOrder(getAdapterPosition());
                         }
                     })
                     .show();
@@ -104,6 +116,10 @@ public class WaitReceiveAdapter extends RecyclerView.Adapter<WaitReceiveAdapter.
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
+        WorkOrder workOrder = getWorkOrderList().get(position);
+        viewHolder.tvRequestUserAndallNumber.setText("报修电话: " + workOrder.getCallNumber() + " " + workOrder.getRequestUser());
+        viewHolder.tvRequestTime.setText("报修时间:" + new DateTime(workOrder.getRequestTime()).toString("yyyy-MM-dd HH:mm:ss"));
+
 //        if (position % 2 != 0) {
 //            viewHolder.labelView.setBackgroundResource(R.color.blue);
 //            viewHolder.labelView.setText("新");
@@ -119,7 +135,40 @@ public class WaitReceiveAdapter extends RecyclerView.Adapter<WaitReceiveAdapter.
     @Override
     public int getItemCount() {
 
-        return modelList.size();
+        return workOrderList.size();
+    }
+
+
+    private void receiveWorkOrder(final int position) {
+        WorkOrder workOrder = workOrderList.get(position);
+        String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrder.getObjectId() + "/receive";
+        SimpleVolley.addRequest(
+                new StringRequest(
+                        Request.Method.PUT,
+                        url,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                ToastUtils.show("接单成功！");
+                                WaitReceiveAdapter.this.notifyItemRemoved(position);
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError volleyError) {
+                                ToastUtils.show(VolleyErrorHelper.getErrorMessage(volleyError));
+                            }
+                        }
+                ) {
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        Map<String, String> map = new HashMap<>();
+                        String jsessionid = TinyDB.getInstance().getString(LoginActivity.JSESSION_ID);
+                        map.put("Cookie", "JSESSIONID=" + jsessionid);
+                        return map;
+                    }
+                }
+        );
     }
 
 }
