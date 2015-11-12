@@ -8,11 +8,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.technician.DetailActivity;
-import com.unicorn.csp.xcdemo.model.Model;
+import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
+import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
 import com.wangqiang.libs.labelviewlib.LabelView;
+
+import org.joda.time.DateTime;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,16 +31,15 @@ public class AlreadyAchieveAdapter extends RecyclerView.Adapter<AlreadyAchieveAd
 
     // ================================== data  ==================================
 
-    private List<Model> modelList = new ArrayList<>();
+    private List<WorkOrderProcessInfo> workOrderProcessInfoList = new ArrayList<>();
 
-    public List<Model> getModelList() {
-        return modelList;
+    public List<WorkOrderProcessInfo> getWorkOrderProcessInfoList() {
+        return workOrderProcessInfoList;
     }
 
-    public void setModelList(List<Model> modelList) {
-        this.modelList = modelList;
+    public void setWorkOrderProcessInfoList(List<WorkOrderProcessInfo> workOrderProcessInfoList) {
+        this.workOrderProcessInfoList = workOrderProcessInfoList;
     }
-
 
     // ================================== viewHolder ==================================
 
@@ -49,6 +52,12 @@ public class AlreadyAchieveAdapter extends RecyclerView.Adapter<AlreadyAchieveAd
             super(view);
             ButterKnife.bind(this, view);
         }
+
+        @Bind(R.id.tv_request_user_and_call_number)
+        TextView tvRequestUserAndCallNumber;
+
+        @Bind(R.id.tv_request_time)
+        TextView tvRequestTime;
 
         @OnClick(R.id.cardview)
         public void startDetailActivity(CardView cardView) {
@@ -73,6 +82,10 @@ public class AlreadyAchieveAdapter extends RecyclerView.Adapter<AlreadyAchieveAd
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
+        WorkOrderProcessInfo workOrderProcessInfo = getWorkOrderProcessInfoList().get(position);
+        WorkOrderInfo workOrderInfo = workOrderProcessInfo.getWorkOrderInfo();
+        viewHolder.tvRequestUserAndCallNumber.setText("报修电话: " + workOrderInfo.getCallNumber() + " " + workOrderInfo.getRequestUser());
+        viewHolder.tvRequestTime.setText("报修时间: " + new DateTime(workOrderInfo.getRequestTime()).toString("yyyy-MM-dd HH:mm:ss"));
     }
 
 
@@ -81,7 +94,7 @@ public class AlreadyAchieveAdapter extends RecyclerView.Adapter<AlreadyAchieveAd
     @Override
     public int getItemCount() {
 
-        return modelList.size();
+        return workOrderProcessInfoList.size();
     }
 
 }

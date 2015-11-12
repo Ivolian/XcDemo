@@ -12,12 +12,14 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.shared.LoginActivity;
 import com.unicorn.csp.xcdemo.adaper.recycleview.technician.WaitReceiveAdapter;
 import com.unicorn.csp.xcdemo.component.TinyDB;
 import com.unicorn.csp.xcdemo.fragment.base.ButterKnifeFragment;
-import com.unicorn.csp.xcdemo.model.WorkOrder;
+import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
 import com.unicorn.csp.xcdemo.utils.ConfigUtils;
 import com.unicorn.csp.xcdemo.utils.JSONUtils;
 import com.unicorn.csp.xcdemo.utils.RecycleViewUtils;
@@ -29,8 +31,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.simple.eventbus.EventBus;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,7 +60,7 @@ public class WaitReceiveFragment extends ButterKnifeFragment {
 
     // ================================== paging fields ==================================
 
-    final Integer PAGE_SIZE = 1;
+    final Integer PAGE_SIZE = 10;
 
     Integer pageNo;
 
@@ -150,10 +150,19 @@ public class WaitReceiveFragment extends ButterKnifeFragment {
                             @Override
                             public void onResponse(JSONObject response) {
                                 stopRefreshing();
-                                waitReceiveAdapter.setWorkOrderList(parseWorkOrderList(response));
+                                JSONArray jsonArray = JSONUtils.getJSONArray(response, "content", null);
+                                String json = jsonArray.toString();
+
+                                Gson gson = new Gson();
+                                // json转为带泛型的list
+                                List<WorkOrderProcessInfo> workOrderProcessInfoList = gson.fromJson(json,
+                                        new TypeToken<List<WorkOrderProcessInfo>>() {
+                                        }.getType());
+                                waitReceiveAdapter.setWorkOrderProcessInfoList(workOrderProcessInfoList);
                                 waitReceiveAdapter.notifyDataSetChanged();
                                 checkLastPage(response);
-                                EventBus.getDefault().post("共 128 条记录", "onFragmentRefreshFinish");
+                                int total = totalElements(response);
+                                EventBus.getDefault().post("共 " + total + " 条记录", "onFragmentRefreshFinish");
                             }
                         },
                         new Response.ErrorListener() {
@@ -183,7 +192,16 @@ public class WaitReceiveFragment extends ButterKnifeFragment {
                     public void onResponse(JSONObject response) {
                         loadingMore = false;
                         pageNo++;
-                        waitReceiveAdapter.getWorkOrderList().addAll(parseWorkOrderList(response));
+
+                        JSONArray jsonArray = JSONUtils.getJSONArray(response, "content", null);
+                        String json = jsonArray.toString();
+
+                        Gson gson = new Gson();
+                        // json转为带泛型的list
+                        List<WorkOrderProcessInfo> workOrderProcessInfoList = gson.fromJson(json,
+                                new TypeToken<List<WorkOrderProcessInfo>>() {
+                                }.getType());
+                        waitReceiveAdapter.getWorkOrderProcessInfoList().addAll(workOrderProcessInfoList);
                         waitReceiveAdapter.notifyDataSetChanged();
                         checkLastPage(response);
                     }
@@ -221,27 +239,27 @@ public class WaitReceiveFragment extends ButterKnifeFragment {
         return builder.toString();
     }
 
-
-    private List<WorkOrder> parseWorkOrderList(JSONObject response) {
-        JSONArray jsonArray = JSONUtils.getJSONArray(response, "content", null);
-        List<WorkOrder> bookList = new ArrayList<>();
-        for (int i = 0; i != jsonArray.length(); i++) {
-            JSONObject jsonObject = JSONUtils.getJSONObject(jsonArray, i);
-            String objectId = JSONUtils.getString(jsonObject, "objectId", "");
-            long requestTimeL = JSONUtils.getLong(jsonObject, "requestTime", 0);
-            Date requestTime = new Date(requestTimeL);
-            String requestUser = JSONUtils.getString(jsonObject, "requestUser", "");
-            String callNumber = JSONUtils.getString(jsonObject, "callNumber", "");
-
-            WorkOrder workOrder = new WorkOrder();
-            workOrder.setObjectId(objectId);
-            workOrder.setRequestTime(requestTime);
-            workOrder.setRequestUser(requestUser);
-            workOrder.setCallNumber(callNumber);
-            bookList.add(workOrder);
-        }
-        return bookList;
-    }
+//
+//    private List<WorkOrder> parseWorkOrderList(JSONObject response) {
+//        JSONArray jsonArray = JSONUtils.getJSONArray(response, "content", null);
+//        List<WorkOrder> bookList = new ArrayList<>();
+//        for (int i = 0; i != jsonArray.length(); i++) {
+//            JSONObject jsonObject = JSONUtils.getJSONObject(jsonArray, i);
+//            String objectId = JSONUtils.getString(jsonObject, "objectId", "");
+//            long requestTimeL = JSONUtils.getLong(jsonObject, "requestTime", 0);
+//            Date requestTime = new Date(requestTimeL);
+//            String requestUser = JSONUtils.getString(jsonObject, "requestUser", "");
+//            String callNumber = JSONUtils.getString(jsonObject, "callNumber", "");
+//
+//            WorkOrder workOrder = new WorkOrder();
+//            workOrder.setObjectId(objectId);
+//            workOrder.setRequestTime(requestTime);
+//            workOrder.setRequestUser(requestUser);
+//            workOrder.setCallNumber(callNumber);
+//            bookList.add(workOrder);
+//        }
+//        return bookList;
+//    }
 
 
     private void checkLastPage(JSONObject response) {
@@ -261,8 +279,6 @@ public class WaitReceiveFragment extends ButterKnifeFragment {
         return JSONUtils.getInt(response, "totalPages", 0) == 0;
     }
 
-
-    // TODO
     private void stopRefreshing() {
 
         if (swipeRefreshLayout != null) {
@@ -275,6 +291,11 @@ public class WaitReceiveFragment extends ButterKnifeFragment {
         if (swipeRefreshLayout != null) {
             swipeRefreshLayout.setRefreshing(true);
         }
+    }
+
+    private int totalElements(JSONObject response) {
+
+        return JSONUtils.getInt(response, "totalElements", 0);
     }
 
 

@@ -23,7 +23,8 @@ import com.unicorn.csp.xcdemo.activity.shared.LoginActivity;
 import com.unicorn.csp.xcdemo.activity.technician.DetailActivity;
 import com.unicorn.csp.xcdemo.component.PaperButton;
 import com.unicorn.csp.xcdemo.component.TinyDB;
-import com.unicorn.csp.xcdemo.model.WorkOrder;
+import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
+import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
 import com.unicorn.csp.xcdemo.utils.ConfigUtils;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
 import com.unicorn.csp.xcdemo.volley.SimpleVolley;
@@ -47,14 +48,14 @@ public class WaitReceiveAdapter extends RecyclerView.Adapter<WaitReceiveAdapter.
 
     // ================================== data  ==================================
 
-    private List<WorkOrder> workOrderList = new ArrayList<>();
+    private List<WorkOrderProcessInfo> workOrderProcessInfoList = new ArrayList<>();
 
-    public List<WorkOrder> getWorkOrderList() {
-        return workOrderList;
+    public List<WorkOrderProcessInfo> getWorkOrderProcessInfoList() {
+        return workOrderProcessInfoList;
     }
 
-    public void setWorkOrderList(List<WorkOrder> workOrderList) {
-        this.workOrderList = workOrderList;
+    public void setWorkOrderProcessInfoList(List<WorkOrderProcessInfo> workOrderProcessInfoList) {
+        this.workOrderProcessInfoList = workOrderProcessInfoList;
     }
 
 
@@ -66,7 +67,7 @@ public class WaitReceiveAdapter extends RecyclerView.Adapter<WaitReceiveAdapter.
         LabelView labelView;
 
         @Bind(R.id.tv_request_user_and_call_number)
-        TextView tvRequestUserAndallNumber;
+        TextView tvRequestUserAndCallNumber;
 
         @Bind(R.id.tv_request_time)
         TextView tvRequestTime;
@@ -116,9 +117,10 @@ public class WaitReceiveAdapter extends RecyclerView.Adapter<WaitReceiveAdapter.
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
-        WorkOrder workOrder = getWorkOrderList().get(position);
-        viewHolder.tvRequestUserAndallNumber.setText("报修电话: " + workOrder.getCallNumber() + " " + workOrder.getRequestUser());
-        viewHolder.tvRequestTime.setText("报修时间:" + new DateTime(workOrder.getRequestTime()).toString("yyyy-MM-dd HH:mm:ss"));
+        WorkOrderProcessInfo workOrderProcessInfo = getWorkOrderProcessInfoList().get(position);
+        WorkOrderInfo workOrderInfo = workOrderProcessInfo.getWorkOrderInfo();
+        viewHolder.tvRequestUserAndCallNumber.setText("报修电话: " + workOrderInfo.getCallNumber() + " " + workOrderInfo.getRequestUser());
+        viewHolder.tvRequestTime.setText("报修时间: " + new DateTime(workOrderInfo.getRequestTime()).toString("yyyy-MM-dd HH:mm:ss"));
 
 //        if (position % 2 != 0) {
 //            viewHolder.labelView.setBackgroundResource(R.color.blue);
@@ -135,13 +137,14 @@ public class WaitReceiveAdapter extends RecyclerView.Adapter<WaitReceiveAdapter.
     @Override
     public int getItemCount() {
 
-        return workOrderList.size();
+        return workOrderProcessInfoList.size();
     }
 
 
     private void receiveWorkOrder(final int position) {
-        WorkOrder workOrder = workOrderList.get(position);
-        String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrder.getObjectId() + "/receive";
+        WorkOrderProcessInfo workOrderProcessInfo = workOrderProcessInfoList.get(position);
+        WorkOrderInfo workOrderInfo = workOrderProcessInfo.getWorkOrderInfo();
+        String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderInfo.getWorkOrderId() + "/receive";
         SimpleVolley.addRequest(
                 new StringRequest(
                         Request.Method.PUT,
@@ -150,6 +153,7 @@ public class WaitReceiveAdapter extends RecyclerView.Adapter<WaitReceiveAdapter.
                             @Override
                             public void onResponse(String response) {
                                 ToastUtils.show("接单成功！");
+                                workOrderProcessInfoList.remove(position);
                                 WaitReceiveAdapter.this.notifyItemRemoved(position);
                             }
                         },

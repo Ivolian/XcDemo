@@ -1,9 +1,13 @@
 package com.unicorn.csp.xcdemo.activity.technician;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.text.InputType;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapSize;
@@ -42,10 +46,10 @@ public class PackActivity extends ToolbarActivity {
     private void initMaterialGroup() {
 
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        for (String text : new String[]{"风扇(7)", "铜管(0)", "风管(3)", "压缩机(2)", "风扇(7)", "铜管(0)", "风管(3)", "压缩机(2)"}) {
+        for (String text : new String[]{"风扇", "铜管", "风管", "压缩机"}) {
             flMaterialGroup1.addView(getSuspendOptionButton(text), layoutParams);
         }
-        for (String text : new String[]{"螺丝(50)", "钉子(30)", "双绞线(10)"}) {
+        for (String text : new String[]{"螺丝", "钉子", "双绞线"}) {
             flMaterialGroup2.addView(getSuspendOptionButton(text), layoutParams);
         }
     }
@@ -62,7 +66,14 @@ public class PackActivity extends ToolbarActivity {
         btnSuspendOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btnSuspendOption.setShowOutline(!btnSuspendOption.isShowOutline());
+                if (btnSuspendOption.isShowOutline()) {
+                    showNumberDialog(btnSuspendOption);
+                } else {
+                    String btnText = btnSuspendOption.getText().toString();
+                    int index = btnText.indexOf("(");
+                    btnSuspendOption.setText(btnText.substring(0, index));
+                    btnSuspendOption.setShowOutline(true);
+                }
             }
         });
         return btnSuspendOption;
@@ -76,5 +87,34 @@ public class PackActivity extends ToolbarActivity {
         super.finish();
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
+
+    private void showNumberDialog(final BootstrapButton bootstrapButton) {
+
+        final String btnText = bootstrapButton.getText().toString();
+        String title = "输入" + btnText + "数量";
+        new MaterialDialog.Builder(this)
+                .title(title)
+                .inputType(InputType.TYPE_CLASS_NUMBER)
+                .alwaysCallInputCallback()
+                .input("确认", "", new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
+                        boolean isNumeric = org.apache.commons.lang3.StringUtils.isNumeric(input);
+                        dialog.getActionButton(DialogAction.POSITIVE).setEnabled(isNumeric);
+                    }
+                })
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+                        if (materialDialog.getInputEditText() != null) {
+                            String number = materialDialog.getInputEditText().getText().toString();
+                            bootstrapButton.setText(btnText + "(" + number + ")");
+                            bootstrapButton.setShowOutline(false);
+                        }
+                    }
+                })
+                .show();
+    }
+
 
 }

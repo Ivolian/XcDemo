@@ -9,19 +9,36 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.unicorn.csp.xcdemo.component.PaperButton;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.activity.technician.OperationActivity;
+import com.unicorn.csp.xcdemo.activity.shared.LoginActivity;
 import com.unicorn.csp.xcdemo.activity.technician.DetailActivity;
+import com.unicorn.csp.xcdemo.activity.technician.OperationActivity;
 import com.unicorn.csp.xcdemo.activity.technician.PackActivity;
-import com.unicorn.csp.xcdemo.model.Model;
+import com.unicorn.csp.xcdemo.component.PaperButton;
+import com.unicorn.csp.xcdemo.component.TinyDB;
+import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
+import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
+import com.unicorn.csp.xcdemo.utils.ConfigUtils;
+import com.unicorn.csp.xcdemo.utils.ToastUtils;
+import com.unicorn.csp.xcdemo.volley.SimpleVolley;
+import com.unicorn.csp.xcdemo.volley.VolleyErrorHelper;
 import com.wangqiang.libs.labelviewlib.LabelView;
 
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -33,14 +50,14 @@ public class AlreadyReceiveAdapter extends RecyclerView.Adapter<AlreadyReceiveAd
 
     // ================================== data  ==================================
 
-    private List<Model> modelList = new ArrayList<>();
+    private List<WorkOrderProcessInfo> workOrderProcessInfoList = new ArrayList<>();
 
-    public List<Model> getModelList() {
-        return modelList;
+    public List<WorkOrderProcessInfo> getWorkOrderProcessInfoList() {
+        return workOrderProcessInfoList;
     }
 
-    public void setModelList(List<Model> modelList) {
-        this.modelList = modelList;
+    public void setWorkOrderProcessInfoList(List<WorkOrderProcessInfo> workOrderProcessInfoList) {
+        this.workOrderProcessInfoList = workOrderProcessInfoList;
     }
 
 
@@ -51,10 +68,17 @@ public class AlreadyReceiveAdapter extends RecyclerView.Adapter<AlreadyReceiveAd
         @Bind(R.id.labelview)
         LabelView labelView;
 
+        @Bind(R.id.tv_request_user_and_call_number)
+        TextView tvRequestUserAndCallNumber;
+
+        @Bind(R.id.tv_request_time)
+        TextView tvRequestTime;
+
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
+
 
         @OnClick(R.id.cardview)
         public void startDetailActivity(CardView cardView) {
@@ -94,7 +118,7 @@ public class AlreadyReceiveAdapter extends RecyclerView.Adapter<AlreadyReceiveAd
                     .onPositive(new MaterialDialog.SingleButtonCallback() {
                         @Override
                         public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                            btnArrivalOrOperate.setText("操作");
+                           arrive(getAdapterPosition());
                         }
                     })
                     .show();
@@ -111,6 +135,40 @@ public class AlreadyReceiveAdapter extends RecyclerView.Adapter<AlreadyReceiveAd
     }
 
 
+    private void arrive(final int position){
+        WorkOrderProcessInfo workOrderProcessInfo = workOrderProcessInfoList.get(position);
+        WorkOrderInfo workOrderInfo = workOrderProcessInfo.getWorkOrderInfo();
+        String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderInfo.getObjectId() + "/arrive";
+        SimpleVolley.addRequest(
+                new StringRequest(
+                        Request.Method.PUT,
+                        url,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                ToastUtils.show("到达！");
+//                                workOrderProcessInfoList.remove(position);
+//                                AlreadyReceiveAdapter.this.notifyItemRemoved(position);
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError volleyError) {
+                                ToastUtils.show(VolleyErrorHelper.getErrorMessage(volleyError));
+                            }
+                        }
+                ) {
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        Map<String, String> map = new HashMap<>();
+                        String jsessionid = TinyDB.getInstance().getString(LoginActivity.JSESSION_ID);
+                        map.put("Cookie", "JSESSIONID=" + jsessionid);
+                        return map;
+                    }
+                }
+        );
+    }
+
     // ================================== item layout ==================================
 
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
@@ -124,6 +182,10 @@ public class AlreadyReceiveAdapter extends RecyclerView.Adapter<AlreadyReceiveAd
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
+        WorkOrderProcessInfo workOrderProcessInfo = getWorkOrderProcessInfoList().get(position);
+        WorkOrderInfo workOrderInfo = workOrderProcessInfo.getWorkOrderInfo();
+        viewHolder.tvRequestUserAndCallNumber.setText("报修电话: " + workOrderInfo.getCallNumber() + " " + workOrderInfo.getRequestUser());
+        viewHolder.tvRequestTime.setText("报修时间:" + new DateTime(workOrderInfo.getRequestTime()).toString("yyyy-MM-dd HH:mm:ss"));
     }
 
 
@@ -132,7 +194,7 @@ public class AlreadyReceiveAdapter extends RecyclerView.Adapter<AlreadyReceiveAd
     @Override
     public int getItemCount() {
 
-        return modelList.size();
+        return workOrderProcessInfoList.size();
     }
 
 }

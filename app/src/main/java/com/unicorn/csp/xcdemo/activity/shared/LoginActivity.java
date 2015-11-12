@@ -84,7 +84,7 @@ public class LoginActivity extends ToolbarActivity {
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
                         Map<String, String> map = new HashMap<>();
-                        map.put("username", "zg1");
+                        map.put("username", "js1");
                         map.put("password", "123456");
                         return map;
                     }
