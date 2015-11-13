@@ -32,7 +32,10 @@ public class OperationActivity extends ToolbarActivity {
     @OnClick(R.id.btn_pack)
     public void startPackActivity() {
 
-        startActivity(PackActivity.class);
+        Intent intent = new Intent(this,PackActivity.class);
+        WorkOrderProcessInfo workOrderProcessInfo = (WorkOrderProcessInfo)getIntent().getSerializableExtra("workOrderProcessInfo");
+        intent.putExtra("workOrderProcessInfo",workOrderProcessInfo);
+        startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 

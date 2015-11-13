@@ -72,6 +72,17 @@ public class WaitReceiveAdapter extends RecyclerView.Adapter<WaitReceiveAdapter.
         @Bind(R.id.tv_request_time)
         TextView tvRequestTime;
 
+        @Bind(R.id.tv_building_and_address)
+        TextView tvBuildingAndAddress;
+
+        @Bind(R.id.tv_type)
+        TextView tvType;
+
+        @Bind(R.id.tv_equipment_and_fault_type)
+        TextView tvEquipmentAndFaultType;
+
+        @Bind(R.id.tv_processing_time_limit)
+        TextView tvProcessingTimeLimit;
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
@@ -121,7 +132,10 @@ public class WaitReceiveAdapter extends RecyclerView.Adapter<WaitReceiveAdapter.
         WorkOrderInfo workOrderInfo = workOrderProcessInfo.getWorkOrderInfo();
         viewHolder.tvRequestUserAndCallNumber.setText("报修电话: " + workOrderInfo.getCallNumber() + " " + workOrderInfo.getRequestUser());
         viewHolder.tvRequestTime.setText("报修时间: " + new DateTime(workOrderInfo.getRequestTime()).toString("yyyy-MM-dd HH:mm:ss"));
-
+        viewHolder.tvBuildingAndAddress.setText("保修地点: " + workOrderInfo.getBuilding() + "(" + workOrderInfo.getAddress() + ")");
+        viewHolder.tvType.setText("维修类型: " + workOrderInfo.getType());
+        viewHolder.tvEquipmentAndFaultType.setText("维修内容: " + workOrderInfo.getEquipment() + "(" + workOrderInfo.getFaultType() + ")");
+        viewHolder.tvProcessingTimeLimit.setText("是否时限: " + workOrderInfo.getProcessingTimeLimit());
 //        if (position % 2 != 0) {
 //            viewHolder.labelView.setBackgroundResource(R.color.blue);
 //            viewHolder.labelView.setText("新");
