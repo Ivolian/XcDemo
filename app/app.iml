@@ -127,6 +127,7 @@
     <orderEntry type="library" exported="" name="androideventbus-1.0.5" level="project" />
     <orderEntry type="library" exported="" name="commons-lang3-3.4" level="project" />
     <orderEntry type="library" exported="" name="android-material-design-colors-2.0.0" level="project" />
+    <orderEntry type="library" exported="" name="httpclient-4.3.6" level="project" />
     <orderEntry type="library" exported="" name="ZDepthShadowLayout-1.0.4" level="project" />
     <orderEntry type="library" exported="" name="support-v4-23.1.0" level="project" />
     <orderEntry type="library" exported="" name="google-material-typeface-2.1.2.1" level="project" />
@@ -148,6 +149,7 @@
     <orderEntry type="library" exported="" name="core-0.8.5.0" level="project" />
     <orderEntry type="library" exported="" name="ratingbar-" level="project" />
     <orderEntry type="library" exported="" name="joda-time-2.9" level="project" />
+    <orderEntry type="library" exported="" name="android-async-http-1.4.9" level="project" />
     <orderEntry type="library" exported="" name="usb-android-23" level="project" />
     <orderEntry type="library" exported="" name="effects-android-23" level="project" />
     <orderEntry type="library" exported="" name="maps-android-23" level="project" />
