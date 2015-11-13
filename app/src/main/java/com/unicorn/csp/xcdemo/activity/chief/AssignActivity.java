@@ -4,18 +4,44 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapSize;
 import com.liangfeizc.flowlayout.FlowLayout;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
+import com.unicorn.csp.xcdemo.activity.shared.LoginActivity;
+import com.unicorn.csp.xcdemo.component.MyButton;
+import com.unicorn.csp.xcdemo.component.TinyDB;
+import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
+import com.unicorn.csp.xcdemo.utils.ConfigUtils;
+import com.unicorn.csp.xcdemo.utils.JSONUtils;
+import com.unicorn.csp.xcdemo.utils.ToastUtils;
+import com.unicorn.csp.xcdemo.volley.SimpleVolley;
+import com.unicorn.csp.xcdemo.volley.VolleyErrorHelper;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 
 // @P
 public class AssignActivity extends ToolbarActivity {
+
+
+    List<MyButton> buttonList = new ArrayList<>();
 
 
     // ================================== views ==================================
@@ -32,45 +58,130 @@ public class AssignActivity extends ToolbarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assign);
         initToolbar("派单", true);
-        initViews();
         enableSlideFinish();
-    }
-
-    private void initViews() {
-
-        initSuspendOptions();
-    }
-
-    private void initSuspendOptions() {
-
-        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        for (int i = 1; i <= 12; i++) {
-            flTechnicianGroup.addView(getSuspendOptionButton(i), layoutParams);
-        }
+        fetchOptions();
     }
 
 
-    private BootstrapButton getSuspendOptionButton(int i) {
+    private void fetchOptions() {
 
-        final BootstrapButton btnSuspendOption = new BootstrapButton(this);
-        String text = "技师" + i;
-        btnSuspendOption.setText(text);
+        String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/artificer";
+        SimpleVolley.getRequestQueue().add(
+                new JsonArrayRequest(
+                        Request.Method.GET,
+                        url,
+                        new Response.Listener<JSONArray>() {
+                            @Override
+                            public void onResponse(JSONArray response) {
+                                ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                for (int i = 0; i != response.length(); i++) {
+                                    JSONObject jsonObject = JSONUtils.getJSONObject(response, i);
+                                    String objectId = JSONUtils.getString(jsonObject, "objectId", "");
+                                    String name = JSONUtils.getString(jsonObject, "name", "");
+                                    MyButton myButton = getSuspendOptionButton(name);
+                                    myButton.name = name;
+                                    myButton.objectId = objectId;
+                                    flTechnicianGroup.addView(myButton, layoutParams);
+                                    buttonList.add(myButton);
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                ToastUtils.show(VolleyErrorHelper.getErrorMessage(error));
+                            }
+                        }
+                ) {
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        Map<String, String> map = new HashMap<>();
+                        String jsessionid = TinyDB.getInstance().getString(LoginActivity.JSESSION_ID);
+                        map.put("Cookie", "JSESSIONID=" + jsessionid);
+                        return map;
+                    }
+                }
+        );
+
+    }
+
+
+    private MyButton getSuspendOptionButton(String suspendOptionText) {
+
+        final MyButton btnSuspendOption = new MyButton(this);
+        btnSuspendOption.setText(suspendOptionText);
         btnSuspendOption.setPadding(4, 4, 4, 4);
         btnSuspendOption.setBootstrapBrand(DefaultBootstrapBrand.INFO);
-        if (i==5 || i==6){
-            btnSuspendOption.setBootstrapBrand(DefaultBootstrapBrand.REGULAR);
-            btnSuspendOption.setEnabled(false);
-        }
         btnSuspendOption.setBootstrapSize(DefaultBootstrapSize.MD);
         btnSuspendOption.setRounded(true);
         btnSuspendOption.setShowOutline(true);
         btnSuspendOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (btnSuspendOption.isShowOutline()) {
+                    for (MyButton myButton : buttonList) {
+                        if (myButton != v) {
+                            myButton.setShowOutline(true);
+                        }
+                    }
+                }
+
                 btnSuspendOption.setShowOutline(!btnSuspendOption.isShowOutline());
             }
         });
         return btnSuspendOption;
+    }
+
+
+
+    @OnClick(R.id.btn_assign)
+    public void assign() {
+
+        MyButton btnSelected = null;
+        for (MyButton myButton : buttonList) {
+            if (!myButton.isShowOutline()) {
+                btnSelected = myButton;
+            }
+        }
+        if (btnSelected==null){
+            ToastUtils.show("请至少选择一个技师");
+            return;
+        }
+
+        WorkOrderProcessInfo workOrderProcessInfo = (WorkOrderProcessInfo) getIntent().getSerializableExtra("workOrderProcessInfo");
+        String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderProcessInfo.getWorkOrderInfo().getWorkOrderId() + "/distribute";
+        url += ("?userId="+btnSelected.objectId);
+        SimpleVolley.getRequestQueue().add(
+                new StringRequest(
+                        Request.Method.PUT,
+                        url,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                ToastUtils.show("派单成功!");
+                                AssignActivity.this.finish();
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                ToastUtils.show(VolleyErrorHelper.getErrorMessage(error));
+                            }
+                        }
+                ) {
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        Map<String, String> map = new HashMap<>();
+                        String jsessionid = TinyDB.getInstance().getString(LoginActivity.JSESSION_ID);
+                        map.put("Cookie", "JSESSIONID=" + jsessionid);
+                        // 不加这个会出现 415 错误
+                        map.put("Content-Type", "application/json");
+                        return map;
+                    }
+                }
+        );
+
+
     }
 
 

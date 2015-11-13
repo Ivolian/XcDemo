@@ -8,15 +8,20 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-import com.unicorn.csp.xcdemo.activity.chief.AssignActivity;
-import com.unicorn.csp.xcdemo.component.PaperButton;
 import com.unicorn.csp.xcdemo.R;
+import com.unicorn.csp.xcdemo.activity.chief.AssignActivity;
 import com.unicorn.csp.xcdemo.activity.shared.SuspendActivity;
 import com.unicorn.csp.xcdemo.activity.technician.DetailActivity;
-import com.unicorn.csp.xcdemo.model.Model;
+import com.unicorn.csp.xcdemo.component.PaperButton;
+import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
+import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
 import com.wangqiang.libs.labelviewlib.LabelView;
 
+import org.joda.time.DateTime;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -29,16 +34,15 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
 
     // ================================== data  ==================================
 
-    private List<Model> modelList;
+    private List<WorkOrderProcessInfo> workOrderProcessInfoList = new ArrayList<>();
 
-    public List<Model> getModelList() {
-        return modelList;
+    public List<WorkOrderProcessInfo> getWorkOrderProcessInfoList() {
+        return workOrderProcessInfoList;
     }
 
-    public void setModelList(List<Model> modelList) {
-        this.modelList = modelList;
+    public void setWorkOrderProcessInfoList(List<WorkOrderProcessInfo> workOrderProcessInfoList) {
+        this.workOrderProcessInfoList = workOrderProcessInfoList;
     }
-
 
     // ================================== viewHolder ==================================
 
@@ -46,6 +50,24 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
 
         @Bind(R.id.labelview)
         LabelView labelView;
+
+        @Bind(R.id.tv_request_user_and_call_number)
+        TextView tvRequestUserAndCallNumber;
+
+        @Bind(R.id.tv_request_time)
+        TextView tvRequestTime;
+
+        @Bind(R.id.tv_building_and_address)
+        TextView tvBuildingAndAddress;
+
+        @Bind(R.id.tv_type)
+        TextView tvType;
+
+        @Bind(R.id.tv_equipment_and_fault_type)
+        TextView tvEquipmentAndFaultType;
+
+        @Bind(R.id.tv_processing_time_limit)
+        TextView tvProcessingTimeLimit;
 
         ViewHolder(View view) {
             super(view);
@@ -63,7 +85,9 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
         @OnClick(R.id.btn_suspend)
         public void startSuspendActivity(PaperButton paperButton) {
             Context context = paperButton.getContext();
+            WorkOrderProcessInfo workOrderProcessInfo = workOrderProcessInfoList.get(getAdapterPosition());
             Intent intent = new Intent(context, SuspendActivity.class);
+            intent.putExtra("workOrderProcessInfo",workOrderProcessInfo);
             context.startActivity(intent);
             ((Activity) context).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
@@ -71,7 +95,9 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
         @OnClick(R.id.btn_assign)
         public void startAssignActivity(PaperButton paperButton) {
             Context context = paperButton.getContext();
+            WorkOrderProcessInfo workOrderProcessInfo = workOrderProcessInfoList.get(getAdapterPosition());
             Intent intent = new Intent(context, AssignActivity.class);
+            intent.putExtra("workOrderProcessInfo",workOrderProcessInfo);
             context.startActivity(intent);
             ((Activity) context).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
@@ -92,6 +118,15 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
+
+        WorkOrderProcessInfo workOrderProcessInfo = getWorkOrderProcessInfoList().get(position);
+        WorkOrderInfo workOrderInfo = workOrderProcessInfo.getWorkOrderInfo();
+        viewHolder.tvRequestUserAndCallNumber.setText("报修电话: " + workOrderInfo.getCallNumber() + " " + workOrderInfo.getRequestUser());
+        viewHolder.tvRequestTime.setText("报修时间: " + new DateTime(workOrderInfo.getRequestTime()).toString("yyyy-MM-dd HH:mm:ss"));
+        viewHolder.tvBuildingAndAddress.setText("保修地点: " + workOrderInfo.getBuilding() + "(" + workOrderInfo.getAddress() + ")");
+        viewHolder.tvType.setText("维修类型: " + workOrderInfo.getType());
+        viewHolder.tvEquipmentAndFaultType.setText("维修内容: " + workOrderInfo.getEquipment() + "(" + workOrderInfo.getFaultType() + ")");
+        viewHolder.tvProcessingTimeLimit.setText("是否时限: " + workOrderInfo.getProcessingTimeLimit());
 //        if (position % 2 != 0) {
 //            viewHolder.labelView.setBackgroundResource(R.color.blue);
 //            viewHolder.labelView.setText("新");
@@ -107,7 +142,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
     @Override
     public int getItemCount() {
 
-        return modelList.size();
+        return workOrderProcessInfoList.size();
     }
 
 }

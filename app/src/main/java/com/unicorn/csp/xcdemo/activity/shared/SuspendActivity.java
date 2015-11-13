@@ -159,6 +159,18 @@ public class SuspendActivity extends ToolbarActivity {
 
     @OnClick(R.id.btn_suspend)
     public void suspend() {
+
+        MyButton btnSelected = null;
+        for (MyButton myButton : buttonList) {
+            if (!myButton.isShowOutline()) {
+                btnSelected = myButton;
+            }
+        }
+        if (btnSelected==null){
+            ToastUtils.show("请至少选择一个挂单选项");
+            return;
+        }
+
         WorkOrderProcessInfo workOrderProcessInfo = (WorkOrderProcessInfo) getIntent().getSerializableExtra("workOrderProcessInfo");
         String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderProcessInfo.getWorkOrderInfo().getWorkOrderId() + "/hangUp";
         SimpleVolley.getRequestQueue().add(
