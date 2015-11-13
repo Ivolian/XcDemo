@@ -10,6 +10,6 @@
     shadow:z_depth_paddingTop="z_depth0"
     shadow:z_depth_shape="rect">
 
-    <include layout="@layout/m_toolbar" />
+    <include layout="@layout/toolbar" />
 
 </app.mosn.zdepthshadowlayout.ZDepthShadowLayout>

@@ -1,19 +1,4 @@
-//buildscript {
-//    repositories {
-//        jcenter()
-//        mavenCentral()
-//        maven {
-//            url "https://oss.sonatype.org/content/repositories/snapshots/"
-//        }
-//    }
-//
-//    dependencies {
-//        classpath 'com.github.xfumihiro.view-inspector:view-inspector-plugin:0.2.0-SNAPSHOT'
-//    }
-//}
-
 apply plugin: 'com.android.application'
-//apply plugin: 'view-inspector'
 
 android {
     compileSdkVersion 'Google Inc.:Google APIs:23'
@@ -35,6 +20,7 @@ android {
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
     }
 }
 
@@ -68,6 +54,7 @@ dependencies {
     compile 'joda-time:joda-time:2.9'
     compile 'org.apache.commons:commons-lang3:3.4'
     compile 'com.google.code.gson:gson:2.4'
+    compile 'com.f2prateek.dart:dart:1.1.0'
 
 
 }

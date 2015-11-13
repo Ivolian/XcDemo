@@ -74,6 +74,9 @@ public class AlreadyReceiveAdapter extends RecyclerView.Adapter<AlreadyReceiveAd
         @Bind(R.id.tv_request_time)
         TextView tvRequestTime;
 
+        @Bind(R.id.btn_arrival_or_operation)
+        PaperButton btnArrivalOrOperation;
+
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
@@ -92,6 +95,8 @@ public class AlreadyReceiveAdapter extends RecyclerView.Adapter<AlreadyReceiveAd
         public void startPackActivity(PaperButton paperButton) {
             Context context = paperButton.getContext();
             Intent intent = new Intent(context, PackActivity.class);
+            WorkOrderProcessInfo workOrderProcessInfo = workOrderProcessInfoList.get(getAdapterPosition());
+            intent.putExtra("workOrderProcessInfo", workOrderProcessInfo);
             context.startActivity(intent);
             ((Activity) context).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
@@ -118,16 +123,17 @@ public class AlreadyReceiveAdapter extends RecyclerView.Adapter<AlreadyReceiveAd
                     .onPositive(new MaterialDialog.SingleButtonCallback() {
                         @Override
                         public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                           arrive(getAdapterPosition());
+                            arrive(getAdapterPosition(),btnArrivalOrOperate);
                         }
                     })
                     .show();
         }
 
-        private void startOperationActivity(final PaperButton btnArrivalOrOperation){
+        private void startOperationActivity(final PaperButton btnArrivalOrOperation) {
 
             Context context = btnArrivalOrOperation.getContext();
             Intent intent = new Intent(context, OperationActivity.class);
+            intent.putExtra("workOrderProcessInfo",workOrderProcessInfoList.get(getAdapterPosition()));
             context.startActivity(intent);
             ((Activity) context).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
@@ -135,7 +141,7 @@ public class AlreadyReceiveAdapter extends RecyclerView.Adapter<AlreadyReceiveAd
     }
 
 
-    private void arrive(final int position){
+    private void arrive(final int position, final PaperButton paperButton) {
         WorkOrderProcessInfo workOrderProcessInfo = workOrderProcessInfoList.get(position);
         WorkOrderInfo workOrderInfo = workOrderProcessInfo.getWorkOrderInfo();
         String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderInfo.getObjectId() + "/arrive";
@@ -146,9 +152,10 @@ public class AlreadyReceiveAdapter extends RecyclerView.Adapter<AlreadyReceiveAd
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
+                                // TODO 改状态，改按钮文字
+                                paperButton.setText("操作");
+
                                 ToastUtils.show("到达！");
-//                                workOrderProcessInfoList.remove(position);
-//                                AlreadyReceiveAdapter.this.notifyItemRemoved(position);
                             }
                         },
                         new Response.ErrorListener() {
@@ -185,7 +192,8 @@ public class AlreadyReceiveAdapter extends RecyclerView.Adapter<AlreadyReceiveAd
         WorkOrderProcessInfo workOrderProcessInfo = getWorkOrderProcessInfoList().get(position);
         WorkOrderInfo workOrderInfo = workOrderProcessInfo.getWorkOrderInfo();
         viewHolder.tvRequestUserAndCallNumber.setText("报修电话: " + workOrderInfo.getCallNumber() + " " + workOrderInfo.getRequestUser());
-        viewHolder.tvRequestTime.setText("报修时间:" + new DateTime(workOrderInfo.getRequestTime()).toString("yyyy-MM-dd HH:mm:ss"));
+        viewHolder.tvRequestTime.setText("报修时间: " + new DateTime(workOrderInfo.getRequestTime()).toString("yyyy-MM-dd HH:mm:ss"));
+        viewHolder.btnArrivalOrOperation.setText(workOrderInfo.getStatus().equals("receive") ? "到达" : "操作");
     }
 
 

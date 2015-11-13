@@ -7,6 +7,7 @@ import android.provider.MediaStore;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
 import com.unicorn.csp.xcdemo.activity.shared.SuspendActivity;
+import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
 
 import butterknife.OnClick;
 
@@ -52,7 +53,10 @@ public class OperationActivity extends ToolbarActivity {
     @OnClick(R.id.btn_suspend)
     public void startSuspendActivity() {
 
-        startActivity(SuspendActivity.class);
+        Intent intent = new Intent(this,SuspendActivity.class);
+        WorkOrderProcessInfo workOrderProcessInfo = (WorkOrderProcessInfo)getIntent().getSerializableExtra("workOrderProcessInfo");
+        intent.putExtra("workOrderProcessInfo",workOrderProcessInfo);
+        startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
