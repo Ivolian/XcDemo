@@ -58,7 +58,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        app:paper_color="@color/colorPrimary"
+                        app:paper_color="@color/md_orange_600"
                         app:paper_text="结单"
                         app:paper_text_color="@color/white"
                         app:paper_text_size="15dp" />
@@ -84,7 +84,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        app:paper_color="@color/colorPrimary"
+                        app:paper_color="@color/md_blue_grey_500"
                         app:paper_text="移单"
                         app:paper_text_color="@color/white"
                         app:paper_text_size="15dp" />
@@ -93,7 +93,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        app:paper_color="@color/colorPrimary"
+                        app:paper_color="@color/md_blue_grey_500"
                         app:paper_text="退单"
                         app:paper_text_color="@color/white"
                         app:paper_text_size="15dp" />

@@ -19,7 +19,6 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapSize;
-import com.f2prateek.dart.InjectExtra;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.liangfeizc.flowlayout.FlowLayout;
@@ -51,23 +50,13 @@ import butterknife.OnClick;
 // @P
 public class PackActivity extends ToolbarActivity {
 
-    @InjectExtra("workOrderProcessInfo")
-    WorkOrderProcessInfo workOrderProcessInfo;
-
 
     // ================================== views ==================================
-
-//    @Bind(R.id.fl_material_group1)
-//    FlowLayout flMaterialGroup1;
-
-//    @Bind(R.id.fl_material_group2)
-//    FlowLayout flMaterialGroup2;
 
     @Bind(R.id.container)
     LinearLayout container;
 
 
-    // http://localhost:3000/hems/api/v1/hems/material/group
 
 
     // ================================== onCreate ==================================
