@@ -49,6 +49,7 @@ import cz.msebera.android.httpclient.Header;
 import io.techery.properratingbar.ProperRatingBar;
 
 
+// todo change achieve to complete
 //@P
 public class AchieveActivity extends ToolbarActivity {
 

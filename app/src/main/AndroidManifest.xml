@@ -45,6 +45,9 @@
         <activity
             android:name=".activity.technician.AchieveActivity"
             android:theme="@style/AppTheme.NoActionBar.NoWindow" />
+        <activity
+            android:name=".activity.technician.PhotoConfirmActivity"
+            android:theme="@style/AppTheme.NoActionBar.NoWindow" />
 
         <!-- chief -->
         <activity android:name=".activity.chief.TodoActivity" />

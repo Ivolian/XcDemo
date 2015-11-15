@@ -67,7 +67,6 @@ public class SuspendActivity extends ToolbarActivity {
     private void initViews() {
 
         fetchOptions();
-//        initSuspendOptions();
         initSuspendDescription();
     }
 
