@@ -4,9 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.unicorn.csp.xcdemo.fragment.technician.AlreadyAchieveFragment;
-import com.unicorn.csp.xcdemo.fragment.technician.AlreadyReceiveFragment;
-import com.unicorn.csp.xcdemo.fragment.technician.AlreadySuspendFragment;
+import com.unicorn.csp.xcdemo.fragment.technician.WorkOrderSuspendedFragment;
+import com.unicorn.csp.xcdemo.fragment.technician.WorkOrderReceivedFragment;
 import com.unicorn.csp.xcdemo.fragment.technician.WorkOrderToReceiveFragment;
 
 
@@ -28,11 +27,12 @@ public class WorkOrderActivityAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return  new WorkOrderToReceiveFragment();
             case 1:
-                return new AlreadyReceiveFragment();
+                return new WorkOrderReceivedFragment();
             case 2:
-                return new AlreadySuspendFragment();
+                return new WorkOrderSuspendedFragment();
             case 3:
-                return new AlreadyAchieveFragment();
+//                todo change
+                return new WorkOrderReceivedFragment();
         }
         return null;
     }
@@ -46,6 +46,5 @@ public class WorkOrderActivityAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         return titles[position];
     }
-
 
 }

@@ -1,5 +1,8 @@
 package com.unicorn.csp.xcdemo.adaper.recycleview.technician;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +16,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.unicorn.csp.xcdemo.R;
+import com.unicorn.csp.xcdemo.activity.technician.OperationActivity;
+import com.unicorn.csp.xcdemo.activity.technician.PackActivity;
 import com.unicorn.csp.xcdemo.component.PaperButton;
 import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
 import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
@@ -31,7 +36,7 @@ import butterknife.OnClick;
 
 
 //@P
-public class WorkOrderToReceiveAdapter extends RecyclerView.Adapter<WorkOrderToReceiveAdapter.ViewHolder> implements RefreshAdapter {
+public class WorkOrderReceivedAdapter extends RecyclerView.Adapter<WorkOrderReceivedAdapter.ViewHolder> implements RefreshAdapter {
 
 
     // ================================== data ==================================
@@ -81,34 +86,69 @@ public class WorkOrderToReceiveAdapter extends RecyclerView.Adapter<WorkOrderToR
             ButterKnife.bind(this, view);
         }
 
-        @OnClick(R.id.btn_receive)
-        public void showConfirmReceiveDialog(PaperButton paperButton) {
-            new MaterialDialog.Builder(paperButton.getContext())
-                    .content("确认接单？")
+
+        // ================================== 领料 ==================================
+
+        @OnClick(R.id.btn_pack)
+        public void startPackActivity(PaperButton paperButton) {
+            Context context = paperButton.getContext();
+            Intent intent = new Intent(paperButton.getContext(), PackActivity.class);
+            intent.putExtra("workOrderProcessInfo", workOrderProcessInfoList.get(getAdapterPosition()));
+            context.startActivity(intent);
+            ((Activity) context).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        }
+
+
+        // ================================== 到达 & 操作 ==================================
+
+        @OnClick(R.id.btn_arrival_or_operation)
+        public void arrivalOrOperate(PaperButton btnArrivalOrOperation) {
+            switch (btnArrivalOrOperation.getText()) {
+                case "操作":
+                    startOperationActivity(btnArrivalOrOperation);
+                    break;
+                case "到达":
+                    showConfirmArrivalDialog(getAdapterPosition(), btnArrivalOrOperation);
+                    break;
+            }
+        }
+
+        private void startOperationActivity(final PaperButton paperButton) {
+            Context context = paperButton.getContext();
+            Intent intent = new Intent(context, OperationActivity.class);
+            intent.putExtra("workOrderProcessInfo", workOrderProcessInfoList.get(getAdapterPosition()));
+            context.startActivity(intent);
+            ((Activity) context).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        }
+
+        private void showConfirmArrivalDialog(final int position, final PaperButton btnArrivalOrOperate) {
+            new MaterialDialog.Builder(btnArrivalOrOperate.getContext())
+                    .content("确认到达？")
                     .positiveText("确认")
                     .negativeText("取消")
                     .onPositive(new MaterialDialog.SingleButtonCallback() {
                         @Override
                         public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                            receiveWorkOrder();
+                            arrive(position, btnArrivalOrOperate);
                         }
                     })
                     .show();
         }
 
-        private void receiveWorkOrder() {
-            final int position = getAdapterPosition();
-            WorkOrderInfo workOrderInfo = workOrderProcessInfoList.get(position).getWorkOrderInfo();
-            String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderInfo.getWorkOrderId() + "/receive";
+        private void arrive(final int position, final PaperButton btnArrivalOrOperate) {
+            final WorkOrderInfo workOrderInfo = workOrderProcessInfoList.get(position).getWorkOrderInfo();
+            String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderInfo.getWorkOrderId() + "/arrive";
             StringRequest stringRequest = new StringRequestWithSessionCheck(
                     Request.Method.PUT,
                     url,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            ToastUtils.show("接单成功！");
-                            workOrderProcessInfoList.remove(position);
-                            WorkOrderToReceiveAdapter.this.notifyItemRemoved(position);
+                            // TODO 改状态，改按钮文字
+                            btnArrivalOrOperate.setText("操作");
+                            workOrderInfo.setStatus("");
+                            workOrderInfo.setStatusTag("");
+                            ToastUtils.show("到达！");
                         }
                     },
                     SimpleVolley.getDefaultErrorListener()
@@ -121,7 +161,7 @@ public class WorkOrderToReceiveAdapter extends RecyclerView.Adapter<WorkOrderToR
     // ================================== onCreateViewHolder ==================================
 
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_work_order_to_receive, viewGroup, false));
+        return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_work_order_received, viewGroup, false));
     }
 
 
@@ -129,19 +169,7 @@ public class WorkOrderToReceiveAdapter extends RecyclerView.Adapter<WorkOrderToR
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        WorkOrderInfo workOrderInfo = workOrderProcessInfoList.get(position).getWorkOrderInfo();
-//        String requestUserAndCallNumber = "报修电话: " + workOrderInfo.getCallNumber() + " " + workOrderInfo.getRequestUser();
-//        viewHolder.tvRequestUserAndCallNumber.setText(requestUserAndCallNumber);
-//        String requestTime = "报修时间: " + new DateTime(workOrderInfo.getRequestTime()).toString("yyyy-MM-dd HH:mm:ss");
-//        viewHolder.tvRequestTime.setText(requestTime);
-//        String buildingAndAddress = "保修地点: " + workOrderInfo.getBuilding() + "(" + workOrderInfo.getAddress() + ")";
-//        viewHolder.tvBuildingAndAddress.setText(buildingAndAddress);
-//        String type = "维修类型: " + workOrderInfo.getType();
-//        viewHolder.tvType.setText(type);
-//        String equipmentAndFaultType = "维修内容: " + workOrderInfo.getEquipment() + "(" + workOrderInfo.getFaultType() + ")";
-//        viewHolder.tvEquipmentAndFaultType.setText(equipmentAndFaultType);
-//        String processingTimeLimit = "是否时限: " + workOrderInfo.getProcessingTimeLimit();
-//        viewHolder.tvProcessingTimeLimit.setText(processingTimeLimit);
+
     }
 
 
