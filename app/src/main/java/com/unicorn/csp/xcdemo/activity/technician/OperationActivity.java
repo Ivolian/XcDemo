@@ -34,7 +34,7 @@ public class OperationActivity extends ToolbarActivity {
 
         Intent intent = new Intent(this,PackActivity.class);
         WorkOrderProcessInfo workOrderProcessInfo = (WorkOrderProcessInfo)getIntent().getSerializableExtra("workOrderProcessInfo");
-        intent.putExtra("workOrderProcessInfo",workOrderProcessInfo);
+        intent.putExtra("workOrderProcessInfo", workOrderProcessInfo);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
@@ -49,7 +49,10 @@ public class OperationActivity extends ToolbarActivity {
     @OnClick(R.id.btn_achieve)
     public void startAchieveActivity() {
 
-        startActivity(AchieveActivity.class);
+        Intent intent = new Intent(this,AchieveActivity.class);
+        WorkOrderProcessInfo workOrderProcessInfo = (WorkOrderProcessInfo)getIntent().getSerializableExtra("workOrderProcessInfo");
+        intent.putExtra("workOrderProcessInfo",workOrderProcessInfo);
+        startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 

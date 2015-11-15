@@ -15,7 +15,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.activity.shared.LoginActivity;
 import com.unicorn.csp.xcdemo.adaper.recycleview.technician.AlreadyReceiveAdapter;
 import com.unicorn.csp.xcdemo.component.TinyDB;
 import com.unicorn.csp.xcdemo.fragment.base.ButterKnifeFragment;
@@ -175,7 +174,7 @@ public class AlreadyReceiveFragment extends ButterKnifeFragment {
                     @Override
                     public Map<String, String> getHeaders() throws AuthFailureError {
                         Map<String, String> map = new HashMap<>();
-                        String jsessionid = TinyDB.getInstance().getString(LoginActivity.JSESSION_ID);
+                        String jsessionid = TinyDB.getInstance().getString(ConfigUtils.JSESSION_ID);
                         map.put("Cookie", "JSESSIONID=" + jsessionid);
                         return map;
                     }
@@ -215,7 +214,7 @@ public class AlreadyReceiveFragment extends ButterKnifeFragment {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> map = new HashMap<>();
-                String jsessionid = TinyDB.getInstance().getString(LoginActivity.JSESSION_ID);
+                String jsessionid = TinyDB.getInstance().getString(ConfigUtils.JSESSION_ID);
                 map.put("Cookie", "JSESSIONID=" + jsessionid);
                 return map;
             }

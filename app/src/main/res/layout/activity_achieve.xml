@@ -123,6 +123,7 @@
                     app:paper_text_size="16dp" />
 
                 <com.unicorn.csp.xcdemo.component.PaperButton
+                    android:id="@+id/btn_achieve"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

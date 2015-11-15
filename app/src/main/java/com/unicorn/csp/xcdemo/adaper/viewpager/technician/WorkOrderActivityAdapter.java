@@ -7,10 +7,10 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import com.unicorn.csp.xcdemo.fragment.technician.AlreadyAchieveFragment;
 import com.unicorn.csp.xcdemo.fragment.technician.AlreadyReceiveFragment;
 import com.unicorn.csp.xcdemo.fragment.technician.AlreadySuspendFragment;
-import com.unicorn.csp.xcdemo.fragment.technician.WaitReceiveFragment;
+import com.unicorn.csp.xcdemo.fragment.technician.WorkOrderToReceiveFragment;
 
 
-// @P
+// @PP
 public class WorkOrderActivityAdapter extends FragmentStatePagerAdapter {
 
     private String[] titles = {
@@ -26,7 +26,7 @@ public class WorkOrderActivityAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                return new WaitReceiveFragment();
+                return  new WorkOrderToReceiveFragment();
             case 1:
                 return new AlreadyReceiveFragment();
             case 2:
@@ -44,7 +44,6 @@ public class WorkOrderActivityAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-
         return titles[position];
     }
 

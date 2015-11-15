@@ -104,7 +104,7 @@ public class SuspendActivity extends ToolbarActivity {
                     @Override
                     public Map<String, String> getHeaders() throws AuthFailureError {
                         Map<String, String> map = new HashMap<>();
-                        String jsessionid = TinyDB.getInstance().getString(LoginActivity.JSESSION_ID);
+                        String jsessionid = TinyDB.getInstance().getString(ConfigUtils.JSESSION_ID);
                         map.put("Cookie", "JSESSIONID=" + jsessionid);
                         return map;
                     }
@@ -227,7 +227,7 @@ public class SuspendActivity extends ToolbarActivity {
                     @Override
                     public Map<String, String> getHeaders() throws AuthFailureError {
                         Map<String, String> map = new HashMap<>();
-                        String jsessionid = TinyDB.getInstance().getString(LoginActivity.JSESSION_ID);
+                        String jsessionid = TinyDB.getInstance().getString(ConfigUtils.JSESSION_ID);
                         map.put("Cookie", "JSESSIONID=" + jsessionid);
                         // 不加这个会出现 415 错误
                         map.put("Content-Type", "application/json");

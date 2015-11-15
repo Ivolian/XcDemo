@@ -15,7 +15,6 @@ import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapSize;
 import com.liangfeizc.flowlayout.FlowLayout;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
-import com.unicorn.csp.xcdemo.activity.shared.LoginActivity;
 import com.unicorn.csp.xcdemo.component.MyButton;
 import com.unicorn.csp.xcdemo.component.TinyDB;
 import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
@@ -96,7 +95,7 @@ public class AssignActivity extends ToolbarActivity {
                     @Override
                     public Map<String, String> getHeaders() throws AuthFailureError {
                         Map<String, String> map = new HashMap<>();
-                        String jsessionid = TinyDB.getInstance().getString(LoginActivity.JSESSION_ID);
+                        String jsessionid = TinyDB.getInstance().getString(ConfigUtils.JSESSION_ID);
                         map.put("Cookie", "JSESSIONID=" + jsessionid);
                         return map;
                     }
@@ -172,7 +171,7 @@ public class AssignActivity extends ToolbarActivity {
                     @Override
                     public Map<String, String> getHeaders() throws AuthFailureError {
                         Map<String, String> map = new HashMap<>();
-                        String jsessionid = TinyDB.getInstance().getString(LoginActivity.JSESSION_ID);
+                        String jsessionid = TinyDB.getInstance().getString(ConfigUtils.JSESSION_ID);
                         map.put("Cookie", "JSESSIONID=" + jsessionid);
                         // 不加这个会出现 415 错误
                         map.put("Content-Type", "application/json");
@@ -183,6 +182,9 @@ public class AssignActivity extends ToolbarActivity {
 
 
     }
+
+
+
 
 
     // ================================== finish ==================================

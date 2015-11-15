@@ -19,7 +19,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.activity.shared.LoginActivity;
 import com.unicorn.csp.xcdemo.activity.technician.DetailActivity;
 import com.unicorn.csp.xcdemo.activity.technician.OperationActivity;
 import com.unicorn.csp.xcdemo.activity.technician.PackActivity;
@@ -180,7 +179,7 @@ public class AlreadyReceiveAdapter extends RecyclerView.Adapter<AlreadyReceiveAd
                     @Override
                     public Map<String, String> getHeaders() throws AuthFailureError {
                         Map<String, String> map = new HashMap<>();
-                        String jsessionid = TinyDB.getInstance().getString(LoginActivity.JSESSION_ID);
+                        String jsessionid = TinyDB.getInstance().getString(ConfigUtils.JSESSION_ID);
                         map.put("Cookie", "JSESSIONID=" + jsessionid);
                         return map;
                     }

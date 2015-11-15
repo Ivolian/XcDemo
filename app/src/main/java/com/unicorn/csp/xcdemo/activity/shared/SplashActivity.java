@@ -7,7 +7,7 @@ import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ButterKnifeActivity;
 
 
-// @P
+// @PP
 public class SplashActivity extends ButterKnifeActivity {
 
     @Override
@@ -18,7 +18,6 @@ public class SplashActivity extends ButterKnifeActivity {
     }
 
     private void delayToLogin() {
-
         int delay = 1000;
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -29,7 +28,6 @@ public class SplashActivity extends ButterKnifeActivity {
     }
 
     private void startLoginActivity() {
-
         startActivityAndFinish(LoginActivity.class);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }

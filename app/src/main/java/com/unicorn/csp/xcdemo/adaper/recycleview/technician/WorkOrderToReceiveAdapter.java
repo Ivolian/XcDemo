@@ -19,7 +19,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.activity.shared.LoginActivity;
 import com.unicorn.csp.xcdemo.activity.technician.DetailActivity;
 import com.unicorn.csp.xcdemo.component.PaperButton;
 import com.unicorn.csp.xcdemo.component.TinyDB;
@@ -31,8 +30,6 @@ import com.unicorn.csp.xcdemo.volley.SimpleVolley;
 import com.unicorn.csp.xcdemo.volley.VolleyErrorHelper;
 import com.wangqiang.libs.labelviewlib.LabelView;
 
-import org.joda.time.DateTime;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,19 +40,21 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class WaitReceiveAdapter extends RecyclerView.Adapter<WaitReceiveAdapter.ViewHolder> {
+public class WorkOrderToReceiveAdapter extends RecyclerView.Adapter<WorkOrderToReceiveAdapter.ViewHolder> implements RefreshAdapter {
 
-
-    // ================================== data  ==================================
 
     private List<WorkOrderProcessInfo> workOrderProcessInfoList = new ArrayList<>();
 
-    public List<WorkOrderProcessInfo> getWorkOrderProcessInfoList() {
-        return workOrderProcessInfoList;
+    @Override
+    public void reload(List<WorkOrderProcessInfo> workOrderProcessInfoList) {
+        this.workOrderProcessInfoList = workOrderProcessInfoList;
+        notifyDataSetChanged();
     }
 
-    public void setWorkOrderProcessInfoList(List<WorkOrderProcessInfo> workOrderProcessInfoList) {
-        this.workOrderProcessInfoList = workOrderProcessInfoList;
+    @Override
+    public void loadMore(List<WorkOrderProcessInfo> workOrderProcessInfoList) {
+        this.workOrderProcessInfoList.addAll(workOrderProcessInfoList);
+        notifyDataSetChanged();
     }
 
 
@@ -83,6 +82,7 @@ public class WaitReceiveAdapter extends RecyclerView.Adapter<WaitReceiveAdapter.
 
         @Bind(R.id.tv_processing_time_limit)
         TextView tvProcessingTimeLimit;
+
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
@@ -128,14 +128,14 @@ public class WaitReceiveAdapter extends RecyclerView.Adapter<WaitReceiveAdapter.
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
-        WorkOrderProcessInfo workOrderProcessInfo = getWorkOrderProcessInfoList().get(position);
+        WorkOrderProcessInfo workOrderProcessInfo =workOrderProcessInfoList.get(position);
         WorkOrderInfo workOrderInfo = workOrderProcessInfo.getWorkOrderInfo();
-        viewHolder.tvRequestUserAndCallNumber.setText("报修电话: " + workOrderInfo.getCallNumber() + " " + workOrderInfo.getRequestUser());
-        viewHolder.tvRequestTime.setText("报修时间: " + new DateTime(workOrderInfo.getRequestTime()).toString("yyyy-MM-dd HH:mm:ss"));
-        viewHolder.tvBuildingAndAddress.setText("保修地点: " + workOrderInfo.getBuilding() + "(" + workOrderInfo.getAddress() + ")");
-        viewHolder.tvType.setText("维修类型: " + workOrderInfo.getType());
-        viewHolder.tvEquipmentAndFaultType.setText("维修内容: " + workOrderInfo.getEquipment() + "(" + workOrderInfo.getFaultType() + ")");
-        viewHolder.tvProcessingTimeLimit.setText("是否时限: " + workOrderInfo.getProcessingTimeLimit());
+//        viewHolder.tvRequestUserAndCallNumber.setText("报修电话: " + workOrderInfo.getCallNumber() + " " + workOrderInfo.getRequestUser());
+//        viewHolder.tvRequestTime.setText("报修时间: " + new DateTime(workOrderInfo.getRequestTime()).toString("yyyy-MM-dd HH:mm:ss"));
+//        viewHolder.tvBuildingAndAddress.setText("保修地点: " + workOrderInfo.getBuilding() + "(" + workOrderInfo.getAddress() + ")");
+//        viewHolder.tvType.setText("维修类型: " + workOrderInfo.getType());
+//        viewHolder.tvEquipmentAndFaultType.setText("维修内容: " + workOrderInfo.getEquipment() + "(" + workOrderInfo.getFaultType() + ")");
+//        viewHolder.tvProcessingTimeLimit.setText("是否时限: " + workOrderInfo.getProcessingTimeLimit());
 //        if (position % 2 != 0) {
 //            viewHolder.labelView.setBackgroundResource(R.color.blue);
 //            viewHolder.labelView.setText("新");
@@ -168,7 +168,7 @@ public class WaitReceiveAdapter extends RecyclerView.Adapter<WaitReceiveAdapter.
                             public void onResponse(String response) {
                                 ToastUtils.show("接单成功！");
                                 workOrderProcessInfoList.remove(position);
-                                WaitReceiveAdapter.this.notifyItemRemoved(position);
+                                WorkOrderToReceiveAdapter.this.notifyItemRemoved(position);
                             }
                         },
                         new Response.ErrorListener() {
@@ -181,7 +181,7 @@ public class WaitReceiveAdapter extends RecyclerView.Adapter<WaitReceiveAdapter.
                     @Override
                     public Map<String, String> getHeaders() throws AuthFailureError {
                         Map<String, String> map = new HashMap<>();
-                        String jsessionid = TinyDB.getInstance().getString(LoginActivity.JSESSION_ID);
+                        String jsessionid = TinyDB.getInstance().getString(ConfigUtils.JSESSION_ID);
                         map.put("Cookie", "JSESSIONID=" + jsessionid);
                         return map;
                     }

@@ -14,11 +14,9 @@ import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
 import com.unicorn.csp.xcdemo.activity.chief.TodoActivity;
 import com.unicorn.csp.xcdemo.activity.technician.WorkOrderActivity;
-import com.unicorn.csp.xcdemo.component.TinyDB;
 import com.unicorn.csp.xcdemo.utils.ConfigUtils;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
 import com.unicorn.csp.xcdemo.volley.SimpleVolley;
-import com.unicorn.csp.xcdemo.volley.VolleyErrorHelper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,11 +25,15 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 
-// @P
+// @PP
 public class LoginActivity extends ToolbarActivity {
 
 
-    public final static String JSESSION_ID = "jsessionid";
+    // ================================== 全局变量 ==================================
+
+    String role = "";
+
+    String shiroLoginFailure = null;
 
 
     // ================================== views ==================================
@@ -55,17 +57,26 @@ public class LoginActivity extends ToolbarActivity {
         etPassword.setText("123456");
     }
 
-    String role = "";
-
-    String shiroLoginFailure = null;
 
     // ================================== OnClick ==================================
 
     @OnClick(R.id.btn_login)
-    public void onLoginBtnClick() {
+    public void onLoginButtonClick() {
         if (isUserInputValid()) {
             login(showMask());
         }
+    }
+
+    private boolean isUserInputValid() {
+        if (etAccount.getText().toString().equals("")) {
+            ToastUtils.show("账号不能为空");
+            return false;
+        }
+        if (etPassword.getText().toString().equals("")) {
+            ToastUtils.show("密码不能为空");
+            return false;
+        }
+        return true;
     }
 
     private void login(final MaterialDialog mask) {
@@ -77,7 +88,8 @@ public class LoginActivity extends ToolbarActivity {
                             @Override
                             public void onResponse(String response) {
                                 mask.dismiss();
-                                if (shiroLoginFailure!=null){
+                                // shiroLoginFailure != null 表示登录失败
+                                if (shiroLoginFailure != null) {
                                     ToastUtils.show("登录失败！");
                                     return;
                                 }
@@ -88,8 +100,8 @@ public class LoginActivity extends ToolbarActivity {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 mask.dismiss();
-//                                startActivityAndFinish(WorkOrderActivity.class);
-                                ToastUtils.show(VolleyErrorHelper.getErrorMessage(error));
+                                startActivity(WorkOrderActivity.class);
+//                                ToastUtils.show(VolleyErrorHelper.getErrorMessage(error));
                             }
                         }
                 ) {
@@ -104,31 +116,17 @@ public class LoginActivity extends ToolbarActivity {
                     @Override
                     protected Response<String> parseNetworkResponse(NetworkResponse response) {
                         shiroLoginFailure = response.headers.get("shiroLoginFailure");
-                        if (shiroLoginFailure != null){
+                        // shiroLoginFailure != null 表示登录失败，直接返回
+                        if (shiroLoginFailure != null) {
                             return super.parseNetworkResponse(response);
                         }
-
-                        TinyDB.getInstance().putString(JSESSION_ID, response.headers.get(JSESSION_ID));
+                        // 如果登录成功，获取角色，保存 JSessionId
                         role = response.headers.get("role");
-
+                        ConfigUtils.saveJSessionId(response);
                         return super.parseNetworkResponse(response);
                     }
                 }
         );
-
-
-    }
-
-    private boolean isUserInputValid() {
-        if (etAccount.getText().toString().equals("")) {
-            ToastUtils.show("账号不能为空");
-            return false;
-        }
-        if (etAccount.getText().toString().equals("")) {
-            ToastUtils.show("密码不能为空");
-            return false;
-        }
-        return true;
     }
 
     private MaterialDialog showMask() {
@@ -139,6 +137,5 @@ public class LoginActivity extends ToolbarActivity {
                 .cancelable(false)
                 .show();
     }
-
 
 }

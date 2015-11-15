@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
@@ -28,7 +27,7 @@ import org.simple.eventbus.Subscriber;
 import butterknife.Bind;
 
 
-//@P
+//@PP
 public class WorkOrderActivity extends ToolbarActivity {
 
 
@@ -41,7 +40,7 @@ public class WorkOrderActivity extends ToolbarActivity {
     ViewPager viewPager;
 
 
-    // ================================== onCreate ==================================
+    // ================================== onCreate & onDestroy ==================================
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,15 +49,21 @@ public class WorkOrderActivity extends ToolbarActivity {
         EventBus.getDefault().register(this);
         setContentView(R.layout.activity_main);
         initToolbar("工作清单", false);
-        initViews(savedInstanceState);
+        initViews();
     }
 
-    public void initViews(Bundle savedInstanceState) {
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
+
+    public void initViews() {
 
         viewPager.setOffscreenPageLimit(4);
         viewPager.setAdapter(new WorkOrderActivityAdapter(getSupportFragmentManager()));
         tabLayout.setupWithViewPager(viewPager);
-        initDrawer(savedInstanceState);
+        initDrawer();
     }
 
 
@@ -66,8 +71,7 @@ public class WorkOrderActivity extends ToolbarActivity {
 
     Drawer drawer;
 
-    private void initDrawer(Bundle savedInstanceState) {
-
+    private void initDrawer() {
         drawer = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(getToolbar())
@@ -76,38 +80,15 @@ public class WorkOrderActivity extends ToolbarActivity {
                 .withHeader(R.layout.drawer_header)
                 .withHeaderDivider(false)
                 .addDrawerItems(getDrawerItems())
-//                .withOnDrawerItemClickListener(getOnDrawItemClickListener())
-                .withSavedInstance(savedInstanceState)
                 .build();
     }
 
     private IDrawerItem[] getDrawerItems() {
-
         return new IDrawerItem[]{
                 new PrimaryDrawerItem().withName("工作清单").withIcon(GoogleMaterial.Icon.gmd_assignment),
                 new PrimaryDrawerItem().withName("统计分析").withIcon(GoogleMaterial.Icon.gmd_chart),
                 new PrimaryDrawerItem().withName("我的收益").withIcon(GoogleMaterial.Icon.gmd_assignment_account)
         };
-    }
-
-    private Drawer.OnDrawerItemClickListener getOnDrawItemClickListener() {
-
-        return new Drawer.OnDrawerItemClickListener() {
-            @Override
-            public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                return true;
-            }
-        };
-    }
-
-
-    // ================================== onSaveInstanceState ==================================
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-
-        outState = drawer.saveInstanceState(outState);
-        super.onSaveInstanceState(outState);
     }
 
 
@@ -121,16 +102,16 @@ public class WorkOrderActivity extends ToolbarActivity {
 
         getMenuInflater().inflate(R.menu.menu_main, menu);
         MenuItem menuItem = menu.findItem(R.id.action_search);
-        menuItem.setIcon(getSearchDrawable());
+        menuItem.setIcon(getSearchIconDrawable());
         initSearchView(menuItem);
         return super.onCreateOptionsMenu(menu);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
     private void initSearchView(MenuItem menuItem) {
 
@@ -150,8 +131,7 @@ public class WorkOrderActivity extends ToolbarActivity {
         });
     }
 
-    private Drawable getSearchDrawable() {
-
+    private Drawable getSearchIconDrawable() {
         return new IconicsDrawable(this)
                 .icon(GoogleMaterial.Icon.gmd_search)
                 .color(Color.WHITE)
@@ -183,30 +163,21 @@ public class WorkOrderActivity extends ToolbarActivity {
     }
 
 
-    //
+    // ================================== 下拉刷新提示语 ==================================
 
     @Subscriber(tag = "onFragmentRefreshFinish")
     private void onFragmentRefreshFinish(String text) {
-
         showSnackBar(text);
     }
 
-
-    @Override
-    public void onDestroy() {
-        EventBus.getDefault().unregister(this);
-        super.onDestroy();
-    }
-
-    public void showSnackBar(String text) {
-
-        SnackbarManager.show(
-                Snackbar.with(this)
+    private void showSnackBar(String text) {
+        SnackbarManager.show(Snackbar.with(this)
                         .position(Snackbar.SnackbarPosition.TOP)
                         .color(getResources().getColor(R.color.blue))
                         .textColor(getResources().getColor(R.color.white))
                         .text(text)
-                        .duration(800)
-                , (android.view.ViewGroup) findViewById(R.id.fl_for_snack_bar));
+                        .duration(800),
+                (android.view.ViewGroup) findViewById(R.id.fl_for_snack_bar));
     }
+
 }
