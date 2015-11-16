@@ -155,6 +155,7 @@ public class OperationActivity extends ToolbarActivity {
         if (requestCode == TAKE_PHOTO_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 Intent intent = new Intent(this, PhotoConfirmActivity.class);
+                intent.putExtra("workOrderProcessInfo",workOrderProcessInfo);
                 intent.putExtra("photoPath", currentPhotoPath);
                 startActivity(intent);
             }

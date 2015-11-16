@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
+import android.view.View;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -18,6 +20,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapSize;
+import com.f2prateek.dart.InjectExtra;
 import com.github.gcacace.signaturepad.views.SignaturePad;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -28,13 +31,16 @@ import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
 import com.unicorn.csp.xcdemo.component.PaperButton;
 import com.unicorn.csp.xcdemo.component.TinyDB;
+import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
 import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
 import com.unicorn.csp.xcdemo.utils.ConfigUtils;
 import com.unicorn.csp.xcdemo.utils.JSONUtils;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
 import com.unicorn.csp.xcdemo.volley.SimpleVolley;
 import com.unicorn.csp.xcdemo.volley.VolleyErrorHelper;
+import com.wangqiang.libs.labelviewlib.LabelView;
 
+import org.joda.time.DateTime;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -54,6 +60,39 @@ import io.techery.properratingbar.ProperRatingBar;
 public class AchieveActivity extends ToolbarActivity {
 
 
+    @Bind(R.id.labelview)
+    LabelView labelView;
+
+    @Bind(R.id.tv_request_user_and_call_number)
+    TextView tvRequestUserAndCallNumber;
+
+    @Bind(R.id.tv_request_time)
+    TextView tvRequestTime;
+
+    @Bind(R.id.tv_building_and_address)
+    TextView tvBuildingAndAddress;
+
+    @Bind(R.id.tv_type)
+    TextView tvType;
+
+    @Bind(R.id.tv_equipment_and_fault_type)
+    TextView tvEquipmentAndFaultType;
+
+    @Bind(R.id.tv_processing_time_limit)
+    TextView tvProcessingTimeLimit;
+
+    @Bind(R.id.tv_issuer)
+    TextView tvIssuer;
+
+    @Bind(R.id.tv_distribute_time)
+    TextView tvDistributeTime;
+
+    @Bind(R.id.tv_distributor)
+    TextView tvDistributor;
+
+    @InjectExtra("workOrderProcessInfo")
+    WorkOrderProcessInfo workOrderProcessInfo;
+
     // ================================== onCreate ==================================
 
     @Override
@@ -67,7 +106,34 @@ public class AchieveActivity extends ToolbarActivity {
     }
 
     private void initViews() {
+        WorkOrderInfo workOrderInfo = workOrderProcessInfo.getWorkOrderInfo();
+        String requestUserAndCallNumber = "报修电话: " + workOrderInfo.getCallNumber() + " " + workOrderInfo.getRequestUser();
+        tvRequestUserAndCallNumber.setText(requestUserAndCallNumber);
+        String requestTime = "报修时间: " + new DateTime(workOrderInfo.getRequestTime()).toString("yyyy-MM-dd HH:mm:ss");
+        tvRequestTime.setText(requestTime);
+        String buildingAndAddress = "保修地点: " + workOrderInfo.getBuilding() + "(" + workOrderInfo.getAddress() + ")";
+        tvBuildingAndAddress.setText(buildingAndAddress);
+        String type = "维修类型: " + workOrderInfo.getType();
+        tvType.setText(type);
+        String equipmentAndFaultType = "维修内容: " + workOrderInfo.getEquipment() + "(" + workOrderInfo.getFaultType() + ")";
+        tvEquipmentAndFaultType.setText(equipmentAndFaultType);
+        String processingTimeLimit = "是否时限: " + workOrderInfo.getProcessingTimeLimit();
+        tvProcessingTimeLimit.setText(processingTimeLimit);
+        String issuer = "受理人员: " + workOrderInfo.getIssuer();
+        tvIssuer.setText(issuer);
+        String distributeTime = "派单时间: " + new DateTime(workOrderInfo.getDistributeTime()).toString("yyyy-MM-dd HH:mm:ss");
+        tvDistributeTime.setText(distributeTime);
+        String distributor = "拍单人员: " + workOrderInfo.getDistributor();
 
+        tvDistributor.setText(distributor);
+
+        String statusTag = workOrderInfo.getStatusTag();
+        labelView.setText(statusTag.equals("Distribute") ? "派" : "抢");
+
+        if (workOrderInfo.getDistributor() == null) {
+            tvDistributeTime.setVisibility(View.GONE);
+            tvDistributor.setVisibility(View.GONE);
+        }
         initRatingBar();
         initAchieveDescription();
     }
@@ -75,6 +141,7 @@ public class AchieveActivity extends ToolbarActivity {
     private String signTempFileName;
 
     private String recordTempFileName;
+
     // ================================== 签名功能 ==================================
 
     MaterialDialog signPadDialog = null;
@@ -355,7 +422,7 @@ public class AchieveActivity extends ToolbarActivity {
                             @Override
                             public void onResponse(String response) {
                                 ToastUtils.show("结单成功!");
-//                                ACH.this.finish();
+                                AchieveActivity.this.finish();
                             }
                         },
                         new Response.ErrorListener() {
