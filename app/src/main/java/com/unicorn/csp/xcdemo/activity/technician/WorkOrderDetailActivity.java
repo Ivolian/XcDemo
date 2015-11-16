@@ -8,6 +8,7 @@ import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
 import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
 import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
+import com.wangqiang.libs.labelviewlib.LabelView;
 
 import org.joda.time.DateTime;
 
@@ -25,6 +26,9 @@ public class WorkOrderDetailActivity extends ToolbarActivity {
 
 
     // ================================== views ==================================
+
+    @Bind(R.id.labelview)
+    LabelView labelView;
 
     @Bind(R.id.tv_request_user_and_call_number)
     TextView tvRequestUserAndCallNumber;
@@ -65,7 +69,7 @@ public class WorkOrderDetailActivity extends ToolbarActivity {
         enableSlideFinish();
     }
 
-    private void initViews(){
+    private void initViews() {
         WorkOrderInfo workOrderInfo = workOrderProcessInfo.getWorkOrderInfo();
         String requestUserAndCallNumber = "报修电话: " + workOrderInfo.getCallNumber() + " " + workOrderInfo.getRequestUser();
         tvRequestUserAndCallNumber.setText(requestUserAndCallNumber);
@@ -85,6 +89,9 @@ public class WorkOrderDetailActivity extends ToolbarActivity {
         tvDistributeTime.setText(distributeTime);
         String distributor = "拍单人员: " + workOrderInfo.getDistributor();
         tvDistributor.setText(distributor);
+
+        String statusTag = workOrderInfo.getStatusTag();
+        labelView.setText(statusTag.equals("Distribute") ? "派" : "抢");
     }
 
 
