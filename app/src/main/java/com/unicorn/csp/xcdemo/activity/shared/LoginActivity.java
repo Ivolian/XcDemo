@@ -17,6 +17,7 @@ import com.unicorn.csp.xcdemo.activity.technician.WorkOrderActivity;
 import com.unicorn.csp.xcdemo.utils.ConfigUtils;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
 import com.unicorn.csp.xcdemo.volley.SimpleVolley;
+import com.unicorn.csp.xcdemo.volley.VolleyErrorHelper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -52,9 +53,14 @@ public class LoginActivity extends ToolbarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initToolbar("登录", false);
+        initViews();
+    }
 
-        etAccount.setText("js1");
-        etPassword.setText("123456");
+    private void initViews() {
+        String account = "js1";
+        etAccount.setText(account);
+        String password = "123456";
+        etPassword.setText(password);
     }
 
 
@@ -90,7 +96,7 @@ public class LoginActivity extends ToolbarActivity {
                                 mask.dismiss();
                                 // shiroLoginFailure != null 表示登录失败
                                 if (shiroLoginFailure != null) {
-                                    ToastUtils.show("登录失败！");
+                                    ToastUtils.show("账号或密码错误!");
                                     return;
                                 }
                                 startActivityAndFinish(role.equals("Artificer") ? WorkOrderActivity.class : TodoActivity.class);
@@ -100,8 +106,7 @@ public class LoginActivity extends ToolbarActivity {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 mask.dismiss();
-                                startActivity(WorkOrderActivity.class);
-//                                ToastUtils.show(VolleyErrorHelper.getErrorMessage(error));
+                                ToastUtils.show(VolleyErrorHelper.getErrorMessage(error));
                             }
                         }
                 ) {

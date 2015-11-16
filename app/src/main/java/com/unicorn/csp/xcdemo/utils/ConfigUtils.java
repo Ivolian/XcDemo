@@ -25,8 +25,8 @@ public class ConfigUtils {
 
 
 
-        return "http://192.168.0.4:3000/hems";
-//        return "http://192.168.7.62:3000/hems";
+//        return "http://192.168.0.4:3000/hems";
+        return "http://192.168.7.62:3000/hems";
     }
 
     public static String getBaseDirPath(){
