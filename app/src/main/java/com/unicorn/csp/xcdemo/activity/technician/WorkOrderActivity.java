@@ -59,7 +59,6 @@ public class WorkOrderActivity extends ToolbarActivity {
     }
 
     public void initViews() {
-
         viewPager.setOffscreenPageLimit(4);
         viewPager.setAdapter(new WorkOrderActivityAdapter(getSupportFragmentManager()));
         tabLayout.setupWithViewPager(viewPager);

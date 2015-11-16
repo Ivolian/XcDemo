@@ -20,6 +20,7 @@ import com.unicorn.csp.xcdemo.utils.RecycleViewUtils;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
 import com.unicorn.csp.xcdemo.volley.JSONObjectRequestWithSessionCheck;
 import com.unicorn.csp.xcdemo.volley.SimpleVolley;
+import com.unicorn.csp.xcdemo.volley.VolleyErrorHelper;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -156,8 +157,7 @@ public abstract class RefreshFragment extends LazyLoadFragment {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
                         stopRefreshing();
-//                                ToastUtils.show(VolleyErrorHelper.getErrorMessage(volleyError));
-                        adapter.reload(getData());
+                        ToastUtils.show(VolleyErrorHelper.getErrorMessage(volleyError));
                     }
                 }
         );
@@ -188,8 +188,7 @@ public abstract class RefreshFragment extends LazyLoadFragment {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
                         loadingMore = false;
-                        adapter.loadMore(getData());
-//                        ToastUtils.show(VolleyErrorHelper.getErrorMessage(volleyError));
+                        ToastUtils.show(VolleyErrorHelper.getErrorMessage(volleyError));
                     }
                 }
         );

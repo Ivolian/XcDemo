@@ -21,7 +21,7 @@
         android:id="@+id/labelview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/orange"
+        android:background="@color/colorAccent"
         android:text="限"
         android:textColor="@android:color/white"
         android:textSize="10dp"

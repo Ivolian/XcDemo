@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.chief.AssignActivity;
 import com.unicorn.csp.xcdemo.activity.shared.SuspendActivity;
-import com.unicorn.csp.xcdemo.activity.technician.DetailActivity;
+import com.unicorn.csp.xcdemo.activity.technician.WorkOrderDetailActivity;
 import com.unicorn.csp.xcdemo.component.PaperButton;
 import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
 import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
@@ -77,7 +77,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
         @OnClick(R.id.cardview)
         public void startDetailActivity(CardView cardView) {
             Context context = cardView.getContext();
-            Intent intent = new Intent(context, DetailActivity.class);
+            Intent intent = new Intent(context, WorkOrderDetailActivity.class);
             context.startActivity(intent);
             ((Activity) context).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }

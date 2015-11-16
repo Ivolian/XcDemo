@@ -31,7 +31,7 @@
         <!-- technician -->
         <activity android:name=".activity.technician.WorkOrderActivity" />
         <activity
-            android:name=".activity.technician.DetailActivity"
+            android:name=".activity.technician.WorkOrderDetailActivity"
             android:theme="@style/AppTheme.NoActionBar.NoWindow" />
         <activity
             android:name=".activity.shared.SuspendActivity"

@@ -1,6 +1,10 @@
 package com.unicorn.csp.xcdemo.adaper.recycleview.technician;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +17,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.unicorn.csp.xcdemo.R;
+import com.unicorn.csp.xcdemo.activity.technician.WorkOrderDetailActivity;
 import com.unicorn.csp.xcdemo.component.PaperButton;
 import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
 import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
@@ -21,6 +26,8 @@ import com.unicorn.csp.xcdemo.utils.ToastUtils;
 import com.unicorn.csp.xcdemo.volley.SimpleVolley;
 import com.unicorn.csp.xcdemo.volley.StringRequestWithSessionCheck;
 import com.wangqiang.libs.labelviewlib.LabelView;
+
+import org.joda.time.DateTime;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,6 +88,15 @@ public class WorkOrderToReceiveAdapter extends RecyclerView.Adapter<WorkOrderToR
             ButterKnife.bind(this, view);
         }
 
+        @OnClick(R.id.cardview)
+        public void startWorkOrderDetailActivity(CardView cardView) {
+            Context context = cardView.getContext();
+            Intent intent = new Intent(context, WorkOrderDetailActivity.class);
+            intent.putExtra("workOrderProcessInfo", workOrderProcessInfoList.get(getAdapterPosition()));
+            context.startActivity(intent);
+            ((Activity) context).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        }
+
         @OnClick(R.id.btn_receive)
         public void showConfirmReceiveDialog(PaperButton paperButton) {
             new MaterialDialog.Builder(paperButton.getContext())
@@ -130,18 +146,21 @@ public class WorkOrderToReceiveAdapter extends RecyclerView.Adapter<WorkOrderToR
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         WorkOrderInfo workOrderInfo = workOrderProcessInfoList.get(position).getWorkOrderInfo();
-//        String requestUserAndCallNumber = "报修电话: " + workOrderInfo.getCallNumber() + " " + workOrderInfo.getRequestUser();
-//        viewHolder.tvRequestUserAndCallNumber.setText(requestUserAndCallNumber);
-//        String requestTime = "报修时间: " + new DateTime(workOrderInfo.getRequestTime()).toString("yyyy-MM-dd HH:mm:ss");
-//        viewHolder.tvRequestTime.setText(requestTime);
-//        String buildingAndAddress = "保修地点: " + workOrderInfo.getBuilding() + "(" + workOrderInfo.getAddress() + ")";
-//        viewHolder.tvBuildingAndAddress.setText(buildingAndAddress);
-//        String type = "维修类型: " + workOrderInfo.getType();
-//        viewHolder.tvType.setText(type);
-//        String equipmentAndFaultType = "维修内容: " + workOrderInfo.getEquipment() + "(" + workOrderInfo.getFaultType() + ")";
-//        viewHolder.tvEquipmentAndFaultType.setText(equipmentAndFaultType);
-//        String processingTimeLimit = "是否时限: " + workOrderInfo.getProcessingTimeLimit();
-//        viewHolder.tvProcessingTimeLimit.setText(processingTimeLimit);
+        String requestUserAndCallNumber = "报修电话: " + workOrderInfo.getCallNumber() + " " + workOrderInfo.getRequestUser();
+        viewHolder.tvRequestUserAndCallNumber.setText(requestUserAndCallNumber);
+        String requestTime = "报修时间: " + new DateTime(workOrderInfo.getRequestTime()).toString("yyyy-MM-dd HH:mm:ss");
+        viewHolder.tvRequestTime.setText(requestTime);
+        String buildingAndAddress = "保修地点: " + workOrderInfo.getBuilding() + "(" + workOrderInfo.getAddress() + ")";
+        viewHolder.tvBuildingAndAddress.setText(buildingAndAddress);
+        String type = "维修类型: " + workOrderInfo.getType();
+        viewHolder.tvType.setText(type);
+        String equipmentAndFaultType = "维修内容: " + workOrderInfo.getEquipment() + "(" + workOrderInfo.getFaultType() + ")";
+        viewHolder.tvEquipmentAndFaultType.setText(equipmentAndFaultType);
+        String processingTimeLimit = "是否时限: " + workOrderInfo.getProcessingTimeLimit();
+        viewHolder.tvProcessingTimeLimit.setText(processingTimeLimit);
+
+        String statusTag = workOrderInfo.getStatusTag();
+        viewHolder.labelView.setText(statusTag.equals("Distribute") ? "派" : "抢");
     }
 
 
