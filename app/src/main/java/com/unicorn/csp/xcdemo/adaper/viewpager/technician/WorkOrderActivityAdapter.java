@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.unicorn.csp.xcdemo.fragment.technician.WorkOrderAchievedFragment;
 import com.unicorn.csp.xcdemo.fragment.technician.WorkOrderSuspendedFragment;
 import com.unicorn.csp.xcdemo.fragment.technician.WorkOrderReceivedFragment;
 import com.unicorn.csp.xcdemo.fragment.technician.WorkOrderToReceiveFragment;
@@ -31,8 +32,7 @@ public class WorkOrderActivityAdapter extends FragmentStatePagerAdapter {
             case 2:
                 return new WorkOrderSuspendedFragment();
             case 3:
-//                todo change
-                return new WorkOrderReceivedFragment();
+                return new WorkOrderAchievedFragment();
         }
         return null;
     }

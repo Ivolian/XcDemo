@@ -19,6 +19,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapSize;
+import com.f2prateek.dart.InjectExtra;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.liangfeizc.flowlayout.FlowLayout;
@@ -27,6 +28,7 @@ import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
 import com.unicorn.csp.xcdemo.component.MyButton;
 import com.unicorn.csp.xcdemo.component.TinyDB;
 import com.unicorn.csp.xcdemo.model.Material;
+import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
 import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
 import com.unicorn.csp.xcdemo.model.WorkOrderSupply;
 import com.unicorn.csp.xcdemo.utils.ConfigUtils;
@@ -34,7 +36,9 @@ import com.unicorn.csp.xcdemo.utils.JSONUtils;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
 import com.unicorn.csp.xcdemo.volley.SimpleVolley;
 import com.unicorn.csp.xcdemo.volley.VolleyErrorHelper;
+import com.wangqiang.libs.labelviewlib.LabelView;
 
+import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -47,8 +51,11 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 
-// @P
+//
 public class PackActivity extends ToolbarActivity {
+
+    @InjectExtra("workOrderProcessInfo")
+    WorkOrderProcessInfo workOrderProcessInfo;
 
 
     // ================================== views ==================================
@@ -56,7 +63,35 @@ public class PackActivity extends ToolbarActivity {
     @Bind(R.id.container)
     LinearLayout container;
 
+    @Bind(R.id.labelview)
+    LabelView labelView;
 
+    @Bind(R.id.tv_request_user_and_call_number)
+    TextView tvRequestUserAndCallNumber;
+
+    @Bind(R.id.tv_request_time)
+    TextView tvRequestTime;
+
+    @Bind(R.id.tv_building_and_address)
+    TextView tvBuildingAndAddress;
+
+    @Bind(R.id.tv_type)
+    TextView tvType;
+
+    @Bind(R.id.tv_equipment_and_fault_type)
+    TextView tvEquipmentAndFaultType;
+
+    @Bind(R.id.tv_processing_time_limit)
+    TextView tvProcessingTimeLimit;
+
+    @Bind(R.id.tv_issuer)
+    TextView tvIssuer;
+
+    @Bind(R.id.tv_distribute_time)
+    TextView tvDistributeTime;
+
+    @Bind(R.id.tv_distributor)
+    TextView tvDistributor;
 
 
     // ================================== onCreate ==================================
@@ -69,6 +104,32 @@ public class PackActivity extends ToolbarActivity {
         initToolbar("领料", true);
         enableSlideFinish();
         fetchMaterialGroup();
+        initViews();
+    }
+
+    private void initViews(){
+        WorkOrderInfo workOrderInfo = workOrderProcessInfo.getWorkOrderInfo();
+        String requestUserAndCallNumber = "报修电话: " + workOrderInfo.getCallNumber() + " " + workOrderInfo.getRequestUser();
+        tvRequestUserAndCallNumber.setText(requestUserAndCallNumber);
+        String requestTime = "报修时间: " + new DateTime(workOrderInfo.getRequestTime()).toString("yyyy-MM-dd HH:mm:ss");
+        tvRequestTime.setText(requestTime);
+        String buildingAndAddress = "保修地点: " + workOrderInfo.getBuilding() + "(" + workOrderInfo.getAddress() + ")";
+        tvBuildingAndAddress.setText(buildingAndAddress);
+        String type = "维修类型: " + workOrderInfo.getType();
+        tvType.setText(type);
+        String equipmentAndFaultType = "维修内容: " + workOrderInfo.getEquipment() + "(" + workOrderInfo.getFaultType() + ")";
+        tvEquipmentAndFaultType.setText(equipmentAndFaultType);
+        String processingTimeLimit = "是否时限: " + workOrderInfo.getProcessingTimeLimit();
+        tvProcessingTimeLimit.setText(processingTimeLimit);
+        String issuer = "受理人员: " + workOrderInfo.getIssuer();
+        tvIssuer.setText(issuer);
+        String distributeTime = "派单时间: " + new DateTime(workOrderInfo.getDistributeTime()).toString("yyyy-MM-dd HH:mm:ss");
+        tvDistributeTime.setText(distributeTime);
+        String distributor = "拍单人员: " + workOrderInfo.getDistributor();
+        tvDistributor.setText(distributor);
+// todo
+//        String statusTag = workOrderInfo.getStatusTag();
+//        labelView.setText(statusTag.equals("Distribute") ? "派" : "抢");
     }
 
     private void fetchMaterialGroup() {
@@ -107,7 +168,7 @@ public class PackActivity extends ToolbarActivity {
 
         ViewGroup.LayoutParams layoutParamsForBtn = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         LinearLayout.LayoutParams layoutParamsFlow = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        layoutParamsFlow.setMargins(0, 30, 0, 0);
+        layoutParamsFlow.setMargins(0, 50, 0, 0);
 
 
         for (int i = 0; i != response.length(); i++) {
@@ -120,8 +181,8 @@ public class PackActivity extends ToolbarActivity {
             container.addView(tvGroupTag, layoutParamsFlow);
 
             FlowLayout flowLayout = new FlowLayout(this);
-            flowLayout.setHorizontalSpacing(10);
-            flowLayout.setVerticalSpacing(10);
+            flowLayout.setHorizontalSpacing(20);
+            flowLayout.setVerticalSpacing(20);
 
             JSONArray items = JSONUtils.getJSONArray(jsonObject, "items", null);
             if (items != null) {
@@ -232,12 +293,12 @@ public class PackActivity extends ToolbarActivity {
 
                         List<WorkOrderSupply> workOrderSupplyList = new ArrayList<>();
 
-                        for (int i=0;i!=container.getChildCount();i++){
+                        for (int i = 0; i != container.getChildCount(); i++) {
                             View child = container.getChildAt(i);
-                            if (child instanceof FlowLayout){
-                                FlowLayout flowLayout = (FlowLayout)child;
-                                for (int j=0;j!=flowLayout.getChildCount();j++){
-                                    MyButton myButton = (MyButton)flowLayout.getChildAt(j);
+                            if (child instanceof FlowLayout) {
+                                FlowLayout flowLayout = (FlowLayout) child;
+                                for (int j = 0; j != flowLayout.getChildCount(); j++) {
+                                    MyButton myButton = (MyButton) flowLayout.getChildAt(j);
                                     if (!myButton.isShowOutline()) {
                                         WorkOrderSupply workOrderSupply = new WorkOrderSupply();
                                         workOrderSupply.setAmount(myButton.amount);
@@ -250,7 +311,6 @@ public class PackActivity extends ToolbarActivity {
                                 }
                             }
                         }
-
 
 
                         Gson gson = new Gson();

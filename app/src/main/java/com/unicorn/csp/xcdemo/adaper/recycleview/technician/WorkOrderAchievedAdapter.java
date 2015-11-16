@@ -3,6 +3,7 @@ package com.unicorn.csp.xcdemo.adaper.recycleview.technician;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.activity.technician.OperationActivity;
-import com.unicorn.csp.xcdemo.component.PaperButton;
+import com.unicorn.csp.xcdemo.activity.technician.WorkOrderDetailActivity;
 import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
 import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
 import com.wangqiang.libs.labelviewlib.LabelView;
@@ -26,7 +26,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class WorkOrderSuspendedAdapter extends RecyclerView.Adapter<WorkOrderSuspendedAdapter.ViewHolder> implements RefreshAdapter{
+//@P
+public class WorkOrderAchievedAdapter extends RecyclerView.Adapter<WorkOrderAchievedAdapter.ViewHolder> implements RefreshAdapter {
 
 
     // ================================== data ==================================
@@ -71,30 +72,26 @@ public class WorkOrderSuspendedAdapter extends RecyclerView.Adapter<WorkOrderSus
         @Bind(R.id.tv_processing_time_limit)
         TextView tvProcessingTimeLimit;
 
-        @Bind(R.id.btn_operation)
-        PaperButton btnOperation;
-
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
 
-        @OnClick(R.id.btn_operation)
-        public void startOperationActivity(PaperButton paperButton) {
-            Context context = paperButton.getContext();
-            Intent intent = new Intent(context, OperationActivity.class);
+        @OnClick(R.id.cardview)
+        public void startWorkOrderDetailActivity(CardView cardView) {
+            Context context = cardView.getContext();
+            Intent intent = new Intent(context, WorkOrderDetailActivity.class);
             intent.putExtra("workOrderProcessInfo", workOrderProcessInfoList.get(getAdapterPosition()));
             context.startActivity(intent);
             ((Activity) context).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
-
     }
 
 
-    // ================================== item layout ==================================
+    // ================================== onCreateViewHolder ==================================
 
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_already_suspend, viewGroup, false));
+        return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_work_order_achieved, viewGroup, false));
     }
 
 
@@ -115,7 +112,7 @@ public class WorkOrderSuspendedAdapter extends RecyclerView.Adapter<WorkOrderSus
         viewHolder.tvEquipmentAndFaultType.setText(equipmentAndFaultType);
         String processingTimeLimit = "是否时限: " + workOrderInfo.getProcessingTimeLimit();
         viewHolder.tvProcessingTimeLimit.setText(processingTimeLimit);
-        viewHolder.labelView.setText("挂");
+        viewHolder.labelView.setText("结");
     }
 
 

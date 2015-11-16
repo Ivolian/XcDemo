@@ -1,6 +1,7 @@
 package com.unicorn.csp.xcdemo.activity.technician;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.f2prateek.dart.InjectExtra;
@@ -88,10 +89,16 @@ public class WorkOrderDetailActivity extends ToolbarActivity {
         String distributeTime = "派单时间: " + new DateTime(workOrderInfo.getDistributeTime()).toString("yyyy-MM-dd HH:mm:ss");
         tvDistributeTime.setText(distributeTime);
         String distributor = "拍单人员: " + workOrderInfo.getDistributor();
+
         tvDistributor.setText(distributor);
 
         String statusTag = workOrderInfo.getStatusTag();
         labelView.setText(statusTag.equals("Distribute") ? "派" : "抢");
+
+        if (workOrderInfo.getDistributor() == null) {
+            tvDistributeTime.setVisibility(View.GONE);
+            tvDistributor.setVisibility(View.GONE);
+        }
     }
 
 

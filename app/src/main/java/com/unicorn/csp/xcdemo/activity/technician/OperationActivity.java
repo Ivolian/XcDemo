@@ -4,20 +4,57 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.View;
+import android.widget.TextView;
 
 import com.f2prateek.dart.InjectExtra;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
 import com.unicorn.csp.xcdemo.activity.shared.SuspendActivity;
+import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
 import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
 import com.unicorn.csp.xcdemo.utils.ImageUtils;
+import com.wangqiang.libs.labelviewlib.LabelView;
 
+import org.joda.time.DateTime;
+
+import butterknife.Bind;
 import butterknife.OnClick;
 
 
 // @P
 public class OperationActivity extends ToolbarActivity {
 
+
+    @Bind(R.id.labelview)
+    LabelView labelView;
+
+    @Bind(R.id.tv_request_user_and_call_number)
+    TextView tvRequestUserAndCallNumber;
+
+    @Bind(R.id.tv_request_time)
+    TextView tvRequestTime;
+
+    @Bind(R.id.tv_building_and_address)
+    TextView tvBuildingAndAddress;
+
+    @Bind(R.id.tv_type)
+    TextView tvType;
+
+    @Bind(R.id.tv_equipment_and_fault_type)
+    TextView tvEquipmentAndFaultType;
+
+    @Bind(R.id.tv_processing_time_limit)
+    TextView tvProcessingTimeLimit;
+
+    @Bind(R.id.tv_issuer)
+    TextView tvIssuer;
+
+    @Bind(R.id.tv_distribute_time)
+    TextView tvDistributeTime;
+
+    @Bind(R.id.tv_distributor)
+    TextView tvDistributor;
 
     // ================================== extra ==================================
 
@@ -39,7 +76,39 @@ public class OperationActivity extends ToolbarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_operation);
         initToolbar("操作", true);
+        initViews();
         enableSlideFinish();
+    }
+
+    private void initViews(){
+        WorkOrderInfo workOrderInfo = workOrderProcessInfo.getWorkOrderInfo();
+        String requestUserAndCallNumber = "报修电话: " + workOrderInfo.getCallNumber() + " " + workOrderInfo.getRequestUser();
+        tvRequestUserAndCallNumber.setText(requestUserAndCallNumber);
+        String requestTime = "报修时间: " + new DateTime(workOrderInfo.getRequestTime()).toString("yyyy-MM-dd HH:mm:ss");
+        tvRequestTime.setText(requestTime);
+        String buildingAndAddress = "保修地点: " + workOrderInfo.getBuilding() + "(" + workOrderInfo.getAddress() + ")";
+        tvBuildingAndAddress.setText(buildingAndAddress);
+        String type = "维修类型: " + workOrderInfo.getType();
+        tvType.setText(type);
+        String equipmentAndFaultType = "维修内容: " + workOrderInfo.getEquipment() + "(" + workOrderInfo.getFaultType() + ")";
+        tvEquipmentAndFaultType.setText(equipmentAndFaultType);
+        String processingTimeLimit = "是否时限: " + workOrderInfo.getProcessingTimeLimit();
+        tvProcessingTimeLimit.setText(processingTimeLimit);
+        String issuer = "受理人员: " + workOrderInfo.getIssuer();
+        tvIssuer.setText(issuer);
+        String distributeTime = "派单时间: " + new DateTime(workOrderInfo.getDistributeTime()).toString("yyyy-MM-dd HH:mm:ss");
+        tvDistributeTime.setText(distributeTime);
+        String distributor = "拍单人员: " + workOrderInfo.getDistributor();
+
+        tvDistributor.setText(distributor);
+
+        String statusTag = workOrderInfo.getStatusTag();
+        labelView.setText(statusTag.equals("Distribute") ? "派" : "抢");
+
+        if (workOrderInfo.getDistributor() == null) {
+            tvDistributeTime.setVisibility(View.GONE);
+            tvDistributor.setVisibility(View.GONE);
+        }
     }
 
 
