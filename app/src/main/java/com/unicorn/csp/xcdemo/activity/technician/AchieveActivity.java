@@ -42,7 +42,6 @@ import com.wangqiang.libs.labelviewlib.LabelView;
 
 import org.joda.time.DateTime;
 import org.json.JSONObject;
-import org.simple.eventbus.EventBus;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -451,7 +450,7 @@ public class AchieveActivity extends ToolbarActivity {
                             @Override
                             public void onResponse(String response) {
                                 ToastUtils.show("结单成功!");
-                                EventBus.getDefault().post("", "suspendRefresh");
+//                                EventBus.getDefault().post("", "suspendRefresh");
                                 setResult(333);
                                 finish();
                             }
