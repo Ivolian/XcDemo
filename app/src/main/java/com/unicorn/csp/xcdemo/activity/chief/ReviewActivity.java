@@ -1,14 +1,14 @@
-package com.unicorn.csp.xcdemo.activity.technician;
+package com.unicorn.csp.xcdemo.activity.chief;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -20,25 +20,24 @@ import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapSize;
 import com.f2prateek.dart.InjectExtra;
 import com.liangfeizc.flowlayout.FlowLayout;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
 import com.unicorn.csp.xcdemo.component.MyButton;
 import com.unicorn.csp.xcdemo.component.TinyDB;
+import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
+import com.unicorn.csp.xcdemo.model.WorkOrderProcess;
 import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
 import com.unicorn.csp.xcdemo.utils.ConfigUtils;
-import com.unicorn.csp.xcdemo.utils.ImageUtils;
 import com.unicorn.csp.xcdemo.utils.JSONUtils;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
 import com.unicorn.csp.xcdemo.volley.SimpleVolley;
 import com.unicorn.csp.xcdemo.volley.VolleyErrorHelper;
+import com.wangqiang.libs.labelviewlib.LabelView;
 
+import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -46,59 +45,114 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import cz.msebera.android.httpclient.Header;
-import uk.co.senab.photoview.PhotoViewAttacher;
 
 
-public class PhotoConfirmActivity extends ToolbarActivity {
+// @P
+public class ReviewActivity extends ToolbarActivity {
 
-    // ========================== extra ==========================
 
-    @InjectExtra("photoPath")
-    String photoPath;
+    @Bind(R.id.labelview)
+    LabelView labelView;
+
+    @Bind(R.id.tv_request_user_and_call_number)
+    TextView tvRequestUserAndCallNumber;
+
+    @Bind(R.id.tv_request_time)
+    TextView tvRequestTime;
+
+    @Bind(R.id.tv_building_and_address)
+    TextView tvBuildingAndAddress;
+
+    @Bind(R.id.tv_type)
+    TextView tvType;
+
+    @Bind(R.id.tv_equipment_and_fault_type)
+    TextView tvEquipmentAndFaultType;
+
+    @Bind(R.id.tv_processing_time_limit)
+    TextView tvProcessingTimeLimit;
+
+    @Bind(R.id.tv_issuer)
+    TextView tvIssuer;
+
+    @Bind(R.id.tv_distribute_time)
+    TextView tvDistributeTime;
+
+    @Bind(R.id.tv_distributor)
+    TextView tvDistributor;
 
     @InjectExtra("workOrderProcessInfo")
     WorkOrderProcessInfo workOrderProcessInfo;
 
+    @Bind(R.id.tv_technician)
+    TextView tvTechcian;
 
-    // ========================== view ==========================
+    @Bind(R.id.tv_review_description)
+    TextView tvReviewDescription;
 
-    @Bind(R.id.iv_photo)
-    ImageView ivPhoto;
+    // ================================== views ==================================
 
     @Bind(R.id.et_description)
     BootstrapEditText etDescription;
-
-    String photoTempFileName = "";
 
     @Bind(R.id.fl_options)
     FlowLayout flOptions;
 
     List<MyButton> buttonList = new ArrayList<>();
 
-
-    // ========================== onCreate ==========================
+    // ================================== onCreate ==================================
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_photo_confirm);
-        initToolbar("拍照确认", true);
+        setContentView(R.layout.activity_review);
+        initToolbar("复核", true);
         initViews();
         enableSlideFinish();
     }
 
     private void initViews() {
-        initIvPhoto();
-        initEtDescription();
-        uploadPhoto();
-        fetchOptions();
-    }
 
+        WorkOrderInfo workOrderInfo = workOrderProcessInfo.getWorkOrderInfo();
+        String requestUserAndCallNumber = "报修电话: " + workOrderInfo.getCallNumber() + " " + workOrderInfo.getRequestUser();
+        tvRequestUserAndCallNumber.setText(requestUserAndCallNumber);
+        String requestTime = "报修时间: " + new DateTime(workOrderInfo.getRequestTime()).toString("yyyy-MM-dd HH:mm:ss");
+        tvRequestTime.setText(requestTime);
+        String buildingAndAddress = "保修地点: " + workOrderInfo.getBuilding() + "(" + workOrderInfo.getAddress() + ")";
+        tvBuildingAndAddress.setText(buildingAndAddress);
+        String type = "维修类型: " + workOrderInfo.getType();
+        tvType.setText(type);
+        String equipmentAndFaultType = "维修内容: " + workOrderInfo.getEquipment() + "(" + workOrderInfo.getFaultType() + ")";
+        tvEquipmentAndFaultType.setText(equipmentAndFaultType);
+        String processingTimeLimit = "是否时限: " + workOrderInfo.getProcessingTimeLimit();
+        tvProcessingTimeLimit.setText(processingTimeLimit);
+        String issuer = "受理人员: " + workOrderInfo.getIssuer();
+        tvIssuer.setText(issuer);
+        String distributeTime = "派单时间: " + new DateTime(workOrderInfo.getDistributeTime()).toString("yyyy-MM-dd HH:mm:ss");
+        tvDistributeTime.setText(distributeTime);
+        String distributor = "拍单人员: " + workOrderInfo.getDistributor();
+
+        tvDistributor.setText(distributor);
+
+        String statusTag = workOrderInfo.getStatusTag();
+        labelView.setText(statusTag.equals("Distribute") ? "派" : "抢");
+
+        if (workOrderInfo.getDistributor() == null) {
+            tvDistributeTime.setVisibility(View.GONE);
+            tvDistributor.setVisibility(View.GONE);
+        }
+        fetchOptions();
+        initSuspendDescription();
+
+        WorkOrderProcess workOrderProcess = workOrderProcessInfo.getWorkOrderProcess();
+        tvTechcian.setText("技师: " + workOrderProcess.getOperator().getName());
+        tvReviewDescription.setText("复核说明: " + workOrderProcess.getWorkOrderReview().getRemark());
+    }
 
     private void fetchOptions() {
 
-        String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/picture/options";
+        String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/confirm/options";
         SimpleVolley.getRequestQueue().add(
                 new JsonArrayRequest(
                         Request.Method.GET,
@@ -139,6 +193,13 @@ public class PhotoConfirmActivity extends ToolbarActivity {
     }
 
 
+    private void initSuspendDescription() {
+
+        etDescription.setGravity(Gravity.TOP);
+        etDescription.setPadding(20, 20, 20, 20);
+        etDescription.setBootstrapSize(DefaultBootstrapSize.MD);
+    }
+
     private MyButton getSuspendOptionButton(String suspendOptionText) {
 
         final MyButton btnSuspendOption = new MyButton(this);
@@ -166,74 +227,33 @@ public class PhotoConfirmActivity extends ToolbarActivity {
     }
 
 
-    private void uploadPhoto() {
-        AsyncHttpClient client = new AsyncHttpClient();
-        RequestParams requestParams = new RequestParams();
+    // ================================== finish ==================================
 
-        try {
-            requestParams.put("attachment", new File(photoPath));
-        } catch (Exception e) {
-            //
-        }
-        String url = ConfigUtils.getBaseUrl() + "/api/v1/system/file/upload";
-        client.post(url, requestParams, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int i, Header[] headers, byte[] bytes) {
-
-                String str = new String(bytes);
-
-                JSONObject jsonObject = null;
-                try {
-                    jsonObject = new JSONObject(str);
-                } catch (Exception e) {
-                    //
-                }
-
-                photoTempFileName = JSONUtils.getString(jsonObject, "tempFileName", "");
-
-            }
-
-            @Override
-            public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
-                    ToastUtils.show("失败");
-            }
-        });
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
-    private void initIvPhoto() {
-        ivPhoto.getViewTreeObserver().addOnGlobalLayoutListener(
-                new ViewTreeObserver.OnGlobalLayoutListener() {
+
+
+
+    @OnClick(R.id.btn_review)
+    public void suspendConfirm() {
+        new MaterialDialog.Builder(this)
+                .content("确认复核？")
+                .positiveText("确认")
+                .negativeText("取消")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onGlobalLayout() {
-                        BitmapFactory.Options options = ImageUtils.getFactoryOptions(ivPhoto.getWidth(), ivPhoto.getHeight(), photoPath);
-                        Bitmap bitmap = BitmapFactory.decodeFile(photoPath, options);
-                        ivPhoto.setImageBitmap(bitmap);
-                        new PhotoViewAttacher(ivPhoto);
-                        ivPhoto.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+                        review();
                     }
-                });
+                })
+                .show();
     }
 
-    private void initEtDescription() {
-        etDescription.setGravity(Gravity.TOP);
-        etDescription.setPadding(20, 20, 20, 20);
-        etDescription.setBootstrapSize(DefaultBootstrapSize.MD);
-    }
-
-
-    // ========================== onClick ==========================
-
-
-//    public void complete(@PathVariable("objectId") String objectId, @RequestBody WorkOrderPicture workOrderPicture)
-//       private Code option;
-
-    @OnClick(R.id.btn_confirm)
-    public void confirm() {
-        if (photoTempFileName.equals("")) {
-            ToastUtils.show("照片上传中...");
-            return;
-        }
-
+    public void review() {
 
         MyButton btnSelected = null;
         for (MyButton myButton : buttonList) {
@@ -241,12 +261,13 @@ public class PhotoConfirmActivity extends ToolbarActivity {
                 btnSelected = myButton;
             }
         }
-        if (btnSelected == null) {
-            ToastUtils.show("请至少选择一个拍照选项");
+        if (btnSelected==null){
+            ToastUtils.show("请至少选择一个复核选项");
             return;
         }
 
-        String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderProcessInfo.getWorkOrderInfo().getWorkOrderId() + "/picture";
+        WorkOrderProcessInfo workOrderProcessInfo = (WorkOrderProcessInfo) getIntent().getSerializableExtra("workOrderProcessInfo");
+        String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderProcessInfo.getWorkOrderInfo().getWorkOrderId() + "/confirm";
         SimpleVolley.getRequestQueue().add(
                 new StringRequest(
                         Request.Method.PUT,
@@ -254,8 +275,9 @@ public class PhotoConfirmActivity extends ToolbarActivity {
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-                                ToastUtils.show("确认完成!");
-                                PhotoConfirmActivity.this.finish();
+                                ToastUtils.show("复核成功!");
+                                setResult(333);
+                                ReviewActivity.this.finish();
                             }
                         },
                         new Response.ErrorListener() {
@@ -267,6 +289,7 @@ public class PhotoConfirmActivity extends ToolbarActivity {
                 ) {
                     @Override
                     public byte[] getBody() throws AuthFailureError {
+
                         JSONObject result = new JSONObject();
                         MyButton btnSelected = null;
                         for (MyButton myButton : buttonList) {
@@ -277,16 +300,16 @@ public class PhotoConfirmActivity extends ToolbarActivity {
                         String codeName = btnSelected.name;
                         String codeId = btnSelected.objectId;
                         JSONObject code = new JSONObject();
-
                         try {
                             code.put("name", codeName);
                             code.put("objectId", codeId);
                             result.put("option", code);
                             result.put("remark", etDescription.getText().toString().trim());
-                            result.put("picture", photoTempFileName);
                         } catch (Exception e) {
                             //
                         }
+
+
                         String json = result.toString();
                         byte[] bytes = null;
                         try {
@@ -308,6 +331,8 @@ public class PhotoConfirmActivity extends ToolbarActivity {
                     }
                 }
         );
+
+
     }
 
 }

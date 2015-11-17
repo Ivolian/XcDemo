@@ -9,6 +9,8 @@ public class WorkOrderProcessInfo implements Serializable {
 
     WorkOrderInfo workOrderInfo;
 
+    WorkOrderProcess workOrderProcess;
+
     //
 
     public WorkOrderInfo getWorkOrderInfo() {
@@ -27,4 +29,12 @@ public class WorkOrderProcessInfo implements Serializable {
         this.objectId = objectId;
     }
 
+
+    public WorkOrderProcess getWorkOrderProcess() {
+        return workOrderProcess;
+    }
+
+    public void setWorkOrderProcess(WorkOrderProcess workOrderProcess) {
+        this.workOrderProcess = workOrderProcess;
+    }
 }

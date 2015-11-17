@@ -57,8 +57,8 @@ public class LoginActivity extends ToolbarActivity {
     }
 
     private void initViews() {
-        String account = "js1";
-        etAccount.setText(account);
+//        String account = "zg1";
+//        etAccount.setText(account);
         String password = "123456";
         etPassword.setText(password);
     }

@@ -88,7 +88,7 @@ public class WorkOrderDetailActivity extends ToolbarActivity {
         tvIssuer.setText(issuer);
         String distributeTime = "派单时间: " + new DateTime(workOrderInfo.getDistributeTime()).toString("yyyy-MM-dd HH:mm:ss");
         tvDistributeTime.setText(distributeTime);
-        String distributor = "拍单人员: " + workOrderInfo.getDistributor();
+        String distributor = "派单人员: " + workOrderInfo.getDistributor();
 
         tvDistributor.setText(distributor);
 

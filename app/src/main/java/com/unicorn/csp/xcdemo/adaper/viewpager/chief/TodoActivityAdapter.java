@@ -4,15 +4,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.unicorn.csp.xcdemo.fragment.chief.TodoFragment;
-import com.unicorn.csp.xcdemo.fragment.technician.WorkOrderSuspendedFragment;
+import com.unicorn.csp.xcdemo.fragment.chief.WorkOrderAssignedFragment;
+import com.unicorn.csp.xcdemo.fragment.chief.WorkOrderSuspendedFragment;
+import com.unicorn.csp.xcdemo.fragment.chief.WorkOrderToReviewFragment;
 
 
 // @P
 public class TodoActivityAdapter extends FragmentStatePagerAdapter {
 
     private String[] titles = {
-            "全部", "指定", "复核", "挂单",
+            "待指派", "待复核", "已挂单",
     };
 
     public TodoActivityAdapter(FragmentManager fm) {
@@ -21,12 +22,15 @@ public class TodoActivityAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-
-        if (position == 3){
-            return new WorkOrderSuspendedFragment();
-
+        switch (position) {
+            case 0:
+                return new WorkOrderAssignedFragment();
+            case 1:
+                return new WorkOrderToReviewFragment();
+            case 2:
+                return new WorkOrderSuspendedFragment();
         }
-        return  new TodoFragment();
+        return null;
     }
 
     @Override
@@ -36,9 +40,7 @@ public class TodoActivityAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-
         return titles[position];
     }
-
 
 }

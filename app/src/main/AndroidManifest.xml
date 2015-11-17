@@ -54,6 +54,9 @@
         <activity
             android:name=".activity.chief.AssignActivity"
             android:theme="@style/AppTheme.NoActionBar.NoWindow" />
+        <activity
+            android:name=".activity.chief.ReviewActivity"
+            android:theme="@style/AppTheme.NoActionBar.NoWindow" />
 
 
     </application>

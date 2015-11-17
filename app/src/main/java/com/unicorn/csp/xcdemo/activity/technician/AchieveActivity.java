@@ -430,7 +430,7 @@ public class AchieveActivity extends ToolbarActivity {
     }
 
 
-    public void achieve(String lastPartUrl) {
+    public void achieve(final String lastPartUrl) {
         if (recordTempFileName == null) {
             ToastUtils.show("请先录音");
             return;
@@ -449,7 +449,7 @@ public class AchieveActivity extends ToolbarActivity {
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-                                ToastUtils.show("结单成功!");
+                                ToastUtils.show(lastPartUrl.equals("/review") ? "带复核成功" : "结单成功!");
 //                                EventBus.getDefault().post("", "suspendRefresh");
                                 setResult(333);
                                 finish();
