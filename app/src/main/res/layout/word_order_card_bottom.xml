@@ -5,12 +5,6 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tv_pack"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="领料情况:  无" />
-
-    <TextView
         android:id="@+id/tv_issuer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -47,6 +41,12 @@
         android:text="接单时间:  2015-09-06 10:00" />
 
     <TextView
+        android:id="@+id/tv_pack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="领料情况:  无" />
+
+    <TextView
         android:id="@+id/tv_arrive_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -75,6 +75,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="复核时间:  2015-09-06 10:00" />
-
 
 </LinearLayout>

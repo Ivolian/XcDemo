@@ -32,6 +32,7 @@ import com.wangqiang.libs.labelviewlib.LabelView;
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.Bind;
@@ -162,6 +163,7 @@ public class WorkOrderReceivedAdapter extends RecyclerView.Adapter<WorkOrderRece
                             btnArrivalOrOperate.setText("操作");
                             workOrderInfo.setStatus("到达");
                             workOrderInfo.setStatusTag("Arrive");
+                            workOrderInfo.setArriveTime(new Date().getTime());
                             ToastUtils.show("到达！");
                         }
                     },
