@@ -170,11 +170,14 @@ public class PhotoConfirmActivity extends ToolbarActivity {
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams requestParams = new RequestParams();
 
+        String compressPhotoPath = ImageUtils.compressPhoto(photoPath);
         try {
-            requestParams.put("attachment", new File(photoPath));
+            requestParams.put("attachment", new File(compressPhotoPath));
         } catch (Exception e) {
             //
         }
+
+
         String url = ConfigUtils.getBaseUrl() + "/api/v1/system/file/upload";
         client.post(url, requestParams, new AsyncHttpResponseHandler() {
             @Override
@@ -195,7 +198,7 @@ public class PhotoConfirmActivity extends ToolbarActivity {
 
             @Override
             public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
-                    ToastUtils.show("失败");
+                ToastUtils.show("失败");
             }
         });
     }
