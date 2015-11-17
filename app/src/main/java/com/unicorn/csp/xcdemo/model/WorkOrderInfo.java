@@ -1,6 +1,7 @@
 package com.unicorn.csp.xcdemo.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 
 public class WorkOrderInfo implements Serializable {
@@ -19,9 +20,9 @@ public class WorkOrderInfo implements Serializable {
 
     private String callNumber;
 
-    private String building; //(a)
+    private String building;
 
-    private String equipment;//(f)
+    private String equipment;
 
     private String faultType;
 
@@ -41,13 +42,41 @@ public class WorkOrderInfo implements Serializable {
 
     private String statusTag;
 
+    // 受理人
     private String issuer;
 
+    // 受理时间
     private long issueTime;
 
+    // 派单人
     private String distributor;
 
+    // 派单时间
     private long distributeTime;
+
+    // 接单人
+    private String receiver;
+
+    // 接单时间
+    private long receiveTime;
+
+    // 到达时间
+    private long arriveTime;
+
+    // 挂单时间
+    private long hangUpTime;
+
+    // 结单时间
+    private long completeTime;
+
+    // 复核人
+    private String confirm;
+
+    // 复核时间
+    private long confirmTime;
+
+    // 领料列表
+    private List<WorkOrderSupplyInfo> supplyList;
 
     //
 
@@ -226,4 +255,69 @@ public class WorkOrderInfo implements Serializable {
     public void setDistributeTime(long distributeTime) {
         this.distributeTime = distributeTime;
     }
+
+    public String getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
+    }
+
+    public long getReceiveTime() {
+        return receiveTime;
+    }
+
+    public void setReceiveTime(long receiveTime) {
+        this.receiveTime = receiveTime;
+    }
+
+    public long getArriveTime() {
+        return arriveTime;
+    }
+
+    public void setArriveTime(long arriveTime) {
+        this.arriveTime = arriveTime;
+    }
+
+    public long getHangUpTime() {
+        return hangUpTime;
+    }
+
+    public void setHangUpTime(long hangUpTime) {
+        this.hangUpTime = hangUpTime;
+    }
+
+    public long getCompleteTime() {
+        return completeTime;
+    }
+
+    public void setCompleteTime(long completeTime) {
+        this.completeTime = completeTime;
+    }
+
+    public String getConfirm() {
+        return confirm;
+    }
+
+    public void setConfirm(String confirm) {
+        this.confirm = confirm;
+    }
+
+    public long getConfirmTime() {
+        return confirmTime;
+    }
+
+    public void setConfirmTime(long confirmTime) {
+        this.confirmTime = confirmTime;
+    }
+
+    public List<WorkOrderSupplyInfo> getSupplyList() {
+        return supplyList;
+    }
+
+    public void setSupplyList(List<WorkOrderSupplyInfo> supplyList) {
+        this.supplyList = supplyList;
+    }
+
 }
