@@ -159,6 +159,8 @@ public class WorkOrderToReceiveAdapter extends RecyclerView.Adapter<WorkOrderToR
         String processingTimeLimit = "是否时限: " + workOrderInfo.getProcessingTimeLimit();
         viewHolder.tvProcessingTimeLimit.setText(processingTimeLimit);
 
+
+
         String statusTag = workOrderInfo.getStatusTag();
         viewHolder.labelView.setText(statusTag.equals("Distribute") ? "派" : "抢");
     }
