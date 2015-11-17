@@ -23,7 +23,6 @@ public class SimpleVolley {
     }
 
     public static void addRequest(Request request){
-
         getRequestQueue().add(request);
     }
 
@@ -36,7 +35,6 @@ public class SimpleVolley {
     }
 
     public static Response.ErrorListener getDefaultErrorListener() {
-
         return new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
@@ -44,6 +42,5 @@ public class SimpleVolley {
             }
         };
     }
-
 
 }

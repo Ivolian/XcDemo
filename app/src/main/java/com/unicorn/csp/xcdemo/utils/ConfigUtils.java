@@ -1,12 +1,12 @@
 package com.unicorn.csp.xcdemo.utils;
 
-
 import android.os.Environment;
 
 import com.android.volley.NetworkResponse;
 import com.unicorn.csp.xcdemo.component.TinyDB;
 
 import java.io.File;
+
 
 public class ConfigUtils {
 
@@ -21,16 +21,11 @@ public class ConfigUtils {
     }
 
     public static String getBaseUrl() {
-
-
-
-
-//        return "http://192.168.0.4:3000/hems";
-        return "http://192.168.7.62:3000/hems";
+        return "http://192.168.7.51:3000/hems";
+//        return "http://192.168.1.6:3000/hems";
     }
 
     public static String getBaseDirPath(){
-
         File dir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "csp");
         if (!dir.exists()) {
             boolean result = dir.mkdir();

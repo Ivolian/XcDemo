@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.unicorn.csp.xcdemo.fragment.chief.TodoFragment;
+import com.unicorn.csp.xcdemo.fragment.technician.WorkOrderSuspendedFragment;
 
 
 // @P
@@ -21,6 +22,10 @@ public class TodoActivityAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
+        if (position == 3){
+            return new WorkOrderSuspendedFragment();
+
+        }
         return  new TodoFragment();
     }
 

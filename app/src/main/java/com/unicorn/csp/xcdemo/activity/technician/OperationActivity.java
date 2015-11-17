@@ -11,6 +11,7 @@ import com.f2prateek.dart.InjectExtra;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
 import com.unicorn.csp.xcdemo.activity.shared.SuspendActivity;
+import com.unicorn.csp.xcdemo.component.PaperButton;
 import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
 import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
 import com.unicorn.csp.xcdemo.utils.ImageUtils;
@@ -25,6 +26,9 @@ import butterknife.OnClick;
 // @P
 public class OperationActivity extends ToolbarActivity {
 
+
+    @Bind(R.id.btn_suspend)
+    PaperButton btnSuspend;
 
     @Bind(R.id.labelview)
     LabelView labelView;
@@ -109,6 +113,22 @@ public class OperationActivity extends ToolbarActivity {
             tvDistributeTime.setVisibility(View.GONE);
             tvDistributor.setVisibility(View.GONE);
         }
+
+
+        if (workOrderInfo.getStatusTag().equals("HangUp") ){
+            btnSuspend.setColor(getResources().getColor(R.color.md_blue_grey_500));
+        }else {
+            btnSuspend.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(OperationActivity.this, SuspendActivity.class);
+                    intent.putExtra("workOrderProcessInfo", workOrderProcessInfo);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                }
+            });
+        }
+
     }
 
 
@@ -122,19 +142,11 @@ public class OperationActivity extends ToolbarActivity {
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
-    @OnClick(R.id.btn_suspend)
-    public void startSuspendActivity() {
-        Intent intent = new Intent(this, SuspendActivity.class);
-        intent.putExtra("workOrderProcessInfo", workOrderProcessInfo);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-    }
-
     @OnClick(R.id.btn_achieve)
     public void startAchieveActivity() {
         Intent intent = new Intent(this, AchieveActivity.class);
         intent.putExtra("workOrderProcessInfo", workOrderProcessInfo);
-        startActivity(intent);
+        startActivityForResult(intent,2333);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
@@ -159,6 +171,10 @@ public class OperationActivity extends ToolbarActivity {
                 intent.putExtra("photoPath", currentPhotoPath);
                 startActivity(intent);
             }
+        }
+
+        if (resultCode==333){
+            finish();
         }
     }
 

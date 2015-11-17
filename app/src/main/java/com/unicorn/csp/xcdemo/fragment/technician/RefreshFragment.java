@@ -26,7 +26,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.simple.eventbus.EventBus;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -34,6 +33,7 @@ import kale.recycler.ExRecyclerView;
 import kale.recycler.OnRecyclerViewScrollListener;
 
 
+//@P
 public abstract class RefreshFragment extends LazyLoadFragment {
 
 
@@ -139,7 +139,7 @@ public abstract class RefreshFragment extends LazyLoadFragment {
     // ================================== reload ==================================
 
     public void reload() {
-        clearPageData();
+        clearPageFields();
         JsonObjectRequest jsonObjectRequest = new JSONObjectRequestWithSessionCheck(
                 getCompleteUrl(pageNo),
                 new Response.Listener<JSONObject>() {
@@ -163,11 +163,6 @@ public abstract class RefreshFragment extends LazyLoadFragment {
         );
         jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(500, 1, 1.0f));
         SimpleVolley.addRequest(jsonObjectRequest);
-    }
-
-    private void clearPageData() {
-        pageNo = 1;
-        lastPage = false;
     }
 
     private void loadMore() {
@@ -196,6 +191,10 @@ public abstract class RefreshFragment extends LazyLoadFragment {
         SimpleVolley.addRequest(jsonObjectRequest);
     }
 
+    private void clearPageFields() {
+        pageNo = 1;
+        lastPage = false;
+    }
 
     // ========================== 基础方法 ==========================
 
@@ -208,7 +207,7 @@ public abstract class RefreshFragment extends LazyLoadFragment {
 
     private void checkLastPage(JSONObject response) {
         if (lastPage = isLastPage(response)) {
-            ToastUtils.show(noData(response) ? "暂无数据" : "已加载全部数据");
+//            ToastUtils.show(noData(response) ? "暂无数据" : "已加载全部数据");
         }
     }
 
@@ -237,16 +236,6 @@ public abstract class RefreshFragment extends LazyLoadFragment {
         if (swipeRefreshLayout != null && !swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(true);
         }
-    }
-
-
-    // ========================== 要删除的方法 ==========================
-
-    private List<WorkOrderProcessInfo> getData() {
-        List<WorkOrderProcessInfo> workOrderProcessInfoList = new ArrayList<>();
-        for (int i = 0; i != 10; i++)
-            workOrderProcessInfoList.add(new WorkOrderProcessInfo());
-        return workOrderProcessInfoList;
     }
 
 }

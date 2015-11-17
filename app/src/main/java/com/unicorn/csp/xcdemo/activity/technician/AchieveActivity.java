@@ -42,6 +42,7 @@ import com.wangqiang.libs.labelviewlib.LabelView;
 
 import org.joda.time.DateTime;
 import org.json.JSONObject;
+import org.simple.eventbus.EventBus;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -145,7 +146,6 @@ public class AchieveActivity extends ToolbarActivity {
     // ================================== 签名功能 ==================================
 
     MaterialDialog signPadDialog = null;
-
 
 
     @OnClick(R.id.btn_sign)
@@ -401,19 +401,48 @@ public class AchieveActivity extends ToolbarActivity {
 
 
     @OnClick(R.id.btn_achieve)
-    public void achieve() {
+    public void achieveConfrim() {
+        new MaterialDialog.Builder(this)
+                .content("确认结单？")
+                .positiveText("确认")
+                .negativeText("取消")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+                        achieve("/complete");
+                    }
+                })
+                .show();
+    }
 
-        if (recordTempFileName==null){
+    @OnClick(R.id.btn_review)
+    public void receiveConfrim() {
+        new MaterialDialog.Builder(this)
+                .content("确认待复核？")
+                .positiveText("确认")
+                .negativeText("取消")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+                        achieve("/review");
+                    }
+                })
+                .show();
+    }
+
+
+    public void achieve(String lastPartUrl) {
+        if (recordTempFileName == null) {
             ToastUtils.show("请先录音");
             return;
         }
-        if (signTempFileName==null){
+        if (signTempFileName == null) {
             ToastUtils.show("请先签名");
             return;
         }
 
         WorkOrderProcessInfo workOrderProcessInfo = (WorkOrderProcessInfo) getIntent().getSerializableExtra("workOrderProcessInfo");
-        String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderProcessInfo.getWorkOrderInfo().getWorkOrderId() + "/complete";
+        String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderProcessInfo.getWorkOrderInfo().getWorkOrderId() + lastPartUrl;
         SimpleVolley.getRequestQueue().add(
                 new StringRequest(
                         Request.Method.PUT,
@@ -422,7 +451,9 @@ public class AchieveActivity extends ToolbarActivity {
                             @Override
                             public void onResponse(String response) {
                                 ToastUtils.show("结单成功!");
-                                AchieveActivity.this.finish();
+                                EventBus.getDefault().post("", "suspendRefresh");
+                                setResult(333);
+                                finish();
                             }
                         },
                         new Response.ErrorListener() {
