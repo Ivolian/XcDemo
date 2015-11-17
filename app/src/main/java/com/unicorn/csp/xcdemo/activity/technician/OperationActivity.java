@@ -123,7 +123,7 @@ public class OperationActivity extends ToolbarActivity {
                 public void onClick(View v) {
                     Intent intent = new Intent(OperationActivity.this, SuspendActivity.class);
                     intent.putExtra("workOrderProcessInfo", workOrderProcessInfo);
-                    startActivity(intent);
+                    startActivityForResult(intent,333);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 }
             });

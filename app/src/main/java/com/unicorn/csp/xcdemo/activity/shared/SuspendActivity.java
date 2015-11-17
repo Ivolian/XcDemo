@@ -1,11 +1,14 @@
 package com.unicorn.csp.xcdemo.activity.shared;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -222,7 +225,23 @@ public class SuspendActivity extends ToolbarActivity {
     }
 
 
+
+
     @OnClick(R.id.btn_suspend)
+    public void suspendConfirm() {
+        new MaterialDialog.Builder(this)
+                .content("确认挂单？")
+                .positiveText("确认")
+                .negativeText("取消")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+                        suspend();
+                    }
+                })
+                .show();
+    }
+
     public void suspend() {
 
         MyButton btnSelected = null;
@@ -246,6 +265,7 @@ public class SuspendActivity extends ToolbarActivity {
                             @Override
                             public void onResponse(String response) {
                                 ToastUtils.show("挂单成功!");
+                                setResult(333);
                                 SuspendActivity.this.finish();
                             }
                         },

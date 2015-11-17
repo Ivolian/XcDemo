@@ -107,7 +107,7 @@ public class PackActivity extends ToolbarActivity {
         initViews();
     }
 
-    private void initViews(){
+    private void initViews() {
         WorkOrderInfo workOrderInfo = workOrderProcessInfo.getWorkOrderInfo();
         String requestUserAndCallNumber = "报修电话: " + workOrderInfo.getCallNumber() + " " + workOrderInfo.getRequestUser();
         tvRequestUserAndCallNumber.setText(requestUserAndCallNumber);
@@ -127,6 +127,10 @@ public class PackActivity extends ToolbarActivity {
         tvDistributeTime.setText(distributeTime);
         String distributor = "拍单人员: " + workOrderInfo.getDistributor();
         tvDistributor.setText(distributor);
+        if (workOrderInfo.getDistributor() == null) {
+            tvDistributeTime.setVisibility(View.GONE);
+            tvDistributor.setVisibility(View.GONE);
+        }
 // todo
 //        String statusTag = workOrderInfo.getStatusTag();
 //        labelView.setText(statusTag.equals("Distribute") ? "派" : "抢");
@@ -244,7 +248,7 @@ public class PackActivity extends ToolbarActivity {
                 .title(title)
                 .inputType(InputType.TYPE_CLASS_NUMBER)
                 .alwaysCallInputCallback()
-                .input("确认", "", new MaterialDialog.InputCallback() {
+                .input("确认", "1", new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
                         boolean isNumeric = org.apache.commons.lang3.StringUtils.isNumeric(input);
@@ -267,7 +271,24 @@ public class PackActivity extends ToolbarActivity {
 
 
     @OnClick(R.id.btn_pack)
+    public void packConfirm() {
+        new MaterialDialog.Builder(this)
+                .content("确认领料？")
+                .positiveText("确认")
+                .negativeText("取消")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+                        pack();
+                    }
+                })
+                .show();
+    }
+
+
     public void pack() {
+
+
         WorkOrderProcessInfo workOrderProcessInfo2 = (WorkOrderProcessInfo) getIntent().getSerializableExtra("workOrderProcessInfo");
         String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderProcessInfo2.getWorkOrderInfo().getWorkOrderId() + "/supply";
         SimpleVolley.getRequestQueue().add(

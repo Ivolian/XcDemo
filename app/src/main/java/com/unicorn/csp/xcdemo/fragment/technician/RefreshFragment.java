@@ -86,6 +86,11 @@ public abstract class RefreshFragment extends LazyLoadFragment {
         firstLoad();
     }
 
+    @Override
+    public void onUserVisible() {
+        firstLoad();
+    }
+
     private void initSwipeRefreshLayout() {
         swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

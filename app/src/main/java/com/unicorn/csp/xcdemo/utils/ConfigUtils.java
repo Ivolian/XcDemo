@@ -21,7 +21,7 @@ public class ConfigUtils {
     }
 
     public static String getBaseUrl() {
-        return "http://192.168.7.51:3000/hems";
+        return "http://192.168.7.53:3000/hems";
 //        return "http://192.168.1.6:3000/hems";
     }
 
