@@ -3,6 +3,7 @@ package com.unicorn.csp.xcdemo.adaper.recycleview.chief;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.chief.AssignActivity;
+import com.unicorn.csp.xcdemo.activity.technician.WorkOrderDetailActivity;
 import com.unicorn.csp.xcdemo.adaper.recycleview.technician.RefreshAdapter;
 import com.unicorn.csp.xcdemo.component.PaperButton;
 import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
@@ -81,6 +83,15 @@ public class WorkOrderSuspendedAdapter extends RecyclerView.Adapter<WorkOrderSus
         public void startAssignActivity(PaperButton paperButton) {
             Context context = paperButton.getContext();
             Intent intent = new Intent(context, AssignActivity.class);
+            intent.putExtra("workOrderProcessInfo", workOrderProcessInfoList.get(getAdapterPosition()));
+            context.startActivity(intent);
+            ((Activity) context).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        }
+
+        @OnClick(R.id.cardview)
+        public void startWorkOrderDetailActivity(CardView cardView) {
+            Context context = cardView.getContext();
+            Intent intent = new Intent(context, WorkOrderDetailActivity.class);
             intent.putExtra("workOrderProcessInfo", workOrderProcessInfoList.get(getAdapterPosition()));
             context.startActivity(intent);
             ((Activity) context).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
