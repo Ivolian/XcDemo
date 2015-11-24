@@ -28,6 +28,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary"
+                app:tabPaddingEnd="0dp"
+                app:tabPaddingStart="0dp"
                 app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
         </app.mosn.zdepthshadowlayout.ZDepthShadowLayout>

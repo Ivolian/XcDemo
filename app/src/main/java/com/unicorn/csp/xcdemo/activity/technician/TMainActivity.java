@@ -3,6 +3,7 @@ package com.unicorn.csp.xcdemo.activity.technician;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
@@ -25,6 +26,7 @@ import org.simple.eventbus.EventBus;
 import org.simple.eventbus.Subscriber;
 
 import butterknife.Bind;
+import su.levenetc.android.badgeview.BadgeView;
 
 
 //@PP
@@ -62,6 +64,17 @@ public class TMainActivity extends ToolbarActivity {
         viewPager.setAdapter(new WorkOrderActivityAdapter(getSupportFragmentManager()));
         tabLayout.setupWithViewPager(viewPager);
         initDrawer();
+
+       final TabLayout.Tab tab = tabLayout.getTabAt(0);
+        tab.setCustomView(R.layout.test);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                BadgeView badgeView = (BadgeView) tab.getCustomView().findViewById(R.id.badgeView);
+                badgeView.setValue(100, true);
+            }
+        }, 1000);
     }
 
 
