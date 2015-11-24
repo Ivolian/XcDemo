@@ -5,19 +5,19 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.unicorn.csp.xcdemo.fragment.technician.WorkOrderAchievedFragment;
-import com.unicorn.csp.xcdemo.fragment.technician.WorkOrderSuspendedFragment;
 import com.unicorn.csp.xcdemo.fragment.technician.WorkOrderReceivedFragment;
+import com.unicorn.csp.xcdemo.fragment.technician.WorkOrderSuspendedFragment;
 import com.unicorn.csp.xcdemo.fragment.technician.WorkOrderToReceiveFragment;
 
 
 // @PP
-public class WorkOrderActivityAdapter extends FragmentStatePagerAdapter {
+public class WorkListPagerAdapter extends FragmentStatePagerAdapter {
 
     private String[] titles = {
             "待接单", "已接单", "已挂起", "已结单",
     };
 
-    public WorkOrderActivityAdapter(FragmentManager fm) {
+    public WorkListPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 

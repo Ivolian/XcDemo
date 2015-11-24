@@ -14,7 +14,7 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
 import com.unicorn.csp.xcdemo.activity.chief.TodoActivity;
-import com.unicorn.csp.xcdemo.activity.technician.TMainActivity;
+import com.unicorn.csp.xcdemo.activity.technician.TechnicianMainActivity;
 import com.unicorn.csp.xcdemo.component.TinyDB;
 import com.unicorn.csp.xcdemo.utils.ConfigUtils;
 import com.unicorn.csp.xcdemo.utils.DialogUtils;
@@ -105,7 +105,7 @@ public class LoginActivity extends ToolbarActivity {
                             ToastUtils.show("账号或密码错误!");
                             return;
                         }
-                        startActivityAndFinish(role.equals("Artificer") ? TMainActivity.class : TodoActivity.class);
+                        startActivityAndFinish(role.equals("Artificer") ? TechnicianMainActivity.class : TodoActivity.class);
                     }
                 },
                 new Response.ErrorListener() {

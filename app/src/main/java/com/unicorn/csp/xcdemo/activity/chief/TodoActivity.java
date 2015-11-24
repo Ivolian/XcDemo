@@ -7,7 +7,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 
-import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.Drawer;
@@ -103,8 +102,8 @@ public class TodoActivity extends ToolbarActivity {
 
     // ================================== searchView & menu ==================================
 
-    @Bind(R.id.search_view)
-    MaterialSearchView searchView;
+//    @Bind(R.id.search_view)
+//    MaterialSearchView searchView;
 
     @Override
     public boolean onCreateOptionsMenu(android.view.Menu menu) {
@@ -112,7 +111,7 @@ public class TodoActivity extends ToolbarActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         MenuItem menuItem = menu.findItem(R.id.action_search);
         menuItem.setIcon(getSearchDrawable());
-        initSearchView(menuItem);
+//        initSearchView(menuItem);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -121,24 +120,24 @@ public class TodoActivity extends ToolbarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    private void initSearchView(MenuItem menuItem) {
-
-        searchView.setMenuItem(menuItem);
-        searchView.setHint("请输入查询内容");
-        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-//                EventBus.getDefault().post("some word", "search");
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
-    }
+//
+//    private void initSearchView(MenuItem menuItem) {
+//
+//        searchView.setMenuItem(menuItem);
+//        searchView.setHint("请输入查询内容");
+//        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+////                EventBus.getDefault().post("some word", "search");
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                return false;
+//            }
+//        });
+//    }
 
     private Drawable getSearchDrawable() {
 
@@ -156,9 +155,10 @@ public class TodoActivity extends ToolbarActivity {
     @Override
     public void onBackPressed() {
 
-        if (searchView != null && searchView.isSearchOpen()) {
-            searchView.closeSearch();
-        } else {
+//        if (searchView != null && searchView.isSearchOpen()) {
+//            searchView.closeSearch();
+//        } else
+{
             if (drawer != null && drawer.isDrawerOpen()) {
                 drawer.closeDrawer();
             } else {
