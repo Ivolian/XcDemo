@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -166,7 +165,7 @@ public abstract class RefreshFragment extends LazyLoadFragment {
                     }
                 }
         );
-        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(500, 1, 1.0f));
+//        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(500, 1, 1.0f));
         SimpleVolley.addRequest(jsonObjectRequest);
     }
 
@@ -192,7 +191,7 @@ public abstract class RefreshFragment extends LazyLoadFragment {
                     }
                 }
         );
-        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(500, 1, 1.0f));
+//        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(500, 1, 1.0f));
         SimpleVolley.addRequest(jsonObjectRequest);
     }
 

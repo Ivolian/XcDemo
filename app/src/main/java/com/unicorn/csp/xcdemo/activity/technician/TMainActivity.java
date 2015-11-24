@@ -28,7 +28,7 @@ import butterknife.Bind;
 
 
 //@PP
-public class WorkOrderActivity extends ToolbarActivity {
+public class TMainActivity extends ToolbarActivity {
 
 
     // ================================== views ==================================
@@ -44,7 +44,6 @@ public class WorkOrderActivity extends ToolbarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
         setContentView(R.layout.activity_main);
@@ -144,7 +143,6 @@ public class WorkOrderActivity extends ToolbarActivity {
 
     @Override
     public void onBackPressed() {
-
         if (searchView != null && searchView.isSearchOpen()) {
             searchView.closeSearch();
         } else {

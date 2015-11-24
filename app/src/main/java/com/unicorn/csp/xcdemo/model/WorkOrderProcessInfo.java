@@ -5,6 +5,8 @@ import java.io.Serializable;
 
 public class WorkOrderProcessInfo implements Serializable {
 
+    boolean expand = true;
+
     String objectId;
 
     WorkOrderInfo workOrderInfo;
@@ -36,5 +38,13 @@ public class WorkOrderProcessInfo implements Serializable {
 
     public void setWorkOrderProcess(WorkOrderProcess workOrderProcess) {
         this.workOrderProcess = workOrderProcess;
+    }
+
+    public boolean isExpand() {
+        return expand;
+    }
+
+    public void setExpand(boolean expand) {
+        this.expand = expand;
     }
 }

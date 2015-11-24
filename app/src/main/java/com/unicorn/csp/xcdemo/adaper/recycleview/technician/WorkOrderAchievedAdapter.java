@@ -1,8 +1,5 @@
 package com.unicorn.csp.xcdemo.adaper.recycleview.technician;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.activity.technician.WorkOrderDetailActivity;
 import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
 import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
 import com.wangqiang.libs.labelviewlib.LabelView;
@@ -79,11 +75,18 @@ public class WorkOrderAchievedAdapter extends RecyclerView.Adapter<WorkOrderAchi
 
         @OnClick(R.id.cardview)
         public void startWorkOrderDetailActivity(CardView cardView) {
-            Context context = cardView.getContext();
-            Intent intent = new Intent(context, WorkOrderDetailActivity.class);
-            intent.putExtra("workOrderProcessInfo", workOrderProcessInfoList.get(getAdapterPosition()));
-            context.startActivity(intent);
-            ((Activity) context).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+            int position = getAdapterPosition();
+            WorkOrderProcessInfo workOrderProcessInfo = workOrderProcessInfoList.get(position);
+            tvProcessingTimeLimit.setVisibility(workOrderProcessInfo.isExpand() ? View.GONE : View.VISIBLE);
+            workOrderProcessInfo.setExpand(!workOrderProcessInfo.isExpand());
+
+
+//            Context context = cardView.getContext();
+//            Intent intent = new Intent(context, WorkOrderDetailActivity.class);
+//            intent.putExtra("workOrderProcessInfo", workOrderProcessInfoList.get(getAdapterPosition()));
+//            context.startActivity(intent);
+//            ((Activity) context).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
     }
 
@@ -113,6 +116,10 @@ public class WorkOrderAchievedAdapter extends RecyclerView.Adapter<WorkOrderAchi
         String processingTimeLimit = "是否时限: " + workOrderInfo.getProcessingTimeLimit();
         viewHolder.tvProcessingTimeLimit.setText(processingTimeLimit);
         viewHolder.labelView.setText("结");
+
+        WorkOrderProcessInfo workOrderProcessInfo = workOrderProcessInfoList.get(position);
+        viewHolder.tvProcessingTimeLimit.setVisibility(workOrderProcessInfo.isExpand() ? View.VISIBLE : View.GONE);
+
     }
 
 
