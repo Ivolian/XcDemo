@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-// @OK
+// @P
 public class SplashActivity extends ButterKnifeActivity {
 
 
