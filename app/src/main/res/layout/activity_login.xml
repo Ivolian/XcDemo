@@ -45,6 +45,16 @@
             app:met_iconLeft="@drawable/login_password"
             app:met_primaryColor="?attr/colorAccent" />
 
+        <!-- rememberMe -->
+        <CheckBox
+            android:id="@+id/cb_remember_me"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="20dp"
+            android:checked="false"
+            android:text="记住我" />
+
         <!-- login button -->
         <com.unicorn.csp.xcdemo.component.PaperButton
             android:id="@+id/btn_login"

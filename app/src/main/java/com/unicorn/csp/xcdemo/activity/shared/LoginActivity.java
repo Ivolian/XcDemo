@@ -1,6 +1,7 @@
 package com.unicorn.csp.xcdemo.activity.shared;
 
 import android.os.Bundle;
+import android.widget.CheckBox;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.AuthFailureError;
@@ -14,7 +15,10 @@ import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
 import com.unicorn.csp.xcdemo.activity.chief.TodoActivity;
 import com.unicorn.csp.xcdemo.activity.technician.WorkOrderActivity;
+import com.unicorn.csp.xcdemo.component.TinyDB;
 import com.unicorn.csp.xcdemo.utils.ConfigUtils;
+import com.unicorn.csp.xcdemo.utils.DialogUtils;
+import com.unicorn.csp.xcdemo.utils.SfUtils;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
 import com.unicorn.csp.xcdemo.volley.SimpleVolley;
 import com.unicorn.csp.xcdemo.volley.VolleyErrorHelper;
@@ -32,9 +36,9 @@ public class LoginActivity extends ToolbarActivity {
 
     // ================================== 全局变量 ==================================
 
-    String role = "";
+    String role;
 
-    String shiroLoginFailure = null;
+    String shiroLoginFailure;
 
 
     // ================================== views ==================================
@@ -44,6 +48,9 @@ public class LoginActivity extends ToolbarActivity {
 
     @Bind(R.id.et_password)
     MaterialEditText etPassword;
+
+    @Bind(R.id.cb_remember_me)
+    CheckBox cbRememberMe;
 
 
     // ================================== onCreate ==================================
@@ -57,8 +64,8 @@ public class LoginActivity extends ToolbarActivity {
     }
 
     private void initViews() {
-//        String account = "zg1";
-//        etAccount.setText(account);
+        String account = "zg1";
+        etAccount.setText(account);
         String password = "123456";
         etPassword.setText(password);
     }
@@ -69,7 +76,8 @@ public class LoginActivity extends ToolbarActivity {
     @OnClick(R.id.btn_login)
     public void onLoginButtonClick() {
         if (isUserInputValid()) {
-            login(showMask());
+            MaterialDialog mask = DialogUtils.showMask(this, "登录中", "请稍后");
+            login(mask);
         }
     }
 
@@ -86,61 +94,58 @@ public class LoginActivity extends ToolbarActivity {
     }
 
     private void login(final MaterialDialog mask) {
-        SimpleVolley.getRequestQueue().add(
-                new StringRequest(
-                        Request.Method.POST,
-                        ConfigUtils.getBaseUrl() + "/login",
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                mask.dismiss();
-                                // shiroLoginFailure != null 表示登录失败
-                                if (shiroLoginFailure != null) {
-                                    ToastUtils.show("账号或密码错误!");
-                                    return;
-                                }
-                                startActivityAndFinish(role.equals("Artificer") ? WorkOrderActivity.class : TodoActivity.class);
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                mask.dismiss();
-                                ToastUtils.show(VolleyErrorHelper.getErrorMessage(error));
-                            }
-                        }
-                ) {
+        StringRequest stringRequest = new StringRequest(
+                Request.Method.POST,
+                ConfigUtils.getBaseUrl() + "/login",
+                new Response.Listener<String>() {
                     @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String, String> map = new HashMap<>();
-                        map.put("username", etAccount.getText().toString().trim());
-                        map.put("password", etPassword.getText().toString().trim());
-                        return map;
-                    }
-
-                    @Override
-                    protected Response<String> parseNetworkResponse(NetworkResponse response) {
-                        shiroLoginFailure = response.headers.get("shiroLoginFailure");
-                        // shiroLoginFailure != null 表示登录失败，直接返回
+                    public void onResponse(String response) {
+                        mask.dismiss();
                         if (shiroLoginFailure != null) {
-                            return super.parseNetworkResponse(response);
+                            ToastUtils.show("账号或密码错误!");
+                            return;
                         }
-                        // 如果登录成功，获取角色，保存 JSessionId
-                        role = response.headers.get("role");
-                        ConfigUtils.saveJSessionId(response);
-                        return super.parseNetworkResponse(response);
+                        startActivityAndFinish(role.equals("Artificer") ? WorkOrderActivity.class : TodoActivity.class);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        mask.dismiss();
+                        ToastUtils.show(VolleyErrorHelper.getErrorMessage(error));
                     }
                 }
-        );
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<>();
+                map.put("username", etAccount.getText().toString().trim());
+                map.put("password", etPassword.getText().toString().trim());
+                return map;
+            }
+
+            // 从返回的头部中获取一些信息
+            @Override
+            protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                shiroLoginFailure = response.headers.get("shiroLoginFailure");
+                // shiroLoginFailure != null 表示登录失败
+                if (shiroLoginFailure != null) {
+                    return super.parseNetworkResponse(response);
+                }
+                // 如果登录成功，获取角色，保存 JSessionId
+                role = response.headers.get("role");
+                ConfigUtils.saveJSessionId(response);
+                saveUserInput();
+                return super.parseNetworkResponse(response);
+            }
+        };
+        SimpleVolley.getRequestQueue().add(stringRequest);
     }
 
-    private MaterialDialog showMask() {
-        return new MaterialDialog.Builder(this)
-                .title("登录中")
-                .content("请稍后...")
-                .progress(true, 0)
-                .cancelable(false)
-                .show();
+    private void saveUserInput() {
+        TinyDB.getInstance().putString(SfUtils.SF_ACCOUNT, etAccount.getText().toString().trim());
+        TinyDB.getInstance().putString(SfUtils.SF_PASSWORD, etPassword.getText().toString().trim());
+        TinyDB.getInstance().putBoolean(SfUtils.SF_REMEMBER_ME, cbRememberMe.isChecked());
     }
 
 }
