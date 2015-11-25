@@ -19,7 +19,7 @@ import com.unicorn.csp.xcdemo.utils.ToastUtils;
 import butterknife.Bind;
 
 
-//@PP
+//@P
 public class TechnicianMainActivity extends ToolbarActivity {
 
 
@@ -80,14 +80,19 @@ public class TechnicianMainActivity extends ToolbarActivity {
             public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                 switch (drawerItem.getIdentifier()) {
                     case 0:
-                        ToastUtils.show("hehe");
-                        replaceFragment_(new WorkListFragment());
+                        if (!getToolbarTitle().equals("工作清单")) {
+                            setToolbarTitle("工作清单");
+                            replaceFragment_(new WorkListFragment());
+                        }
                         break;
                     case 1:
-                        // todo
-                        replaceFragment_(new TestFragment());
+                        if (!getToolbarTitle().equals("统计分析")) {
+                            setToolbarTitle("统计分析");
+                            replaceFragment_(new TestFragment());
+                        }
                         break;
                 }
+                drawer.closeDrawer();
                 return true;
             }
         };

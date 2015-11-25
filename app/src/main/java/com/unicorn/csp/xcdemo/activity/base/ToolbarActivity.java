@@ -54,6 +54,16 @@ public abstract class ToolbarActivity extends ButterKnifeActivity {
         tvToolbarTitle.setText(toolbarTitle);
     }
 
+    protected String getToolbarTitle() {
+
+        return tvToolbarTitle.getText().toString().trim();
+    }
+
+    protected void setToolbarTitle(String toolbarTitle) {
+
+        tvToolbarTitle.setText(toolbarTitle);
+    }
+
     protected boolean isToolbarHidden() {
 
         return toolbar.getVisibility() == View.GONE;
