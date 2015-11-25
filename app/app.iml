@@ -78,6 +78,7 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.beardedhen/androidbootstrap/2.0.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.commit451/PhotoView/1.2.4/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.github.ShogoMizumoto/ZDepthShadowLayout/1.0.4/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.github.aakira/expandable-layout/1.4.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.github.elevenetc/badgeview/v1.0.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.github.gcacace/signature-pad/1.0.3/jars" />
@@ -117,6 +118,7 @@
     <orderEntry type="library" exported="" name="google-material-typeface-2.2.0.1" level="project" />
     <orderEntry type="library" exported="" name="labelviewlib-1.0.1" level="project" />
     <orderEntry type="library" exported="" name="signature-pad-1.0.3" level="project" />
+    <orderEntry type="library" exported="" name="expandable-layout-1.4.0" level="project" />
     <orderEntry type="library" exported="" name="iconics-core-2.2.0" level="project" />
     <orderEntry type="library" exported="" name="PhotoView-1.2.4" level="project" />
     <orderEntry type="library" exported="" name="flowlayout-1.0.0" level="project" />

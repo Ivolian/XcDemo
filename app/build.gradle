@@ -57,6 +57,6 @@ dependencies {
     compile 'com.f2prateek.dart:dart:1.1.0'
     compile 'com.loopj.android:android-async-http:1.4.9'
     compile 'com.commit451:PhotoView:1.2.4'
-
     compile 'com.github.elevenetc:badgeview:v1.0.0'
+    compile 'com.github.aakira:expandable-layout:1.4.0@aar'
 }
