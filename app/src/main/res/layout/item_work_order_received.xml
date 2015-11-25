@@ -9,15 +9,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:orientation="vertical">
 
-        <include layout="@layout/word_order_card_top" />
+        <com.unicorn.csp.xcdemo.component.WorkOrderFrameLayout
+            android:id="@+id/work_order_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginBottom="6dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
             android:orientation="horizontal">
 
             <com.unicorn.csp.xcdemo.component.PaperButton
@@ -43,16 +47,5 @@
         </LinearLayout>
 
     </LinearLayout>
-
-    <com.wangqiang.libs.labelviewlib.LabelView
-        android:id="@+id/labelview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorAccent"
-        android:text="限"
-        android:textColor="@color/white"
-        android:textSize="10dp"
-        app:label_distance="8dp"
-        app:label_position="TOP_RIGHT" />
 
 </android.support.v7.widget.CardView>
