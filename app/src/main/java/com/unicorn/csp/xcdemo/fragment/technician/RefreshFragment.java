@@ -89,11 +89,6 @@ public abstract class RefreshFragment extends LazyLoadFragment {
         firstLoad();
     }
 
-    @Override
-    public void onUserVisible() {
-        firstLoad();
-    }
-
     private void initSwipeRefreshLayout() {
         swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -158,6 +153,13 @@ public abstract class RefreshFragment extends LazyLoadFragment {
                         stopRefreshing();
                         JSONArray jsonArray = JSONUtils.getJSONArray(response, "content", null);
                         List<WorkOrderProcessInfo> workOrderProcessInfoList = GsonUtils.parseWorkOrderProcessInfoList(jsonArray.toString());
+
+                        if (getFragmentIndex()==3){
+                            for (int i=0;i!=10;i++){
+                                workOrderProcessInfoList.add(new WorkOrderProcessInfo());
+                            }
+                        }
+
                         adapter.reload(workOrderProcessInfoList);
                         checkLastPage(response);
 

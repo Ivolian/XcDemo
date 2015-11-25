@@ -1,7 +1,7 @@
 package com.unicorn.csp.xcdemo.fragment.technician;
 
+import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.component.WorkOrderCard;
 import com.unicorn.csp.xcdemo.fragment.base.ButterKnifeFragment;
 
 import butterknife.Bind;
@@ -15,20 +15,19 @@ public class TestFragment extends ButterKnifeFragment {
         return R.layout.fragment_test;
     }
 
-    @Bind(R.id.word_order_card)
-    WorkOrderCard workOrderCard;
+    @Override
+    public void initViews() {
+//        expandableRelativeLayout.setExpanded(false);
+    }
 
-    boolean expand = false;
-    @OnClick(R.id.word_order_card)
+    @Bind(R.id.expandableLayout)
+    ExpandableRelativeLayout expandableRelativeLayout;
+
+    @OnClick(R.id.tv_request_user_and_call_number)
     public void func(){
-        if (expand) {
-            workOrderCard.collapse();
-        expand =false;
-        }else {
-            workOrderCard.expand();
-            expand =true;
-        }
-        }
+        expandableRelativeLayout.toggle();
+    }
+
 
 
 }

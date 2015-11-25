@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 public class WorkOrderProcessInfo implements Serializable {
 
-    boolean expand = true;
+    boolean expand = false;
 
     String objectId;
 

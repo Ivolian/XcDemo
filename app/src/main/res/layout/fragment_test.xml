@@ -1,9 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.unicorn.csp.xcdemo.component.WorkOrderCard xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/word_order_card"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="1dp">
+    android:layout_height="wrap_content">
 
-</com.unicorn.csp.xcdemo.component.WorkOrderCard>
+    <TextView
+        android:id="@+id/tv_request_user_and_call_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="报修电话:  9300（分）马老师" />
+
+    <TextView
+        android:id="@+id/tv_request_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_request_user_and_call_number"
+        android:text="下单时间:  2015-09-06 10:00" />
+
+    <TextView
+        android:id="@+id/tv_building_and_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_request_time"
+        android:text="维修地点:  急3F(三床)" />
+
+    <TextView
+        android:id="@+id/tv_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_building_and_address"
+        android:text="维修类型:  给排水" />
+
+    <TextView
+        android:id="@+id/tv_equipment_and_fault_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_type"
+        android:text="维修内容:  马桶（堵）" />
+
+    <TextView
+        android:id="@+id/tv_processing_time_limit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_equipment_and_fault_type"
+        android:text="是否时限:  否" />
+
+    <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+        android:id="@+id/expandableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_below="@id/tv_processing_time_limit"
+        app:ael_duration="400"
+        app:ael_expanded="false"
+        app:ael_orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_issuer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:text="受理人:  工号1237" />
+
+        <TextView
+            android:id="@+id/tv_issue_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_issuer"
+            android:text="受理时间:  2015-09-06 10:00" />
+
+        <TextView
+            android:id="@+id/tv_distributor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_issue_time"
+            android:text="拍单人:  张某某" />
+
+        <TextView
+            android:id="@+id/tv_distribute_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_distributor"
+            android:text="派单时间:  2015-09-06 10:00" />
+
+        <TextView
+            android:id="@+id/tv_receiver"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_distribute_time"
+            android:text="接单人:  张某某" />
+
+        <TextView
+            android:id="@+id/tv_receive_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_receiver"
+            android:text="接单时间:  2015-09-06 10:00" />
+
+        <TextView
+            android:id="@+id/tv_pack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_receive_time"
+            android:text="领料情况:  无" />
+
+        <TextView
+            android:id="@+id/tv_arrive_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_pack"
+            android:text="到达时间:  张某某" />
+
+        <TextView
+            android:id="@+id/tv_hang_up_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_arrive_time"
+            android:text="挂单时间:  2015-09-06 10:00" />
+
+        <TextView
+            android:id="@+id/tv_complete_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_hang_up_time"
+            android:text="结单时间:  2015-09-06 10:00" />
+
+        <TextView
+            android:id="@+id/tv_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_complete_time"
+            android:text="复核人:  张某某" />
+
+        <TextView
+            android:id="@+id/tv_confirm_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_confirm"
+            android:text="复核时间:  2015-09-06 10:00" />
+
+    </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+</RelativeLayout>
