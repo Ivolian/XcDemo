@@ -1,10 +1,10 @@
 package com.unicorn.csp.xcdemo.component;
 
 import android.content.Context;
-import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
@@ -21,12 +21,10 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
-public class WorkOrderCard extends CardView {
+public class WorkOrderFrameLayout extends FrameLayout {
 
     @Bind(R.id.labelview)
     LabelView labelView;
-
-    //
 
     @Bind(R.id.tv_request_user_and_call_number)
     TextView tvRequestUserAndCallNumber;
@@ -43,8 +41,6 @@ public class WorkOrderCard extends CardView {
     @Bind(R.id.tv_equipment_and_fault_type)
     TextView tvEquipmentAndFaultType;
 
-    //
-
     @Bind(R.id.tv_processing_time_limit)
     TextView tvProcessingTimeLimit;
 
@@ -60,7 +56,6 @@ public class WorkOrderCard extends CardView {
     @Bind(R.id.tv_distribute_time)
     TextView tvDistributeTime;
 
-    //
     @Bind(R.id.tv_receiver)
     TextView tvReceiver;
 
@@ -76,8 +71,6 @@ public class WorkOrderCard extends CardView {
     @Bind(R.id.tv_complete_time)
     TextView tvCompleteTime;
 
-    //
-
     @Bind(R.id.tv_confirm)
     TextView tvConfirm;
 
@@ -92,7 +85,7 @@ public class WorkOrderCard extends CardView {
 
     //
 
-    public WorkOrderCard(Context context, AttributeSet attrs) {
+    public WorkOrderFrameLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
@@ -101,13 +94,9 @@ public class WorkOrderCard extends CardView {
 
     private void init() {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.work_order_card, this, true);
+        inflater.inflate(R.layout.work_order_frame_layout, this, true);
         ButterKnife.bind(this);
-
-
     }
-
-
 
     public void setWorkOrderInfo(WorkOrderInfo workOrderInfo) {
         String requestUserAndCallNumber = "报修电话: " + workOrderInfo.getCallNumber() + " " + workOrderInfo.getRequestUser();

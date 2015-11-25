@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import com.github.aakira.expandablelayout.ExpandableLayoutListenerAdapter;
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.component.WorkOrderCard;
+import com.unicorn.csp.xcdemo.component.WorkOrderFrameLayout;
 import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
 import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
 
@@ -45,12 +45,12 @@ public class WorkOrderAchievedAdapter extends RecyclerView.Adapter<WorkOrderAchi
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.work_order_card)
-        WorkOrderCard workOrderCard;
+        WorkOrderFrameLayout workOrderFrameLayout;
 
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
-            workOrderCard.expandableLayout.setListener(new ExpandableLayoutListenerAdapter() {
+            workOrderFrameLayout.expandableLayout.setListener(new ExpandableLayoutListenerAdapter() {
                 @Override
                 public void onPreOpen() {
                     workOrderProcessInfoList.get(getAdapterPosition()).setExpand(true);
@@ -63,10 +63,11 @@ public class WorkOrderAchievedAdapter extends RecyclerView.Adapter<WorkOrderAchi
             });
         }
 
-        @OnClick(R.id.work_order_card)
+        @OnClick(R.id.cardview)
         public void toggle() {
-            workOrderCard.expandableLayout.toggle();
+            workOrderFrameLayout.expandableLayout.toggle();
         }
+
     }
 
 
@@ -83,7 +84,7 @@ public class WorkOrderAchievedAdapter extends RecyclerView.Adapter<WorkOrderAchi
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         WorkOrderInfo workOrderInfo = workOrderProcessInfoList.get(position).getWorkOrderInfo();
 //        viewHolder.workOrderCard.setWorkOrderInfo(workOrderInfo);
-        viewHolder.workOrderCard.expandableLayout.setExpanded(workOrderProcessInfoList.get(position).isExpand());
+        viewHolder.workOrderFrameLayout.expandableLayout.setExpanded(workOrderProcessInfoList.get(position).isExpand());
     }
 
 
