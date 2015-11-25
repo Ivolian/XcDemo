@@ -154,7 +154,7 @@ public abstract class RefreshFragment extends LazyLoadFragment {
                         JSONArray jsonArray = JSONUtils.getJSONArray(response, "content", null);
                         List<WorkOrderProcessInfo> workOrderProcessInfoList = GsonUtils.parseWorkOrderProcessInfoList(jsonArray.toString());
 
-                        if (getFragmentIndex()==3){
+                        if (getFragmentIndex()==2){
                             for (int i=0;i!=10;i++){
                                 workOrderProcessInfoList.add(new WorkOrderProcessInfo());
                             }
