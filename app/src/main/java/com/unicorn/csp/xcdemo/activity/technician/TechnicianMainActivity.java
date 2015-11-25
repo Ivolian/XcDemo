@@ -92,6 +92,9 @@ public class TechnicianMainActivity extends ToolbarActivity {
                         }
                         break;
                 }
+                if (searchView.isSearchOpen()) {
+                    searchView.closeSearch();
+                }
                 drawer.closeDrawer();
                 return true;
             }

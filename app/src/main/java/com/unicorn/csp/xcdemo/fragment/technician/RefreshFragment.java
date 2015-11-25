@@ -1,5 +1,6 @@
 package com.unicorn.csp.xcdemo.fragment.technician;
 
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -101,7 +102,9 @@ public abstract class RefreshFragment extends LazyLoadFragment {
     }
 
     private void initRecyclerView() {
-        recyclerView.setLayoutManager(RecycleViewUtils.getLinearLayoutManager(getActivity()));
+        int orientation = getResources().getConfiguration().orientation;
+        recyclerView.setLayoutManager(orientation == Configuration.ORIENTATION_PORTRAIT ?
+                RecycleViewUtils.getLinearLayoutManager(getActivity()) : RecycleViewUtils.getStaggeredGridLayoutManager());
         adapter = getAdapter();
         recyclerView.setAdapter((RecyclerView.Adapter) adapter);
         recyclerView.addOnScrollListener(new OnRecyclerViewScrollListener() {

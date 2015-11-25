@@ -86,7 +86,7 @@ public class WorkListFragment extends ButterKnifeFragment {
         viewPager.setOffscreenPageLimit(4);
         viewPager.setAdapter(new WorkListPagerAdapter(getActivity().getSupportFragmentManager()));
         tabLayout.setupWithViewPager(viewPager);
-
+tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
                final TabLayout.Tab tab = tabLayout.getTabAt(0);
         tab.setCustomView(R.layout.test);
 //tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
