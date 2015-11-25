@@ -13,7 +13,7 @@ import com.unicorn.csp.xcdemo.fragment.technician.WorkOrderToReceiveFragment;
 // @PP
 public class WorkListPagerAdapter extends FragmentStatePagerAdapter {
 
-    private String[] titles = {
+    public static String[] titles = {
             "待接单", "已接单", "已挂起", "已结单",
     };
 

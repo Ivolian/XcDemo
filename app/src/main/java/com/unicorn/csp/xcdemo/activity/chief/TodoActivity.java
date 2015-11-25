@@ -13,8 +13,6 @@ import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-import com.nispok.snackbar.Snackbar;
-import com.nispok.snackbar.SnackbarManager;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
 import com.unicorn.csp.xcdemo.adaper.viewpager.chief.TodoActivityAdapter;
@@ -108,7 +106,7 @@ public class TodoActivity extends ToolbarActivity {
     @Override
     public boolean onCreateOptionsMenu(android.view.Menu menu) {
 
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_work_list, menu);
         MenuItem menuItem = menu.findItem(R.id.action_search);
         menuItem.setIcon(getSearchDrawable());
 //        initSearchView(menuItem);
@@ -190,13 +188,13 @@ public class TodoActivity extends ToolbarActivity {
 
     public void showSnackBar(String text) {
 
-        SnackbarManager.show(
-                Snackbar.with(this)
-                        .position(Snackbar.SnackbarPosition.TOP)
-                        .color(getResources().getColor(R.color.blue))
-                        .textColor(getResources().getColor(R.color.white))
-                        .text(text)
-                        .duration(800)
-                , (android.view.ViewGroup) findViewById(R.id.fl_for_snack_bar));
+//        SnackbarManager.show(
+//                Snackbar.with(this)
+//                        .position(Snackbar.SnackbarPosition.TOP)
+//                        .color(getResources().getColor(R.color.blue))
+//                        .textColor(getResources().getColor(R.color.white))
+//                        .text(text)
+//                        .duration(800)
+//                , (android.view.ViewGroup) findViewById(R.id.fl_for_snack_bar));
     }
 }

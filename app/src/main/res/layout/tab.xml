@@ -9,18 +9,15 @@
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#aaffffff"
-        android:text="已接单" />
+        android:text="已接单"
+        android:textColor="@color/tab_color" />
 
     <su.levenetc.android.badgeview.BadgeView
-        android:id="@+id/badgeView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="3dp"
-        android:visibility="visible"
         app:badgeBackgroundColor="@color/badgeColor"
         app:badgePadding="5dp"
-        app:badgeText="30"
         app:badgeTextSize="12dp" />
 
 </LinearLayout>

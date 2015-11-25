@@ -13,4 +13,8 @@
     <color name="orange">@color/md_orange_500</color>
     <color name="default_background">#eee</color>
 
+
+    <color name="tab_color">#aaffffff</color>
+    <color name="tab_selected_color">@color/white</color>
+
 </resources>

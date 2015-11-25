@@ -18,4 +18,9 @@ public class WorkOrderToReviewFragment extends RefreshFragment {
         return "/api/v1/hems/workOrder/review?";
     }
 
+    @Override
+    public int getFragmentIndex() {
+        return 0;
+    }
+
 }

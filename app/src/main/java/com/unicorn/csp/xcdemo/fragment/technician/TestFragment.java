@@ -9,6 +9,6 @@ import com.unicorn.csp.xcdemo.fragment.base.ButterKnifeFragment;
 public class TestFragment extends ButterKnifeFragment {
     @Override
     public int getLayoutResId() {
-        return R.layout.test;
+        return R.layout.tab;
     }
 }

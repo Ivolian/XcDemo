@@ -16,4 +16,9 @@ public class WorkOrderToReceiveFragment extends RefreshFragment {
         return "/api/v1/hems/workOrder/issue?";
     }
 
+    @Override
+    public int getFragmentIndex() {
+        return 0;
+    }
+
 }

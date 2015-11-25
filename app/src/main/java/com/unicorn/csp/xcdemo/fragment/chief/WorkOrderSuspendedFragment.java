@@ -18,4 +18,8 @@ public class WorkOrderSuspendedFragment extends RefreshFragment {
         return "/api/v1/hems/workOrder/hangUp?";
     }
 
+    @Override
+    public int getFragmentIndex() {
+        return 0;
+    }
 }

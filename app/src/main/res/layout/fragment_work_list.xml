@@ -26,12 +26,13 @@
             android:background="@color/colorPrimary"
             app:tabPaddingEnd="0dp"
             app:tabPaddingStart="0dp"
+            app:tabGravity="fill"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
     </app.mosn.zdepthshadowlayout.ZDepthShadowLayout>
 
     <FrameLayout
-        android:id="@+id/fl_for_snack_bar"
+        android:id="@+id/fl_snack_bar_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">

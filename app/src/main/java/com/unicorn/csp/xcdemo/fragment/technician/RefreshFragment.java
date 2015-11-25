@@ -12,6 +12,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.adaper.recycleview.technician.RefreshAdapter;
 import com.unicorn.csp.xcdemo.fragment.base.LazyLoadFragment;
+import com.unicorn.csp.xcdemo.model.RefreshResult;
 import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
 import com.unicorn.csp.xcdemo.utils.ConfigUtils;
 import com.unicorn.csp.xcdemo.utils.GsonUtils;
@@ -42,6 +43,8 @@ public abstract class RefreshFragment extends LazyLoadFragment {
     abstract public RefreshAdapter getAdapter();
 
     abstract public String getLatterPartUrl();
+
+    abstract public int getFragmentIndex();
 
 
     // ================================== views ==================================
@@ -157,7 +160,11 @@ public abstract class RefreshFragment extends LazyLoadFragment {
                         List<WorkOrderProcessInfo> workOrderProcessInfoList = GsonUtils.parseWorkOrderProcessInfoList(jsonArray.toString());
                         adapter.reload(workOrderProcessInfoList);
                         checkLastPage(response);
-                        EventBus.getDefault().post("共 " + totalElements(response) + " 条记录", "onFragmentRefreshFinish");
+
+                        RefreshResult refreshResult = new RefreshResult();
+                        refreshResult.setTabIndex(getFragmentIndex());
+                        refreshResult.setTotal(totalElements(response));
+                        EventBus.getDefault().post(refreshResult,"workListFragment_onRefreshFinish");
                     }
                 },
                 new Response.ErrorListener() {
@@ -194,7 +201,6 @@ public abstract class RefreshFragment extends LazyLoadFragment {
                     }
                 }
         );
-//        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(500, 1, 1.0f));
         SimpleVolley.addRequest(jsonObjectRequest);
     }
 

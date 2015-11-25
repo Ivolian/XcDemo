@@ -17,4 +17,8 @@ public class WorkOrderAssignedFragment extends RefreshFragment {
         return "/api/v1/hems/workOrder/issue/timeout?";
     }
 
+    @Override
+    public int getFragmentIndex() {
+        return 0;
+    }
 }

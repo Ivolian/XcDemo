@@ -16,4 +16,9 @@ public class WorkOrderAchievedFragment extends RefreshFragment {
         return "/api/v1/hems/workOrder/complete?";
     }
 
+    @Override
+    public int getFragmentIndex() {
+        return 3;
+    }
+
 }
