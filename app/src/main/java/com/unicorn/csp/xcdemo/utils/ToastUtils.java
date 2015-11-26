@@ -22,4 +22,8 @@ public class ToastUtils {
         mToast.show();
     }
 
+    public static void show(Object object){
+        ToastUtils.show(object.toString());
+    }
+
 }

@@ -8,13 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.github.aakira.expandablelayout.ExpandableLayoutListenerAdapter;
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.activity.technician.OperationActivity;
+import com.unicorn.csp.xcdemo.activity.technician.PackActivity;
 import com.unicorn.csp.xcdemo.component.PaperButton;
 import com.unicorn.csp.xcdemo.component.WorkOrderFrameLayout;
 import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
 import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
+import com.unicorn.csp.xcdemo.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,19 +77,33 @@ public class WorkOrderSuspendedAdapter extends RecyclerView.Adapter<WorkOrderSus
             workOrderFrameLayout.expandableLayout.toggle();
         }
 
-        @OnClick(R.id.btn_operation)
-        public void startOperationActivity(PaperButton paperButton) {
+        @OnClick(R.id.btn_pack)
+        public void startPackActivity(PaperButton paperButton) {
             Context context = paperButton.getContext();
-            Intent intent = new Intent(context, OperationActivity.class);
+            Intent intent = new Intent(paperButton.getContext(), PackActivity.class);
             intent.putExtra("workOrderProcessInfo", workOrderProcessInfoList.get(getAdapterPosition()));
             context.startActivity(intent);
             ((Activity) context).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
 
+        @OnClick(R.id.btn_operation)
+        public void showChooseOperationDialog(PaperButton paperButton) {
+            new MaterialDialog.Builder(paperButton.getContext())
+                    .title("选择操作")
+                    .items("拍照","录音","结单","挂单","移单","退单")
+                    .itemsCallback(new MaterialDialog.ListCallback() {
+                        @Override
+                        public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                            ToastUtils.show(text.toString());
+                        }
+                    })
+                    .show();
+        }
+
     }
 
 
-    // ================================== item layout ==================================
+    // ================================== onCreateViewHolder ==================================
 
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_work_order_suspended, viewGroup, false));

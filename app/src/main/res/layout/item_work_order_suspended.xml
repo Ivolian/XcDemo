@@ -25,11 +25,12 @@
             android:orientation="horizontal">
 
             <com.unicorn.csp.xcdemo.component.PaperButton
+                android:id="@+id/btn_pack"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:visibility="invisible"
                 app:paper_color="@color/white"
+                app:paper_text="领料"
                 app:paper_text_color="@color/black"
                 app:paper_text_size="15dp" />
 
