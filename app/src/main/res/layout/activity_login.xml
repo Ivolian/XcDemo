@@ -67,7 +67,7 @@
                 android:layout_height="65dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="30dp"
                 app:paper_color="@color/colorPrimary"
                 app:paper_text="登 录"
                 app:paper_text_color="@color/white"
