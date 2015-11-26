@@ -8,7 +8,6 @@ import android.support.v4.view.ViewPager;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
@@ -85,8 +84,9 @@ public class WorkListFragment extends ButterKnifeFragment {
             public void onPageSelected(int position) {
                 for (int i = 0; i != WorkListPagerAdapter.titles.length; i++) {
                     TabLayout.Tab tab = tabLayout.getTabAt(i);
-                    TextView tvTabTitle = TabHelper.getTextView(tab);
-                    tvTabTitle.setTextColor(getResources().getColor(position == i ? R.color.tab_selected_color : R.color.tab_color));
+                    int textColor = getResources().getColor(position == i ? R.color.tab_selected_color : R.color.tab_color);
+                    TabHelper.getTextView(tab).setTextColor(textColor);
+                    TabHelper.getBadgeView(tab).setTextColor(textColor);
                 }
             }
 

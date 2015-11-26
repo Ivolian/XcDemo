@@ -17,6 +17,7 @@ import com.unicorn.csp.xcdemo.component.PaperButton;
 import com.unicorn.csp.xcdemo.component.WorkOrderFrameLayout;
 import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
 import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
+import com.unicorn.csp.xcdemo.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,10 +107,9 @@ public class WorkOrderSuspendedAdapter extends RecyclerView.Adapter<WorkOrderSus
                                     break;
                                 case "挂单":
                                     break;
-                                // todo
                                 case "移单":
-                                    break;
                                 case "退单":
+                                    ToastUtils.show("暂时不支持");
                                     break;
                             }
                         }
