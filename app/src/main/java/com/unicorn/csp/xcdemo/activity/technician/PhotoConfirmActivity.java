@@ -12,28 +12,40 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapSize;
 import com.liangfeizc.flowlayout.FlowLayout;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
 import com.unicorn.csp.xcdemo.component.OptionButton;
+import com.unicorn.csp.xcdemo.component.TinyDB;
 import com.unicorn.csp.xcdemo.utils.ConfigUtils;
 import com.unicorn.csp.xcdemo.utils.ImageUtils;
 import com.unicorn.csp.xcdemo.utils.JSONUtils;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
 import com.unicorn.csp.xcdemo.volley.JSONArrayRequestWithSessionCheck;
 import com.unicorn.csp.xcdemo.volley.SimpleVolley;
+import com.wangqiang.libs.labelviewlib.LabelView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
 import butterknife.Bind;
 import butterknife.OnClick;
+import cz.msebera.android.httpclient.Header;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
 
@@ -42,16 +54,9 @@ public class PhotoConfirmActivity extends ToolbarActivity {
 
     // ========================== extra ==========================
 
+    // todo
 //    @InjectExtra("workOrderProcessInfo")
 //    WorkOrderProcessInfo workOrderProcessInfo;
-
-
-    // ========================== view ==========================
-
-
-    @Bind(R.id.et_description)
-    BootstrapEditText etDescription;
-
 
 
     // ========================== onCreate ==========================
@@ -99,18 +104,33 @@ public class PhotoConfirmActivity extends ToolbarActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == TAKE_PHOTO_REQUEST_CODE && resultCode == RESULT_OK) {
-            displayPhoto();
-            fetchOptions();
+            uploadPhoto();
+            showPhoto();
+            initViews();
         } else {
             finish();
         }
     }
 
-    private void displayPhoto() {
+    private void showPhoto() {
         BitmapFactory.Options options = ImageUtils.getFactoryOptions(ivPhoto.getWidth(), ivPhoto.getHeight(), photoPath);
         Bitmap bitmap = BitmapFactory.decodeFile(photoPath, options);
         ivPhoto.setImageBitmap(bitmap);
         new PhotoViewAttacher(ivPhoto);
+    }
+
+    private void initViews() {
+        fetchOptions();
+        initEtDescription();
+    }
+
+    @Bind(R.id.et_description)
+    BootstrapEditText etDescription;
+
+    private void initEtDescription() {
+        etDescription.setGravity(Gravity.TOP);
+        etDescription.setPadding(20, 20, 20, 20);
+        etDescription.setBootstrapSize(DefaultBootstrapSize.MD);
     }
 
 
@@ -176,53 +196,95 @@ public class PhotoConfirmActivity extends ToolbarActivity {
 
     String photoTempFileName;
 
+    @Bind(R.id.lv_upload)
+    LabelView lvUpload;
+
     private void uploadPhoto() {
-//        AsyncHttpClient client = new AsyncHttpClient();
-//        RequestParams requestParams = new RequestParams();
-//
-//        String compressPhotoPath = ImageUtils.compressPhoto(photoPath);
-//        try {
-//            requestParams.put("attachment", new File(compressPhotoPath));
-//        } catch (Exception e) {
-//            //
-//        }
-//
-//
-//        String url = ConfigUtils.getBaseUrl() + "/api/v1/system/file/upload";
-//        client.post(url, requestParams, new AsyncHttpResponseHandler() {
-//            @Override
-//            public void onSuccess(int i, Header[] headers, byte[] bytes) {
-//
-//                String str = new String(bytes);
-//
-//                JSONObject jsonObject = null;
-//                try {
-//                    jsonObject = new JSONObject(str);
-//                } catch (Exception e) {
-//                    //
-//                }
-//
-//                photoTempFileName = JSONUtils.getString(jsonObject, "tempFileName", "");
-//
-//            }
-//
-//            @Override
-//            public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
-//                ToastUtils.show("失败");
-//            }
-//        });
+        AsyncHttpClient client = new AsyncHttpClient();
+        String url = ConfigUtils.getBaseUrl() + "/api/v1/system/file/upload";
+        RequestParams requestParams = new RequestParams();
+        String compressPhotoPath = ImageUtils.compressPhoto(photoPath);
+        try {
+            requestParams.put("attachment", new File(compressPhotoPath));
+        } catch (Exception e) {
+            //
+        }
+        client.post(url, requestParams, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int i, Header[] headers, byte[] bytes) {
+                String jsonObjectString = new String(bytes);
+                try {
+                    JSONObject jsonObject = new JSONObject(jsonObjectString);
+                    photoTempFileName = JSONUtils.getString(jsonObject, "tempFileName", "");
+                } catch (Exception e) {
+                    //
+                }
+                lvUpload.setText("上传成功");
+            }
+
+            @Override
+            public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
+                lvUpload.setText("上传失败");
+                lvUpload.setBackgroundColor(getResources().getColor(R.color.md_red_400));
+            }
+        });
     }
 
 
-    private void initEtDescription() {
-        etDescription.setGravity(Gravity.TOP);
-        etDescription.setPadding(20, 20, 20, 20);
-        etDescription.setBootstrapSize(DefaultBootstrapSize.MD);
+    // ========================== confirm photo ==========================
+
+    @OnClick(R.id.btn_confirm)
+    public void confirm() {
+        final OptionButton optionSelected = getOptionSelected();
+        if (optionSelected == null) {
+            ToastUtils.show("至少选择一个拍照选项");
+            return;
+        }
+
+        // todo
+//        String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderProcessInfo.getWorkOrderInfo().getWorkOrderId() + "/picture";
+        StringRequest stringRequest = new StringRequest(
+                Request.Method.PUT,
+                "",
+//                        url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        ToastUtils.show("确认完成!");
+                        PhotoConfirmActivity.this.finish();
+                    }
+                },
+                SimpleVolley.getDefaultErrorListener()
+        ) {
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                try {
+                    JSONObject code = new JSONObject();
+                    code.put("name", optionSelected.name);
+                    code.put("objectId", optionSelected.objectId);
+                    JSONObject result = new JSONObject();
+                    result.put("option", code);
+                    result.put("remark", etDescription.getText().toString().trim());
+                    result.put("picture", photoTempFileName);
+                    return result.toString().getBytes("UTF-8");
+                } catch (Exception e) {
+                    //
+                }
+                return null;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> map = new HashMap<>();
+                String jsessionid = TinyDB.getInstance().getString(ConfigUtils.JSESSION_ID);
+                map.put("Cookie", "JSESSIONID=" + jsessionid);
+                // 不加这个会出现 415 错误
+                map.put("Content-Type", "application/json");
+                return map;
+            }
+        };
+        SimpleVolley.addRequest(stringRequest);
     }
-
-
-    // ========================== onClick ==========================
-
 
     private OptionButton getOptionSelected() {
         OptionButton optionSelected = null;
@@ -233,79 +295,6 @@ public class PhotoConfirmActivity extends ToolbarActivity {
             }
         }
         return optionSelected;
-    }
-
-    @OnClick(R.id.btn_confirm)
-    public void confirm() {
-        OptionButton optionSelected = getOptionSelected();
-        if (optionSelected == null) {
-            ToastUtils.show("至少选择一个拍照选项");
-            return;
-        }
-
-//        String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderProcessInfo.getWorkOrderInfo().getWorkOrderId() + "/picture";
-//        SimpleVolley.getRequestQueue().add(
-//                new StringRequest(
-//                        Request.Method.PUT,
-//                        "",
-////                        url,
-//                        new Response.Listener<String>() {
-//                            @Override
-//                            public void onResponse(String response) {
-//                                ToastUtils.show("确认完成!");
-//                                PhotoConfirmActivity.this.finish();
-//                            }
-//                        },
-//                        new Response.ErrorListener() {
-//                            @Override
-//                            public void onErrorResponse(VolleyError error) {
-//                                ToastUtils.show(VolleyErrorHelper.getErrorMessage(error));
-//                            }
-//                        }
-//                ) {
-//                    @Override
-//                    public byte[] getBody() throws AuthFailureError {
-//                        JSONObject result = new JSONObject();
-//                        OptionButton btnSelected = null;
-//                        for (OptionButton optionButton : buttonList) {
-//                            if (!optionButton.isShowOutline()) {
-//                                btnSelected = optionButton;
-//                            }
-//                        }
-//                        String codeName = btnSelected.name;
-//                        String codeId = btnSelected.objectId;
-//                        JSONObject code = new JSONObject();
-//
-//                        try {
-//                            code.put("name", codeName);
-//                            code.put("objectId", codeId);
-//                            result.put("option", code);
-//                            result.put("remark", etDescription.getText().toString().trim());
-//                            result.put("picture", photoTempFileName);
-//                        } catch (Exception e) {
-//                            //
-//                        }
-//                        String json = result.toString();
-//                        byte[] bytes = null;
-//                        try {
-//                            bytes = json.getBytes("UTF-8");
-//                        } catch (Exception e) {
-//                            //
-//                        }
-//                        return bytes;
-//                    }
-//
-//                    @Override
-//                    public Map<String, String> getHeaders() throws AuthFailureError {
-//                        Map<String, String> map = new HashMap<>();
-//                        String jsessionid = TinyDB.getInstance().getString(ConfigUtils.JSESSION_ID);
-//                        map.put("Cookie", "JSESSIONID=" + jsessionid);
-//                        // 不加这个会出现 415 错误
-//                        map.put("Content-Type", "application/json");
-//                        return map;
-//                    }
-//                }
-//        );
     }
 
 }

@@ -19,11 +19,28 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <ImageView
-                android:id="@+id/iv_photo"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:contentDescription="@null" />
+                android:layout_height="400dp">
+
+                <ImageView
+                    android:id="@+id/iv_photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:contentDescription="@null" />
+
+                <com.wangqiang.libs.labelviewlib.LabelView
+                    android:id="@+id/lv_upload"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:text="上传中"
+                    android:textColor="@android:color/white"
+                    android:textSize="12dp"
+                    app:label_distance="8dp"
+                    app:label_position="TOP_RIGHT" />
+
+            </FrameLayout>
 
             <!-- 拍照选项 -->
             <TextView
@@ -64,9 +81,10 @@
                 android:id="@+id/btn_confirm"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
+                android:layout_marginBottom="14dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="30dp"
                 app:paper_color="@color/colorPrimary"
                 app:paper_text="确认"
                 app:paper_text_color="@color/white"
