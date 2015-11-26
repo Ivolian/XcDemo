@@ -22,7 +22,7 @@ import com.f2prateek.dart.InjectExtra;
 import com.liangfeizc.flowlayout.FlowLayout;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
-import com.unicorn.csp.xcdemo.component.MyButton;
+import com.unicorn.csp.xcdemo.component.OptionButton;
 import com.unicorn.csp.xcdemo.component.TinyDB;
 import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
 import com.unicorn.csp.xcdemo.model.WorkOrderProcess;
@@ -133,7 +133,7 @@ public class ReviewActivity extends ToolbarActivity {
     @Bind(R.id.fl_options)
     FlowLayout flOptions;
 
-    List<MyButton> buttonList = new ArrayList<>();
+    List<OptionButton> buttonList = new ArrayList<>();
 
     // ================================== onCreate ==================================
 
@@ -251,11 +251,11 @@ public class ReviewActivity extends ToolbarActivity {
                                     JSONObject jsonObject = JSONUtils.getJSONObject(response, i);
                                     String objectId = JSONUtils.getString(jsonObject, "objectId", "");
                                     String name = JSONUtils.getString(jsonObject, "name", "");
-                                    MyButton myButton = getSuspendOptionButton(name);
-                                    myButton.name = name;
-                                    myButton.objectId = objectId;
-                                    flOptions.addView(myButton, layoutParams);
-                                    buttonList.add(myButton);
+                                    OptionButton optionButton = getSuspendOptionButton(name);
+                                    optionButton.name = name;
+                                    optionButton.objectId = objectId;
+                                    flOptions.addView(optionButton, layoutParams);
+                                    buttonList.add(optionButton);
                                 }
                             }
                         },
@@ -286,9 +286,9 @@ public class ReviewActivity extends ToolbarActivity {
         etDescription.setBootstrapSize(DefaultBootstrapSize.MD);
     }
 
-    private MyButton getSuspendOptionButton(String suspendOptionText) {
+    private OptionButton getSuspendOptionButton(String suspendOptionText) {
 
-        final MyButton btnSuspendOption = new MyButton(this);
+        final OptionButton btnSuspendOption = new OptionButton(this);
         btnSuspendOption.setText(suspendOptionText);
         btnSuspendOption.setPadding(4, 4, 4, 4);
         btnSuspendOption.setBootstrapBrand(DefaultBootstrapBrand.INFO);
@@ -299,9 +299,9 @@ public class ReviewActivity extends ToolbarActivity {
             @Override
             public void onClick(View v) {
                 if (btnSuspendOption.isShowOutline()) {
-                    for (MyButton myButton : buttonList) {
-                        if (myButton != v) {
-                            myButton.setShowOutline(true);
+                    for (OptionButton optionButton : buttonList) {
+                        if (optionButton != v) {
+                            optionButton.setShowOutline(true);
                         }
                     }
                 }
@@ -341,10 +341,10 @@ public class ReviewActivity extends ToolbarActivity {
 
     public void review() {
 
-        MyButton btnSelected = null;
-        for (MyButton myButton : buttonList) {
-            if (!myButton.isShowOutline()) {
-                btnSelected = myButton;
+        OptionButton btnSelected = null;
+        for (OptionButton optionButton : buttonList) {
+            if (!optionButton.isShowOutline()) {
+                btnSelected = optionButton;
             }
         }
         if (btnSelected==null){
@@ -377,10 +377,10 @@ public class ReviewActivity extends ToolbarActivity {
                     public byte[] getBody() throws AuthFailureError {
 
                         JSONObject result = new JSONObject();
-                        MyButton btnSelected = null;
-                        for (MyButton myButton : buttonList) {
-                            if (!myButton.isShowOutline()) {
-                                btnSelected = myButton;
+                        OptionButton btnSelected = null;
+                        for (OptionButton optionButton : buttonList) {
+                            if (!optionButton.isShowOutline()) {
+                                btnSelected = optionButton;
                             }
                         }
                         String codeName = btnSelected.name;

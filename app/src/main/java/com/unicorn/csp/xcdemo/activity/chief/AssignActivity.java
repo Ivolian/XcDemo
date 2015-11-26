@@ -20,7 +20,7 @@ import com.f2prateek.dart.InjectExtra;
 import com.liangfeizc.flowlayout.FlowLayout;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
-import com.unicorn.csp.xcdemo.component.MyButton;
+import com.unicorn.csp.xcdemo.component.OptionButton;
 import com.unicorn.csp.xcdemo.component.TinyDB;
 import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
 import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
@@ -52,7 +52,7 @@ public class AssignActivity extends ToolbarActivity {
     @InjectExtra("workOrderProcessInfo")
     WorkOrderProcessInfo workOrderProcessInfo;
 
-    List<MyButton> buttonList = new ArrayList<>();
+    List<OptionButton> buttonList = new ArrayList<>();
 
 
 
@@ -233,11 +233,11 @@ public class AssignActivity extends ToolbarActivity {
                                     JSONObject jsonObject = JSONUtils.getJSONObject(response, i);
                                     String objectId = JSONUtils.getString(jsonObject, "objectId", "");
                                     String name = JSONUtils.getString(jsonObject, "name", "");
-                                    MyButton myButton = getSuspendOptionButton(name);
-                                    myButton.name = name;
-                                    myButton.objectId = objectId;
-                                    flTechnicianGroup.addView(myButton, layoutParams);
-                                    buttonList.add(myButton);
+                                    OptionButton optionButton = getSuspendOptionButton(name);
+                                    optionButton.name = name;
+                                    optionButton.objectId = objectId;
+                                    flTechnicianGroup.addView(optionButton, layoutParams);
+                                    buttonList.add(optionButton);
                                 }
                             }
                         },
@@ -261,9 +261,9 @@ public class AssignActivity extends ToolbarActivity {
     }
 
 
-    private MyButton getSuspendOptionButton(String suspendOptionText) {
+    private OptionButton getSuspendOptionButton(String suspendOptionText) {
 
-        final MyButton btnSuspendOption = new MyButton(this);
+        final OptionButton btnSuspendOption = new OptionButton(this);
         btnSuspendOption.setText(suspendOptionText);
         btnSuspendOption.setPadding(4, 4, 4, 4);
         btnSuspendOption.setBootstrapBrand(DefaultBootstrapBrand.INFO);
@@ -274,9 +274,9 @@ public class AssignActivity extends ToolbarActivity {
             @Override
             public void onClick(View v) {
                 if (btnSuspendOption.isShowOutline()) {
-                    for (MyButton myButton : buttonList) {
-                        if (myButton != v) {
-                            myButton.setShowOutline(true);
+                    for (OptionButton optionButton : buttonList) {
+                        if (optionButton != v) {
+                            optionButton.setShowOutline(true);
                         }
                     }
                 }
@@ -305,10 +305,10 @@ public class AssignActivity extends ToolbarActivity {
 
     public void assign() {
 
-        MyButton btnSelected = null;
-        for (MyButton myButton : buttonList) {
-            if (!myButton.isShowOutline()) {
-                btnSelected = myButton;
+        OptionButton btnSelected = null;
+        for (OptionButton optionButton : buttonList) {
+            if (!optionButton.isShowOutline()) {
+                btnSelected = optionButton;
             }
         }
         if (btnSelected == null) {

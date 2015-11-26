@@ -25,7 +25,7 @@ import com.google.gson.reflect.TypeToken;
 import com.liangfeizc.flowlayout.FlowLayout;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
-import com.unicorn.csp.xcdemo.component.MyButton;
+import com.unicorn.csp.xcdemo.component.OptionButton;
 import com.unicorn.csp.xcdemo.component.TinyDB;
 import com.unicorn.csp.xcdemo.model.Material;
 import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
@@ -273,7 +273,7 @@ public class PackActivity extends ToolbarActivity {
                 for (int j = 0; j != items.length(); j++) {
                     JSONObject item = JSONUtils.getJSONObject(items, j);
                     String text = JSONUtils.getString(item, "name", "");
-                    MyButton btn = getSuspendOptionButton(text);
+                    OptionButton btn = getSuspendOptionButton(text);
                     btn.name = text;
                     String objectId = JSONUtils.getString(item, "objectId", "");
                     btn.objectId = objectId;
@@ -286,9 +286,9 @@ public class PackActivity extends ToolbarActivity {
 
     }
 
-    private MyButton getSuspendOptionButton(String text) {
+    private OptionButton getSuspendOptionButton(String text) {
 
-        final MyButton btnSuspendOption = new MyButton(this);
+        final OptionButton btnSuspendOption = new OptionButton(this);
         btnSuspendOption.setText(text);
         btnSuspendOption.setPadding(4, 4, 4, 4);
         btnSuspendOption.setBootstrapBrand(DefaultBootstrapBrand.INFO);
@@ -320,7 +320,7 @@ public class PackActivity extends ToolbarActivity {
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
-    private void showNumberDialog(final MyButton bootstrapButton) {
+    private void showNumberDialog(final OptionButton bootstrapButton) {
 
         final String btnText = bootstrapButton.getText().toString();
         String title = "输入" + btnText + "数量";
@@ -399,13 +399,13 @@ public class PackActivity extends ToolbarActivity {
                             if (child instanceof FlowLayout) {
                                 FlowLayout flowLayout = (FlowLayout) child;
                                 for (int j = 0; j != flowLayout.getChildCount(); j++) {
-                                    MyButton myButton = (MyButton) flowLayout.getChildAt(j);
-                                    if (!myButton.isShowOutline()) {
+                                    OptionButton optionButton = (OptionButton) flowLayout.getChildAt(j);
+                                    if (!optionButton.isShowOutline()) {
                                         WorkOrderSupply workOrderSupply = new WorkOrderSupply();
-                                        workOrderSupply.setAmount(myButton.amount);
+                                        workOrderSupply.setAmount(optionButton.amount);
                                         Material material = new Material();
-                                        material.setObjectId(myButton.objectId);
-                                        material.setName(myButton.name);
+                                        material.setObjectId(optionButton.objectId);
+                                        material.setName(optionButton.name);
                                         workOrderSupply.setMaterial(material);
                                         workOrderSupplyList.add(workOrderSupply);
                                     }

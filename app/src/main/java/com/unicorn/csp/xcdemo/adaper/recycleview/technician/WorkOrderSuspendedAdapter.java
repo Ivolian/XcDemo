@@ -12,11 +12,11 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.github.aakira.expandablelayout.ExpandableLayoutListenerAdapter;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.technician.PackActivity;
+import com.unicorn.csp.xcdemo.activity.technician.PhotoConfirmActivity;
 import com.unicorn.csp.xcdemo.component.PaperButton;
 import com.unicorn.csp.xcdemo.component.WorkOrderFrameLayout;
 import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
 import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
-import com.unicorn.csp.xcdemo.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class WorkOrderSuspendedAdapter extends RecyclerView.Adapter<WorkOrderSuspendedAdapter.ViewHolder> implements RefreshAdapter{
+public class WorkOrderSuspendedAdapter extends RecyclerView.Adapter<WorkOrderSuspendedAdapter.ViewHolder> implements RefreshAdapter {
 
 
     // ================================== data ==================================
@@ -88,13 +88,30 @@ public class WorkOrderSuspendedAdapter extends RecyclerView.Adapter<WorkOrderSus
 
         @OnClick(R.id.btn_operation)
         public void showChooseOperationDialog(PaperButton paperButton) {
-            new MaterialDialog.Builder(paperButton.getContext())
+            final Activity activity = (Activity) paperButton.getContext();
+            new MaterialDialog.Builder(activity)
                     .title("选择操作")
-                    .items("拍照","录音","结单","挂单","移单","退单")
+                    .items("拍照", "录音", "结单", "挂单", "移单", "退单")
                     .itemsCallback(new MaterialDialog.ListCallback() {
                         @Override
                         public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                            ToastUtils.show(text.toString());
+                            switch (text.toString()) {
+                                case "拍照":
+                                    Intent intent = new Intent(activity, PhotoConfirmActivity.class);
+                                    activity.startActivity(intent);
+                                    break;
+                                case "录音":
+                                    break;
+                                case "结单":
+                                    break;
+                                case "挂单":
+                                    break;
+                                // todo
+                                case "移单":
+                                    break;
+                                case "退单":
+                                    break;
+                            }
                         }
                     })
                     .show();
