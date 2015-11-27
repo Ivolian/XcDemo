@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.afollestad.materialcamera.MaterialCamera;
 import com.android.volley.AuthFailureError;
@@ -30,6 +29,8 @@ import com.unicorn.csp.xcdemo.volley.SimpleVolley;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,7 +38,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 
-public class VideoConfirmActivity extends ToolbarActivity {
+public class CameraConfirmActivity extends ToolbarActivity {
 
 
     // ========================== extra ==========================
@@ -52,14 +53,14 @@ public class VideoConfirmActivity extends ToolbarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_video_confirm);
+        setContentView(R.layout.activity_camera_confirm);
         initToolbar("摄像确认", true);
         enableSlideFinish();
        autoStartCamera();
     }
 
 
-    // ========================== take photo ==========================
+    // ========================== start camera ==========================
 
     final int CAMERA_REQUEST_CODE = 2333;
 
@@ -68,26 +69,22 @@ public class VideoConfirmActivity extends ToolbarActivity {
                 .saveDir(ConfigUtils.getBaseDirPath())
                 .showPortraitWarning(false)
                 .allowRetry(true)
-                .primaryColorAttr(R.attr.colorPrimary)
-//                .lengthLimitSeconds(30f)
-                .autoSubmit(true)
                 .defaultToFrontFacing(false)
                 .start(CAMERA_REQUEST_CODE);
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CAMERA_REQUEST_CODE &&resultCode == RESULT_OK) {
+//                    String videoPath = data.getDataString();
 
-        // Received recording or error from MaterialCamera
-        if (requestCode == CAMERA_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-                Toast.makeText(this, "Saved to: " + data.getDataString(), Toast.LENGTH_LONG).show();
-            } else if(data != null) {
-                Exception e = (Exception) data.getSerializableExtra(MaterialCamera.ERROR_EXTRA);
-                e.printStackTrace();
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+            try {
+                URL url = new URL(data.getDataString());
+            File file = new File(url.toURI());
+            ToastUtils.show(file.exists());
+            }catch (Exception e){
+                //
             }
         }
     }
@@ -231,7 +228,7 @@ public class VideoConfirmActivity extends ToolbarActivity {
                     @Override
                     public void onResponse(String response) {
                         ToastUtils.show("确认完成!");
-                        VideoConfirmActivity.this.finish();
+                        CameraConfirmActivity.this.finish();
                     }
                 },
                 SimpleVolley.getDefaultErrorListener()

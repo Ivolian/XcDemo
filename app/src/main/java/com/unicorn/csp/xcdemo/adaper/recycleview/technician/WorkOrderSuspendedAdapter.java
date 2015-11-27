@@ -19,11 +19,11 @@ import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.technician.MicActivity;
 import com.unicorn.csp.xcdemo.activity.technician.PackActivity;
 import com.unicorn.csp.xcdemo.activity.technician.PhotoConfirmActivity;
+import com.unicorn.csp.xcdemo.activity.technician.CameraConfirmActivity;
 import com.unicorn.csp.xcdemo.component.PaperButton;
 import com.unicorn.csp.xcdemo.component.WorkOrderFrameLayout;
 import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
 import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
-import com.unicorn.csp.xcdemo.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -130,13 +130,17 @@ public class WorkOrderSuspendedAdapter extends RecyclerView.Adapter<WorkOrderSus
                                                  intent = new Intent(activity, MicActivity.class);
                                                  activity.startActivity(intent);
                                                  break;
+                                             case "摄像":
+                                                 intent = new Intent(activity, CameraConfirmActivity.class);
+                                                 activity.startActivity(intent);
+                                                 break;
+
                                              case "结单":
                                                  break;
                                              case "挂单":
                                                  break;
                                              case "移单":
                                              case "退单":
-                                                 ToastUtils.show("暂不支持");
                                                  break;
                                          }
                                      }
@@ -150,6 +154,8 @@ public class WorkOrderSuspendedAdapter extends RecyclerView.Adapter<WorkOrderSus
         }
 
     }
+
+
 
 
     // ================================== onCreateViewHolder ==================================

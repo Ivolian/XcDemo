@@ -60,4 +60,8 @@ dependencies {
     compile 'com.github.elevenetc:badgeview:v1.0.0'
     compile 'com.github.aakira:expandable-layout:1.4.0@aar'
     compile 'com.github.Kennyc1012:BottomSheet:2.0.4'
+    compile(name: 'camera', ext: 'aar')
+//    compile('com.github.afollestad.material-camera:0.1.1@aar') {
+//        transitive = true
+//    }
 }

@@ -19,26 +19,11 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <com.unicorn.csp.xcdemo.component.PaperButton
-                android:id="@+id/btn_record"
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:layout_marginBottom="15dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="25dp"
-                app:paper_color="@color/white"
-                app:paper_text="录音"
-                app:paper_text_color="@color/black"
-                app:paper_text_size="18dp" />
-
-
             <!-- 选项 -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:text="录音选项"
+                android:text="摄像选项"
                 android:textColor="@color/black"
                 android:textSize="16dp" />
 
@@ -56,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:text="录音说明"
+                android:text="摄像说明"
                 android:textColor="@color/black"
                 android:textSize="16dp" />
 

@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".SimpleApplication"
@@ -51,6 +52,9 @@
         <activity
             android:name=".activity.technician.MicActivity"
             android:theme="@style/AppTheme.NoActionBar.NoWindow" />
+        <activity
+            android:name=".activity.technician.CameraConfirmActivity"
+            android:theme="@style/AppTheme.NoActionBar.NoWindow" />
 
         <!-- chief -->
         <activity android:name=".activity.chief.TodoActivity" />
@@ -61,6 +65,13 @@
             android:name=".activity.chief.ReviewActivity"
             android:theme="@style/AppTheme.NoActionBar.NoWindow" />
 
+        <!-- Register library Activities -->
+        <activity
+            android:name="com.afollestad.materialcamera.CaptureActivity"
+            android:theme="@style/MaterialCamera.CaptureActivity" />
+        <activity
+            android:name="com.afollestad.materialcamera.CaptureActivity2"
+            android:theme="@style/MaterialCamera.CaptureActivity" />
 
     </application>
 

@@ -103,6 +103,7 @@ public class PhotoConfirmActivity extends ToolbarActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == TAKE_PHOTO_REQUEST_CODE && resultCode == RESULT_OK) {
             uploadPhoto();
             showPhoto();
