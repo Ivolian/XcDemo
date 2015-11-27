@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.afollestad.materialcamera.MaterialCamera;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -16,11 +17,15 @@ import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapSize;
 import com.liangfeizc.flowlayout.FlowLayout;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
 import com.unicorn.csp.xcdemo.component.OptionButton;
 import com.unicorn.csp.xcdemo.component.TinyDB;
 import com.unicorn.csp.xcdemo.utils.ConfigUtils;
+import com.unicorn.csp.xcdemo.utils.DialogUtils;
 import com.unicorn.csp.xcdemo.utils.JSONUtils;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
 import com.unicorn.csp.xcdemo.volley.JSONArrayRequestWithSessionCheck;
@@ -36,6 +41,7 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import cz.msebera.android.httpclient.Header;
 
 
 public class CameraConfirmActivity extends ToolbarActivity {
@@ -55,55 +61,14 @@ public class CameraConfirmActivity extends ToolbarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera_confirm);
         initToolbar("摄像确认", true);
+        initViews();
         enableSlideFinish();
-       autoStartCamera();
+        autoStartCamera();
     }
-
-
-    // ========================== start camera ==========================
-
-    final int CAMERA_REQUEST_CODE = 2333;
-
-    private void autoStartCamera() {
-        new MaterialCamera(this)
-                .saveDir(ConfigUtils.getBaseDirPath())
-                .showPortraitWarning(false)
-                .allowRetry(true)
-                .defaultToFrontFacing(false)
-                .start(CAMERA_REQUEST_CODE);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CAMERA_REQUEST_CODE &&resultCode == RESULT_OK) {
-//                    String videoPath = data.getDataString();
-
-            try {
-                URL url = new URL(data.getDataString());
-            File file = new File(url.toURI());
-            ToastUtils.show(file.exists());
-            }catch (Exception e){
-                //
-            }
-        }
-    }
-
-
-    // ========================== after take photo ==========================
 
     private void initViews() {
         fetchOptions();
         initEtDescription();
-    }
-
-    @Bind(R.id.et_description)
-    BootstrapEditText etDescription;
-
-    private void initEtDescription() {
-        etDescription.setGravity(Gravity.TOP);
-        etDescription.setPadding(20, 20, 20, 20);
-        etDescription.setBootstrapSize(DefaultBootstrapSize.MD);
     }
 
 
@@ -165,56 +130,95 @@ public class CameraConfirmActivity extends ToolbarActivity {
     }
 
 
-    // ========================== upload photo ==========================
+    // ========================== description ==========================
 
-    String photoTempFileName;
+    @Bind(R.id.et_description)
+    BootstrapEditText etDescription;
 
-
-
-//    private void uploadPhoto() {
-//        AsyncHttpClient client = new AsyncHttpClient();
-//        String url = ConfigUtils.getBaseUrl() + "/api/v1/system/file/upload";
-//        RequestParams requestParams = new RequestParams();
-//        String compressPhotoPath = ImageUtils.compressPhoto(photoPath);
-//        try {
-//            requestParams.put("attachment", new File(compressPhotoPath));
-//        } catch (Exception e) {
-//            //
-//        }
-//        client.post(url, requestParams, new AsyncHttpResponseHandler() {
-//            @Override
-//            public void onSuccess(int i, Header[] headers, byte[] bytes) {
-//                String jsonObjectString = new String(bytes);
-//                try {
-//                    JSONObject jsonObject = new JSONObject(jsonObjectString);
-//                    photoTempFileName = JSONUtils.getString(jsonObject, "tempFileName", "");
-//                } catch (Exception e) {
-//                    //
-//                }
-//                lvUpload.setText("上传成功");
-//            }
-//
-//            @Override
-//            public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
-//                lvUpload.setText("上传失败");
-//                lvUpload.setBackgroundColor(getResources().getColor(R.color.md_red_400));
-//            }
-//        });
-//    }
+    private void initEtDescription() {
+        etDescription.setGravity(Gravity.TOP);
+        etDescription.setPadding(20, 20, 20, 20);
+        etDescription.setBootstrapSize(DefaultBootstrapSize.MD);
+    }
 
 
-    // ========================== confirm photo ==========================
+    // ========================== start camera ==========================
+
+    final int CAMERA_REQUEST_CODE = 2333;
+
+    private void autoStartCamera() {
+        new MaterialCamera(this)
+                .saveDir(ConfigUtils.getBaseDirPath())
+                .showPortraitWarning(false)
+                .allowRetry(true)
+                .defaultToFrontFacing(false)
+                .start(CAMERA_REQUEST_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
+            try {
+                URL videoUrl = new URL(data.getDataString());
+                uploadPhoto(videoUrl);
+            } catch (Exception e) {
+                //
+            }
+        }else {
+            finish();
+        }
+    }
+
+
+    // ========================== upload video ==========================
+
+    String videoTempFileName;
+
+    private void uploadPhoto(URL videoUrl) {
+        final MaterialDialog mask = DialogUtils.showMask(this,"上传摄像中","请稍后");
+        AsyncHttpClient client = new AsyncHttpClient();
+        String url = ConfigUtils.getBaseUrl() + "/api/v1/system/file/upload";
+        RequestParams requestParams = new RequestParams();
+        try {
+            requestParams.put("attachment", new File(videoUrl.toURI()));
+        } catch (Exception e) {
+            //
+        }
+        client.post(url, requestParams, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int i, Header[] headers, byte[] bytes) {
+                mask.dismiss();
+                String jsonObjectString = new String(bytes);
+                try {
+                    JSONObject jsonObject = new JSONObject(jsonObjectString);
+                    videoTempFileName = JSONUtils.getString(jsonObject, "tempFileName", "");
+                } catch (Exception e) {
+                    //
+                }
+                ToastUtils.show("上传成功");
+            }
+
+            @Override
+            public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
+                mask.dismiss();
+                ToastUtils.show("上传失败");
+            }
+        });
+    }
+
+
+    // ========================== confirm video ==========================
 
     @OnClick(R.id.btn_confirm)
     public void confirm() {
         final OptionButton optionSelected = getOptionSelected();
         if (optionSelected == null) {
-            ToastUtils.show("至少选择一个拍照选项");
+            ToastUtils.show("至少选择一个摄像选项");
             return;
         }
-
-        if (photoTempFileName == null) {
-            ToastUtils.show("上传照片失败，请重新录音");
+        if (videoTempFileName == null) {
+            ToastUtils.show("上传摄像失败，请重新摄像");
             return;
         }
 
@@ -242,7 +246,7 @@ public class CameraConfirmActivity extends ToolbarActivity {
                     JSONObject result = new JSONObject();
                     result.put("option", code);
                     result.put("remark", etDescription.getText().toString().trim());
-                    result.put("picture", photoTempFileName);
+                    result.put("picture", videoTempFileName);
                     return result.toString().getBytes("UTF-8");
                 } catch (Exception e) {
                     //
