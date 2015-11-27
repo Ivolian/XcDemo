@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:background="@color/default_background"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <com.unicorn.csp.xcdemo.component.PaperButton
+                android:id="@+id/btn_record"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_marginBottom="24dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="30dp"
+                app:paper_color="@color/colorPrimary"
+                app:paper_text="确认"
+                app:paper_text_color="@color/white"
+                app:paper_text_size="18dp" />
+
+
+            <!-- 选项 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="录音选项"
+                android:textColor="@color/black"
+                android:textSize="16dp" />
+
+            <com.liangfeizc.flowlayout.FlowLayout
+                android:id="@+id/fl_options"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:horizontal_spacing="8dp"
+                app:vertical_spacing="8dp" />
+
+
+            <!-- 说明 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="录音说明"
+                android:textColor="@color/black"
+                android:textSize="16dp" />
+
+            <com.beardedhen.androidbootstrap.BootstrapEditText
+                android:id="@+id/et_description"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="10dp"
+                app:bootstrapBrand="regular"
+                app:roundedCorners="true" />
+
+            <com.unicorn.csp.xcdemo.component.PaperButton
+                android:id="@+id/btn_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_marginBottom="24dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="30dp"
+                app:paper_color="@color/colorPrimary"
+                app:paper_text="确认"
+                app:paper_text_color="@color/white"
+                app:paper_text_size="18dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <include layout="@layout/toolbar_with_shadow" />
+
+</FrameLayout>
+
+
+
+
+
+

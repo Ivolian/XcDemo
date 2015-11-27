@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/edit"
+        android:icon="@drawable/ic_edit_grey_600_48dp"
+        android:title="拍照" />
+
+    <item
+        android:id="@+id/copy"
+        android:icon="@drawable/ic_edit_grey_600_48dp"
+        android:title="录音" />
+
+
+    <item
+        android:id="@+id/cancel"
+        android:icon="@drawable/ic_edit_grey_600_48dp"
+        android:title="摄像" />
+
+    <item
+        android:icon="@drawable/ic_edit_grey_600_48dp"
+        android:title="结单" />
+
+    <item
+        android:id="@+id/save"
+        android:icon="@drawable/ic_edit_grey_600_48dp"
+        android:title="挂单" />
+
+    <item
+        android:id="@+id/mail"
+        android:icon="@drawable/ic_edit_grey_600_48dp"
+        android:title="移单" />
+
+    <item
+        android:id="@+id/delete"
+        android:icon="@drawable/ic_edit_grey_600_48dp"
+        android:title="退单" />
+
+
+
+</menu>

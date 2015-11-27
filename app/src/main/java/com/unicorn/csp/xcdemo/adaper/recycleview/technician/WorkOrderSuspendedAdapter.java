@@ -5,11 +5,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.github.aakira.expandablelayout.ExpandableLayoutListenerAdapter;
+import com.kennyc.bottomsheet.BottomSheet;
+import com.kennyc.bottomsheet.BottomSheetListener;
+import com.kennyc.bottomsheet.menu.BottomSheetMenuItem;
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.iconics.IconicsDrawable;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.technician.PackActivity;
 import com.unicorn.csp.xcdemo.activity.technician.PhotoConfirmActivity;
@@ -20,6 +25,7 @@ import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.Bind;
@@ -54,9 +60,6 @@ public class WorkOrderSuspendedAdapter extends RecyclerView.Adapter<WorkOrderSus
         @Bind(R.id.work_order_card)
         WorkOrderFrameLayout workOrderFrameLayout;
 
-        @Bind(R.id.btn_operation)
-        PaperButton btnOperation;
-
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
@@ -81,40 +84,65 @@ public class WorkOrderSuspendedAdapter extends RecyclerView.Adapter<WorkOrderSus
         @OnClick(R.id.btn_pack)
         public void startPackActivity(PaperButton paperButton) {
             Context context = paperButton.getContext();
-            Intent intent = new Intent(paperButton.getContext(), PackActivity.class);
+            Intent intent = new Intent(context, PackActivity.class);
             intent.putExtra("workOrderProcessInfo", workOrderProcessInfoList.get(getAdapterPosition()));
             context.startActivity(intent);
-            ((Activity) context).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        }
+
+        private MenuItem getMenuItem(Context context, String title, GoogleMaterial.Icon icon) {
+            return new BottomSheetMenuItem(context, title, new IconicsDrawable(context)
+                    .icon(icon)
+                    .colorRes(R.color.primary)
+                    .sizeDp(48));
         }
 
         @OnClick(R.id.btn_operation)
         public void showChooseOperationDialog(PaperButton paperButton) {
             final Activity activity = (Activity) paperButton.getContext();
-            new MaterialDialog.Builder(activity)
-                    .title("选择操作")
-                    .items("拍照", "录音", "结单", "挂单", "移单", "退单")
-                    .itemsCallback(new MaterialDialog.ListCallback() {
-                        @Override
-                        public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                            switch (text.toString()) {
-                                case "拍照":
-                                    Intent intent = new Intent(activity, PhotoConfirmActivity.class);
-                                    activity.startActivity(intent);
-                                    break;
-                                case "录音":
-                                    break;
-                                case "结单":
-                                    break;
-                                case "挂单":
-                                    break;
-                                case "移单":
-                                case "退单":
-                                    ToastUtils.show("暂时不支持");
-                                    break;
-                            }
-                        }
-                    })
-                    .show();
+            new BottomSheet.Builder(activity)
+                    .setTitle("选择操作")
+                    .grid()
+                    .setMenuItems(Arrays.asList(
+                            getMenuItem(activity, "拍照", GoogleMaterial.Icon.gmd_camera),
+                            getMenuItem(activity, "录音", GoogleMaterial.Icon.gmd_mic),
+                            getMenuItem(activity, "摄像", GoogleMaterial.Icon.gmd_videocam),
+                            getMenuItem(activity, "结单", GoogleMaterial.Icon.gmd_check_circle),
+                            getMenuItem(activity, "挂单", GoogleMaterial.Icon.gmd_cloud_upload),
+                            getMenuItem(activity, "移单", GoogleMaterial.Icon.gmd_accounts_add),
+                            getMenuItem(activity, "退单", GoogleMaterial.Icon.gmd_delete)
+                    ))
+                    .setListener(new BottomSheetListener() {
+                                     @Override
+                                     public void onSheetShown() {
+
+                                     }
+
+                                     @Override
+                                     public void onSheetItemSelected(MenuItem menuItem) {
+                                         switch (menuItem.getTitle().toString()) {
+                                             case "拍照":
+                                                 Intent intent = new Intent(activity, PhotoConfirmActivity.class);
+                                                 activity.startActivity(intent);
+                                                 break;
+                                             case "录音":
+                                                 break;
+                                             case "结单":
+                                                 break;
+                                             case "挂单":
+                                                 break;
+                                             case "移单":
+                                             case "退单":
+                                                 ToastUtils.show("暂不支持");
+                                                 break;
+                                         }
+                                     }
+
+                                     @Override
+                                     public void onSheetDismissed(int i) {
+
+                                     }
+                                 }
+                    ).show();
         }
 
     }
