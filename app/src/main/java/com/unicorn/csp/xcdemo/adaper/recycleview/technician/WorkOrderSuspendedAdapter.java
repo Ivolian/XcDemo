@@ -16,6 +16,7 @@ import com.kennyc.bottomsheet.menu.BottomSheetMenuItem;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.unicorn.csp.xcdemo.R;
+import com.unicorn.csp.xcdemo.activity.technician.MicActivity;
 import com.unicorn.csp.xcdemo.activity.technician.PackActivity;
 import com.unicorn.csp.xcdemo.activity.technician.PhotoConfirmActivity;
 import com.unicorn.csp.xcdemo.component.PaperButton;
@@ -119,12 +120,15 @@ public class WorkOrderSuspendedAdapter extends RecyclerView.Adapter<WorkOrderSus
 
                                      @Override
                                      public void onSheetItemSelected(MenuItem menuItem) {
+                                         Intent intent;
                                          switch (menuItem.getTitle().toString()) {
                                              case "拍照":
-                                                 Intent intent = new Intent(activity, PhotoConfirmActivity.class);
+                                                 intent = new Intent(activity, PhotoConfirmActivity.class);
                                                  activity.startActivity(intent);
                                                  break;
                                              case "录音":
+                                                 intent = new Intent(activity, MicActivity.class);
+                                                 activity.startActivity(intent);
                                                  break;
                                              case "结单":
                                                  break;

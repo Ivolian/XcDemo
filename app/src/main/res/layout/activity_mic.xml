@@ -23,13 +23,13 @@
                 android:id="@+id/btn_record"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="20dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:layout_marginTop="30dp"
-                app:paper_color="@color/colorPrimary"
-                app:paper_text="确认"
-                app:paper_text_color="@color/white"
+                android:layout_marginTop="25dp"
+                app:paper_color="@color/white"
+                app:paper_text="录音"
+                app:paper_text_color="@color/black"
                 app:paper_text_size="18dp" />
 
 
