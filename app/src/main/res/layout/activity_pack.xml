@@ -18,7 +18,6 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-
             <!-- 工作清单 -->
             <TextView
                 android:layout_width="wrap_content"
@@ -42,49 +41,11 @@
 
 
             <LinearLayout
-                android:id="@+id/container"
+                android:id="@+id/ll_material_group_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"/>
 
-                <!-- 空调配件 -->
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginTop="30dp"-->
-                    <!--android:text="空调配件"-->
-                    <!--android:textColor="@color/black"-->
-                    <!--android:textSize="16dp" />-->
-
-                <!--<com.liangfeizc.flowlayout.FlowLayout-->
-                    <!--android:id="@+id/fl_material_group1"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginTop="10dp"-->
-                    <!--app:horizontal_spacing="8dp"-->
-                    <!--app:vertical_spacing="8dp" />-->
-
-
-                <!--&lt;!&ndash; 空调配件 &ndash;&gt;-->
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginTop="30dp"-->
-                    <!--android:text="小配件"-->
-                    <!--android:textColor="@color/black"-->
-                    <!--android:textSize="16dp" />-->
-
-                <!--<com.liangfeizc.flowlayout.FlowLayout-->
-                    <!--android:id="@+id/fl_material_group2"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginTop="10dp"-->
-                    <!--app:horizontal_spacing="8dp"-->
-                    <!--app:vertical_spacing="8dp" />-->
-
-            </LinearLayout>
-
-            <!-- 挂单按钮 -->
             <com.unicorn.csp.xcdemo.component.PaperButton
                 android:id="@+id/btn_pack"
                 android:layout_width="match_parent"
