@@ -57,12 +57,12 @@ public class WorkOrderToReceiveAdapter extends RecyclerView.Adapter<WorkOrderToR
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.work_order_card)
-        WorkOrderFrameLayout workOrderFrameLayout;
+        WorkOrderFrameLayout wordOrderCard;
 
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
-            workOrderFrameLayout.expandableLayout.setListener(new ExpandableLayoutListenerAdapter() {
+            wordOrderCard.expandableLayout.setListener(new ExpandableLayoutListenerAdapter() {
                 @Override
                 public void onPreOpen() {
                     workOrderProcessInfoList.get(getAdapterPosition()).setExpand(true);
@@ -77,7 +77,7 @@ public class WorkOrderToReceiveAdapter extends RecyclerView.Adapter<WorkOrderToR
 
         @OnClick(R.id.cardview)
         public void toggle() {
-            workOrderFrameLayout.expandableLayout.toggle();
+            wordOrderCard.expandableLayout.toggle();
         }
 
         @OnClick(R.id.btn_receive)
@@ -100,6 +100,7 @@ public class WorkOrderToReceiveAdapter extends RecyclerView.Adapter<WorkOrderToR
                         @Override
                         public void onResponse(String response) {
                             ToastUtils.show("接单成功！");
+                            // reload 是最简单和准确的，但为了有种接单效果，用了remove
                             workOrderProcessInfoList.remove(position);
                             WorkOrderToReceiveAdapter.this.notifyItemRemoved(position);
                         }
@@ -123,8 +124,8 @@ public class WorkOrderToReceiveAdapter extends RecyclerView.Adapter<WorkOrderToR
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         WorkOrderInfo workOrderInfo = workOrderProcessInfoList.get(position).getWorkOrderInfo();
-//        viewHolder.workOrderCard.setWorkOrderInfo(workOrderInfo);
-        viewHolder.workOrderFrameLayout.expandableLayout.setExpanded(workOrderProcessInfoList.get(position).isExpand());
+        viewHolder.wordOrderCard.setWorkOrderInfo(workOrderInfo);
+        viewHolder.wordOrderCard.expandableLayout.setExpanded(workOrderProcessInfoList.get(position).isExpand());
     }
 
 
