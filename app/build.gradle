@@ -65,5 +65,6 @@ dependencies {
 //        transitive = true
 //    }
     compile 'org.ocpsoft.prettytime:prettytime:3.2.7.Final'
+    compile 'tyrantgit:explosionfield:1.0.1'
 
 }

@@ -7,7 +7,7 @@ import android.support.v4.view.ViewCompat;
 import com.f2prateek.dart.InjectExtra;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.component.WorkOrderFrameLayout;
-import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
+import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -16,8 +16,8 @@ abstract public class WorkOrderCardActivity extends ToolbarActivity{
 
     public static final String SHARED_VIEW = "WordOrderCard";
 
-    @InjectExtra("workOrderProcessInfo")
-    public WorkOrderProcessInfo workOrderProcessInfo;
+    @InjectExtra("workOrderInfo")
+    public WorkOrderInfo workOrderInfo;
 
     @Bind(R.id.work_order_card)
     WorkOrderFrameLayout workOrderCard;
@@ -30,7 +30,7 @@ abstract public class WorkOrderCardActivity extends ToolbarActivity{
     @Override
     public void setContentView(@LayoutRes int layoutResId) {
         super.setContentView(layoutResId);
-        workOrderCard.setWorkOrderInfo(workOrderProcessInfo.getWorkOrderInfo());
+        workOrderCard.setWorkOrderInfo(workOrderInfo);
         ViewCompat.setTransitionName(workOrderCard, SHARED_VIEW);
     }
 

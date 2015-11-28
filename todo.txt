@@ -5,6 +5,7 @@
 5. workOrderCard 展示方式和文字突出,顺序。
 6. 如果领料太多
 7. 上传大文件的问题
+8. refreshTag for pack and achieve
 
 
 工单监控

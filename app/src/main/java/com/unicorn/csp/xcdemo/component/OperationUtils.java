@@ -51,21 +51,22 @@ public class OperationUtils {
                                      switch (menuItem.getTitle().toString()) {
                                          case "拍照":
                                              intent = new Intent(activity, PhotoConfirmActivity.class);
-                                             intent.putExtra("workOrderId",workOrderInfo.getWorkOrderId());
+                                             intent.putExtra("workOrderId", workOrderInfo.getWorkOrderId());
                                              activity.startActivity(intent);
                                              break;
                                          case "录音":
                                              intent = new Intent(activity, MicActivity.class);
-                                             intent.putExtra("workOrderId",workOrderInfo.getWorkOrderId());
+                                             intent.putExtra("workOrderId", workOrderInfo.getWorkOrderId());
                                              activity.startActivity(intent);
                                              break;
                                          case "摄像":
                                              intent = new Intent(activity, CameraConfirmActivity.class);
-                                             intent.putExtra("workOrderId",workOrderInfo.getWorkOrderId());
+                                             intent.putExtra("workOrderId", workOrderInfo.getWorkOrderId());
                                              activity.startActivity(intent);
                                              break;
                                          case "结单":
                                              intent = new Intent(activity, AchieveActivity.class);
+                                             intent.putExtra("workOrderInfo", workOrderInfo);
                                              activity.startActivity(intent);
                                              break;
                                          case "挂单":

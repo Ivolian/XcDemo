@@ -41,9 +41,6 @@
             android:name=".activity.technician.PackActivity"
             android:theme="@style/AppTheme.NoActionBar.NoWindow" />
         <activity
-            android:name=".activity.technician.OperationActivity"
-            android:theme="@style/AppTheme.NoActionBar.NoWindow" />
-        <activity
             android:name=".activity.technician.AchieveActivity"
             android:theme="@style/AppTheme.NoActionBar.NoWindow" />
         <activity
