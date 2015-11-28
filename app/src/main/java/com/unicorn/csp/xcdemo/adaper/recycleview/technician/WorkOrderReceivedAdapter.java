@@ -124,7 +124,7 @@ public class WorkOrderReceivedAdapter extends RecyclerView.Adapter<WorkOrderRece
                     });
                     break;
                 case "Arrive":
-                    OperationUtils.showChooseOperationDialog((Activity) btnArrivalOrOperation.getContext(), true);
+                    OperationUtils.showChooseOperationDialog((Activity) btnArrivalOrOperation.getContext(),workOrderInfo, true);
                     break;
             }
         }

@@ -20,24 +20,24 @@ import com.android.volley.toolbox.StringRequest;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapSize;
+import com.f2prateek.dart.InjectExtra;
 import com.liangfeizc.flowlayout.FlowLayout;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
 import com.unicorn.csp.xcdemo.component.OptionButton;
-import com.unicorn.csp.xcdemo.component.TinyDB;
+import com.unicorn.csp.xcdemo.component.UploadUtils;
 import com.unicorn.csp.xcdemo.utils.ConfigUtils;
+import com.unicorn.csp.xcdemo.utils.DialogUtils;
 import com.unicorn.csp.xcdemo.utils.ImageUtils;
 import com.unicorn.csp.xcdemo.utils.JSONUtils;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
 import com.unicorn.csp.xcdemo.volley.JSONArrayRequestWithSessionCheck;
 import com.unicorn.csp.xcdemo.volley.SimpleVolley;
-import com.wangqiang.libs.labelviewlib.LabelView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
 
 import java.io.File;
 import java.util.HashMap;
@@ -45,7 +45,6 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import cz.msebera.android.httpclient.Header;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
 
@@ -55,19 +54,26 @@ public class PhotoConfirmActivity extends ToolbarActivity {
     // ========================== extra ==========================
 
     // todo
-//    @InjectExtra("workOrderProcessInfo")
-//    WorkOrderProcessInfo workOrderProcessInfo;
+    @InjectExtra("workOrderId")
+    String workOrderId;
 
 
-    // ========================== onCreate ==========================
+    // ========================== onCreate & onDestroy ==========================
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
         setContentView(R.layout.activity_photo_confirm);
         initToolbar("拍照确认", true);
         enableSlideFinish();
         autoTakePhoto();
+    }
+
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
     }
 
 
@@ -105,9 +111,9 @@ public class PhotoConfirmActivity extends ToolbarActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == TAKE_PHOTO_REQUEST_CODE && resultCode == RESULT_OK) {
-            uploadPhoto();
             showPhoto();
-            initViews();
+            uploadPhoto();
+            initOtherViews();
         } else {
             finish();
         }
@@ -120,18 +126,9 @@ public class PhotoConfirmActivity extends ToolbarActivity {
         new PhotoViewAttacher(ivPhoto);
     }
 
-    private void initViews() {
+    private void initOtherViews() {
         fetchOptions();
         initEtDescription();
-    }
-
-    @Bind(R.id.et_description)
-    BootstrapEditText etDescription;
-
-    private void initEtDescription() {
-        etDescription.setGravity(Gravity.TOP);
-        etDescription.setPadding(20, 20, 20, 20);
-        etDescription.setBootstrapSize(DefaultBootstrapSize.MD);
     }
 
 
@@ -151,7 +148,7 @@ public class PhotoConfirmActivity extends ToolbarActivity {
                             JSONObject jsonObject = JSONUtils.getJSONObject(response, i);
                             String objectId = JSONUtils.getString(jsonObject, "objectId", "");
                             String name = JSONUtils.getString(jsonObject, "name", "");
-                            flOptions.addView(getOptionButton(name, objectId), getLayoutParams());
+                            flOptions.addView(getOptionButton(name, objectId), getOptionButtonLayoutParams());
                         }
                     }
                 },
@@ -187,52 +184,40 @@ public class PhotoConfirmActivity extends ToolbarActivity {
         return optionButton;
     }
 
-    private ViewGroup.LayoutParams getLayoutParams() {
+    private ViewGroup.LayoutParams getOptionButtonLayoutParams() {
         // TODO: Is this a correct use of layoutParams ?
         return new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 
 
-    // ========================== upload photo ==========================
+    // ========================== description ==========================
 
-    String photoTempFileName;
+    @Bind(R.id.et_description)
+    BootstrapEditText etDescription;
 
-    @Bind(R.id.lv_upload)
-    LabelView lvUpload;
-
-    private void uploadPhoto() {
-        AsyncHttpClient client = new AsyncHttpClient();
-        String url = ConfigUtils.getBaseUrl() + "/api/v1/system/file/upload";
-        RequestParams requestParams = new RequestParams();
-        String compressPhotoPath = ImageUtils.compressPhoto(photoPath);
-        try {
-            requestParams.put("attachment", new File(compressPhotoPath));
-        } catch (Exception e) {
-            //
-        }
-        client.post(url, requestParams, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int i, Header[] headers, byte[] bytes) {
-                String jsonObjectString = new String(bytes);
-                try {
-                    JSONObject jsonObject = new JSONObject(jsonObjectString);
-                    photoTempFileName = JSONUtils.getString(jsonObject, "tempFileName", "");
-                } catch (Exception e) {
-                    //
-                }
-                lvUpload.setText("上传成功");
-            }
-
-            @Override
-            public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
-                lvUpload.setText("上传失败");
-                lvUpload.setBackgroundColor(getResources().getColor(R.color.md_red_400));
-            }
-        });
+    private void initEtDescription() {
+        etDescription.setGravity(Gravity.TOP);
+        etDescription.setPadding(20, 20, 20, 20);
+        etDescription.setBootstrapSize(DefaultBootstrapSize.MD);
     }
 
 
-    // ========================== confirm photo ==========================
+    // ========================== upload ==========================
+
+    String photoTempFileName;
+
+    private void uploadPhoto() {
+        String compressPhotoPath = ImageUtils.compressPhoto(photoPath);
+        UploadUtils.upload(new File(compressPhotoPath), "photoConfirmActivity_onUploadFinish", DialogUtils.showMask(this, "上传照片中", "请稍后"));
+    }
+
+    @Subscriber(tag = "photoConfirmActivity_onUploadFinish")
+    private void onUploadFinish(String tempFileName) {
+        photoTempFileName = tempFileName;
+    }
+
+
+    // ========================== confirm ==========================
 
     @OnClick(R.id.btn_confirm)
     public void confirm() {
@@ -241,18 +226,14 @@ public class PhotoConfirmActivity extends ToolbarActivity {
             ToastUtils.show("至少选择一个拍照选项");
             return;
         }
-
         if (photoTempFileName == null) {
-            ToastUtils.show("上传照片失败，请重新录音");
+            ToastUtils.show("上传照片失败，请重新拍照");
             return;
         }
-
-        // todo
-//        String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderProcessInfo.getWorkOrderInfo().getWorkOrderId() + "/picture";
+        String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderId + "/picture";
         StringRequest stringRequest = new StringRequest(
                 Request.Method.PUT,
-                "",
-//                        url,
+                url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -268,6 +249,7 @@ public class PhotoConfirmActivity extends ToolbarActivity {
                     JSONObject code = new JSONObject();
                     code.put("name", optionSelected.name);
                     code.put("objectId", optionSelected.objectId);
+
                     JSONObject result = new JSONObject();
                     result.put("option", code);
                     result.put("remark", etDescription.getText().toString().trim());
@@ -282,8 +264,7 @@ public class PhotoConfirmActivity extends ToolbarActivity {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> map = new HashMap<>();
-                String jsessionid = TinyDB.getInstance().getString(ConfigUtils.JSESSION_ID);
-                map.put("Cookie", "JSESSIONID=" + jsessionid);
+                map.put("Cookie", "JSESSIONID=" + ConfigUtils.getJsessionId());
                 // 不加这个会出现 415 错误
                 map.put("Content-Type", "application/json");
                 return map;

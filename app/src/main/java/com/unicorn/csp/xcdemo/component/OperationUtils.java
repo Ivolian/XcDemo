@@ -15,6 +15,7 @@ import com.unicorn.csp.xcdemo.activity.technician.AchieveActivity;
 import com.unicorn.csp.xcdemo.activity.technician.CameraConfirmActivity;
 import com.unicorn.csp.xcdemo.activity.technician.MicActivity;
 import com.unicorn.csp.xcdemo.activity.technician.PhotoConfirmActivity;
+import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ import java.util.List;
 
 public class OperationUtils {
 
-    public static void showChooseOperationDialog(final Activity activity, boolean showSuspend) {
+    public static void showChooseOperationDialog(final Activity activity, final WorkOrderInfo workOrderInfo, boolean showSuspend) {
 
         List<MenuItem> menuItems = new ArrayList<>();
         menuItems.add(getMenuItem(activity, "拍照", GoogleMaterial.Icon.gmd_camera));
@@ -51,6 +52,7 @@ public class OperationUtils {
                                      switch (menuItem.getTitle().toString()) {
                                          case "拍照":
                                              intent = new Intent(activity, PhotoConfirmActivity.class);
+                                             intent.putExtra("workOrderId",workOrderInfo.getWorkOrderId());
                                              activity.startActivity(intent);
                                              break;
                                          case "录音":
