@@ -11,11 +11,14 @@ import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
 import com.unicorn.csp.xcdemo.model.WorkOrderSupplyInfo;
+import com.unicorn.csp.xcdemo.utils.PrettyTimeUtils;
 import com.wangqiang.libs.labelviewlib.LabelView;
 
 import org.joda.time.DateTime;
+import org.ocpsoft.prettytime.PrettyTime;
 
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -99,9 +102,12 @@ public class WorkOrderFrameLayout extends FrameLayout {
     }
 
     public void setWorkOrderInfo(WorkOrderInfo workOrderInfo) {
+
+        PrettyTime prettyTime = new PrettyTime(new Locale("ZH_CN"));
+
         String requestUserAndCallNumber = "报修电话: " + workOrderInfo.getCallNumber() + " " + workOrderInfo.getRequestUser();
         tvRequestUserAndCallNumber.setText(requestUserAndCallNumber);
-        String requestTime = "报修时间: " + new DateTime(workOrderInfo.getRequestTime()).toString("yyyy-MM-dd HH:mm:ss");
+        String requestTime = "报修时间: " + PrettyTimeUtils.pretty(workOrderInfo.getRequestTime());
         tvRequestTime.setText(requestTime);
         String buildingAndAddress = "保修地点: " + workOrderInfo.getBuilding() + "(" + workOrderInfo.getAddress() + ")";
         tvBuildingAndAddress.setText(buildingAndAddress);
@@ -116,7 +122,7 @@ public class WorkOrderFrameLayout extends FrameLayout {
 
         String issuer = "受理人员: " + workOrderInfo.getIssuer();
         tvIssuer.setText(issuer);
-        String issuerTime = "受理时间: " + new DateTime(workOrderInfo.getIssueTime()).toString("yyyy-MM-dd HH:mm:ss");
+        String issuerTime = "受理时间: " + PrettyTimeUtils.pretty(workOrderInfo.getIssueTime());
         tvIssueTime.setText(issuerTime);
         if (workOrderInfo.getIssuer() == null) {
             tvIssuer.setVisibility(View.GONE);
@@ -132,7 +138,7 @@ public class WorkOrderFrameLayout extends FrameLayout {
         }
         String receiver = "接单人员: " + workOrderInfo.getReceiver();
         tvReceiver.setText(receiver);
-        String receiverTime = "接单时间: " + new DateTime(workOrderInfo.getReceiveTime()).toString("yyyy-MM-dd HH:mm:ss");
+        String receiverTime = "接单时间: " +PrettyTimeUtils.pretty(workOrderInfo.getReceiveTime());
         tvReceiverTime.setText(receiverTime);
         if (workOrderInfo.getReceiver() == null) {
             tvReceiver.setVisibility(View.GONE);

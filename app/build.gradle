@@ -64,4 +64,6 @@ dependencies {
 //    compile('com.github.afollestad.material-camera:0.1.1@aar') {
 //        transitive = true
 //    }
+    compile 'org.ocpsoft.prettytime:prettytime:3.2.7.Final'
+
 }
