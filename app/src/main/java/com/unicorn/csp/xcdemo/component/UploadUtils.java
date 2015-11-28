@@ -21,7 +21,6 @@ public class UploadUtils {
         AsyncHttpClient client = new AsyncHttpClient();
         String url = ConfigUtils.getBaseUrl() + "/api/v1/system/file/upload";
         RequestParams requestParams = new RequestParams();
-
         try {
             requestParams.put("attachment", fileToUpload);
         } catch (Exception e) {

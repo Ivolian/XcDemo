@@ -61,6 +61,7 @@ public class OperationUtils {
                                              break;
                                          case "摄像":
                                              intent = new Intent(activity, CameraConfirmActivity.class);
+                                             intent.putExtra("workOrderId",workOrderInfo.getWorkOrderId());
                                              activity.startActivity(intent);
                                              break;
                                          case "结单":
