@@ -25,7 +25,6 @@ import java.util.List;
 public class OperationUtils {
 
     public static void showChooseOperationDialog(final Activity activity, final WorkOrderInfo workOrderInfo, boolean showSuspend) {
-
         List<MenuItem> menuItems = new ArrayList<>();
         menuItems.add(getMenuItem(activity, "拍照", GoogleMaterial.Icon.gmd_camera));
         menuItems.add(getMenuItem(activity, "录音", GoogleMaterial.Icon.gmd_mic));
@@ -36,7 +35,6 @@ public class OperationUtils {
         }
         menuItems.add(getMenuItem(activity, "移单", GoogleMaterial.Icon.gmd_accounts_add));
         menuItems.add(getMenuItem(activity, "退单", GoogleMaterial.Icon.gmd_delete));
-
         new BottomSheet.Builder(activity)
                 .setTitle("选择操作")
                 .grid()
@@ -58,6 +56,7 @@ public class OperationUtils {
                                              break;
                                          case "录音":
                                              intent = new Intent(activity, MicActivity.class);
+                                             intent.putExtra("workOrderId",workOrderInfo.getWorkOrderId());
                                              activity.startActivity(intent);
                                              break;
                                          case "摄像":

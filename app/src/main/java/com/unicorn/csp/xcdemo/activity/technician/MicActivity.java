@@ -7,7 +7,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -16,15 +15,14 @@ import com.android.volley.toolbox.StringRequest;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapSize;
+import com.f2prateek.dart.InjectExtra;
 import com.liangfeizc.flowlayout.FlowLayout;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
 import com.unicorn.csp.xcdemo.component.OptionButton;
 import com.unicorn.csp.xcdemo.component.PaperButton;
 import com.unicorn.csp.xcdemo.component.TinyDB;
+import com.unicorn.csp.xcdemo.component.UploadUtils;
 import com.unicorn.csp.xcdemo.utils.ConfigUtils;
 import com.unicorn.csp.xcdemo.utils.DialogUtils;
 import com.unicorn.csp.xcdemo.utils.JSONUtils;
@@ -34,6 +32,8 @@ import com.unicorn.csp.xcdemo.volley.SimpleVolley;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
 
 import java.io.File;
 import java.io.IOException;
@@ -42,7 +42,6 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import cz.msebera.android.httpclient.Header;
 
 
 public class MicActivity extends ToolbarActivity {
@@ -50,19 +49,26 @@ public class MicActivity extends ToolbarActivity {
 
     // ========================== extra ==========================
 
-//    @InjectExtra("workOrderProcessInfo")
-//    WorkOrderProcessInfo workOrderProcessInfo;
+    @InjectExtra("workOrderId")
+    String workOrderId;
 
 
-    // ========================== onCreate ==========================
+    // ========================== onCreate & onDestroy ==========================
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
         setContentView(R.layout.activity_mic);
         initToolbar("录音", true);
         initViews();
         enableSlideFinish();
+    }
+
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
     }
 
     private void initViews() {
@@ -79,6 +85,7 @@ public class MicActivity extends ToolbarActivity {
     private void fetchOptions() {
         JsonArrayRequest jsonArrayRequest = new JSONArrayRequestWithSessionCheck(
                 Request.Method.GET,
+                // todo change url
                 ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/picture/options",
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -184,7 +191,7 @@ public class MicActivity extends ToolbarActivity {
     }
 
     private String getRecordFilePath() {
-        return ConfigUtils.getBaseDirPath() + File.separator + "1.mp3";
+        return ConfigUtils.getBaseDirPath() + File.separator + "record.mp3";
     }
 
     private void stopRecording() {
@@ -192,8 +199,7 @@ public class MicActivity extends ToolbarActivity {
         mRecorder.release();
         mRecorder = null;
         btnRecord.setText("播放");
-
-        uploadRecord(DialogUtils.showMask(this, "上传录音中", "请稍后"));
+        uploadRecord();
     }
 
     private void startPlaying() {
@@ -215,43 +221,21 @@ public class MicActivity extends ToolbarActivity {
     }
 
 
-    // ========================== upload record ==========================
+    // ========================== upload ==========================
 
     String recordTempFileName;
 
-    private void uploadRecord(final MaterialDialog mask) {
-        AsyncHttpClient client = new AsyncHttpClient();
-        String url = ConfigUtils.getBaseUrl() + "/api/v1/system/file/upload";
-        RequestParams requestParams = new RequestParams();
-        try {
-            requestParams.put("attachment", new File(getRecordFilePath()));
-        } catch (Exception e) {
-            //
-        }
-        client.post(url, requestParams, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int i, Header[] headers, byte[] bytes) {
-                mask.dismiss();
-                String jsonObjectString = new String(bytes);
-                try {
-                    JSONObject jsonObject = new JSONObject(jsonObjectString);
-                    recordTempFileName = JSONUtils.getString(jsonObject, "tempFileName", "");
-                } catch (Exception e) {
-                    //
-                }
-                ToastUtils.show("上传成功");
-            }
+    private void uploadRecord() {
+        UploadUtils.upload(new File(getRecordFilePath()), "micActivity_onUploadFinish", DialogUtils.showMask(this, "上传录音中", "请稍后"));
+    }
 
-            @Override
-            public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
-                mask.dismiss();
-                ToastUtils.show("上传失败");
-            }
-        });
+    @Subscriber(tag = "micActivity_onUploadFinish")
+    private void onUploadFinish(String tempFileName) {
+        recordTempFileName = tempFileName;
     }
 
 
-    // ========================== confirm record ==========================
+    // ========================== confirm  ==========================
 
     @OnClick(R.id.btn_confirm)
     public void confirm() {
@@ -260,18 +244,15 @@ public class MicActivity extends ToolbarActivity {
             ToastUtils.show("至少选择一个录音选项");
             return;
         }
-
         if (recordTempFileName == null) {
-            ToastUtils.show("上传录音失败，请重新录音");
+            ToastUtils.show("尚未录音或上传录音失败，请重新录音");
             return;
         }
-
-        // todo
-//        String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderProcessInfo.getWorkOrderInfo().getWorkOrderId() + "/picture";
+//        todo change url
+        String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderId + "/picture";
         StringRequest stringRequest = new StringRequest(
                 Request.Method.PUT,
-                "",
-//                        url,
+                url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -287,6 +268,7 @@ public class MicActivity extends ToolbarActivity {
                     JSONObject code = new JSONObject();
                     code.put("name", optionSelected.name);
                     code.put("objectId", optionSelected.objectId);
+
                     JSONObject result = new JSONObject();
                     result.put("option", code);
                     result.put("remark", etDescription.getText().toString().trim());
