@@ -21,7 +21,7 @@ import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapSize;
 import com.google.gson.Gson;
 import com.liangfeizc.flowlayout.FlowLayout;
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.activity.base.WorkOrderActivity;
+import com.unicorn.csp.xcdemo.activity.base.WorkOrderCardActivity;
 import com.unicorn.csp.xcdemo.component.OptionButton;
 import com.unicorn.csp.xcdemo.component.TinyDB;
 import com.unicorn.csp.xcdemo.model.Material;
@@ -45,7 +45,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 
-public class PackActivity extends WorkOrderActivity {
+public class PackActivity extends WorkOrderCardActivity {
 
 
     // ================================== views ==================================

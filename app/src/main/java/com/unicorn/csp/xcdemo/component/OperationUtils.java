@@ -16,6 +16,7 @@ import com.unicorn.csp.xcdemo.activity.technician.CameraConfirmActivity;
 import com.unicorn.csp.xcdemo.activity.technician.MicActivity;
 import com.unicorn.csp.xcdemo.activity.technician.PhotoConfirmActivity;
 import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
+import com.unicorn.csp.xcdemo.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,6 +72,7 @@ public class OperationUtils {
                                              break;
                                          case "移单":
                                          case "退单":
+                                             ToastUtils.show("暂无此功能");
                                              break;
                                      }
                                  }

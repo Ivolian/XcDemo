@@ -12,7 +12,7 @@ import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
 import butterknife.Bind;
 import butterknife.OnClick;
 
-abstract public class WorkOrderActivity extends ToolbarActivity{
+abstract public class WorkOrderCardActivity extends ToolbarActivity{
 
     public static final String SHARED_VIEW = "WordOrderCard";
 
