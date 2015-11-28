@@ -2,7 +2,8 @@
 2. 选择一张 SplashActivity 背景图。
 3. 角标的分类，显示，颜色。
 4. pretty time。
-5. workOrderCard 展示方式和文字突出。
+5. workOrderCard 展示方式和文字突出,顺序。
+
 
 
 

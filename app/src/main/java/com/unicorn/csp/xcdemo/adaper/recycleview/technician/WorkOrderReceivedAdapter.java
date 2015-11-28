@@ -1,9 +1,11 @@
 package com.unicorn.csp.xcdemo.adaper.recycleview.technician;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -85,6 +87,9 @@ public class WorkOrderReceivedAdapter extends RecyclerView.Adapter<WorkOrderRece
             });
         }
 
+        @Bind(R.id.cardview)
+        CardView cardView;
+
         @OnClick(R.id.cardview)
         public void toggle() {
             workOrderCard.expandableLayout.toggle();
@@ -94,10 +99,11 @@ public class WorkOrderReceivedAdapter extends RecyclerView.Adapter<WorkOrderRece
 
         @OnClick(R.id.btn_pack)
         public void startPackActivity(PaperButton paperButton) {
-            Context context = paperButton.getContext();
+            Activity activity = (Activity) paperButton.getContext();
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, cardView, PackActivity.SHARED_VIEW);
             Intent intent = new Intent(paperButton.getContext(), PackActivity.class);
             intent.putExtra("workOrderProcessInfo", workOrderProcessInfoList.get(getAdapterPosition()));
-            context.startActivity(intent);
+            ActivityCompat.startActivity(activity, intent, options.toBundle());
         }
 
 
