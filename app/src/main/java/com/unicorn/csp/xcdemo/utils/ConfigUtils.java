@@ -10,6 +10,10 @@ import java.io.File;
 
 public class ConfigUtils {
 
+    public static String ip = "192.168.1.6";
+
+    public static String port = "3000";
+
     public final static String JSESSION_ID = "jsessionid";
 
     public static void saveJSessionId(NetworkResponse response) {
@@ -21,8 +25,8 @@ public class ConfigUtils {
     }
 
     public static String getBaseUrl() {
-        return "http://withub.net.cn/hems";
-//        return "http://192.168.7.51:3000/hems";
+//        return "http://withub.net.cn/hems";
+        return "http://" + ip + ":" + port + "/hems";
 //        return "http://192.168.1.6:3000/hems";
     }
 
