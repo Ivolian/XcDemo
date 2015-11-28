@@ -16,6 +16,7 @@ import com.kennyc.bottomsheet.menu.BottomSheetMenuItem;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.unicorn.csp.xcdemo.R;
+import com.unicorn.csp.xcdemo.activity.technician.AchieveActivity;
 import com.unicorn.csp.xcdemo.activity.technician.MicActivity;
 import com.unicorn.csp.xcdemo.activity.technician.PackActivity;
 import com.unicorn.csp.xcdemo.activity.technician.PhotoConfirmActivity;
@@ -134,8 +135,9 @@ public class WorkOrderSuspendedAdapter extends RecyclerView.Adapter<WorkOrderSus
                                                  intent = new Intent(activity, CameraConfirmActivity.class);
                                                  activity.startActivity(intent);
                                                  break;
-
                                              case "结单":
+                                                 intent = new Intent(activity, AchieveActivity.class);
+                                                 activity.startActivity(intent);
                                                  break;
                                              case "挂单":
                                                  break;

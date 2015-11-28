@@ -2,25 +2,19 @@ package com.unicorn.csp.xcdemo.activity.technician;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.media.MediaPlayer;
-import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
-import android.view.View;
-import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapSize;
-import com.f2prateek.dart.InjectExtra;
 import com.github.gcacace.signaturepad.views.SignaturePad;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -29,26 +23,19 @@ import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
-import com.unicorn.csp.xcdemo.component.PaperButton;
 import com.unicorn.csp.xcdemo.component.TinyDB;
-import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
 import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
-import com.unicorn.csp.xcdemo.model.WorkOrderSupplyInfo;
 import com.unicorn.csp.xcdemo.utils.ConfigUtils;
+import com.unicorn.csp.xcdemo.utils.DialogUtils;
 import com.unicorn.csp.xcdemo.utils.JSONUtils;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
 import com.unicorn.csp.xcdemo.volley.SimpleVolley;
-import com.unicorn.csp.xcdemo.volley.VolleyErrorHelper;
-import com.wangqiang.libs.labelviewlib.LabelView;
 
-import org.joda.time.DateTime;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
@@ -57,75 +44,14 @@ import cz.msebera.android.httpclient.Header;
 import io.techery.properratingbar.ProperRatingBar;
 
 
-// todo change achieve to complete
 //@P
 public class AchieveActivity extends ToolbarActivity {
 
 
-    @Bind(R.id.labelview)
-    LabelView labelView;
-
-    @Bind(R.id.tv_request_user_and_call_number)
-    TextView tvRequestUserAndCallNumber;
-
-    @Bind(R.id.tv_request_time)
-    TextView tvRequestTime;
-
-    @Bind(R.id.tv_building_and_address)
-    TextView tvBuildingAndAddress;
-
-    @Bind(R.id.tv_type)
-    TextView tvType;
-
-    @Bind(R.id.tv_equipment_and_fault_type)
-    TextView tvEquipmentAndFaultType;
-
-    @Bind(R.id.tv_processing_time_limit)
-    TextView tvProcessingTimeLimit;
-
-
     //
 
-    @Bind(R.id.tv_issuer)
-    TextView tvIssuer;
-
-    @Bind(R.id.tv_issue_time)
-    TextView tvIssueTime;
-
-    @Bind(R.id.tv_distributor)
-    TextView tvDistributor;
-
-    @Bind(R.id.tv_distribute_time)
-    TextView tvDistributeTime;
-
-    @Bind(R.id.tv_receiver)
-    TextView tvReceiver;
-
-    @Bind(R.id.tv_receive_time)
-    TextView tvReceiverTime;
-
-    @Bind(R.id.tv_arrive_time)
-    TextView tvArriveTime;
-
-    @Bind(R.id.tv_hang_up_time)
-    TextView tvHangUpTime;
-
-    @Bind(R.id.tv_complete_time)
-    TextView tvCompleteTime;
-
-    @Bind(R.id.tv_confirm)
-    TextView tvConfirm;
-
-    @Bind(R.id.tv_confirm_time)
-    TextView tvConfirmTime;
-
-    @Bind(R.id.tv_pack)
-    TextView tvPack;
-
-    //
-
-    @InjectExtra("workOrderProcessInfo")
-    WorkOrderProcessInfo workOrderProcessInfo;
+//    @InjectExtra("workOrderProcessInfo")
+//    WorkOrderProcessInfo workOrderProcessInfo;
 
     // ================================== onCreate ==================================
 
@@ -140,92 +66,12 @@ public class AchieveActivity extends ToolbarActivity {
     }
 
     private void initViews() {
-        WorkOrderInfo workOrderInfo = workOrderProcessInfo.getWorkOrderInfo();
-        String requestUserAndCallNumber = "报修电话: " + workOrderInfo.getCallNumber() + " " + workOrderInfo.getRequestUser();
-        tvRequestUserAndCallNumber.setText(requestUserAndCallNumber);
-        String requestTime = "报修时间: " + new DateTime(workOrderInfo.getRequestTime()).toString("yyyy-MM-dd HH:mm:ss");
-        tvRequestTime.setText(requestTime);
-        String buildingAndAddress = "保修地点: " + workOrderInfo.getBuilding() + "(" + workOrderInfo.getAddress() + ")";
-        tvBuildingAndAddress.setText(buildingAndAddress);
-        String type = "维修类型: " + workOrderInfo.getType();
-        tvType.setText(type);
-        String equipmentAndFaultType = "维修内容: " + workOrderInfo.getEquipment() + "(" + workOrderInfo.getFaultType() + ")";
-        tvEquipmentAndFaultType.setText(equipmentAndFaultType);
-        String processingTimeLimit = "是否时限: " + workOrderInfo.getProcessingTimeLimit();
-        tvProcessingTimeLimit.setText(processingTimeLimit);
-
-        //
-
-        String issuer = "受理人员: " + workOrderInfo.getIssuer();
-        tvIssuer.setText(issuer);
-        String issuerTime = "受理时间: " + new DateTime(workOrderInfo.getIssueTime()).toString("yyyy-MM-dd HH:mm:ss");
-        tvIssueTime.setText(issuerTime);
-        if (workOrderInfo.getIssuer() == null) {
-            tvIssuer.setVisibility(View.GONE);
-            tvIssueTime.setVisibility(View.GONE);
-        }
-        String distributor = "派单人员: " + workOrderInfo.getDistributor();
-        tvDistributor.setText(distributor);
-        String distributeTime = "派单时间: " + new DateTime(workOrderInfo.getDistributeTime()).toString("yyyy-MM-dd HH:mm:ss");
-        tvDistributeTime.setText(distributeTime);
-        if (workOrderInfo.getDistributor() == null) {
-            tvDistributor.setVisibility(View.GONE);
-            tvDistributeTime.setVisibility(View.GONE);
-        }
-        String receiver = "接单人员: " + workOrderInfo.getReceiver();
-        tvReceiver.setText(receiver);
-        String receiverTime = "接单时间: " + new DateTime(workOrderInfo.getReceiveTime()).toString("yyyy-MM-dd HH:mm:ss");
-        tvReceiverTime.setText(receiverTime);
-        if (workOrderInfo.getReceiver() == null) {
-            tvReceiver.setVisibility(View.GONE);
-            tvReceiverTime.setVisibility(View.GONE);
-        }
-        String arriveTime = "到达时间: " + new DateTime(workOrderInfo.getArriveTime()).toString("yyyy-MM-dd HH:mm:ss");
-        tvArriveTime.setText(arriveTime);
-        if (workOrderInfo.getArriveTime() == 0) {
-            tvArriveTime.setVisibility(View.GONE);
-        }
-        String hangUpTime = "挂单时间: " + new DateTime(workOrderInfo.getHangUpTime()).toString("yyyy-MM-dd HH:mm:ss");
-        tvHangUpTime.setText(hangUpTime);
-        if (workOrderInfo.getHangUpTime() == 0) {
-            tvHangUpTime.setVisibility(View.GONE);
-        }
-        String completeTime = "结单时间: " + new DateTime(workOrderInfo.getCompleteTime()).toString("yyyy-MM-dd HH:mm:ss");
-        tvCompleteTime.setText(completeTime);
-        if (workOrderInfo.getCompleteTime() == 0) {
-            tvCompleteTime.setVisibility(View.GONE);
-        }
-        String confirm = "复核人员: " + workOrderInfo.getConfirm();
-        tvConfirm.setText(confirm);
-        String confirmTime = "复核时间: " + new DateTime(workOrderInfo.getConfirmTime()).toString("yyyy-MM-dd HH:mm:ss");
-        tvConfirmTime.setText(confirmTime);
-        if (workOrderInfo.getConfirm() == null) {
-            tvConfirm.setVisibility(View.GONE);
-            tvConfirmTime.setVisibility(View.GONE);
-        }
-
-        //
-        List<WorkOrderSupplyInfo> workOrderSupplyInfoList = workOrderInfo.getSupplyList();
-        if (workOrderSupplyInfoList.size() == 0) {
-            tvPack.setVisibility(View.GONE);
-        } else {
-            String pack = "领料情况: ";
-            for (WorkOrderSupplyInfo workOrderSupplyInfo : workOrderSupplyInfoList) {
-                pack += (workOrderSupplyInfo.getMaterial() + "(" + workOrderSupplyInfo.getAmount() + ") ");
-            }
-            tvPack.setText(pack);
-        }
-
-
         initRatingBar();
-        initAchieveDescription();
+        initDescription();
     }
 
+
     private String signTempFileName;
-
-    private String recordTempFileName;
-
-    // ================================== 签名功能 ==================================
 
     MaterialDialog signPadDialog = null;
 
@@ -252,7 +98,7 @@ public class AchieveActivity extends ToolbarActivity {
                             } else if (dialogAction == DialogAction.POSITIVE) {
                                 materialDialog.dismiss();
 
-                                final MaterialDialog mask = showMask("上传签名中");
+                                final MaterialDialog mask = DialogUtils.showMask(AchieveActivity.this, "上传签名中", "请稍后");
                                 Bitmap bitmap = signaturePad.getSignatureBitmap();
                                 String signPngPath = ConfigUtils.getBaseDirPath() + "/1.png";
                                 File signFile = new File(signPngPath);
@@ -313,124 +159,6 @@ public class AchieveActivity extends ToolbarActivity {
     }
 
 
-    private MaterialDialog showMask(String title) {
-        return new MaterialDialog.Builder(this)
-                .title(title)
-                .content("请稍后...")
-                .progress(true, 0)
-                .cancelable(false)
-                .show();
-    }
-
-
-    // ================================== 录音和播放功能 ==================================
-
-    @Bind(R.id.btn_record)
-    PaperButton btnRecord;
-
-    MediaRecorder mRecorder = null;
-
-    MediaPlayer mPlayer = null;
-
-    @OnClick(R.id.btn_record)
-    public void record() {
-        String btnText = btnRecord.getText();
-        if (btnText.equals("录音")) {
-            startRecording();
-        }
-        if (btnText.equals("停止录音")) {
-            stopRecording();
-        }
-        if (btnText.equals("播放")) {
-            startPlaying();
-        }
-        if (btnText.equals("停止播放")) {
-            stopPlaying();
-        }
-    }
-
-    private void startRecording() {
-        mRecorder = new MediaRecorder();
-        mRecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
-        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
-        mRecorder.setOutputFile(getRecordFilePath());
-        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
-        try {
-            mRecorder.prepare();
-        } catch (IOException e) {
-            //
-        }
-        mRecorder.start();
-        btnRecord.setText("停止录音");
-    }
-
-    private void stopRecording() {
-        mRecorder.stop();
-        mRecorder.release();
-        mRecorder = null;
-        btnRecord.setText("播放");
-
-        final MaterialDialog mask = showMask("上传录音中");
-        AsyncHttpClient client = new AsyncHttpClient();
-        RequestParams requestParams = new RequestParams();
-        try {
-            requestParams.put("attachment", new File(getRecordFilePath()));
-        } catch (Exception e) {
-            //
-        }
-        String url = ConfigUtils.getBaseUrl() + "/api/v1/system/file/upload";
-        client.post(url, requestParams, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int i, Header[] headers, byte[] bytes) {
-
-                String str = new String(bytes);
-
-                JSONObject jsonObject = null;
-                try {
-                    jsonObject = new JSONObject(str);
-                } catch (Exception e) {
-                    //
-                }
-
-                recordTempFileName = JSONUtils.getString(jsonObject, "tempFileName", "");
-                ToastUtils.show("上传成功");
-                mask.dismiss();
-            }
-
-            @Override
-            public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
-
-                ToastUtils.show("上传失败");
-                mask.dismiss();
-            }
-        });
-
-    }
-
-    private void startPlaying() {
-        mPlayer = new MediaPlayer();
-        try {
-            mPlayer.setDataSource(getRecordFilePath());
-            mPlayer.prepare();
-            mPlayer.start();
-        } catch (IOException e) {
-            //
-        }
-        btnRecord.setText("停止播放");
-    }
-
-    private void stopPlaying() {
-        mPlayer.release();
-        mPlayer = null;
-        btnRecord.setText("录音");
-    }
-
-    private String getRecordFilePath() {
-
-        return ConfigUtils.getBaseDirPath() + "/1.mp3";
-    }
-
-
     // ================================== 评分功能 ==================================
 
     @Bind(R.id.ratingBar)
@@ -444,7 +172,6 @@ public class AchieveActivity extends ToolbarActivity {
     }
 
     private Drawable getSelectedDrawable() {
-
         return new IconicsDrawable(this)
                 .icon(GoogleMaterial.Icon.gmd_star)
                 .color(ContextCompat.getColor(this, R.color.md_orange_400))
@@ -452,7 +179,6 @@ public class AchieveActivity extends ToolbarActivity {
     }
 
     private Drawable getNormalDrawable() {
-
         return new IconicsDrawable(this)
                 .icon(GoogleMaterial.Icon.gmd_star_outline)
                 .color(ContextCompat.getColor(this, R.color.md_orange_400))
@@ -462,62 +188,37 @@ public class AchieveActivity extends ToolbarActivity {
 
     // ================================== 结单说明 ==================================
 
-    @Bind(R.id.et_achieve_description)
-    BootstrapEditText etAchieveDescription;
+    @Bind(R.id.et_description)
+    BootstrapEditText etDescription;
 
-    private void initAchieveDescription() {
-
-        etAchieveDescription.setGravity(Gravity.TOP);
-        etAchieveDescription.setPadding(20, 20, 20, 20);
-        etAchieveDescription.setBootstrapSize(DefaultBootstrapSize.MD);
-    }
-
-
-    // ================================== finish ==================================
-
-    @Override
-    public void finish() {
-        super.finish();
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    private void initDescription() {
+        etDescription.setGravity(Gravity.TOP);
+        etDescription.setPadding(20, 20, 20, 20);
+        etDescription.setBootstrapSize(DefaultBootstrapSize.MD);
     }
 
 
     @OnClick(R.id.btn_achieve)
     public void achieveConfrim() {
-        new MaterialDialog.Builder(this)
-                .content("确认结单？")
-                .positiveText("确认")
-                .negativeText("取消")
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                        achieve("/complete");
-                    }
-                })
-                .show();
+        DialogUtils.showConfirm(this, "确认结单？", new MaterialDialog.SingleButtonCallback() {
+            @Override
+            public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+                achieve("/complete");
+            }
+        });
     }
 
     @OnClick(R.id.btn_review)
     public void receiveConfrim() {
-        new MaterialDialog.Builder(this)
-                .content("确认待复核？")
-                .positiveText("确认")
-                .negativeText("取消")
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                        achieve("/review");
-                    }
-                })
-                .show();
+        DialogUtils.showConfirm(this, "确认待复核？", new MaterialDialog.SingleButtonCallback() {
+            @Override
+            public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+                achieve("/review");
+            }
+        });
     }
 
-
-    public void achieve(final String lastPartUrl) {
-        if (recordTempFileName == null) {
-            ToastUtils.show("请先录音");
-            return;
-        }
+    private void achieve(final String lastPartUrl) {
         if (signTempFileName == null) {
             ToastUtils.show("请先签名");
             return;
@@ -538,12 +239,7 @@ public class AchieveActivity extends ToolbarActivity {
                                 finish();
                             }
                         },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                ToastUtils.show(VolleyErrorHelper.getErrorMessage(error));
-                            }
-                        }
+                        SimpleVolley.getDefaultErrorListener()
                 ) {
                     @Override
                     public byte[] getBody() throws AuthFailureError {
@@ -551,9 +247,9 @@ public class AchieveActivity extends ToolbarActivity {
                         JSONObject result = new JSONObject();
                         try {
                             result.put("sign", signTempFileName);
-                            result.put("soundRecord", recordTempFileName);
+//                            result.put("soundRecord", recordTempFileName);
                             result.put("evaluate", ratingBar.getRating());
-                            result.put("remark", etAchieveDescription.getText().toString().trim());
+                            result.put("remark", etDescription.getText().toString().trim());
                         } catch (Exception e) {
                             //
                         }
