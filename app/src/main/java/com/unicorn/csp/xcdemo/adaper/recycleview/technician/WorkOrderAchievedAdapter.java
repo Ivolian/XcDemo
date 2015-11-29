@@ -45,12 +45,12 @@ public class WorkOrderAchievedAdapter extends RecyclerView.Adapter<WorkOrderAchi
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.work_order_card)
-        WorkOrderFrameLayout workOrderFrameLayout;
+        WorkOrderFrameLayout workOrderCard;
 
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
-            workOrderFrameLayout.expandableLayout.setListener(new ExpandableLayoutListenerAdapter() {
+            workOrderCard.expandableLayout.setListener(new ExpandableLayoutListenerAdapter() {
                 @Override
                 public void onPreOpen() {
                     workOrderProcessInfoList.get(getAdapterPosition()).setExpand(true);
@@ -65,7 +65,7 @@ public class WorkOrderAchievedAdapter extends RecyclerView.Adapter<WorkOrderAchi
 
         @OnClick(R.id.cardview)
         public void toggle() {
-            workOrderFrameLayout.expandableLayout.toggle();
+            workOrderCard.expandableLayout.toggle();
         }
 
     }
@@ -83,8 +83,8 @@ public class WorkOrderAchievedAdapter extends RecyclerView.Adapter<WorkOrderAchi
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         WorkOrderInfo workOrderInfo = workOrderProcessInfoList.get(position).getWorkOrderInfo();
-//        viewHolder.workOrderCard.setWorkOrderInfo(workOrderInfo);
-        viewHolder.workOrderFrameLayout.expandableLayout.setExpanded(workOrderProcessInfoList.get(position).isExpand());
+        viewHolder.workOrderCard.setWorkOrderInfo(workOrderInfo);
+        viewHolder.workOrderCard.expandableLayout.setExpanded(workOrderProcessInfoList.get(position).isExpand());
     }
 
 

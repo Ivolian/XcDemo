@@ -155,11 +155,11 @@ public abstract class RefreshFragment extends LazyLoadFragment {
                         List<WorkOrderProcessInfo> workOrderProcessInfoList = GsonUtils.parseWorkOrderProcessInfoList(jsonArray.toString());
 
                         // todo delete
-                        if (getFragmentIndex()==2){
-                            for (int i=0;i!=10;i++){
-                                workOrderProcessInfoList.add(new WorkOrderProcessInfo());
-                            }
-                        }
+//                        if (getFragmentIndex()==2){
+//                            for (int i=0;i!=10;i++){
+//                                workOrderProcessInfoList.add(new WorkOrderProcessInfo());
+//                            }
+//                        }
 
                         adapter.reload(workOrderProcessInfoList);
                         checkLastPage(response);

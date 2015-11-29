@@ -11,6 +11,7 @@ import com.kennyc.bottomsheet.menu.BottomSheetMenuItem;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.unicorn.csp.xcdemo.R;
+import com.unicorn.csp.xcdemo.activity.shared.SuspendActivity;
 import com.unicorn.csp.xcdemo.activity.technician.AchieveActivity;
 import com.unicorn.csp.xcdemo.activity.technician.CameraConfirmActivity;
 import com.unicorn.csp.xcdemo.activity.technician.MicActivity;
@@ -24,7 +25,7 @@ import java.util.List;
 
 public class OperationUtils {
 
-    public static void showChooseOperationDialog(final Activity activity, final WorkOrderInfo workOrderInfo, boolean showSuspend) {
+    public static void showChooseOperationDialog(final Activity activity, final WorkOrderInfo workOrderInfo, final String refreshEventTag, boolean showSuspend) {
         List<MenuItem> menuItems = new ArrayList<>();
         menuItems.add(getMenuItem(activity, "拍照", GoogleMaterial.Icon.gmd_camera));
         menuItems.add(getMenuItem(activity, "录音", GoogleMaterial.Icon.gmd_mic));
@@ -67,9 +68,13 @@ public class OperationUtils {
                                          case "结单":
                                              intent = new Intent(activity, AchieveActivity.class);
                                              intent.putExtra("workOrderInfo", workOrderInfo);
+                                             intent.putExtra("refreshEventTag", refreshEventTag);
                                              activity.startActivity(intent);
                                              break;
                                          case "挂单":
+                                             intent = new Intent(activity, SuspendActivity.class);
+                                             intent.putExtra("workOrderInfo", workOrderInfo);
+                                             activity.startActivity(intent);
                                              break;
                                          case "移单":
                                          case "退单":

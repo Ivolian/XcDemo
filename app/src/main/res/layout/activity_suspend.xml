@@ -30,10 +30,19 @@
                 android:textColor="@color/black"
                 android:textSize="16dp" />
 
-            <include layout="@layout/word_order_card_whole" />
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:foreground="?android:attr/selectableItemBackground">
 
+                <com.unicorn.csp.xcdemo.component.WorkOrderFrameLayout
+                    android:id="@+id/work_order_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-            <!-- 挂单选项 -->
+            </android.support.v7.widget.CardView>
+
+            <!-- 选项 -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -43,7 +52,7 @@
                 android:textSize="16dp" />
 
             <com.liangfeizc.flowlayout.FlowLayout
-                android:id="@+id/fl_suspend_options"
+                android:id="@+id/fl_options"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -51,7 +60,7 @@
                 app:vertical_spacing="8dp" />
 
 
-            <!-- 挂单说明 -->
+            <!-- 说明 -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -61,7 +70,7 @@
                 android:textSize="16dp" />
 
             <com.beardedhen.androidbootstrap.BootstrapEditText
-                android:id="@+id/et_suspend_description"
+                android:id="@+id/et_description"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_marginTop="10dp"

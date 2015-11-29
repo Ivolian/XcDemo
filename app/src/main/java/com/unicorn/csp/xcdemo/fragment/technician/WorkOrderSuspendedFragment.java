@@ -26,6 +26,8 @@ public class WorkOrderSuspendedFragment extends RefreshFragment {
         return 2;
     }
 
+    //
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,8 +42,8 @@ public class WorkOrderSuspendedFragment extends RefreshFragment {
     }
 
 
-    @Subscriber(tag = "suspendRefresh")
-    private void suspendRefresh(String text) {
+    @Subscriber(tag = "workOrderSuspendedFragment_refresh")
+    private void refresh(Object object) {
         reload();
     }
 

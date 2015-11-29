@@ -47,10 +47,13 @@ import io.techery.properratingbar.ProperRatingBar;
 public class AchieveActivity extends WorkOrderCardActivity {
 
 
-    // ================================== onCreate ==================================
+    // ================================== extra ==================================
 
     @InjectExtra("workOrderInfo")
     WorkOrderInfo workOrderInfo;
+
+    @InjectExtra("refreshEventTag")
+    String refreshEventTag;
 
 
     // ================================== onCreate & onDestroy ==================================
@@ -195,7 +198,7 @@ public class AchieveActivity extends WorkOrderCardActivity {
 
     private void achieve(final String lastPartUrl) {
         if (signTempFileName == null) {
-            ToastUtils.show("请先签名");
+            ToastUtils.show("请先签字");
             return;
         }
         String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderInfo.getWorkOrderId() + lastPartUrl;
@@ -206,8 +209,7 @@ public class AchieveActivity extends WorkOrderCardActivity {
                     @Override
                     public void onResponse(String response) {
                         ToastUtils.show(lastPartUrl.equals("/review") ? "带复核成功" : "结单成功!");
-                        // todo
-//                                EventBus.getDefault().post("", "suspendRefresh");
+                        EventBus.getDefault().post(new Object(), refreshEventTag);
                         finish();
                     }
                 },
