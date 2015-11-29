@@ -98,6 +98,7 @@ public class WorkOrderToAssignAdapter extends RecyclerView.Adapter<WorkOrderToAs
             Intent intent = new Intent(paperButton.getContext(), AssignActivity.class);
             WorkOrderProcessInfo workOrderProcessInfo = workOrderProcessInfoList.get(getAdapterPosition());
             intent.putExtra("workOrderInfo", workOrderProcessInfo.getWorkOrderInfo());
+            intent.putExtra("refreshEventTag","workOrderAssignedFragment_refresh");
             ActivityCompat.startActivity(activity, intent, options.toBundle());
         }
 

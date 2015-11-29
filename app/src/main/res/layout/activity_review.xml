@@ -30,13 +30,24 @@
                 android:textColor="@color/black"
                 android:textSize="16dp" />
 
-            <include layout="@layout/word_order_card_whole" />
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:foreground="?android:attr/selectableItemBackground">
 
+                <com.unicorn.csp.xcdemo.component.WorkOrderFrameLayout
+                    android:id="@+id/work_order_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </android.support.v7.widget.CardView>
+
+            <!-- 复核详情 -->
             <TextView
-                android:layout_marginTop="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                android:layout_marginTop="16dp"
                 android:text="复核详情"
                 android:textColor="@color/black"
                 android:textSize="16dp" />
@@ -45,8 +56,7 @@
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="1dp"
-                android:layout_marginRight="1dp">
+                android:layout_margin="1dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -55,11 +65,12 @@
                     android:padding="10dp">
 
                     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                        android:orientation="vertical" android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/tv_technician"
+                            android:id="@+id/tv_review_technician"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="技师:  9300（分）马老师" />
@@ -121,8 +132,7 @@
                 app:paper_color="@color/colorPrimary"
                 app:paper_text="复核"
                 app:paper_text_color="@color/white"
-                app:paper_text_size="18dp"
-                />
+                app:paper_text_size="18dp" />
 
         </LinearLayout>
 

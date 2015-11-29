@@ -15,10 +15,8 @@ import com.unicorn.csp.xcdemo.utils.PrettyTimeUtils;
 import com.wangqiang.libs.labelviewlib.LabelView;
 
 import org.joda.time.DateTime;
-import org.ocpsoft.prettytime.PrettyTime;
 
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -104,8 +102,6 @@ public class WorkOrderFrameLayout extends FrameLayout {
 
     public void setWorkOrderInfo(WorkOrderInfo workOrderInfo) {
 
-        PrettyTime prettyTime = new PrettyTime(new Locale("ZH_CN"));
-
         String requestUserAndCallNumber = "报修电话: " + workOrderInfo.getCallNumber() + " " + workOrderInfo.getRequestUser();
         tvRequestUserAndCallNumber.setText(requestUserAndCallNumber);
         String requestTime = "报修时间: " + PrettyTimeUtils.pretty(workOrderInfo.getRequestTime());
@@ -167,6 +163,9 @@ public class WorkOrderFrameLayout extends FrameLayout {
         if (workOrderInfo.getConfirm() == null) {
             tvConfirm.setVisibility(View.GONE);
             tvConfirmTime.setVisibility(View.GONE);
+        }else{
+            tvConfirm.setVisibility(View.VISIBLE);
+            tvConfirmTime.setVisibility(View.VISIBLE);
         }
 
         //

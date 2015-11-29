@@ -48,15 +48,4 @@
 
     </LinearLayout>
 
-    <com.wangqiang.libs.labelviewlib.LabelView
-        android:id="@+id/labelview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorAccent"
-        android:text="限"
-        android:textColor="@color/white"
-        android:textSize="10dp"
-        app:label_distance="8dp"
-        app:label_position="TOP_RIGHT" />
-
 </android.support.v7.widget.CardView>

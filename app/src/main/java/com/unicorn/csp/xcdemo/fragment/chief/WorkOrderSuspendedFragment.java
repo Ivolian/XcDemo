@@ -1,8 +1,13 @@
 package com.unicorn.csp.xcdemo.fragment.chief;
 
+import android.os.Bundle;
+
 import com.unicorn.csp.xcdemo.adaper.recycleview.chief.WorkOrderSuspendedAdapter;
 import com.unicorn.csp.xcdemo.adaper.recycleview.technician.RefreshAdapter;
 import com.unicorn.csp.xcdemo.fragment.technician.RefreshFragment;
+
+import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
 
 
 public class WorkOrderSuspendedFragment extends RefreshFragment {
@@ -22,4 +27,24 @@ public class WorkOrderSuspendedFragment extends RefreshFragment {
     public int getFragmentIndex() {
         return 2;
     }
+
+    //
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
+
+    @Subscriber(tag = "c_workOrderSuspendedFragment_refresh")
+    private void refresh(Object object) {
+        reload();
+    }
+
 }

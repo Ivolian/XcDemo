@@ -48,6 +48,9 @@ public class AssignActivity extends WorkOrderCardActivity {
     @InjectExtra("workOrderInfo")
     WorkOrderInfo workOrderInfo;
 
+    @InjectExtra("refreshEventTag")
+    String refreshEventTag;
+
 
     // ================================== onCreate ==================================
 
@@ -151,7 +154,7 @@ public class AssignActivity extends WorkOrderCardActivity {
                     @Override
                     public void onResponse(String response) {
                         ToastUtils.show("派单成功!");
-                        EventBus.getDefault().post(new Object(), "workOrderAssignedFragment_refresh");
+                        EventBus.getDefault().post(new Object(), refreshEventTag);
                         AssignActivity.this.finish();
                     }
                 },
