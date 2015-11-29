@@ -18,6 +18,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapSize;
+import com.f2prateek.dart.InjectExtra;
 import com.google.gson.Gson;
 import com.liangfeizc.flowlayout.FlowLayout;
 import com.unicorn.csp.xcdemo.R;
@@ -35,6 +36,7 @@ import com.unicorn.csp.xcdemo.volley.SimpleVolley;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.simple.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,6 +48,12 @@ import butterknife.OnClick;
 
 
 public class PackActivity extends WorkOrderCardActivity {
+
+
+    // ================================== extra ==================================
+
+    @InjectExtra("refreshEventTag")
+    String refreshEventTag;
 
 
     // ================================== views ==================================
@@ -203,7 +211,7 @@ public class PackActivity extends WorkOrderCardActivity {
                     @Override
                     public void onResponse(String response) {
                         ToastUtils.show("领料成功!");
-                        // todo refresh
+                        EventBus.getDefault().post(new Object(), refreshEventTag);
                         PackActivity.this.finish();
                     }
                 },

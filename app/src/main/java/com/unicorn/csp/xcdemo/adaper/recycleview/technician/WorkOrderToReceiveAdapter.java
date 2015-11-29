@@ -23,6 +23,8 @@ import com.unicorn.csp.xcdemo.utils.ToastUtils;
 import com.unicorn.csp.xcdemo.volley.SimpleVolley;
 import com.unicorn.csp.xcdemo.volley.StringRequestWithSessionCheck;
 
+import org.simple.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,9 +102,9 @@ public class WorkOrderToReceiveAdapter extends RecyclerView.Adapter<WorkOrderToR
                         @Override
                         public void onResponse(String response) {
                             ToastUtils.show("接单成功！");
-                            // reload 是最简单和准确的，但为了有种接单效果，用了remove
-                            workOrderProcessInfoList.remove(position);
-                            WorkOrderToReceiveAdapter.this.notifyItemRemoved(position);
+                            EventBus.getDefault().post(new Object(), "workOrderToReceiveFragment_refresh");
+//                            workOrderProcessInfoList.remove(position);
+//                            WorkOrderToReceiveAdapter.this.notifyItemRemoved(position);
                         }
                     },
                     SimpleVolley.getDefaultErrorListener()

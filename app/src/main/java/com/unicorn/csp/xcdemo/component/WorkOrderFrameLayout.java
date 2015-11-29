@@ -95,6 +95,7 @@ public class WorkOrderFrameLayout extends FrameLayout {
 
     //
 
+
     private void init() {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.work_order_frame_layout, this, true);
@@ -178,6 +179,7 @@ public class WorkOrderFrameLayout extends FrameLayout {
                 pack += (workOrderSupplyInfo.getMaterial() + "(" + workOrderSupplyInfo.getAmount() + ") ");
             }
             tvPack.setText(pack);
+            tvPack.setVisibility(View.VISIBLE);
         }
     }
 

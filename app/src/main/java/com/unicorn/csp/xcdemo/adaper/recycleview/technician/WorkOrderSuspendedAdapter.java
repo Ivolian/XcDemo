@@ -33,6 +33,8 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnLongClick;
+import tyrantgit.explosionfield.ExplosionField;
 
 
 public class WorkOrderSuspendedAdapter extends RecyclerView.Adapter<WorkOrderSuspendedAdapter.ViewHolder> implements RefreshAdapter {
@@ -81,6 +83,15 @@ public class WorkOrderSuspendedAdapter extends RecyclerView.Adapter<WorkOrderSus
         @OnClick(R.id.cardview)
         public void toggle() {
             workOrderFrameLayout.expandableLayout.toggle();
+        }
+
+        @OnLongClick(R.id.cardview)
+        public boolean explode(View v) {
+            Activity activity = (Activity) v.getContext();
+            ExplosionField.attach2Window(activity).explode(v);
+            workOrderProcessInfoList.remove(getAdapterPosition());
+            notifyItemRemoved(getAdapterPosition());
+            return true;
         }
 
         @OnClick(R.id.btn_pack)
@@ -156,8 +167,6 @@ public class WorkOrderSuspendedAdapter extends RecyclerView.Adapter<WorkOrderSus
         }
 
     }
-
-
 
 
     // ================================== onCreateViewHolder ==================================

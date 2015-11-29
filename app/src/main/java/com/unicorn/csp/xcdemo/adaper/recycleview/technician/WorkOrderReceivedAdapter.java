@@ -104,6 +104,7 @@ public class WorkOrderReceivedAdapter extends RecyclerView.Adapter<WorkOrderRece
             ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, cardView, WorkOrderCardActivity.SHARED_VIEW);
             Intent intent = new Intent(paperButton.getContext(), PackActivity.class);
             WorkOrderProcessInfo workOrderProcessInfo = workOrderProcessInfoList.get(getAdapterPosition());
+            intent.putExtra("refreshEventTag","workOrderReceivedFragment_refresh");
             intent.putExtra("workOrderInfo", workOrderProcessInfo.getWorkOrderInfo());
             ActivityCompat.startActivity(activity, intent, options.toBundle());
         }
