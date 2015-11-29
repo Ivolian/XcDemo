@@ -1,4 +1,4 @@
-package com.unicorn.csp.xcdemo.activity.technician;
+package com.unicorn.csp.xcdemo.activity.chief;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,14 +12,13 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
-import com.unicorn.csp.xcdemo.fragment.technician.WorkListFragment;
+import com.unicorn.csp.xcdemo.fragment.chief.WorkOrderTodoFragment;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
 
 import butterknife.Bind;
 
-
 //@P
-public class TechnicianMainActivity extends ToolbarActivity {
+public class ChiefMainActivity extends ToolbarActivity {
 
 
     // ================================== searchView ==================================
@@ -34,13 +33,13 @@ public class TechnicianMainActivity extends ToolbarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initToolbar("工作清单", false);
+        initToolbar("待办工单", false);
         initViews();
     }
 
     private void initViews() {
         initDrawer();
-        replaceFragment_(new WorkListFragment());
+        replaceFragment_(new WorkOrderTodoFragment());
     }
 
     private void replaceFragment_(Fragment fragment) {
@@ -67,11 +66,12 @@ public class TechnicianMainActivity extends ToolbarActivity {
 
     private IDrawerItem[] getDrawerItems() {
         return new IDrawerItem[]{
-                new PrimaryDrawerItem().withName("工作清单").withIcon(GoogleMaterial.Icon.gmd_assignment).withIdentifier(0),
-                new PrimaryDrawerItem().withName("统计分析").withIcon(GoogleMaterial.Icon.gmd_chart).withIdentifier(1),
-                new PrimaryDrawerItem().withName("我的收益").withIcon(GoogleMaterial.Icon.gmd_assignment_account).withIdentifier(2)
+                new PrimaryDrawerItem().withName("待办工单").withIcon(GoogleMaterial.Icon.gmd_assignment),
+                new PrimaryDrawerItem().withName("工单监控").withIcon(GoogleMaterial.Icon.gmd_assignment_check),
+                new PrimaryDrawerItem().withName("工单预警").withIcon(GoogleMaterial.Icon.gmd_notifications_active)
         };
     }
+
 
     private Drawer.OnDrawerItemClickListener getOnDrawerItemClickListener() {
         return new Drawer.OnDrawerItemClickListener() {
@@ -79,9 +79,9 @@ public class TechnicianMainActivity extends ToolbarActivity {
             public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                 switch (drawerItem.getIdentifier()) {
                     case 0:
-                        if (!getToolbarTitle().equals("工作清单")) {
-                            setToolbarTitle("工作清单");
-                            replaceFragment_(new WorkListFragment());
+                        if (!getToolbarTitle().equals("待办工单")) {
+                            setToolbarTitle("待办工单");
+                            replaceFragment_(new WorkOrderTodoFragment());
                         }
                         break;
 //                    case 1:

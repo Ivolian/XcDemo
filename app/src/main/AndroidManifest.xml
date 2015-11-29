@@ -54,7 +54,7 @@
             android:theme="@style/AppTheme.NoActionBar.NoWindow" />
 
         <!-- chief -->
-        <activity android:name=".activity.chief.TodoActivity" />
+        <activity android:name=".activity.chief.ChiefMainActivity" />
         <activity
             android:name=".activity.chief.AssignActivity"
             android:theme="@style/AppTheme.NoActionBar.NoWindow" />
