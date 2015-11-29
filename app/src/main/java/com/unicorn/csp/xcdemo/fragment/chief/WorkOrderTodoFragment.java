@@ -152,7 +152,8 @@ public class WorkOrderTodoFragment extends ButterKnifeFragment {
     @Bind(R.id.fl_snack_bar_container)
     FrameLayout flSnackBarContainer;
 
-    @Subscriber(tag = "workOrderTodoFragment_onRefreshFinish")
+    // todo
+    @Subscriber(tag = "workListFragment_onRefreshFinish")
     private void onRefreshFinish(RefreshResult refreshResult) {
         BadgeView badgeView = TabHelper.getBadgeView(tabLayout.getTabAt(refreshResult.getTabIndex()));
         badgeView.setValue(refreshResult.getTotal(), true);

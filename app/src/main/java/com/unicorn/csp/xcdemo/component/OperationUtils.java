@@ -74,6 +74,7 @@ public class OperationUtils {
                                          case "挂单":
                                              intent = new Intent(activity, SuspendActivity.class);
                                              intent.putExtra("workOrderInfo", workOrderInfo);
+                                             intent.putExtra("refreshEventTag",refreshEventTag);
                                              activity.startActivity(intent);
                                              break;
                                          case "移单":

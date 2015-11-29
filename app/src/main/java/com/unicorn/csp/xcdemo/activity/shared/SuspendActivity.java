@@ -49,6 +49,9 @@ public class SuspendActivity extends WorkOrderCardActivity {
     @InjectExtra("workOrderInfo")
     WorkOrderInfo workOrderInfo;
 
+    @InjectExtra("refreshEventTag")
+    String refreshEventTag;
+
 
     // ================================== onCreate ==================================
 
@@ -163,7 +166,7 @@ public class SuspendActivity extends WorkOrderCardActivity {
                     @Override
                     public void onResponse(String response) {
                         ToastUtils.show("挂单成功!");
-                        EventBus.getDefault().post(new Object(), "workOrderReceivedFragment_refresh");
+                        EventBus.getDefault().post(new Object(), refreshEventTag);
                         SuspendActivity.this.finish();
                     }
                 },

@@ -20,6 +20,6 @@ public class WorkOrderSuspendedFragment extends RefreshFragment {
 
     @Override
     public int getFragmentIndex() {
-        return 0;
+        return 2;
     }
 }

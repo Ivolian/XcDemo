@@ -28,7 +28,17 @@
                 android:textColor="@color/black"
                 android:textSize="16dp" />
 
-            <include layout="@layout/word_order_card_whole" />
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:foreground="?android:attr/selectableItemBackground">
+
+                <com.unicorn.csp.xcdemo.component.WorkOrderFrameLayout
+                    android:id="@+id/work_order_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </android.support.v7.widget.CardView>
 
 
             <!-- 选择技师 -->
@@ -48,7 +58,7 @@
                 app:horizontal_spacing="8dp"
                 app:vertical_spacing="8dp" />
 
-            <!-- 派单按钮 -->
+            <!-- 派单 -->
             <com.unicorn.csp.xcdemo.component.PaperButton
                 android:id="@+id/btn_assign"
                 android:layout_width="match_parent"

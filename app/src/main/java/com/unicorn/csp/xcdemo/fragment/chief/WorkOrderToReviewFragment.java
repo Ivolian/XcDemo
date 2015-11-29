@@ -20,7 +20,7 @@ public class WorkOrderToReviewFragment extends RefreshFragment {
 
     @Override
     public int getFragmentIndex() {
-        return 0;
+        return 1;
     }
 
 }
