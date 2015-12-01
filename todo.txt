@@ -1,19 +1,19 @@
-1. 上传大文件的问题
-2. 自动更新
-3. 监控
-4. 超时
+1. 自动更新
+2. 监控
+3. 上传超时
+4. 登录超时
 5. 如果领料太多
 6. 简易查询
 7. 复杂查询
 
 
-
-
 工单监控
 抢单，指定，复核，挂单，移单，结单。
 
+
 工单预警
 黄色，红色。
+
 
 jks password: rrrjjj
 http://developer.android.com/tools/publishing/app-signing.html

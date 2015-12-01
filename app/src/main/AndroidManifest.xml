@@ -20,46 +20,62 @@
         tools:replace="android:allowBackup,android:theme">
 
         <!-- shared -->
-        <activity android:name=".activity.shared.SplashActivity">
+        <activity
+            android:name=".activity.shared.SplashActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.shared.LoginActivity" />
-
-        <!-- technician -->
-        <activity android:name=".activity.technician.TechnicianMainActivity" />
+        <activity
+            android:name=".activity.shared.LoginActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.shared.SuspendActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar.NoWindow" />
+
+        <!-- technician -->
+        <activity
+            android:name=".activity.technician.TechnicianMainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.technician.PackActivity"
-            android:theme="@style/AppTheme.NoActionBar.NoWindow" />
-        <activity
-            android:name=".activity.technician.AchieveActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar.NoWindow" />
         <activity
             android:name=".activity.technician.PhotoConfirmActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar.NoWindow" />
         <activity
             android:name=".activity.technician.MicActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar.NoWindow" />
         <activity
             android:name=".activity.technician.CameraConfirmActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar.NoWindow" />
+        <activity
+            android:name=".activity.technician.AchieveActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar.NoWindow" />
 
         <!-- chief -->
-        <activity android:name=".activity.chief.ChiefMainActivity" />
+        <activity
+            android:name=".activity.chief.ChiefMainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.chief.AssignActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar.NoWindow" />
         <activity
             android:name=".activity.chief.ReviewActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar.NoWindow" />
 
-        <!-- Register library Activities -->
+        <!-- Activities For Camera -->
         <activity
             android:name="com.afollestad.materialcamera.CaptureActivity"
             android:theme="@style/MaterialCamera.CaptureActivity" />
