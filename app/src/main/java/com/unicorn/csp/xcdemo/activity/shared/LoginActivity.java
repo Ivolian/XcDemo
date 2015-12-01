@@ -112,6 +112,7 @@ public class LoginActivity extends ToolbarActivity {
                         mask.dismiss();
                         ToastUtils.show(VolleyErrorHelper.getErrorMessage(error));
                     }
+
                 }
         ) {
             @Override

@@ -84,7 +84,7 @@ public class ReviewActivity extends WorkOrderCardActivity {
 
     private void initReviewViews() {
         WorkOrderProcess workOrderProcess = workOrderProcessInfo.getWorkOrderProcess();
-        tvReviewTechnician.setText("技师: " + workOrderProcess.getOperator().getName());
+        tvReviewTechnician.setText("技师: " + workOrderProcess.getOperatorName());
         tvReviewDescription.setText("复核说明: " + workOrderProcess.getWorkOrderReview().getRemark());
     }
 
@@ -142,7 +142,6 @@ public class ReviewActivity extends WorkOrderCardActivity {
     }
 
     private ViewGroup.LayoutParams getOptionButtonLayoutParams() {
-        // TODO: Is this a correct use of layoutParams ?
         return new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 

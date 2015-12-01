@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 public class WorkOrderProcess implements Serializable {
 
-    private User operator;
+    private String operatorName;
 
     private Code operation;
 
@@ -16,12 +16,12 @@ public class WorkOrderProcess implements Serializable {
     //
 
 
-    public User getOperator() {
-        return operator;
+    public String getOperatorName() {
+        return operatorName;
     }
 
-    public void setOperator(User operator) {
-        this.operator = operator;
+    public void setOperatorName(String operatorName) {
+        this.operatorName = operatorName;
     }
 
     public Code getOperation() {

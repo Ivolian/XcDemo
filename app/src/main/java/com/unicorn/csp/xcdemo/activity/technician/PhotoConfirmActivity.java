@@ -53,7 +53,6 @@ public class PhotoConfirmActivity extends ToolbarActivity {
 
     // ========================== extra ==========================
 
-    // todo
     @InjectExtra("workOrderId")
     String workOrderId;
 
@@ -185,7 +184,6 @@ public class PhotoConfirmActivity extends ToolbarActivity {
     }
 
     private ViewGroup.LayoutParams getOptionButtonLayoutParams() {
-        // TODO: Is this a correct use of layoutParams ?
         return new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 

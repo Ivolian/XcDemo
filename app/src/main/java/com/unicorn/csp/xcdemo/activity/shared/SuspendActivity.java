@@ -123,7 +123,6 @@ public class SuspendActivity extends WorkOrderCardActivity {
     }
 
     private ViewGroup.LayoutParams getLayoutParams() {
-        // TODO: Is this a correct use of layoutParams ?
         return new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 
