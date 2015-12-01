@@ -1,27 +1,68 @@
 package com.unicorn.csp.xcdemo.volley;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
+import com.android.volley.Request;
+import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.unicorn.csp.xcdemo.component.TinyDB;
+import com.unicorn.csp.xcdemo.utils.ConfigUtils;
+import com.unicorn.csp.xcdemo.utils.SfUtils;
+import com.unicorn.csp.xcdemo.utils.ToastUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class VolleyErrorHelper {
 
     public static String getErrorMessage(VolleyError volleyError) {
-
         if (volleyError instanceof NoConnectionError) {
             return "手机未连接到网络";
         } else if (volleyError instanceof ServerError) {
             return "服务器内部错误，错误码:" + volleyError.networkResponse.statusCode;
         } else if (volleyError instanceof ParseError) {
-            return "解析错误";
+            reLogin();
+            return "登录超时,自动重新登录中";
         } else if (volleyError instanceof TimeoutError) {
             return "连接超时，请稍后再试";
         } else {
             return "未知错误";
         }
+    }
+
+    private static void reLogin() {
+        StringRequest stringRequest = new StringRequest(
+                Request.Method.POST,
+                ConfigUtils.getBaseUrl() + "/login",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        ToastUtils.show("登录成功");
+                    }
+                },
+                SimpleVolley.getDefaultErrorListener()
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<>();
+                map.put("username", TinyDB.getInstance().getString(SfUtils.SF_ACCOUNT));
+                map.put("password", TinyDB.getInstance().getString(SfUtils.SF_PASSWORD));
+                return map;
+            }
+
+            @Override
+            protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                ConfigUtils.saveJSessionId(response);
+                return super.parseNetworkResponse(response);
+            }
+        };
+        SimpleVolley.addRequest(stringRequest);
     }
 
     // Handle your error types accordingly.For Timeout & No connection error, you can show 'retry' button.

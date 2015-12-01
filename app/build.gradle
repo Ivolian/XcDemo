@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion '23.0.1'
+    buildToolsVersion '23.0.2'
 
     defaultConfig {
         applicationId "com.unicorn.csp.xcdemo"
@@ -61,10 +61,7 @@ dependencies {
     compile 'com.github.aakira:expandable-layout:1.4.0@aar'
     compile 'com.github.Kennyc1012:BottomSheet:2.0.4'
     compile(name: 'camera', ext: 'aar')
-//    compile('com.github.afollestad.material-camera:0.1.1@aar') {
-//        transitive = true
-//    }
-    compile 'org.ocpsoft.prettytime:prettytime:3.2.7.Final'
+    compile 'commons-io:commons-io:2.4'
     compile 'tyrantgit:explosionfield:1.0.1'
 
 }

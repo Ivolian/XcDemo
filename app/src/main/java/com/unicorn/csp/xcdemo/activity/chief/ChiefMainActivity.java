@@ -19,6 +19,7 @@ import com.unicorn.csp.xcdemo.activity.shared.LoginActivity;
 import com.unicorn.csp.xcdemo.fragment.chief.WorkOrderTodoFragment;
 import com.unicorn.csp.xcdemo.utils.DialogUtils;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
+import com.unicorn.csp.xcdemo.utils.UpdateUtils;
 
 import butterknife.Bind;
 
@@ -45,6 +46,7 @@ public class ChiefMainActivity extends ToolbarActivity {
         setContentView(R.layout.activity_main);
         initToolbar(TITLES[0], false);
         initViews();
+        UpdateUtils.checkUpdate(this);
     }
 
     private void initViews() {
@@ -76,9 +78,9 @@ public class ChiefMainActivity extends ToolbarActivity {
 
     private IDrawerItem[] getDrawerItems() {
         return new IDrawerItem[]{
-                new PrimaryDrawerItem().withName(TITLES[0]).withIcon(GoogleMaterial.Icon.gmd_assignment),
-                new PrimaryDrawerItem().withName(TITLES[1]).withIcon(GoogleMaterial.Icon.gmd_assignment_check),
-                new PrimaryDrawerItem().withName(TITLES[2]).withIcon(GoogleMaterial.Icon.gmd_notifications_active),
+                new PrimaryDrawerItem().withName(TITLES[0]).withIcon(GoogleMaterial.Icon.gmd_assignment).withIdentifier(0),
+                new PrimaryDrawerItem().withName(TITLES[1]).withIcon(GoogleMaterial.Icon.gmd_assignment_check).withIdentifier(1),
+                new PrimaryDrawerItem().withName(TITLES[2]).withIcon(GoogleMaterial.Icon.gmd_notifications_active).withIdentifier(2),
                 new PrimaryDrawerItem().withName(TITLES[3]).withIcon(GoogleMaterial.Icon.gmd_sign_in).withIdentifier(3).withSelectable(false)
         };
     }

@@ -30,7 +30,7 @@ public class ConfigUtils {
     }
 
     public static String getBaseDirPath() {
-        File dir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "csp");
+        File dir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "hems");
         if (!dir.exists()) {
             boolean result = dir.mkdir();
             if (!result) {

@@ -19,6 +19,7 @@ import com.unicorn.csp.xcdemo.activity.shared.LoginActivity;
 import com.unicorn.csp.xcdemo.fragment.technician.WorkListFragment;
 import com.unicorn.csp.xcdemo.utils.DialogUtils;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
+import com.unicorn.csp.xcdemo.utils.UpdateUtils;
 
 import butterknife.Bind;
 
@@ -46,6 +47,7 @@ public class TechnicianMainActivity extends ToolbarActivity {
         setContentView(R.layout.activity_main);
         initToolbar(TITLES[0], false);
         initViews();
+        UpdateUtils.checkUpdate(this);
     }
 
     private void initViews() {
