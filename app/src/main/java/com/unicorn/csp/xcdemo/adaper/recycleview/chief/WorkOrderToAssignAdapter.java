@@ -87,7 +87,7 @@ public class WorkOrderToAssignAdapter extends RecyclerView.Adapter<WorkOrderToAs
             Intent intent = new Intent(paperButton.getContext(), SuspendActivity.class);
             WorkOrderProcessInfo workOrderProcessInfo = workOrderProcessInfoList.get(getAdapterPosition());
             intent.putExtra("workOrderInfo", workOrderProcessInfo.getWorkOrderInfo());
-            intent.putExtra("refreshEventTag","workOrderAssignedFragment_refresh");
+            intent.putExtra("refreshEventTag", "workOrderAssignedFragment_refresh");
             ActivityCompat.startActivity(activity, intent, options.toBundle());
         }
 
@@ -98,7 +98,7 @@ public class WorkOrderToAssignAdapter extends RecyclerView.Adapter<WorkOrderToAs
             Intent intent = new Intent(paperButton.getContext(), AssignActivity.class);
             WorkOrderProcessInfo workOrderProcessInfo = workOrderProcessInfoList.get(getAdapterPosition());
             intent.putExtra("workOrderInfo", workOrderProcessInfo.getWorkOrderInfo());
-            intent.putExtra("refreshEventTag","workOrderAssignedFragment_refresh");
+            intent.putExtra("refreshEventTag", "workOrderAssignedFragment_refresh");
             ActivityCompat.startActivity(activity, intent, options.toBundle());
         }
 
@@ -119,6 +119,9 @@ public class WorkOrderToAssignAdapter extends RecyclerView.Adapter<WorkOrderToAs
         WorkOrderInfo workOrderInfo = workOrderProcessInfoList.get(position).getWorkOrderInfo();
         viewHolder.workOrderCard.setWorkOrderInfo(workOrderInfo);
         viewHolder.workOrderCard.expandableLayout.setExpanded(workOrderProcessInfoList.get(position).isExpand());
+
+        viewHolder.workOrderCard.labelView.setText("指");
+        workOrderInfo.setLabelText("指");
     }
 
 

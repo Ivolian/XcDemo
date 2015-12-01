@@ -108,6 +108,9 @@ public class WorkOrderToReviewAdapter extends RecyclerView.Adapter<WorkOrderToRe
         WorkOrderInfo workOrderInfo = workOrderProcessInfoList.get(position).getWorkOrderInfo();
         viewHolder.workOrderCard.setWorkOrderInfo(workOrderInfo);
         viewHolder.workOrderCard.expandableLayout.setExpanded(workOrderProcessInfoList.get(position).isExpand());
+
+        viewHolder.workOrderCard.labelView.setText("核");
+        workOrderInfo.setLabelText("核");
     }
 
 

@@ -150,7 +150,7 @@
         android:id="@+id/labelview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
+        android:background="@color/label_color"
         android:text="限"
         android:textColor="@android:color/white"
         android:textSize="10dp"
