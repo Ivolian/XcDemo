@@ -59,12 +59,12 @@ public class WorkOrderToReceiveAdapter extends RecyclerView.Adapter<WorkOrderToR
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.work_order_card)
-        WorkOrderFrameLayout wordOrderCard;
+        WorkOrderFrameLayout workOrderCard;
 
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
-            wordOrderCard.expandableLayout.setListener(new ExpandableLayoutListenerAdapter() {
+            workOrderCard.expandableLayout.setListener(new ExpandableLayoutListenerAdapter() {
                 @Override
                 public void onPreOpen() {
                     workOrderProcessInfoList.get(getAdapterPosition()).setExpand(true);
@@ -79,7 +79,7 @@ public class WorkOrderToReceiveAdapter extends RecyclerView.Adapter<WorkOrderToR
 
         @OnClick(R.id.cardview)
         public void toggle() {
-            wordOrderCard.expandableLayout.toggle();
+            workOrderCard.expandableLayout.toggle();
         }
 
         @OnClick(R.id.btn_receive)
@@ -126,8 +126,16 @@ public class WorkOrderToReceiveAdapter extends RecyclerView.Adapter<WorkOrderToR
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         WorkOrderInfo workOrderInfo = workOrderProcessInfoList.get(position).getWorkOrderInfo();
-        viewHolder.wordOrderCard.setWorkOrderInfo(workOrderInfo);
-        viewHolder.wordOrderCard.expandableLayout.setExpanded(workOrderProcessInfoList.get(position).isExpand());
+        viewHolder.workOrderCard.setWorkOrderInfo(workOrderInfo);
+        viewHolder.workOrderCard.expandableLayout.setExpanded(workOrderProcessInfoList.get(position).isExpand());
+
+        if (workOrderInfo.getStatusTag().equals("Distribute")){
+            viewHolder.workOrderCard.labelView.setText("派");
+            workOrderInfo.setLabelText("派");
+        }else {
+            viewHolder.workOrderCard.labelView.setText("抢");
+            workOrderInfo.setLabelText("抢");
+        }
     }
 
 

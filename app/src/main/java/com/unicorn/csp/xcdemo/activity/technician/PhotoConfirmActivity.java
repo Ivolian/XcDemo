@@ -137,20 +137,21 @@ public class PhotoConfirmActivity extends ToolbarActivity {
     FlowLayout flOptions;
 
     private void fetchOptions() {
+        String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/attachment/options?type=WorkOrderPictureOptions";
         JsonArrayRequest jsonArrayRequest = new JSONArrayRequestWithSessionCheck(
                 Request.Method.GET,
-                ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/picture/options",
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        for (int i = 0; i != response.length(); i++) {
-                            JSONObject jsonObject = JSONUtils.getJSONObject(response, i);
-                            String objectId = JSONUtils.getString(jsonObject, "objectId", "");
-                            String name = JSONUtils.getString(jsonObject, "name", "");
-                            flOptions.addView(getOptionButton(name, objectId), getOptionButtonLayoutParams());
-                        }
-                    }
-                },
+                url,
+        new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                for (int i = 0; i != response.length(); i++) {
+                    JSONObject jsonObject = JSONUtils.getJSONObject(response, i);
+                    String objectId = JSONUtils.getString(jsonObject, "objectId", "");
+                    String name = JSONUtils.getString(jsonObject, "name", "");
+                    flOptions.addView(getOptionButton(name, objectId), getOptionButtonLayoutParams());
+                }
+            }
+        },
                 SimpleVolley.getDefaultErrorListener()
         );
         SimpleVolley.addRequest(jsonArrayRequest);
@@ -251,7 +252,7 @@ public class PhotoConfirmActivity extends ToolbarActivity {
                     JSONObject result = new JSONObject();
                     result.put("option", code);
                     result.put("remark", etDescription.getText().toString().trim());
-                    result.put("picture", photoTempFileName);
+                    result.put("filename", photoTempFileName);
                     return result.toString().getBytes("UTF-8");
                 } catch (Exception e) {
                     //

@@ -83,9 +83,10 @@ public class CameraConfirmActivity extends ToolbarActivity {
     FlowLayout flOptions;
 
     private void fetchOptions() {
+        String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/attachment/options?type=WorkOrderVideoOptions";
         JsonArrayRequest jsonArrayRequest = new JSONArrayRequestWithSessionCheck(
                 Request.Method.GET,
-                // todo change url
+                url,
                 ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/picture/options",
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -208,8 +209,7 @@ public class CameraConfirmActivity extends ToolbarActivity {
             ToastUtils.show("上传摄像失败，请重新摄像");
             return;
         }
-        // todo change url
-        String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderId + "/picture";
+        String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderId + "/video";
         StringRequest stringRequest = new StringRequest(
                 Request.Method.PUT,
                 url,
@@ -232,7 +232,7 @@ public class CameraConfirmActivity extends ToolbarActivity {
                     JSONObject result = new JSONObject();
                     result.put("option", code);
                     result.put("remark", etDescription.getText().toString().trim());
-                    result.put("picture", videoTempFileName);
+                    result.put("filename", videoTempFileName);
                     return result.toString().getBytes("UTF-8");
                 } catch (Exception e) {
                     //

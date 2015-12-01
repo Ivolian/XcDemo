@@ -78,6 +78,16 @@ public class WorkOrderInfo implements Serializable {
     // 领料列表
     private List<WorkOrderSupplyInfo> supplyList;
 
+    private String labelText;
+
+    public String getLabelText() {
+        return labelText;
+    }
+
+    public void setLabelText(String labelText) {
+        this.labelText = labelText;
+    }
+
     //
 
     public String getWorkOrderId() {

@@ -83,10 +83,10 @@ public class MicActivity extends ToolbarActivity {
     FlowLayout flOptions;
 
     private void fetchOptions() {
+        String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/attachment/options?type=WorkOrderSoundRecordOptions";
         JsonArrayRequest jsonArrayRequest = new JSONArrayRequestWithSessionCheck(
                 Request.Method.GET,
-                // todo change url
-                ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/picture/options",
+                url,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
@@ -248,7 +248,7 @@ public class MicActivity extends ToolbarActivity {
             return;
         }
 //        todo change url
-        String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderId + "/picture";
+        String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderId + "/soundRecord";
         StringRequest stringRequest = new StringRequest(
                 Request.Method.PUT,
                 url,
@@ -271,7 +271,7 @@ public class MicActivity extends ToolbarActivity {
                     JSONObject result = new JSONObject();
                     result.put("option", code);
                     result.put("remark", etDescription.getText().toString().trim());
-                    result.put("picture", recordTempFileName);
+                    result.put("filename", recordTempFileName);
                     return result.toString().getBytes("UTF-8");
                 } catch (Exception e) {
                     //
