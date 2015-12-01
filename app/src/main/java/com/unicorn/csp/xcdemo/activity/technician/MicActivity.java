@@ -225,7 +225,7 @@ public class MicActivity extends ToolbarActivity {
     String recordTempFileName;
 
     private void uploadRecord() {
-        UploadUtils.upload(new File(getRecordFilePath()), "micActivity_onUploadFinish", DialogUtils.showMask(this, "上传录音中", "请稍后"));
+        UploadUtils.upload(new File(getRecordFilePath()), "micActivity_onUploadFinish", DialogUtils.showMask2(this, "上传录音中", "请稍后"));
     }
 
     @Subscriber(tag = "micActivity_onUploadFinish")

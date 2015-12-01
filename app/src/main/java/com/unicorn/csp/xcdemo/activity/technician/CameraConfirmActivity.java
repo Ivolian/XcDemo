@@ -184,7 +184,7 @@ public class CameraConfirmActivity extends ToolbarActivity {
 
     private void uploadVideo(URL videoUrl) {
         try {
-            UploadUtils.upload(new File(videoUrl.toURI()), "cameraConfirmActivity_onUploadFinish", DialogUtils.showMask(this, "上传摄像中", "请稍后"));
+            UploadUtils.upload(new File(videoUrl.toURI()), "cameraConfirmActivity_onUploadFinish", DialogUtils.showMask2(this, "上传摄像中", "请稍后"));
         } catch (Exception e) {
             //
         }

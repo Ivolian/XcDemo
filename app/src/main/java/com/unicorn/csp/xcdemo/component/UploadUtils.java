@@ -44,6 +44,12 @@ public class UploadUtils {
             }
 
             @Override
+            public void onProgress(long bytesWritten, long totalSize) {
+                super.onProgress(bytesWritten, totalSize);
+                mask.setProgress((int)(bytesWritten*100/totalSize));
+            }
+
+            @Override
             public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
                 if (mask != null) {
                     mask.dismiss();

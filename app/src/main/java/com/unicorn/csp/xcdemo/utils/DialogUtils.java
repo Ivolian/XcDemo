@@ -16,6 +16,15 @@ public class DialogUtils {
                 .show();
     }
 
+    public static MaterialDialog showMask2(Context context, String title, String content) {
+        return new MaterialDialog.Builder(context)
+                .title(title)
+                .content(content)
+                .progress(false, 100)
+                .cancelable(false)
+                .show();
+    }
+
     public static MaterialDialog showConfirm(Context context, String title, MaterialDialog.SingleButtonCallback callback) {
         return new MaterialDialog.Builder(context)
                 .content(title)

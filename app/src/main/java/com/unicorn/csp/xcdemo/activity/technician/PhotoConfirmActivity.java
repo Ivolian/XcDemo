@@ -207,7 +207,7 @@ public class PhotoConfirmActivity extends ToolbarActivity {
 
     private void uploadPhoto() {
         String compressPhotoPath = ImageUtils.compressPhoto(photoPath);
-        UploadUtils.upload(new File(compressPhotoPath), "photoConfirmActivity_onUploadFinish", DialogUtils.showMask(this, "上传照片中", "请稍后"));
+        UploadUtils.upload(new File(compressPhotoPath), "photoConfirmActivity_onUploadFinish", DialogUtils.showMask2(this, "上传照片中", "请稍后"));
     }
 
     @Subscriber(tag = "photoConfirmActivity_onUploadFinish")
