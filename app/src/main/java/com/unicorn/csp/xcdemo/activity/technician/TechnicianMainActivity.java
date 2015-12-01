@@ -1,9 +1,12 @@
 package com.unicorn.csp.xcdemo.activity.technician;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.materialdrawer.Drawer;
@@ -12,7 +15,9 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
+import com.unicorn.csp.xcdemo.activity.shared.LoginActivity;
 import com.unicorn.csp.xcdemo.fragment.technician.WorkListFragment;
+import com.unicorn.csp.xcdemo.utils.DialogUtils;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
 
 import butterknife.Bind;
@@ -20,6 +25,11 @@ import butterknife.Bind;
 
 //@P
 public class TechnicianMainActivity extends ToolbarActivity {
+
+
+    // ================================== titles ==================================
+
+    String[] TITLES = {"我的工作", "工单查询", "我的收益", "用户登出"};
 
 
     // ================================== searchView ==================================
@@ -34,7 +44,7 @@ public class TechnicianMainActivity extends ToolbarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initToolbar("工作清单", false);
+        initToolbar(TITLES[0], false);
         initViews();
     }
 
@@ -67,9 +77,10 @@ public class TechnicianMainActivity extends ToolbarActivity {
 
     private IDrawerItem[] getDrawerItems() {
         return new IDrawerItem[]{
-                new PrimaryDrawerItem().withName("工作清单").withIcon(GoogleMaterial.Icon.gmd_assignment).withIdentifier(0),
-                new PrimaryDrawerItem().withName("统计分析").withIcon(GoogleMaterial.Icon.gmd_chart).withIdentifier(1),
-                new PrimaryDrawerItem().withName("我的收益").withIcon(GoogleMaterial.Icon.gmd_assignment_account).withIdentifier(2)
+                new PrimaryDrawerItem().withName(TITLES[0]).withIcon(GoogleMaterial.Icon.gmd_assignment).withIdentifier(0),
+                new PrimaryDrawerItem().withName(TITLES[1]).withIcon(GoogleMaterial.Icon.gmd_search_in_file).withIdentifier(1),
+                new PrimaryDrawerItem().withName(TITLES[2]).withIcon(GoogleMaterial.Icon.gmd_assignment_account).withIdentifier(2),
+                new PrimaryDrawerItem().withName(TITLES[3]).withIcon(GoogleMaterial.Icon.gmd_sign_in).withIdentifier(3).withSelectable(false)
         };
     }
 
@@ -79,17 +90,19 @@ public class TechnicianMainActivity extends ToolbarActivity {
             public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                 switch (drawerItem.getIdentifier()) {
                     case 0:
-                        if (!getToolbarTitle().equals("工作清单")) {
-                            setToolbarTitle("工作清单");
+                        if (!getToolbarTitle().equals(TITLES[0])) {
+                            setToolbarTitle(TITLES[0]);
                             replaceFragment_(new WorkListFragment());
                         }
                         break;
-//                    case 1:
-//                        if (!getToolbarTitle().equals("统计分析")) {
-//                            setToolbarTitle("统计分析");
-//                            replaceFragment_(new TestFragment());
-//                        }
-//                        break;
+                    case 3:
+                        DialogUtils.showConfirm(TechnicianMainActivity.this, "确认登出？", new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog,@NonNull DialogAction which) {
+                                startActivityAndFinish(LoginActivity.class);
+                            }
+                        });
+                        break;
                 }
                 if (searchView.isSearchOpen()) {
                     searchView.closeSearch();

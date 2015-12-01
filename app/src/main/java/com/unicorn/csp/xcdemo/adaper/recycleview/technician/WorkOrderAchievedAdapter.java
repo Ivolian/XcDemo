@@ -85,6 +85,14 @@ public class WorkOrderAchievedAdapter extends RecyclerView.Adapter<WorkOrderAchi
         WorkOrderInfo workOrderInfo = workOrderProcessInfoList.get(position).getWorkOrderInfo();
         viewHolder.workOrderCard.setWorkOrderInfo(workOrderInfo);
         viewHolder.workOrderCard.expandableLayout.setExpanded(workOrderProcessInfoList.get(position).isExpand());
+
+        if (workOrderInfo.getStatusTag().equals("Complete")){
+            viewHolder.workOrderCard.labelView.setText("结");
+            workOrderInfo.setLabelText("结");
+        }else {
+            viewHolder.workOrderCard.labelView.setText("核");
+            workOrderInfo.setLabelText("核");
+        }
     }
 
 
