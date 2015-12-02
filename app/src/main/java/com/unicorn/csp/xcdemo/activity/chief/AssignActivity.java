@@ -80,7 +80,6 @@ public class AssignActivity extends WorkOrderCardActivity {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                         for (int i = 0; i != response.length(); i++) {
                             JSONObject jsonObject = JSONUtils.getJSONObject(response, i);
                             String name = JSONUtils.getString(jsonObject, "name", "");

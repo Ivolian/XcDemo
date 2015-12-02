@@ -10,9 +10,11 @@ import java.io.File;
 
 public class ConfigUtils {
 
-    public static String ip = "192.168.7.51";
+    public static String ip = "192.168.1.5";
 
-    public static String port = "8080";
+    public static String port = "3000";
+
+
 
     public final static String JSESSION_ID = "jsessionid";
 

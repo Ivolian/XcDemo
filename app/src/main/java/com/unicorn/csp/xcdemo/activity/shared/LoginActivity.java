@@ -64,7 +64,7 @@ public class LoginActivity extends ToolbarActivity {
     }
 
     private void initViews() {
-        etAccount.setText("liulinag");
+        etAccount.setText("jishi1");
         etPassword.setText("000000");
     }
 
@@ -74,8 +74,7 @@ public class LoginActivity extends ToolbarActivity {
     @OnClick(R.id.btn_login)
     public void onLoginButtonClick() {
         if (isUserInputValid()) {
-            MaterialDialog mask = DialogUtils.showMask(this, "登录中", "请稍后");
-            login(mask);
+            login(DialogUtils.showMask(this, "登录中", "请稍后"));
         }
     }
 

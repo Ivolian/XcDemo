@@ -42,6 +42,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -148,7 +149,7 @@ public class PackActivity extends WorkOrderCardActivity {
             @Override
             public void onClick(View v) {
                 if (optionButton.isShowOutline()) {
-                    showNumberDialog(optionButton);
+                    showPickNumberDialog(optionButton);
                 } else {
                     optionButton.setText(name);
                     optionButton.setShowOutline(true);
@@ -158,27 +159,31 @@ public class PackActivity extends WorkOrderCardActivity {
         return optionButton;
     }
 
-    private void showNumberDialog(final OptionButton bootstrapButton) {
-        final String btnText = bootstrapButton.getText().toString();
-        String title = "输入" + btnText + "数量";
+    private void showPickNumberDialog(final OptionButton bootstrapButton) {
+        final String materialName = bootstrapButton.getText().toString();
+        String title = "输入" + materialName + "数量";
         new MaterialDialog.Builder(this)
                 .title(title)
                 .inputType(InputType.TYPE_CLASS_NUMBER)
                 .alwaysCallInputCallback()
-                .input("确认", "1", new MaterialDialog.InputCallback() {
+                .input("", "1", new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
-                        boolean isNumeric = org.apache.commons.lang3.StringUtils.isNumeric(input);
-                        dialog.getActionButton(DialogAction.POSITIVE).setEnabled(isNumeric);
+                        String rex  = "^[0-9]*[1-9][0-9]*$";
+                        Pattern pattern =Pattern.compile(rex);
+                        boolean valid = pattern.matcher(input).matches();
+                        dialog.getActionButton(DialogAction.POSITIVE).setEnabled(valid);
                     }
                 })
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         if (materialDialog.getInputEditText() != null) {
-                            String number = materialDialog.getInputEditText().getText().toString();
-                            bootstrapButton.setText(btnText + "(" + number + ")");
-                            bootstrapButton.amount = Integer.parseInt(number);
+                            // todo 00008 or 10000000l
+                            String input = materialDialog.getInputEditText().getText().toString();
+                            int materialAmount = Integer.parseInt(input);
+                            bootstrapButton.setText(materialName + "(" + materialAmount + ")");
+                            bootstrapButton.amount = materialAmount;
                             bootstrapButton.setShowOutline(false);
                         }
                     }
