@@ -63,5 +63,8 @@ dependencies {
     compile(name: 'camera', ext: 'aar')
     compile 'commons-io:commons-io:2.4'
     compile 'tyrantgit:explosionfield:1.0.1'
+    compile 'com.klinkerapps:link_builder:1.3.0@aar'
+    compile 'org.zeroturnaround:zt-zip:1.8'
+
 
 }

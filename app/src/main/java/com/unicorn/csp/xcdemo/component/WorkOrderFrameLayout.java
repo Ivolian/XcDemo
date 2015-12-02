@@ -1,6 +1,8 @@
 package com.unicorn.csp.xcdemo.component;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +10,8 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
+import com.klinker.android.link_builder.Link;
+import com.klinker.android.link_builder.LinkBuilder;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
 import com.unicorn.csp.xcdemo.model.WorkOrderSupplyInfo;
@@ -23,12 +27,11 @@ import butterknife.ButterKnife;
 
 public class WorkOrderFrameLayout extends FrameLayout {
 
-
     @Bind(R.id.labelview)
-    public LabelView labelView;
+    public LabelView label;
 
-    @Bind(R.id.tv_request_user_and_call_number)
-    TextView tvRequestUserAndCallNumber;
+    @Bind(R.id.tv_request_user)
+    TextView tvRequestUser;
 
     @Bind(R.id.tv_request_time)
     TextView tvRequestTime;
@@ -99,20 +102,22 @@ public class WorkOrderFrameLayout extends FrameLayout {
         ButterKnife.bind(this);
     }
 
-    public void setWorkOrderInfo(WorkOrderInfo workOrderInfo) {
+    public void setWorkOrderInfo(final WorkOrderInfo workOrderInfo) {
 
-        String requestUserAndCallNumber = "报修电话: " + workOrderInfo.getCallNumber() + " " + workOrderInfo.getRequestUser();
-        tvRequestUserAndCallNumber.setText(requestUserAndCallNumber);
-        String requestTime = "报修时间: " + new DateTime(workOrderInfo.getRequestTime()).toString("yyyy-MM-dd HH:mm:ss");
-        tvRequestTime.setText(requestTime);
-        String buildingAndAddress = "保修地点: " + workOrderInfo.getBuilding() + "(" + workOrderInfo.getAddress() + ")";
-        tvBuildingAndAddress.setText(buildingAndAddress);
-        String type = "维修类型: " + workOrderInfo.getType();
-        tvType.setText(type);
-        String equipmentAndFaultType = "维修内容: " + workOrderInfo.getEquipment() + "(" + workOrderInfo.getFaultType() + ")";
-        tvEquipmentAndFaultType.setText(equipmentAndFaultType);
-        String processingTimeLimit = "是否时限: " + workOrderInfo.getProcessingTimeLimit();
-        tvProcessingTimeLimit.setText(processingTimeLimit);
+        // top part
+        String requestUserText = "报修人员: " + workOrderInfo.getRequestUser();
+        tvRequestUser.setText(requestUserText);
+        addDialLink(workOrderInfo.getRequestUser(), workOrderInfo.getCallNumber(), tvRequestUser);
+        String requestTimeText = "报修时间: " + getDateString(workOrderInfo.getRequestTime());
+        tvRequestTime.setText(requestTimeText);
+        String buildingAndAddressText = "报修地点: " + workOrderInfo.getBuilding() + "(" + workOrderInfo.getAddress() + ")";
+        tvBuildingAndAddress.setText(buildingAndAddressText);
+        String typeText = "维修类型: " + workOrderInfo.getType();
+        tvType.setText(typeText);
+        String equipmentAndFaultTypeText = "维修内容: " + workOrderInfo.getEquipment() + "(" + workOrderInfo.getFaultType() + ")";
+        tvEquipmentAndFaultType.setText(equipmentAndFaultTypeText);
+        String processingTimeLimitText = "是否时限: " + workOrderInfo.getProcessingTimeLimit();
+        tvProcessingTimeLimit.setText(processingTimeLimitText);
 
         //
 
@@ -168,6 +173,28 @@ public class WorkOrderFrameLayout extends FrameLayout {
             tvPack.setText(pack);
             tvPack.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void addDialLink(String linkText, final String telephone, TextView tvTarget) {
+        Link link = new Link(linkText)
+                .setTextColor(getResources().getColor(R.color.primary))
+                .setOnClickListener(new Link.OnClickListener() {
+                    @Override
+                    public void onClick(String clickedText) {
+                        Uri uri = Uri.parse("tel:" + telephone);
+                        Intent intent = new Intent();
+                        intent.setAction(Intent.ACTION_DIAL);
+                        intent.setData(uri);
+                        getContext().startActivity(intent);
+                    }
+                });
+        LinkBuilder.on(tvTarget)
+                .addLink(link)
+                .build();
+    }
+
+    private String getDateString(long time) {
+        return new DateTime(time).toString("yyyy-MM-dd HH:mm:ss");
     }
 
 }

@@ -31,7 +31,7 @@ abstract public class WorkOrderCardActivity extends ToolbarActivity{
     public void setContentView(@LayoutRes int layoutResId) {
         super.setContentView(layoutResId);
         workOrderCard.setWorkOrderInfo(workOrderInfo);
-        workOrderCard.labelView.setText(workOrderInfo.getLabelText());
+        workOrderCard.label.setText(workOrderInfo.getLabelText());
         ViewCompat.setTransitionName(workOrderCard, SHARED_VIEW);
     }
 

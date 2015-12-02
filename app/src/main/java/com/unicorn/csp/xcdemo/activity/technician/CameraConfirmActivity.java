@@ -34,10 +34,16 @@ import org.json.JSONObject;
 import org.simple.eventbus.EventBus;
 import org.simple.eventbus.Subscriber;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -184,6 +190,45 @@ public class CameraConfirmActivity extends ToolbarActivity {
 
     private void uploadVideo(URL videoUrl) {
         try {
+            File video = new File(videoUrl.toURI());
+            String zipPath = ConfigUtils.getBaseDirPath() + "/video.zip";
+            File zip = new File(zipPath);
+            if(zip.exists()){
+                zip.delete();
+            }
+//            zip.createNewFile();
+//            ZipUtil.pack(new File(ConfigUtils.getBaseDirPath()),zip);
+
+
+            try {
+                BufferedInputStream origin = null;
+                FileOutputStream dest = new
+                        FileOutputStream(zipPath);
+                ZipOutputStream out = new ZipOutputStream(new
+                        BufferedOutputStream(dest));
+                //out.setMethod(ZipOutputStream.DEFLATED);
+                byte data[] = new byte[2048];
+                // get a list of files from current directory
+
+
+                    FileInputStream fi = new
+                            FileInputStream(video);
+                    origin = new
+                            BufferedInputStream(fi, 2048);
+                    ZipEntry entry = new ZipEntry(video.getAbsolutePath());
+                    out.putNextEntry(entry);
+                    int count;
+                    while((count = origin.read(data, 0,
+                            2048)) != -1) {
+                        out.write(data, 0, count);
+                    }
+                    origin.close();
+                out.close();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+
+
             UploadUtils.upload(new File(videoUrl.toURI()), "cameraConfirmActivity_onUploadFinish", DialogUtils.showMask2(this, "上传摄像中", "请稍后"));
         } catch (Exception e) {
             //

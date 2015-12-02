@@ -120,7 +120,7 @@ public class WorkOrderToAssignAdapter extends RecyclerView.Adapter<WorkOrderToAs
         viewHolder.workOrderCard.setWorkOrderInfo(workOrderInfo);
         viewHolder.workOrderCard.expandableLayout.setExpanded(workOrderProcessInfoList.get(position).isExpand());
 
-        viewHolder.workOrderCard.labelView.setText("指");
+        viewHolder.workOrderCard.label.setText("指");
         workOrderInfo.setLabelText("指");
     }
 

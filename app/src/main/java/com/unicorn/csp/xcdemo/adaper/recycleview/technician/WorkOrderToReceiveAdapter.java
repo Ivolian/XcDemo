@@ -130,10 +130,10 @@ public class WorkOrderToReceiveAdapter extends RecyclerView.Adapter<WorkOrderToR
         viewHolder.workOrderCard.expandableLayout.setExpanded(workOrderProcessInfoList.get(position).isExpand());
 
         if (workOrderInfo.getStatusTag().equals("Distribute")){
-            viewHolder.workOrderCard.labelView.setText("派");
+            viewHolder.workOrderCard.label.setText("派");
             workOrderInfo.setLabelText("派");
         }else {
-            viewHolder.workOrderCard.labelView.setText("抢");
+            viewHolder.workOrderCard.label.setText("抢");
             workOrderInfo.setLabelText("抢");
         }
     }

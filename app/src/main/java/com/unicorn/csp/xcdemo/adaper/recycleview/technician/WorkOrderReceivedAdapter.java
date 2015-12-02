@@ -167,7 +167,7 @@ public class WorkOrderReceivedAdapter extends RecyclerView.Adapter<WorkOrderRece
         viewHolder.btnArrivalOrOperation.setText(workOrderInfo.getStatusTag().equals("Receive") ? "到达" : "操作");
 
         workOrderInfo.setLabelText("接");
-        viewHolder.workOrderCard.labelView.setText("接");
+        viewHolder.workOrderCard.label.setText("接");
     }
 
 

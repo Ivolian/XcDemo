@@ -108,7 +108,7 @@ public class WorkOrderSuspendedAdapter extends RecyclerView.Adapter<WorkOrderSus
         viewHolder.workOrderCard.setWorkOrderInfo(workOrderInfo);
         viewHolder.workOrderCard.expandableLayout.setExpanded(workOrderProcessInfoList.get(position).isExpand());
 
-        viewHolder.workOrderCard.labelView.setText("挂");
+        viewHolder.workOrderCard.label.setText("挂");
         workOrderInfo.setLabelText("挂");
     }
 

@@ -5,20 +5,19 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        >
+        android:padding="10dp">
 
         <TextView
-            android:id="@+id/tv_request_user_and_call_number"
+            android:id="@+id/tv_request_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="报修电话:  9300（分）马老师" />
+            />
 
         <TextView
             android:id="@+id/tv_request_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_request_user_and_call_number"
+            android:layout_below="@id/tv_request_user"
             android:text="下单时间:  2015-09-06 10:00" />
 
         <TextView
