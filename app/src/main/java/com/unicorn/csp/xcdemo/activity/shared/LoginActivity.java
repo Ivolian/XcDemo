@@ -13,8 +13,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
-import com.unicorn.csp.xcdemo.activity.chief.ChiefMainActivity;
-import com.unicorn.csp.xcdemo.activity.technician.TechnicianMainActivity;
+import com.unicorn.csp.xcdemo.activity.technician.MainActivity;
 import com.unicorn.csp.xcdemo.component.TinyDB;
 import com.unicorn.csp.xcdemo.utils.ConfigUtils;
 import com.unicorn.csp.xcdemo.utils.DialogUtils;
@@ -64,7 +63,7 @@ public class LoginActivity extends ToolbarActivity {
     }
 
     private void initViews() {
-        etAccount.setText("jishi1");
+        etAccount.setText("jishi");
         etPassword.setText("000000");
     }
 
@@ -102,7 +101,7 @@ public class LoginActivity extends ToolbarActivity {
                             ToastUtils.show("账号或密码错误!");
                             return;
                         }
-                        startActivityAndFinish(role.equals("Artificer") ? TechnicianMainActivity.class : ChiefMainActivity.class);
+                        startActivityAndFinish(role.equals("Artificer") ? MainActivity.class : com.unicorn.csp.xcdemo.activity.chief.MainActivity.class);
                     }
                 },
                 new Response.ErrorListener() {

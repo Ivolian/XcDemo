@@ -21,7 +21,6 @@ import com.liangfeizc.flowlayout.FlowLayout;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.WorkOrderCardActivity;
 import com.unicorn.csp.xcdemo.component.OptionButton;
-import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
 import com.unicorn.csp.xcdemo.utils.ConfigUtils;
 import com.unicorn.csp.xcdemo.utils.DialogUtils;
 import com.unicorn.csp.xcdemo.utils.JSONUtils;
@@ -45,9 +44,6 @@ public class SuspendActivity extends WorkOrderCardActivity {
 
 
     // ================================== extra ==================================
-
-    @InjectExtra("workOrderInfo")
-    WorkOrderInfo workOrderInfo;
 
     @InjectExtra("refreshEventTag")
     String refreshEventTag;
@@ -157,7 +153,7 @@ public class SuspendActivity extends WorkOrderCardActivity {
             ToastUtils.show("请至少选择一个挂单选项");
             return;
         }
-        String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderInfo.getWorkOrderId() + "/hangUp";
+        String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderProcessInfo.getWorkOrderInfo().getWorkOrderId() + "/hangUp";
         StringRequest stringRequest = new StringRequest(
                 Request.Method.PUT,
                 url,

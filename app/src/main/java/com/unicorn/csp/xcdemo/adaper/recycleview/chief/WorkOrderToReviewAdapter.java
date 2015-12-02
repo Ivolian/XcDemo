@@ -79,6 +79,7 @@ public class WorkOrderToReviewAdapter extends RecyclerView.Adapter<WorkOrderToRe
             workOrderCard.expandableLayout.toggle();
         }
 
+        String refreshEventTag = "workOrderToReviewFragment_refresh";
 
         @OnClick(R.id.btn_review)
         public void startReviewActivity(PaperButton paperButton) {
@@ -86,15 +87,14 @@ public class WorkOrderToReviewAdapter extends RecyclerView.Adapter<WorkOrderToRe
             ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, cardView, WorkOrderCardActivity.SHARED_VIEW);
             Intent intent = new Intent(paperButton.getContext(), ReviewActivity.class);
             intent.putExtra("workOrderProcessInfo", workOrderProcessInfoList.get(getAdapterPosition()));
-            intent.putExtra("workOrderInfo", workOrderProcessInfoList.get(getAdapterPosition()).getWorkOrderInfo());
-            intent.putExtra("refreshEventTag", "workOrderToReviewFragment_refresh");
+            intent.putExtra("refreshEventTag", refreshEventTag);
             ActivityCompat.startActivity(activity, intent, options.toBundle());
         }
 
     }
 
 
-    // ================================== item layout ==================================
+    // ================================== onCreateViewHolder ==================================
 
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_work_order_to_review_chief, viewGroup, false));
@@ -106,11 +106,9 @@ public class WorkOrderToReviewAdapter extends RecyclerView.Adapter<WorkOrderToRe
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         WorkOrderInfo workOrderInfo = workOrderProcessInfoList.get(position).getWorkOrderInfo();
+        workOrderInfo.setLabelText("核");
         viewHolder.workOrderCard.setWorkOrderInfo(workOrderInfo);
         viewHolder.workOrderCard.expandableLayout.setExpanded(workOrderProcessInfoList.get(position).isExpand());
-
-        viewHolder.workOrderCard.label.setText("核");
-        workOrderInfo.setLabelText("核");
     }
 
 

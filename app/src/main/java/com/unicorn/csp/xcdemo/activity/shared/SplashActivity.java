@@ -10,8 +10,7 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ButterKnifeActivity;
-import com.unicorn.csp.xcdemo.activity.chief.ChiefMainActivity;
-import com.unicorn.csp.xcdemo.activity.technician.TechnicianMainActivity;
+import com.unicorn.csp.xcdemo.activity.technician.MainActivity;
 import com.unicorn.csp.xcdemo.component.TinyDB;
 import com.unicorn.csp.xcdemo.utils.ConfigUtils;
 import com.unicorn.csp.xcdemo.utils.SfUtils;
@@ -51,7 +50,7 @@ public class SplashActivity extends ButterKnifeActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        startActivityAndFinish(role.equals("Artificer") ? TechnicianMainActivity.class : ChiefMainActivity.class);
+                        startActivityAndFinish(role.equals("Artificer") ? MainActivity.class : com.unicorn.csp.xcdemo.activity.chief.MainActivity.class);
                     }
                 },
                 SimpleVolley.getDefaultErrorListener()

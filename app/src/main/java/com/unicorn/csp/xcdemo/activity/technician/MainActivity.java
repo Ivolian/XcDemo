@@ -16,7 +16,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
 import com.unicorn.csp.xcdemo.activity.shared.LoginActivity;
-import com.unicorn.csp.xcdemo.fragment.technician.WorkListFragment;
+import com.unicorn.csp.xcdemo.fragment.technician.MyWorkFragment;
 import com.unicorn.csp.xcdemo.utils.DialogUtils;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
 import com.unicorn.csp.xcdemo.utils.UpdateUtils;
@@ -25,7 +25,7 @@ import butterknife.Bind;
 
 
 //@P
-public class TechnicianMainActivity extends ToolbarActivity {
+public class MainActivity extends ToolbarActivity {
 
 
     // ================================== titles ==================================
@@ -46,13 +46,13 @@ public class TechnicianMainActivity extends ToolbarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initToolbar(TITLES[0], false);
-        initViews();
-        UpdateUtils.checkUpdate(this);
+        init();
     }
 
-    private void initViews() {
+    private void init() {
         initDrawer();
-        replaceFragment_(new WorkListFragment());
+        replaceFragment_(new MyWorkFragment());
+        UpdateUtils.checkUpdate(this);
     }
 
     private void replaceFragment_(Fragment fragment) {
@@ -94,11 +94,11 @@ public class TechnicianMainActivity extends ToolbarActivity {
                     case 0:
                         if (!getToolbarTitle().equals(TITLES[0])) {
                             setToolbarTitle(TITLES[0]);
-                            replaceFragment_(new WorkListFragment());
+                            replaceFragment_(new MyWorkFragment());
                         }
                         break;
                     case 3:
-                        DialogUtils.showConfirm(TechnicianMainActivity.this, "确认登出？", new MaterialDialog.SingleButtonCallback() {
+                        DialogUtils.showConfirm(MainActivity.this, "确认登出？", new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog,@NonNull DialogAction which) {
                                 startActivityAndFinish(LoginActivity.class);

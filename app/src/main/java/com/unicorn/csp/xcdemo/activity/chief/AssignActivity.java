@@ -20,7 +20,6 @@ import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.WorkOrderCardActivity;
 import com.unicorn.csp.xcdemo.component.OptionButton;
 import com.unicorn.csp.xcdemo.component.TinyDB;
-import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
 import com.unicorn.csp.xcdemo.utils.ConfigUtils;
 import com.unicorn.csp.xcdemo.utils.DialogUtils;
 import com.unicorn.csp.xcdemo.utils.JSONUtils;
@@ -44,9 +43,6 @@ public class AssignActivity extends WorkOrderCardActivity {
 
 
     // ================================== extra ==================================
-
-    @InjectExtra("workOrderInfo")
-    WorkOrderInfo workOrderInfo;
 
     @InjectExtra("refreshEventTag")
     String refreshEventTag;
@@ -143,7 +139,7 @@ public class AssignActivity extends WorkOrderCardActivity {
             ToastUtils.show("请至少选择一个技师");
             return;
         }
-        String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderInfo.getWorkOrderId() + "/distribute";
+        String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderProcessInfo.getWorkOrderInfo().getWorkOrderId() + "/distribute";
         url += ("?userId=" + optionSelected.objectId);
         StringRequest stringRequest = new StringRequest(
                 Request.Method.PUT,

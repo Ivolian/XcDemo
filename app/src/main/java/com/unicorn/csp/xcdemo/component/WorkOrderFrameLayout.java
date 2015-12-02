@@ -104,6 +104,8 @@ public class WorkOrderFrameLayout extends FrameLayout {
 
     public void setWorkOrderInfo(final WorkOrderInfo workOrderInfo) {
 
+
+        label.setText(workOrderInfo.getLabelText());
         // top part
         String requestUserText = "报修人员: " + workOrderInfo.getRequestUser();
         tvRequestUser.setText(requestUserText);

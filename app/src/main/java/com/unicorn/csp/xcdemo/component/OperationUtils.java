@@ -13,7 +13,7 @@ import com.mikepenz.iconics.IconicsDrawable;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.shared.SuspendActivity;
 import com.unicorn.csp.xcdemo.activity.technician.AchieveActivity;
-import com.unicorn.csp.xcdemo.activity.technician.CameraConfirmActivity;
+import com.unicorn.csp.xcdemo.activity.technician.VideoConfirmActivity;
 import com.unicorn.csp.xcdemo.activity.technician.MicActivity;
 import com.unicorn.csp.xcdemo.activity.technician.PhotoConfirmActivity;
 import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
@@ -61,7 +61,7 @@ public class OperationUtils {
                                              activity.startActivity(intent);
                                              break;
                                          case "摄像":
-                                             intent = new Intent(activity, CameraConfirmActivity.class);
+                                             intent = new Intent(activity, VideoConfirmActivity.class);
                                              intent.putExtra("workOrderId", workOrderInfo.getWorkOrderId());
                                              activity.startActivity(intent);
                                              break;

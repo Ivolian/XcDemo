@@ -79,21 +79,22 @@ public class WorkOrderSuspendedAdapter extends RecyclerView.Adapter<WorkOrderSus
             workOrderCard.expandableLayout.toggle();
         }
 
+        String refreshEventTag = "chief_workOrderSuspendedFragment_refresh";
+
         @OnClick(R.id.btn_assign)
         public void startAssignActivity(PaperButton paperButton) {
             Activity activity = (Activity) paperButton.getContext();
             ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, cardView, WorkOrderCardActivity.SHARED_VIEW);
             Intent intent = new Intent(paperButton.getContext(), AssignActivity.class);
-            WorkOrderProcessInfo workOrderProcessInfo = workOrderProcessInfoList.get(getAdapterPosition());
-            intent.putExtra("workOrderInfo", workOrderProcessInfo.getWorkOrderInfo());
-            intent.putExtra("refreshEventTag","c_workOrderSuspendedFragment_refresh");
+            intent.putExtra("workOrderProcessInfo",  workOrderProcessInfoList.get(getAdapterPosition()));
+            intent.putExtra("refreshEventTag",refreshEventTag);
             ActivityCompat.startActivity(activity, intent, options.toBundle());
         }
 
     }
 
 
-    // ================================== onBindViewHolder ==================================
+    // ================================== onCreateViewHolder ==================================
 
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_work_order_suspended_chief, viewGroup, false));
@@ -105,11 +106,9 @@ public class WorkOrderSuspendedAdapter extends RecyclerView.Adapter<WorkOrderSus
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         WorkOrderInfo workOrderInfo = workOrderProcessInfoList.get(position).getWorkOrderInfo();
+        workOrderInfo.setLabelText("挂");
         viewHolder.workOrderCard.setWorkOrderInfo(workOrderInfo);
         viewHolder.workOrderCard.expandableLayout.setExpanded(workOrderProcessInfoList.get(position).isExpand());
-
-        viewHolder.workOrderCard.label.setText("挂");
-        workOrderInfo.setLabelText("挂");
     }
 
 

@@ -16,7 +16,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
 import com.unicorn.csp.xcdemo.activity.shared.LoginActivity;
-import com.unicorn.csp.xcdemo.fragment.chief.WorkOrderTodoFragment;
+import com.unicorn.csp.xcdemo.fragment.chief.MyWorkFragment;
 import com.unicorn.csp.xcdemo.utils.DialogUtils;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
 import com.unicorn.csp.xcdemo.utils.UpdateUtils;
@@ -24,12 +24,12 @@ import com.unicorn.csp.xcdemo.utils.UpdateUtils;
 import butterknife.Bind;
 
 //@P
-public class ChiefMainActivity extends ToolbarActivity {
+public class MainActivity extends ToolbarActivity {
 
 
     // ================================== titles ==================================
 
-    String[] TITLES = {"我的工作", "工单监控", "工单预警", "用户登出"};
+    String[] TITLES = {"我的工作", "工单查询", "工单预警", "用户登出"};
 
 
     // ================================== searchView ==================================
@@ -45,13 +45,13 @@ public class ChiefMainActivity extends ToolbarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initToolbar(TITLES[0], false);
-        initViews();
-        UpdateUtils.checkUpdate(this);
+        init();
     }
 
-    private void initViews() {
+    private void init() {
         initDrawer();
-        replaceFragment_(new WorkOrderTodoFragment());
+        replaceFragment_(new MyWorkFragment());
+        UpdateUtils.checkUpdate(this);
     }
 
     private void replaceFragment_(Fragment fragment) {
@@ -79,7 +79,7 @@ public class ChiefMainActivity extends ToolbarActivity {
     private IDrawerItem[] getDrawerItems() {
         return new IDrawerItem[]{
                 new PrimaryDrawerItem().withName(TITLES[0]).withIcon(GoogleMaterial.Icon.gmd_assignment).withIdentifier(0),
-                new PrimaryDrawerItem().withName(TITLES[1]).withIcon(GoogleMaterial.Icon.gmd_assignment_check).withIdentifier(1),
+                new PrimaryDrawerItem().withName(TITLES[1]).withIcon(GoogleMaterial.Icon.gmd_search_in_file).withIdentifier(1),
                 new PrimaryDrawerItem().withName(TITLES[2]).withIcon(GoogleMaterial.Icon.gmd_notifications_active).withIdentifier(2),
                 new PrimaryDrawerItem().withName(TITLES[3]).withIcon(GoogleMaterial.Icon.gmd_sign_in).withIdentifier(3).withSelectable(false)
         };
@@ -94,11 +94,11 @@ public class ChiefMainActivity extends ToolbarActivity {
                     case 0:
                         if (!getToolbarTitle().equals(TITLES[0])) {
                             setToolbarTitle(TITLES[0]);
-                            replaceFragment_(new WorkOrderTodoFragment());
+                            replaceFragment_(new MyWorkFragment());
                         }
                         break;
                     case 3:
-                        DialogUtils.showConfirm(ChiefMainActivity.this, "确认登出？", new MaterialDialog.SingleButtonCallback() {
+                        DialogUtils.showConfirm(MainActivity.this, "确认登出？", new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                 startActivityAndFinish(LoginActivity.class);

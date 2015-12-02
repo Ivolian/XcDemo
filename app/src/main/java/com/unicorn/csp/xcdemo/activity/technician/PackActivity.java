@@ -208,7 +208,7 @@ public class PackActivity extends WorkOrderCardActivity {
     }
 
     public void pack() {
-        String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderInfo.getWorkOrderId() + "/supply";
+        String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderProcessInfo.getWorkOrderInfo().getWorkOrderId() + "/supply";
         StringRequest stringRequest = new StringRequest(
                 Request.Method.PUT,
                 url,

@@ -40,7 +40,7 @@
 
         <!-- technician -->
         <activity
-            android:name=".activity.technician.TechnicianMainActivity"
+            android:name=".activity.technician.MainActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.technician.PackActivity"
@@ -55,7 +55,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar.NoWindow" />
         <activity
-            android:name=".activity.technician.CameraConfirmActivity"
+            android:name=".activity.technician.VideoConfirmActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar.NoWindow" />
         <activity
@@ -65,7 +65,7 @@
 
         <!-- chief -->
         <activity
-            android:name=".activity.chief.ChiefMainActivity"
+            android:name=".activity.chief.MainActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.chief.AssignActivity"

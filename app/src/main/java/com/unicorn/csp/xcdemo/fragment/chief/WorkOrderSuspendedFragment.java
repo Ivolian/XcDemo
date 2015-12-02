@@ -42,7 +42,7 @@ public class WorkOrderSuspendedFragment extends RefreshFragment {
         super.onDestroy();
     }
 
-    @Subscriber(tag = "c_workOrderSuspendedFragment_refresh")
+    @Subscriber(tag = "chief_workOrderSuspendedFragment_refresh")
     private void refresh(Object object) {
         reload();
     }

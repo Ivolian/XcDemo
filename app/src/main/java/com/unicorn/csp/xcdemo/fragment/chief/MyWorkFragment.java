@@ -15,7 +15,7 @@ import com.mikepenz.iconics.IconicsDrawable;
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.activity.chief.ChiefMainActivity;
+import com.unicorn.csp.xcdemo.activity.chief.MainActivity;
 import com.unicorn.csp.xcdemo.adaper.viewpager.chief.WorkOrderTodoPagerAdapter;
 import com.unicorn.csp.xcdemo.component.TabHelper;
 import com.unicorn.csp.xcdemo.fragment.base.ButterKnifeFragment;
@@ -27,7 +27,7 @@ import org.simple.eventbus.Subscriber;
 import butterknife.Bind;
 import su.levenetc.android.badgeview.BadgeView;
 
-public class WorkOrderTodoFragment extends ButterKnifeFragment {
+public class MyWorkFragment extends ButterKnifeFragment {
 
 
     // ================================== getLayoutResId ==================================
@@ -122,8 +122,8 @@ public class WorkOrderTodoFragment extends ButterKnifeFragment {
     }
 
     private void initSearchView(MenuItem menuItem) {
-        ChiefMainActivity chiefMainActivity = (ChiefMainActivity) getActivity();
-        MaterialSearchView searchView = chiefMainActivity.searchView;
+        MainActivity mainActivity = (MainActivity) getActivity();
+        MaterialSearchView searchView = mainActivity.searchView;
         searchView.setMenuItem(menuItem);
         searchView.setHint("请输入查询内容");
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {

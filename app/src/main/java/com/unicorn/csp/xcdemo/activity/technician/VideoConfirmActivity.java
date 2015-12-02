@@ -49,7 +49,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 
-public class CameraConfirmActivity extends ToolbarActivity {
+public class VideoConfirmActivity extends ToolbarActivity {
 
 
     // ========================== extra ==========================
@@ -262,7 +262,7 @@ public class CameraConfirmActivity extends ToolbarActivity {
                     @Override
                     public void onResponse(String response) {
                         ToastUtils.show("确认完成!");
-                        CameraConfirmActivity.this.finish();
+                        VideoConfirmActivity.this.finish();
                     }
                 },
                 SimpleVolley.getDefaultErrorListener()

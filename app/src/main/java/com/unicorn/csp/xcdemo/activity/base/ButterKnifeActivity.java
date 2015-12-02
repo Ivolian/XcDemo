@@ -16,37 +16,26 @@ public abstract class ButterKnifeActivity extends AppCompatActivity {
 
     @Override
     public void setContentView(@LayoutRes int layoutResId) {
-
         super.setContentView(layoutResId);
         ButterKnife.bind(this);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         Dart.inject(this);
     }
 
-
-    // ========================== 滑动移除 ==========================
-
     public void enableSlideFinish() {
-
         SlidrConfig config = new SlidrConfig.Builder().edge(true).build();
         Slidr.attach(this, config);
     }
 
-
-    // ========================== 其他方法 ==========================
-
     public void startActivity(Class activityClass) {
-
         startActivity(new Intent(this, activityClass));
     }
 
     public void startActivityAndFinish(Class activityClass) {
-
         startActivity(activityClass);
         finish();
     }
