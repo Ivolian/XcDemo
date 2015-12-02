@@ -23,7 +23,6 @@ import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.WorkOrderCardActivity;
 import com.unicorn.csp.xcdemo.component.TinyDB;
 import com.unicorn.csp.xcdemo.component.UploadUtils;
-import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
 import com.unicorn.csp.xcdemo.utils.ConfigUtils;
 import com.unicorn.csp.xcdemo.utils.DialogUtils;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
@@ -48,9 +47,6 @@ public class AchieveActivity extends WorkOrderCardActivity {
 
 
     // ================================== extra ==================================
-
-    @InjectExtra("workOrderInfo")
-    WorkOrderInfo workOrderInfo;
 
     @InjectExtra("refreshEventTag")
     String refreshEventTag;
@@ -201,7 +197,7 @@ public class AchieveActivity extends WorkOrderCardActivity {
             ToastUtils.show("请先签字");
             return;
         }
-        String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderInfo.getWorkOrderId() + lastPartUrl;
+        String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderProcessInfo.getWorkOrderInfo().getWorkOrderId() + lastPartUrl;
         StringRequest stringRequest = new StringRequest(
                 Request.Method.PUT,
                 url,

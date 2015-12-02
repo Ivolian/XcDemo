@@ -28,7 +28,7 @@ import butterknife.ButterKnife;
 public class WorkOrderFrameLayout extends FrameLayout {
 
     @Bind(R.id.labelview)
-    public LabelView label;
+    LabelView label;
 
     @Bind(R.id.tv_request_user)
     TextView tvRequestUser;

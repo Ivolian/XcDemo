@@ -2,7 +2,7 @@ package com.unicorn.csp.xcdemo.fragment.technician;
 
 import android.os.Bundle;
 
-import com.unicorn.csp.xcdemo.adaper.recycleview.technician.RefreshAdapter;
+import com.unicorn.csp.xcdemo.adaper.recycleview.shared.RefreshAdapter;
 import com.unicorn.csp.xcdemo.adaper.recycleview.technician.WorkOrderSuspendedAdapter;
 
 import org.simple.eventbus.EventBus;

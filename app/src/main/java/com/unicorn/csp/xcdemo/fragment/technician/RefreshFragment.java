@@ -10,7 +10,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.adaper.recycleview.technician.RefreshAdapter;
+import com.unicorn.csp.xcdemo.adaper.recycleview.shared.RefreshAdapter;
 import com.unicorn.csp.xcdemo.fragment.base.LazyLoadFragment;
 import com.unicorn.csp.xcdemo.model.RefreshResult;
 import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;

@@ -14,6 +14,7 @@ import com.github.aakira.expandablelayout.ExpandableLayoutListenerAdapter;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.WorkOrderCardActivity;
 import com.unicorn.csp.xcdemo.activity.technician.PackActivity;
+import com.unicorn.csp.xcdemo.adaper.recycleview.shared.RefreshAdapter;
 import com.unicorn.csp.xcdemo.component.OperationUtils;
 import com.unicorn.csp.xcdemo.component.PaperButton;
 import com.unicorn.csp.xcdemo.component.WorkOrderFrameLayout;
@@ -26,11 +27,14 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnLongClick;
-import tyrantgit.explosionfield.ExplosionField;
 
 
 public class WorkOrderSuspendedAdapter extends RecyclerView.Adapter<WorkOrderSuspendedAdapter.ViewHolder> implements RefreshAdapter {
+
+
+    // ================================== refreshEventTag ==================================
+
+    String refreshEventTag = "workOrderSuspendedFragment_refresh";
 
 
     // ================================== data ==================================
@@ -81,32 +85,20 @@ public class WorkOrderSuspendedAdapter extends RecyclerView.Adapter<WorkOrderSus
             workOrderCard.expandableLayout.toggle();
         }
 
-        // todo delete
-        @OnLongClick(R.id.cardview)
-        public boolean explode(View v) {
-            Activity activity = (Activity) v.getContext();
-            ExplosionField.attach2Window(activity).explode(v);
-            workOrderProcessInfoList.remove(getAdapterPosition());
-            notifyItemRemoved(getAdapterPosition());
-            return true;
-        }
-
         @OnClick(R.id.btn_pack)
         public void startPackActivity(PaperButton paperButton) {
             Activity activity = (Activity) paperButton.getContext();
             ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, cardView, WorkOrderCardActivity.SHARED_VIEW);
             Intent intent = new Intent(paperButton.getContext(), PackActivity.class);
-            WorkOrderProcessInfo workOrderProcessInfo = workOrderProcessInfoList.get(getAdapterPosition());
-            intent.putExtra("refreshEventTag","workOrderSuspendedFragment_refresh");
-            intent.putExtra("workOrderInfo", workOrderProcessInfo.getWorkOrderInfo());
+            intent.putExtra("workOrderProcessInfo", workOrderProcessInfoList.get(getAdapterPosition()));
+            intent.putExtra("refreshEventTag", refreshEventTag);
             ActivityCompat.startActivity(activity, intent, options.toBundle());
         }
 
 
         @OnClick(R.id.btn_operation)
         public void showChooseOperationDialog(PaperButton btnOperation) {
-            WorkOrderInfo workOrderInfo = workOrderProcessInfoList.get(getAdapterPosition()).getWorkOrderInfo();
-            OperationUtils.showChooseOperationDialog((Activity) btnOperation.getContext(), workOrderInfo,"workOrderSuspendedFragment_refresh", false);
+            OperationUtils.showChooseOperationDialog((Activity) btnOperation.getContext(), workOrderProcessInfoList.get(getAdapterPosition()), "workOrderSuspendedFragment_refresh", false);
         }
 
     }
@@ -124,11 +116,9 @@ public class WorkOrderSuspendedAdapter extends RecyclerView.Adapter<WorkOrderSus
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         WorkOrderInfo workOrderInfo = workOrderProcessInfoList.get(position).getWorkOrderInfo();
+        workOrderInfo.setLabelText("挂");
         viewHolder.workOrderCard.setWorkOrderInfo(workOrderInfo);
         viewHolder.workOrderCard.expandableLayout.setExpanded(workOrderProcessInfoList.get(position).isExpand());
-
-        workOrderInfo.setLabelText("挂");
-        viewHolder.workOrderCard.label.setText("挂");
     }
 
 

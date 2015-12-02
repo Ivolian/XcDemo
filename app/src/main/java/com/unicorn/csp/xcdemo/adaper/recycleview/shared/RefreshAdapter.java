@@ -1,4 +1,4 @@
-package com.unicorn.csp.xcdemo.adaper.recycleview.technician;
+package com.unicorn.csp.xcdemo.adaper.recycleview.shared;
 
 import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
 

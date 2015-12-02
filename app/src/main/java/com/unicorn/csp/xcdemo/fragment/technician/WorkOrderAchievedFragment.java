@@ -1,6 +1,6 @@
 package com.unicorn.csp.xcdemo.fragment.technician;
 
-import com.unicorn.csp.xcdemo.adaper.recycleview.technician.RefreshAdapter;
+import com.unicorn.csp.xcdemo.adaper.recycleview.shared.RefreshAdapter;
 import com.unicorn.csp.xcdemo.adaper.recycleview.technician.WorkOrderAchievedAdapter;
 
 

@@ -5,15 +5,16 @@
     <color name="colorPrimaryDark">@color/md_teal_600</color>
     <color name="colorAccent">@color/md_orange_200</color>
 
-    <color name="badgeColor">@color/md_teal_600</color>
 
     <color name="white">@color/md_white</color>
     <color name="black">@color/md_black</color>
-    <color name="blue">@color/md_light_blue_400</color>
-    <color name="label_color">@color/md_orange_500</color>
+
+    <color name="badgeColor">@color/md_teal_600</color>
+    <color name="snack_bar_color">@color/md_light_blue_400</color>
+    <color name="label_color">@color/md_blue_400</color>
     <color name="default_background">#eee</color>
 
-
+    <!-- tab layout color-->
     <color name="tab_color">#aaffffff</color>
     <color name="tab_selected_color">@color/white</color>
 

@@ -162,7 +162,7 @@ public class MyWorkFragment extends ButterKnifeFragment {
     private void showSnackBar(String text) {
         SnackbarManager.show(Snackbar.with(getActivity())
                 .position(Snackbar.SnackbarPosition.TOP)
-                .color(getResources().getColor(R.color.blue))
+                .color(getResources().getColor(R.color.snack_bar_color))
                 .textColor(getResources().getColor(R.color.white))
                 .text(text)
                 .duration(800), flSnackBarContainer);

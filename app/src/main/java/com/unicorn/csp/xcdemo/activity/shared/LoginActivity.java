@@ -63,7 +63,7 @@ public class LoginActivity extends ToolbarActivity {
     }
 
     private void initViews() {
-        etAccount.setText("jishi");
+        etAccount.setText("jishi1");
         etPassword.setText("000000");
     }
 

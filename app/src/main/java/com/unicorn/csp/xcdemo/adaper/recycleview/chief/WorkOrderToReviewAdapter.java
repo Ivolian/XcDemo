@@ -14,7 +14,7 @@ import com.github.aakira.expandablelayout.ExpandableLayoutListenerAdapter;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.WorkOrderCardActivity;
 import com.unicorn.csp.xcdemo.activity.chief.ReviewActivity;
-import com.unicorn.csp.xcdemo.adaper.recycleview.technician.RefreshAdapter;
+import com.unicorn.csp.xcdemo.adaper.recycleview.shared.RefreshAdapter;
 import com.unicorn.csp.xcdemo.component.PaperButton;
 import com.unicorn.csp.xcdemo.component.WorkOrderFrameLayout;
 import com.unicorn.csp.xcdemo.model.WorkOrderInfo;

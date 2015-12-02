@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import com.github.aakira.expandablelayout.ExpandableLayoutListenerAdapter;
 import com.unicorn.csp.xcdemo.R;
+import com.unicorn.csp.xcdemo.adaper.recycleview.shared.RefreshAdapter;
 import com.unicorn.csp.xcdemo.component.WorkOrderFrameLayout;
 import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
 import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
@@ -83,16 +84,9 @@ public class WorkOrderAchievedAdapter extends RecyclerView.Adapter<WorkOrderAchi
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         WorkOrderInfo workOrderInfo = workOrderProcessInfoList.get(position).getWorkOrderInfo();
+        workOrderInfo.setLabelText(workOrderInfo.getStatusTag().equals("Complete") ? "结" : "核");
         viewHolder.workOrderCard.setWorkOrderInfo(workOrderInfo);
         viewHolder.workOrderCard.expandableLayout.setExpanded(workOrderProcessInfoList.get(position).isExpand());
-
-        if (workOrderInfo.getStatusTag().equals("Complete")){
-            viewHolder.workOrderCard.label.setText("结");
-            workOrderInfo.setLabelText("结");
-        }else {
-            viewHolder.workOrderCard.label.setText("核");
-            workOrderInfo.setLabelText("核");
-        }
     }
 
 

@@ -20,6 +20,7 @@ import com.github.aakira.expandablelayout.ExpandableLayoutListenerAdapter;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.WorkOrderCardActivity;
 import com.unicorn.csp.xcdemo.activity.technician.PackActivity;
+import com.unicorn.csp.xcdemo.adaper.recycleview.shared.RefreshAdapter;
 import com.unicorn.csp.xcdemo.component.OperationUtils;
 import com.unicorn.csp.xcdemo.component.PaperButton;
 import com.unicorn.csp.xcdemo.component.WorkOrderFrameLayout;
@@ -43,6 +44,11 @@ import butterknife.OnClick;
 
 //@P
 public class WorkOrderReceivedAdapter extends RecyclerView.Adapter<WorkOrderReceivedAdapter.ViewHolder> implements RefreshAdapter {
+
+
+    // ================================== refreshEventTag ==================================
+
+    String refreshEventTag = "workOrderReceivedFragment_refresh";
 
 
     // ================================== data ==================================
@@ -96,6 +102,7 @@ public class WorkOrderReceivedAdapter extends RecyclerView.Adapter<WorkOrderRece
             workOrderCard.expandableLayout.toggle();
         }
 
+
         // ================================== 领料 ==================================
 
         @OnClick(R.id.btn_pack)
@@ -103,9 +110,8 @@ public class WorkOrderReceivedAdapter extends RecyclerView.Adapter<WorkOrderRece
             Activity activity = (Activity) paperButton.getContext();
             ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, cardView, WorkOrderCardActivity.SHARED_VIEW);
             Intent intent = new Intent(paperButton.getContext(), PackActivity.class);
-            WorkOrderProcessInfo workOrderProcessInfo = workOrderProcessInfoList.get(getAdapterPosition());
-            intent.putExtra("refreshEventTag", "workOrderReceivedFragment_refresh");
-            intent.putExtra("workOrderInfo", workOrderProcessInfo.getWorkOrderInfo());
+            intent.putExtra("refreshEventTag", refreshEventTag);
+            intent.putExtra("workOrderProcessInfo", workOrderProcessInfoList.get(getAdapterPosition()));
             ActivityCompat.startActivity(activity, intent, options.toBundle());
         }
 
@@ -114,39 +120,39 @@ public class WorkOrderReceivedAdapter extends RecyclerView.Adapter<WorkOrderRece
 
         @OnClick(R.id.btn_arrival_or_operation)
         public void arrivalOrOperate(PaperButton btnArrivalOrOperation) {
-            final WorkOrderInfo workOrderInfo = workOrderProcessInfoList.get(getAdapterPosition()).getWorkOrderInfo();
+            final WorkOrderProcessInfo workOrderProcessInfo = workOrderProcessInfoList.get(getAdapterPosition());
+            final WorkOrderInfo workOrderInfo = workOrderProcessInfo.getWorkOrderInfo();
             String statusTag = workOrderInfo.getStatusTag();
             switch (statusTag) {
                 case "Receive":
                     DialogUtils.showConfirm(btnArrivalOrOperation.getContext(), "确认到达？", new MaterialDialog.SingleButtonCallback() {
                         @Override
                         public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                            arrive(workOrderInfo);
+                            arrive(workOrderInfo.getWorkOrderId());
                         }
                     });
                     break;
                 case "Arrive":
-                    OperationUtils.showChooseOperationDialog((Activity) btnArrivalOrOperation.getContext(), workOrderInfo, "workOrderReceivedFragment_refresh", true);
+                    OperationUtils.showChooseOperationDialog((Activity) btnArrivalOrOperation.getContext(), workOrderProcessInfo, refreshEventTag, true);
                     break;
             }
         }
-    }
 
-    private void arrive(final WorkOrderInfo workOrderInfo) {
-        String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderInfo.getWorkOrderId() + "/arrive";
-        StringRequest stringRequest = new StringRequestWithSessionCheck(
-                Request.Method.PUT,
-                url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        ToastUtils.show("到达！");
-                        EventBus.getDefault().post(new Object(), "workOrderReceivedFragment_refresh");
-                    }
-                },
-                SimpleVolley.getDefaultErrorListener()
-        );
-        SimpleVolley.addRequest(stringRequest);
+        private void arrive(String workOrderId) {
+            StringRequest stringRequest = new StringRequestWithSessionCheck(
+                    Request.Method.PUT,
+                    ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderId + "/arrive",
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            ToastUtils.show("到达！");
+                            EventBus.getDefault().post(new Object(), refreshEventTag);
+                        }
+                    },
+                    SimpleVolley.getDefaultErrorListener()
+            );
+            SimpleVolley.addRequest(stringRequest);
+        }
     }
 
 
@@ -162,12 +168,10 @@ public class WorkOrderReceivedAdapter extends RecyclerView.Adapter<WorkOrderRece
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         WorkOrderInfo workOrderInfo = workOrderProcessInfoList.get(position).getWorkOrderInfo();
+        workOrderInfo.setLabelText("接");
         viewHolder.workOrderCard.setWorkOrderInfo(workOrderInfo);
         viewHolder.workOrderCard.expandableLayout.setExpanded(workOrderProcessInfoList.get(position).isExpand());
         viewHolder.btnArrivalOrOperation.setText(workOrderInfo.getStatusTag().equals("Receive") ? "到达" : "操作");
-
-        workOrderInfo.setLabelText("接");
-        viewHolder.workOrderCard.label.setText("接");
     }
 
 
