@@ -70,7 +70,6 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/debug" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/dependency-cache" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/dex" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/camera/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.1.1/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/design/23.1.1/jars" />
@@ -99,6 +98,7 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.wada811/android-material-design-colors/2.0.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.wangqiang.libs/labelviewlib/1.0.1/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/de.hdodenhof/circleimageview/2.0.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/library-debug/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/me.zhanghai.android.materialprogressbar/library/1.1.4/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/org.simple/androideventbus/1.0.5/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/ratingbar/jars" />
@@ -135,7 +135,6 @@
     <orderEntry type="library" exported="" name="androideventbus-1.0.5" level="project" />
     <orderEntry type="library" exported="" name="commons-lang3-3.4" level="project" />
     <orderEntry type="library" exported="" name="android-material-design-colors-2.0.0" level="project" />
-    <orderEntry type="library" exported="" name="camera-" level="project" />
     <orderEntry type="library" exported="" name="badgeview-v1.0.0" level="project" />
     <orderEntry type="library" exported="" name="httpclient-4.3.6" level="project" />
     <orderEntry type="library" exported="" name="ZDepthShadowLayout-1.0.4" level="project" />
@@ -158,6 +157,7 @@
     <orderEntry type="library" exported="" name="design-23.1.1" level="project" />
     <orderEntry type="library" exported="" name="BottomSheet-2.0.4" level="project" />
     <orderEntry type="library" exported="" name="ratingbar-" level="project" />
+    <orderEntry type="library" exported="" name="library-debug-" level="project" />
     <orderEntry type="library" exported="" name="link_builder-1.3.0" level="project" />
     <orderEntry type="library" exported="" name="joda-time-2.9" level="project" />
     <orderEntry type="library" exported="" name="android-async-http-1.4.9" level="project" />
