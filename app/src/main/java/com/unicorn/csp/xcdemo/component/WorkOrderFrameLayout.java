@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
@@ -31,7 +32,7 @@ public class WorkOrderFrameLayout extends FrameLayout {
     LabelView label;
 
     @Bind(R.id.tv_request_user)
-     TextView tvRequestUser;
+    TextView tvRequestUser;
 
     @Bind(R.id.tv_request_time)
     TextView tvRequestTime;
@@ -76,7 +77,7 @@ public class WorkOrderFrameLayout extends FrameLayout {
     TextView tvCompleteTime;
 
     @Bind(R.id.tv_confirm)
-     TextView tvConfirm;
+    TextView tvConfirm;
 
     @Bind(R.id.tv_confirm_time)
     TextView tvConfirmTime;
@@ -86,6 +87,9 @@ public class WorkOrderFrameLayout extends FrameLayout {
 
     @Bind(R.id.expandableLayout)
     public ExpandableRelativeLayout expandableLayout;
+
+    @Bind(R.id.ll_container)
+    public LinearLayout llContainer;
 
     //
 
@@ -135,7 +139,7 @@ public class WorkOrderFrameLayout extends FrameLayout {
         //
         String receiver = "接单人员: " + workOrderInfo.getReceiver();
         tvReceiver.setText(receiver);
-        String receiverTimeText = "接单时间: " +  getDateString(workOrderInfo.getReceiveTime());
+        String receiverTimeText = "接单时间: " + getDateString(workOrderInfo.getReceiveTime());
         tvReceiverTime.setText(receiverTimeText);
         tvReceiver.setVisibility(workOrderInfo.getReceiver() == null ? GONE : VISIBLE);
         tvReceiverTime.setVisibility(workOrderInfo.getReceiver() == null ? GONE : VISIBLE);
@@ -151,7 +155,6 @@ public class WorkOrderFrameLayout extends FrameLayout {
         String completeTime = "结单时间: " + new DateTime(workOrderInfo.getCompleteTime()).toString("yyyy-MM-dd HH:mm:ss");
         tvCompleteTime.setText(completeTime);
         tvCompleteTime.setVisibility(workOrderInfo.getCompleteTime() == 0 ? GONE : VISIBLE);
-
 
 
         String confirmText = "复核人员: " + workOrderInfo.getConfirm();
@@ -173,8 +176,9 @@ public class WorkOrderFrameLayout extends FrameLayout {
             tvPack.setText(pack);
             tvPack.setVisibility(View.VISIBLE);
         }
-
     }
+
+
 
     private void addDialLink(String linkText, final String telephone, TextView tvTarget) {
         Link link = new Link(linkText)

@@ -50,7 +50,6 @@ public class WorkOrderAchievedAdapter extends RecyclerView.Adapter<WorkOrderAchi
 
         ViewHolder(View view) {
             super(view);
-            setIsRecyclable(false);
             ButterKnife.bind(this, view);
             workOrderCard.expandableLayout.setListener(new ExpandableLayoutListenerAdapter() {
                 @Override
@@ -88,6 +87,8 @@ public class WorkOrderAchievedAdapter extends RecyclerView.Adapter<WorkOrderAchi
         workOrderInfo.setLabelText(workOrderInfo.getStatusTag().equals("Complete") ? "结" : "核");
         viewHolder.workOrderCard.setWorkOrderInfo(workOrderInfo);
         viewHolder.workOrderCard.expandableLayout.setExpanded(workOrderProcessInfoList.get(position).isExpand());
+;
+
     }
 
 

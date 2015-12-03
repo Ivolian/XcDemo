@@ -8,7 +8,7 @@
 // todo later
 1. 领料合并
 2. 如果领料太多
-3. not recycle
+3. ExpandRelativeLayout wrap_content 不生效
 
 
 工单监控
