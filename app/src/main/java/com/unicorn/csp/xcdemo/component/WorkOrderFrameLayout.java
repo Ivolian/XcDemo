@@ -31,7 +31,7 @@ public class WorkOrderFrameLayout extends FrameLayout {
     LabelView label;
 
     @Bind(R.id.tv_request_user)
-    TextView tvRequestUser;
+     TextView tvRequestUser;
 
     @Bind(R.id.tv_request_time)
     TextView tvRequestTime;
@@ -76,7 +76,7 @@ public class WorkOrderFrameLayout extends FrameLayout {
     TextView tvCompleteTime;
 
     @Bind(R.id.tv_confirm)
-    TextView tvConfirm;
+     TextView tvConfirm;
 
     @Bind(R.id.tv_confirm_time)
     TextView tvConfirmTime;
@@ -103,9 +103,8 @@ public class WorkOrderFrameLayout extends FrameLayout {
     }
 
     public void setWorkOrderInfo(final WorkOrderInfo workOrderInfo) {
-
-
         label.setText(workOrderInfo.getLabelText());
+
         // top part
         String requestUserText = "报修人员: " + workOrderInfo.getRequestUser();
         tvRequestUser.setText(requestUserText);
@@ -120,27 +119,24 @@ public class WorkOrderFrameLayout extends FrameLayout {
         tvEquipmentAndFaultType.setText(equipmentAndFaultTypeText);
         String processingTimeLimitText = "是否时限: " + workOrderInfo.getProcessingTimeLimit();
         tvProcessingTimeLimit.setText(processingTimeLimitText);
+        String issuerText = "受理人员: " + workOrderInfo.getIssuer();
+        tvIssuer.setText(issuerText);
+        String issuerTimeText = "受理时间: " + getDateString(workOrderInfo.getIssueTime());
+        tvIssueTime.setText(issuerTimeText);
 
         //
-
-        String issuer = "受理人员: " + workOrderInfo.getIssuer();
-        tvIssuer.setText(issuer);
-        String issuerTime = "受理时间: " + new DateTime(workOrderInfo.getIssueTime()).toString("yyyy-MM-dd HH:mm:ss");
-        tvIssueTime.setText(issuerTime);
-        tvIssuer.setVisibility(workOrderInfo.getIssuer() == null ? GONE : VISIBLE);
-        tvIssueTime.setVisibility(workOrderInfo.getIssuer() == null ? GONE : VISIBLE);
-
-        String distributor = "派单人员: " + workOrderInfo.getDistributor();
-        tvDistributor.setText(distributor);
-        String distributeTime = "派单时间: " + new DateTime(workOrderInfo.getDistributeTime()).toString("yyyy-MM-dd HH:mm:ss");
-        tvDistributeTime.setText(distributeTime);
+        String distributorText = "派单人员: " + workOrderInfo.getDistributor();
+        tvDistributor.setText(distributorText);
+        String distributeTimeText = "派单时间: " + getDateString(workOrderInfo.getDistributeTime());
+        tvDistributeTime.setText(distributeTimeText);
         tvDistributor.setVisibility(workOrderInfo.getDistributor() == null ? GONE : VISIBLE);
         tvDistributeTime.setVisibility(workOrderInfo.getDistributor() == null ? GONE : VISIBLE);
 
+        //
         String receiver = "接单人员: " + workOrderInfo.getReceiver();
         tvReceiver.setText(receiver);
-        String receiverTime = "接单时间: " + new DateTime(workOrderInfo.getReceiveTime()).toString("yyyy-MM-dd HH:mm:ss");
-        tvReceiverTime.setText(receiverTime);
+        String receiverTimeText = "接单时间: " +  getDateString(workOrderInfo.getReceiveTime());
+        tvReceiverTime.setText(receiverTimeText);
         tvReceiver.setVisibility(workOrderInfo.getReceiver() == null ? GONE : VISIBLE);
         tvReceiverTime.setVisibility(workOrderInfo.getReceiver() == null ? GONE : VISIBLE);
 
@@ -156,10 +152,12 @@ public class WorkOrderFrameLayout extends FrameLayout {
         tvCompleteTime.setText(completeTime);
         tvCompleteTime.setVisibility(workOrderInfo.getCompleteTime() == 0 ? GONE : VISIBLE);
 
-        String confirm = "复核人员: " + workOrderInfo.getConfirm();
-        tvConfirm.setText(confirm);
-        String confirmTime = "复核时间: " + new DateTime(workOrderInfo.getConfirmTime()).toString("yyyy-MM-dd HH:mm:ss");
-        tvConfirmTime.setText(confirmTime);
+
+
+        String confirmText = "复核人员: " + workOrderInfo.getConfirm();
+        tvConfirm.setText(confirmText);
+        String confirmTimeText = "复核时间: " + getDateString(workOrderInfo.getConfirmTime());
+        tvConfirmTime.setText(confirmTimeText);
         tvConfirm.setVisibility(workOrderInfo.getConfirm() == null ? GONE : VISIBLE);
         tvConfirmTime.setVisibility(workOrderInfo.getConfirm() == null ? GONE : VISIBLE);
 
@@ -175,6 +173,7 @@ public class WorkOrderFrameLayout extends FrameLayout {
             tvPack.setText(pack);
             tvPack.setVisibility(View.VISIBLE);
         }
+
     }
 
     private void addDialLink(String linkText, final String telephone, TextView tvTarget) {

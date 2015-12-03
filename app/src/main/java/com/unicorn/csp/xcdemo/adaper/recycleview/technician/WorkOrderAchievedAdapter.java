@@ -50,6 +50,7 @@ public class WorkOrderAchievedAdapter extends RecyclerView.Adapter<WorkOrderAchi
 
         ViewHolder(View view) {
             super(view);
+            setIsRecyclable(false);
             ButterKnife.bind(this, view);
             workOrderCard.expandableLayout.setListener(new ExpandableLayoutListenerAdapter() {
                 @Override
