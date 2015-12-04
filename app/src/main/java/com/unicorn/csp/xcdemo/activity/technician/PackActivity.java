@@ -169,8 +169,13 @@ public class PackActivity extends WorkOrderCardActivity {
                 .input("", "1", new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
-                        String rex  = "^[0-9]*[1-9][0-9]*$";
-                        Pattern pattern =Pattern.compile(rex);
+                        if (input.toString().length() > 3) {
+                            dialog.getActionButton(DialogAction.POSITIVE).setEnabled(false);
+                            return;
+                        }
+
+                        String rex = "^[0-9]*[1-9][0-9]*$";
+                        Pattern pattern = Pattern.compile(rex);
                         boolean valid = pattern.matcher(input).matches();
                         dialog.getActionButton(DialogAction.POSITIVE).setEnabled(valid);
                     }

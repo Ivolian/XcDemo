@@ -112,7 +112,8 @@ public class WorkOrderFrameLayout extends FrameLayout {
         // top part
         String requestUserText = "报修人员: " + workOrderInfo.getRequestUser();
         tvRequestUser.setText(requestUserText);
-        addDialLink(workOrderInfo.getRequestUser(), workOrderInfo.getCallNumber(), tvRequestUser);
+        addDialLink(requestUserText, workOrderInfo.getCallNumber(), tvRequestUser);
+
         String requestTimeText = "报修时间: " + getDateString(workOrderInfo.getRequestTime());
         tvRequestTime.setText(requestTimeText);
         String buildingAndAddressText = "报修地点: " + workOrderInfo.getBuilding() + "(" + workOrderInfo.getAddress() + ")";
