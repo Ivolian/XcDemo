@@ -57,6 +57,9 @@ public class WorkOrderInfo implements Serializable {
     // 接单人
     private String receiver;
 
+    // 接单人电话
+    private String receiverPhone;
+
     // 接单时间
     private long receiveTime;
 
@@ -272,6 +275,14 @@ public class WorkOrderInfo implements Serializable {
 
     public void setReceiver(String receiver) {
         this.receiver = receiver;
+    }
+
+    public String getReceiverPhone() {
+        return receiverPhone;
+    }
+
+    public void setReceiverPhone(String receiverPhone) {
+        this.receiverPhone = receiverPhone;
     }
 
     public long getReceiveTime() {

@@ -138,8 +138,9 @@ public class WorkOrderFrameLayout extends FrameLayout {
         tvDistributeTime.setVisibility(workOrderInfo.getDistributor() == null ? GONE : VISIBLE);
 
         //
-        String receiver = "接单人员: " + workOrderInfo.getReceiver();
-        tvReceiver.setText(receiver);
+        String receiverText = "接单人员: " + workOrderInfo.getReceiver();
+        tvReceiver.setText(receiverText);
+        addDialLink(receiverText,workOrderInfo.getReceiverPhone(),tvReceiver);
         String receiverTimeText = "接单时间: " + getDateString(workOrderInfo.getReceiveTime());
         tvReceiverTime.setText(receiverTimeText);
         tvReceiver.setVisibility(workOrderInfo.getReceiver() == null ? GONE : VISIBLE);
