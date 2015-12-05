@@ -3,9 +3,9 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/unicorn/csp/xcdemo/fragment/shared/IconTreeItemHolder.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/unicorn/csp/xcdemo/fragment/shared/IconTreeItemHolder.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/unicorn/csp/xcdemo/fragment/shared/ProfileHolder.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/unicorn/csp/xcdemo/fragment/shared/TreeNodeViewHolder.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/item_tree_node.xml" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/layout/layout_icon_node.xml" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/layout_profile_node.xml" charset="GBK" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
