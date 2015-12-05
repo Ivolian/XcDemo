@@ -1,4 +1,4 @@
-package com.unicorn.csp.xcdemo.fragment.technician;
+package com.unicorn.csp.xcdemo.fragment.shared;
 
 import android.content.res.Configuration;
 import android.net.Uri;

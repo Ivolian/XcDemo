@@ -81,6 +81,7 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.github.ShogoMizumoto/ZDepthShadowLayout/1.0.4/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.github.aakira/expandable-layout/1.4.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.1/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.github.bmelnychuk/atv/1.2.7/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.github.elevenetc/badgeview/v1.0.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.github.gcacace/signature-pad/1.0.3/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.github.tianzhijiexian/CommonAdapter/1.1.3/jars" />
@@ -156,7 +157,7 @@
     <orderEntry type="library" exported="" name="BottomSheet-2.0.4" level="project" />
     <orderEntry type="library" exported="" name="ratingbar-" level="project" />
     <orderEntry type="library" exported="" name="library-debug-" level="project" />
-    <orderEntry type="library" exported="" name="zip4j-1.3.2" level="project" />
+    <orderEntry type="library" exported="" name="atv-1.2.7" level="project" />
     <orderEntry type="library" exported="" name="link_builder-1.3.0" level="project" />
     <orderEntry type="library" exported="" name="joda-time-2.9" level="project" />
     <orderEntry type="library" exported="" name="android-async-http-1.4.9" level="project" />

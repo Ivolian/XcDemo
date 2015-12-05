@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.unicorn.csp.xcdemo.adaper.recycleview.chief.WorkOrderToAssignAdapter;
 import com.unicorn.csp.xcdemo.adaper.recycleview.shared.RefreshAdapter;
-import com.unicorn.csp.xcdemo.fragment.technician.RefreshFragment;
+import com.unicorn.csp.xcdemo.fragment.shared.RefreshFragment;
 
 import org.simple.eventbus.EventBus;
 import org.simple.eventbus.Subscriber;

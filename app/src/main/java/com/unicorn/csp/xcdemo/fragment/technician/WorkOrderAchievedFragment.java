@@ -2,6 +2,7 @@ package com.unicorn.csp.xcdemo.fragment.technician;
 
 import com.unicorn.csp.xcdemo.adaper.recycleview.shared.RefreshAdapter;
 import com.unicorn.csp.xcdemo.adaper.recycleview.technician.WorkOrderAchievedAdapter;
+import com.unicorn.csp.xcdemo.fragment.shared.RefreshFragment;
 
 
 public class WorkOrderAchievedFragment extends RefreshFragment {

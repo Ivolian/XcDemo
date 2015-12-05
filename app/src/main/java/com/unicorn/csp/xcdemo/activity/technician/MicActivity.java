@@ -179,7 +179,8 @@ public class MicActivity extends ToolbarActivity {
         mRecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
         mRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
         mRecorder.setOutputFile(getRecordFilePath());
-        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
+        // 编码问题可能会导致有些播放器无法播放
+        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
         try {
             mRecorder.prepare();
         } catch (IOException e) {
