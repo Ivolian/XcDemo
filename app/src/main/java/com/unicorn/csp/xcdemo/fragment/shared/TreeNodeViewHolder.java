@@ -9,6 +9,8 @@ import com.mikepenz.iconics.view.IconicsImageView;
 import com.unicorn.csp.xcdemo.R;
 import com.unnamed.b.atv.model.TreeNode;
 
+import java.io.Serializable;
+
 
 public class TreeNodeViewHolder extends TreeNode.BaseNodeViewHolder<TreeNodeViewHolder.TreeNodeData> {
 
@@ -37,7 +39,7 @@ public class TreeNodeViewHolder extends TreeNode.BaseNodeViewHolder<TreeNodeView
     }
 
 
-    public static class TreeNodeData {
+    public static class TreeNodeData implements Serializable{
         public String id;
         public String name;
         public int leaf;
