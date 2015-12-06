@@ -34,7 +34,7 @@ public class MyWorkFragment extends ButterKnifeFragment {
 
     @Override
     public int getLayoutResId() {
-        return R.layout.fragment_work_list;
+        return R.layout.fragment_my_work;
     }
 
 
@@ -114,7 +114,7 @@ public class MyWorkFragment extends ButterKnifeFragment {
 
     @Override
     public void onCreateOptionsMenu(android.view.Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_work_list, menu);
+        inflater.inflate(R.menu.menu_my_work, menu);
         MenuItem menuItem = menu.findItem(R.id.action_search);
         menuItem.setIcon(getSearchIconDrawable());
         initSearchView(menuItem);

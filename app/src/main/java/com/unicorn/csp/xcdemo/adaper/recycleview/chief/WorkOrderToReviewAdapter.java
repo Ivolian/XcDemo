@@ -97,7 +97,7 @@ public class WorkOrderToReviewAdapter extends RecyclerView.Adapter<WorkOrderToRe
     // ================================== onCreateViewHolder ==================================
 
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_work_order_to_review_chief, viewGroup, false));
+        return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_work_order_to_review, viewGroup, false));
     }
 
 

@@ -108,7 +108,7 @@ public class WorkOrderToAssignAdapter extends RecyclerView.Adapter<WorkOrderToAs
     // ================================== onCreateViewHolder ==================================
 
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_work_order_assigned_chief, viewGroup, false));
+        return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_work_order_assigned, viewGroup, false));
     }
 
 

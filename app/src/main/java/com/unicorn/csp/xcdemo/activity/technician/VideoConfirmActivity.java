@@ -58,7 +58,7 @@ public class VideoConfirmActivity extends ToolbarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
-        setContentView(R.layout.activity_camera_confirm);
+        setContentView(R.layout.activity_video_confirm);
         initToolbar("摄像确认", true);
         initViews();
         enableSlideFinish();
