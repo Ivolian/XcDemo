@@ -145,6 +145,7 @@ public class WorkOrderQueryFragment extends ButterKnifeFragment {
         }
     }
 
+
     // ================================== onActivityResult ==================================
 
     @Override
@@ -206,8 +207,8 @@ public class WorkOrderQueryFragment extends ButterKnifeFragment {
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePickerDialog datePickerDialog, int year, int monthOfYear, int dayOfMonth, int yearEnd, int monthOfYearEnd, int dayOfMonthEnd) {
-                        String beginDateString = year + " - " + (monthOfYear + 1) + " - " + dayOfMonth;
-                        String endDateString = yearEnd + " - " + (monthOfYearEnd + 1) + " - " + dayOfMonthEnd;
+                        String beginDateString = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
+                        String endDateString = yearEnd + "-" + (monthOfYearEnd + 1) + "-" + dayOfMonthEnd;
                         String dateString = beginDateString + " 至 " + endDateString;
                         etRepairDate.setText(dateString);
 
@@ -225,6 +226,5 @@ public class WorkOrderQueryFragment extends ButterKnifeFragment {
         );
         datePickerDialog.show(getActivity().getFragmentManager(), "repairDate");
     }
-
 
 }
