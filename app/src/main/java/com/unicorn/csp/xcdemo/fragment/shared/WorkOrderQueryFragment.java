@@ -2,10 +2,13 @@ package com.unicorn.csp.xcdemo.fragment.shared;
 
 import android.content.Intent;
 
+import com.borax12.materialdaterangepicker.date.DatePickerDialog;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.shared.TreeChooseActivity;
 import com.unicorn.csp.xcdemo.fragment.base.ButterKnifeFragment;
+
+import java.util.Calendar;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -175,6 +178,52 @@ public class WorkOrderQueryFragment extends ButterKnifeFragment {
         Intent intent = new Intent(getActivity(), TreeChooseActivity.class);
         intent.putExtra("tag", tag);
         startActivityForResult(intent, requestCode);
+    }
+
+
+    // ================================== repair date ==================================
+
+    @Bind(R.id.et_repair_date)
+    MaterialEditText etRepairDate;
+
+    @OnClick(R.id.et_repair_date)
+    public void repairDateOnClick() {
+        showDatePicker();
+    }
+
+    @OnFocusChange(R.id.et_repair_date)
+    public void repairDateOnFocus(boolean focused) {
+        if (focused) {
+            showDatePicker();
+        }
+    }
+
+    int mYear = 0, mMonthOfYear = 0, mDayOfMonth = 0, mYearEnd = 0, mMonthOfYearEnd = 0, mDayOfMonthEnd = 0;
+
+    private void showDatePicker() {
+        Calendar now = Calendar.getInstance();
+        DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePickerDialog datePickerDialog, int year, int monthOfYear, int dayOfMonth, int yearEnd, int monthOfYearEnd, int dayOfMonthEnd) {
+                        String beginDateString = year + " - " + (monthOfYear + 1) + " - " + dayOfMonth;
+                        String endDateString = yearEnd + " - " + (monthOfYearEnd + 1) + " - " + dayOfMonthEnd;
+                        String dateString = beginDateString + " 至 " + endDateString;
+                        etRepairDate.setText(dateString);
+
+                        mYear = year;
+                        mMonthOfYear = monthOfYear;
+                        mDayOfMonth = dayOfMonth;
+                        mYearEnd = yearEnd;
+                        mMonthOfYearEnd = monthOfYearEnd;
+                        mDayOfMonthEnd = dayOfMonthEnd;
+                    }
+                },
+                mYear == 0 ? now.get(Calendar.YEAR) : mYear,
+                mMonthOfYear == 0 ? now.get(Calendar.MONTH) : mMonthOfYear,
+                mDayOfMonth == 0 ? now.get(Calendar.DAY_OF_MONTH) : mDayOfMonth
+        );
+        datePickerDialog.show(getActivity().getFragmentManager(), "repairDate");
     }
 
 

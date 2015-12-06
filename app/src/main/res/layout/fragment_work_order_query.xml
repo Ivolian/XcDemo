@@ -1,65 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_height="wrap_content"
+    android:scrollbars="none">
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/et_work_order_type"
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:editable="false"
-        android:hint="选择工单类型"
-        app:met_clearButton="true"
-        app:met_floatingLabel="highlight"
-        app:met_primaryColor="?attr/colorPrimary" />
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/et_department"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:editable="false"
-        android:hint="选择科室"
-        app:met_clearButton="true"
-        app:met_floatingLabel="highlight"
-        app:met_primaryColor="?attr/colorPrimary" />
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/et_work_order_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:editable="false"
+            android:hint="选择工单类型"
+            app:met_clearButton="true"
+            app:met_floatingLabel="highlight"
+            app:met_primaryColor="?attr/colorPrimary" />
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/et_equipment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:editable="false"
-        android:hint="选择维修设备"
-        app:met_clearButton="true"
-        app:met_floatingLabel="highlight"
-        app:met_primaryColor="?attr/colorPrimary" />
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/et_department"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:editable="false"
+            android:hint="选择科室"
+            app:met_clearButton="true"
+            app:met_floatingLabel="highlight"
+            app:met_primaryColor="?attr/colorPrimary" />
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/et_work_order_status"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:editable="false"
-        android:hint="选择工单状态"
-        app:met_clearButton="true"
-        app:met_floatingLabel="highlight"
-        app:met_primaryColor="?attr/colorPrimary" />
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/et_equipment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:editable="false"
+            android:hint="选择维修设备"
+            app:met_clearButton="true"
+            app:met_floatingLabel="highlight"
+            app:met_primaryColor="?attr/colorPrimary" />
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/et_emergency_degree"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:editable="false"
-        android:hint="选择工单级别"
-        app:met_clearButton="true"
-        app:met_floatingLabel="highlight"
-        app:met_primaryColor="?attr/colorPrimary" />
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/et_work_order_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:editable="false"
+            android:hint="选择工单状态"
+            app:met_clearButton="true"
+            app:met_floatingLabel="highlight"
+            app:met_primaryColor="?attr/colorPrimary" />
 
-</LinearLayout>
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/et_emergency_degree"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:editable="false"
+            android:hint="选择工单级别"
+            app:met_clearButton="true"
+            app:met_floatingLabel="highlight"
+            app:met_primaryColor="?attr/colorPrimary" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/et_repair_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:editable="false"
+            android:hint="选择报修时间"
+            app:met_clearButton="true"
+            app:met_floatingLabel="highlight"
+            app:met_primaryColor="?attr/colorPrimary" />
+
+        <com.unicorn.csp.xcdemo.component.PaperButton
+            android:id="@+id/btn_query"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_marginBottom="14dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="30dp"
+            app:paper_color="@color/colorPrimary"
+            app:paper_text="查询"
+            app:paper_text_color="@color/white"
+            app:paper_text_size="18dp" />
+
+    </LinearLayout>
+
+</ScrollView>

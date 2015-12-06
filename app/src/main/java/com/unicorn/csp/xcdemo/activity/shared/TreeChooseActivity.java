@@ -10,8 +10,8 @@ import com.android.volley.Response;
 import com.f2prateek.dart.InjectExtra;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
-import com.unicorn.csp.xcdemo.fragment.shared.WorkOrderQueryFragment;
 import com.unicorn.csp.xcdemo.fragment.shared.TreeNodeViewHolder;
+import com.unicorn.csp.xcdemo.fragment.shared.WorkOrderQueryFragment;
 import com.unicorn.csp.xcdemo.utils.ConfigUtils;
 import com.unicorn.csp.xcdemo.utils.JSONUtils;
 import com.unicorn.csp.xcdemo.volley.JSONArrayRequestWithSessionCheck;
@@ -79,6 +79,13 @@ public class TreeChooseActivity extends ToolbarActivity {
                 if (treeNodeData.leaf == 1) {
                     finishWithResult(treeNodeData);
                 }
+            }
+        });
+        treeView.setDefaultNodeLongClickListener(new TreeNode.TreeNodeLongClickListener() {
+            @Override
+            public boolean onLongClick(TreeNode node, Object value) {
+                    finishWithResult((TreeNodeViewHolder.TreeNodeData)value);
+                return true;
             }
         });
         treeView.setDefaultViewHolder(TreeNodeViewHolder.class);
