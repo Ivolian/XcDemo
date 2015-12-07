@@ -6,6 +6,16 @@ import java.util.List;
 
 public class WorkOrderInfo implements Serializable {
 
+    private boolean expand = false;
+
+    public boolean isExpand() {
+        return expand;
+    }
+
+    public void setExpand(boolean expand) {
+        this.expand = expand;
+    }
+
     private String workOrderId;
 
     private String type;

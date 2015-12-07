@@ -29,7 +29,7 @@ import butterknife.ButterKnife;
 public class WorkOrderFrameLayout extends FrameLayout {
 
     @Bind(R.id.labelview)
-    LabelView label;
+    public LabelView label;
 
     @Bind(R.id.tv_request_user)
     TextView tvRequestUser;
@@ -140,7 +140,7 @@ public class WorkOrderFrameLayout extends FrameLayout {
         //
         String receiverText = "接单人员: " + workOrderInfo.getReceiver();
         tvReceiver.setText(receiverText);
-        addDialLink(receiverText,workOrderInfo.getReceiverPhone(),tvReceiver);
+        addDialLink(receiverText, workOrderInfo.getReceiverPhone(), tvReceiver);
         String receiverTimeText = "接单时间: " + getDateString(workOrderInfo.getReceiveTime());
         tvReceiverTime.setText(receiverTimeText);
         tvReceiver.setVisibility(workOrderInfo.getReceiver() == null ? GONE : VISIBLE);
@@ -179,7 +179,6 @@ public class WorkOrderFrameLayout extends FrameLayout {
             tvPack.setVisibility(View.VISIBLE);
         }
     }
-
 
 
     private void addDialLink(String linkText, final String telephone, TextView tvTarget) {

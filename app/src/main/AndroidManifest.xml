@@ -41,6 +41,10 @@
             android:name=".activity.shared.TreeChooseActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar.NoWindow" />
+        <activity
+            android:name=".activity.shared.QueryResultActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar.NoWindow" />
 
         <!-- technician -->
         <activity

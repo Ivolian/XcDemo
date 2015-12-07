@@ -67,12 +67,23 @@
             app:met_primaryColor="?attr/colorPrimary" />
 
         <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/et_repair_date"
+            android:id="@+id/et_begin_repair_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:editable="false"
-            android:hint="选择报修时间"
+            android:hint="选择起始报修时间"
+            app:met_clearButton="true"
+            app:met_floatingLabel="highlight"
+            app:met_primaryColor="?attr/colorPrimary" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/et_end_repair_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:editable="false"
+            android:hint="选择结束报修时间"
             app:met_clearButton="true"
             app:met_floatingLabel="highlight"
             app:met_primaryColor="?attr/colorPrimary" />

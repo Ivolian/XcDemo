@@ -2,11 +2,13 @@ package com.unicorn.csp.xcdemo.fragment.shared;
 
 import android.content.Intent;
 
-import com.borax12.materialdaterangepicker.date.DatePickerDialog;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.unicorn.csp.xcdemo.R;
+import com.unicorn.csp.xcdemo.activity.shared.QueryResultActivity;
 import com.unicorn.csp.xcdemo.activity.shared.TreeChooseActivity;
 import com.unicorn.csp.xcdemo.fragment.base.ButterKnifeFragment;
+import com.unicorn.csp.xcdemo.utils.ConfigUtils;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.Calendar;
 
@@ -182,49 +184,132 @@ public class WorkOrderQueryFragment extends ButterKnifeFragment {
     }
 
 
-    // ================================== repair date ==================================
+    // ================================== begin repair date ==================================
 
-    @Bind(R.id.et_repair_date)
-    MaterialEditText etRepairDate;
+    @Bind(R.id.et_begin_repair_date)
+    MaterialEditText etBeginRepairDate;
 
-    @OnClick(R.id.et_repair_date)
-    public void repairDateOnClick() {
-        showDatePicker();
+    @OnClick(R.id.et_begin_repair_date)
+    public void beginRepairDateOnClick() {
+        chooseBeginRepairDate();
     }
 
-    @OnFocusChange(R.id.et_repair_date)
-    public void repairDateOnFocus(boolean focused) {
+    @OnFocusChange(R.id.et_begin_repair_date)
+    public void beginRepairDateOnFocus(boolean focused) {
         if (focused) {
-            showDatePicker();
+            chooseBeginRepairDate();
         }
     }
 
-    int mYear = 0, mMonthOfYear = 0, mDayOfMonth = 0, mYearEnd = 0, mMonthOfYearEnd = 0, mDayOfMonthEnd = 0;
+    int beginYear = 0, beginMonth = 0, beginDay = 0;
 
-    private void showDatePicker() {
+    private void chooseBeginRepairDate() {
         Calendar now = Calendar.getInstance();
         DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
-                    public void onDateSet(DatePickerDialog datePickerDialog, int year, int monthOfYear, int dayOfMonth, int yearEnd, int monthOfYearEnd, int dayOfMonthEnd) {
-                        String beginDateString = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
-                        String endDateString = yearEnd + "-" + (monthOfYearEnd + 1) + "-" + dayOfMonthEnd;
-                        String dateString = beginDateString + " 至 " + endDateString;
-                        etRepairDate.setText(dateString);
-
-                        mYear = year;
-                        mMonthOfYear = monthOfYear;
-                        mDayOfMonth = dayOfMonth;
-                        mYearEnd = yearEnd;
-                        mMonthOfYearEnd = monthOfYearEnd;
-                        mDayOfMonthEnd = dayOfMonthEnd;
+                    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                        beginYear = year;
+                        beginMonth = monthOfYear;
+                        beginDay = dayOfMonth;
+                        etBeginRepairDate.setText(getDateString(year, monthOfYear, dayOfMonth));
                     }
                 },
-                mYear == 0 ? now.get(Calendar.YEAR) : mYear,
-                mMonthOfYear == 0 ? now.get(Calendar.MONTH) : mMonthOfYear,
-                mDayOfMonth == 0 ? now.get(Calendar.DAY_OF_MONTH) : mDayOfMonth
+                beginYear == 0 ? now.get(Calendar.YEAR) : beginYear,
+                beginMonth == 0 ? now.get(Calendar.MONTH) : beginMonth,
+                beginDay == 0 ? now.get(Calendar.DAY_OF_MONTH) : beginDay
         );
-        datePickerDialog.show(getActivity().getFragmentManager(), "repairDate");
+        datePickerDialog.show(getActivity().getFragmentManager(), "beginRepairDate");
     }
+
+
+    // ================================== end repair date ==================================
+
+    @Bind(R.id.et_end_repair_date)
+    MaterialEditText etEndRepairDate;
+
+    @OnClick(R.id.et_end_repair_date)
+    public void endRepairDateOnClick() {
+        chooseEndRepairDate();
+    }
+
+    @OnFocusChange(R.id.et_end_repair_date)
+    public void endRepairDateOnFocus(boolean focused) {
+        if (focused) {
+            chooseEndRepairDate();
+        }
+    }
+
+    int endYear = 0, endMonth = 0, endDay = 0;
+
+    private void chooseEndRepairDate() {
+        Calendar now = Calendar.getInstance();
+        DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                        endYear = year;
+                        endMonth = monthOfYear;
+                        endDay = dayOfMonth;
+                        etEndRepairDate.setText(getDateString(year, monthOfYear, dayOfMonth));
+                    }
+                },
+                endYear == 0 ? now.get(Calendar.YEAR) : endYear,
+                endMonth == 0 ? now.get(Calendar.MONTH) : endMonth,
+                endDay == 0 ? now.get(Calendar.DAY_OF_MONTH) : endDay
+        );
+        datePickerDialog.show(getActivity().getFragmentManager(), "endRepairDate");
+    }
+
+    private String getDateString(int year, int month, int day) {
+        month++;
+        String dateString = year + "-";
+        dateString += (month > 9 ? month : "0" + month);
+        dateString += "-";
+        dateString += (day > 9 ? day : "0" + day);
+        return dateString;
+    }
+
+
+    // ================================== query ==================================
+
+    @OnClick(R.id.btn_query)
+    public void startQueryResultActivity() {
+        Intent intent = new Intent(getActivity(), QueryResultActivity.class);
+        intent.putExtra("queryUrl", getQueryUrl());
+        getActivity().startActivity(intent);
+    }
+
+    private String getQueryUrl() {
+        String queryUrl = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/info?";
+        String EMPTY = "";
+        if (!getEditTextValue(etWorkOrderType).equals(EMPTY)) {
+            queryUrl += ("&type" + "=" + tndWorkOrderType.id);
+        }
+        if (!getEditTextValue(etDepartment).equals(EMPTY)) {
+            queryUrl += ("&department" + "=" + tndDepartment.id);
+        }
+        if (!getEditTextValue(etEquipment).equals(EMPTY)) {
+            queryUrl += ("&equipment" + "=" + tndEquipment.id);
+        }
+        if (!getEditTextValue(etWorkOrderStatus).equals(EMPTY)) {
+            queryUrl += ("&status" + "=" + tndWorkOrderStatus.id);
+        }
+        if (!getEditTextValue(etEmergencyDegree).equals(EMPTY)) {
+            queryUrl += ("&emergencyDegree" + "=" + tndEmergencyDegree.id);
+        }
+        if (!getEditTextValue(etBeginRepairDate).equals(EMPTY)) {
+            queryUrl += ("&startDate" + "=" + getEditTextValue(etBeginRepairDate));
+        }
+        if (!getEditTextValue(etEndRepairDate).equals(EMPTY)) {
+            queryUrl += ("&endDate" + "=" + getEditTextValue(etEndRepairDate));
+        }
+        return queryUrl;
+    }
+
+    private String getEditTextValue(MaterialEditText editText) {
+        return editText.getText().toString().trim();
+    }
+
 
 }
