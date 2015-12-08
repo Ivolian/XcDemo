@@ -10,7 +10,7 @@ import java.io.File;
 
 public class ConfigUtils {
 
-    public static String ip = "192.168.7.53";
+    public static String ip = "192.168.1.5";
 
     public static String port = "3000";
 

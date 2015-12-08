@@ -7,7 +7,6 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
@@ -87,9 +86,6 @@ public class WorkOrderFrameLayout extends FrameLayout {
 
     @Bind(R.id.expandableLayout)
     public ExpandableRelativeLayout expandableLayout;
-
-    @Bind(R.id.ll_container)
-    public LinearLayout llContainer;
 
     //
 
