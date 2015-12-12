@@ -153,21 +153,13 @@ public abstract class RefreshFragment extends LazyLoadFragment {
                         stopRefreshing();
                         JSONArray jsonArray = JSONUtils.getJSONArray(response, "content", null);
                         List<WorkOrderProcessInfo> workOrderProcessInfoList = GsonUtils.parseWorkOrderProcessInfoList(jsonArray.toString());
-
-                        // todo delete
-//                        if (getFragmentIndex()==2){
-//                            for (int i=0;i!=10;i++){
-//                                workOrderProcessInfoList.add(new WorkOrderProcessInfo());
-//                            }
-//                        }
-
                         adapter.reload(workOrderProcessInfoList);
                         checkLastPage(response);
 
                         RefreshResult refreshResult = new RefreshResult();
                         refreshResult.setTabIndex(getFragmentIndex());
                         refreshResult.setTotal(totalElements(response));
-                        EventBus.getDefault().post(refreshResult,"workListFragment_onRefreshFinish");
+                        EventBus.getDefault().post(refreshResult,"myWorkFragment_onRefreshFinish");
                     }
                 },
                 new Response.ErrorListener() {

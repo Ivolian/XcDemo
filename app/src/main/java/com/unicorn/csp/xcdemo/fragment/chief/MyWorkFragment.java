@@ -85,7 +85,7 @@ public class MyWorkFragment extends ButterKnifeFragment {
                 for (int i = 0; i != WorkOrderTodoPagerAdapter.titles.length; i++) {
                     TabLayout.Tab tab = tabLayout.getTabAt(i);
                     int textColor = getResources().getColor(position == i ? R.color.tab_selected_color : R.color.tab_color);
-                    TabHelper.getTextView(tab).setTextColor(textColor);
+                    TabHelper.getTitleView(tab).setTextColor(textColor);
                     TabHelper.getBadgeView(tab).setTextColor(textColor);
                 }
             }
@@ -105,7 +105,7 @@ public class MyWorkFragment extends ButterKnifeFragment {
             if (tab != null) {
                 tab.setCustomView(R.layout.tab);
             }
-            TabHelper.getTextView(tab).setText(title);
+            TabHelper.getTitleView(tab).setText(title);
         }
     }
 

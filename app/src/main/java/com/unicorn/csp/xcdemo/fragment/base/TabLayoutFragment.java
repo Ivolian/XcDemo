@@ -1,40 +1,42 @@
-package com.unicorn.csp.xcdemo.fragment.chief;
-
+package com.unicorn.csp.xcdemo.fragment.base;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.widget.FrameLayout;
 
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.adaper.viewpager.chief.WorkOrderTodoPagerAdapter;
 import com.unicorn.csp.xcdemo.component.TabHelper;
-import com.unicorn.csp.xcdemo.fragment.base.ButterKnifeFragment;
-import com.unicorn.csp.xcdemo.model.RefreshResult;
 
 import org.simple.eventbus.EventBus;
-import org.simple.eventbus.Subscriber;
 
 import butterknife.Bind;
-import su.levenetc.android.badgeview.BadgeView;
 
-public class WorkOrderForewarningFragment extends ButterKnifeFragment {
+
+public abstract class TabLayoutFragment extends ButterKnifeFragment {
+
+
+    // ================================== abstract method ==================================
+
+    abstract public FragmentStatePagerAdapter getPagerAdapter();
 
 
     // ================================== getLayoutResId ==================================
 
     @Override
     public int getLayoutResId() {
-        return R.layout.fragment_forewarning;
+        return R.layout.fragment_tab_layout;
     }
 
 
     // ================================== views ==================================
 
-    @Bind(R.id.tabs_layout)
-    TabLayout tabLayout;
+    @Bind(R.id.tab_layout)
+    public TabLayout tabLayout;
 
     @Bind(R.id.viewpager)
     ViewPager viewPager;
@@ -46,6 +48,7 @@ public class WorkOrderForewarningFragment extends ButterKnifeFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -64,8 +67,8 @@ public class WorkOrderForewarningFragment extends ButterKnifeFragment {
     }
 
     private void initViewPager() {
-        viewPager.setOffscreenPageLimit(WorkOrderTodoPagerAdapter.titles.length);
-        viewPager.setAdapter(new WorkOrderTodoPagerAdapter(getActivity().getSupportFragmentManager()));
+        viewPager.setAdapter(getPagerAdapter());
+        viewPager.setOffscreenPageLimit(getPagerAdapter().getCount());
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -74,11 +77,12 @@ public class WorkOrderForewarningFragment extends ButterKnifeFragment {
 
             @Override
             public void onPageSelected(int position) {
-                for (int i = 0; i != WorkOrderTodoPagerAdapter.titles.length; i++) {
+                // 因为使用了 tabLayout 的 customView 所以默认的选中效果没了，得自己写下
+                for (int i = 0; i != getPagerAdapter().getCount(); i++) {
                     TabLayout.Tab tab = tabLayout.getTabAt(i);
-                    int textColor = getResources().getColor(position == i ? R.color.tab_selected_color : R.color.tab_color);
-                    TabHelper.getTitleView(tab).setTextColor(textColor);
-                    TabHelper.getBadgeView(tab).setTextColor(textColor);
+                    int color = ContextCompat.getColor(getActivity(), position == i ? R.color.tab_selected_color : R.color.tab_color);
+                    TabHelper.getTitleView(tab).setTextColor(color);
+                    TabHelper.getBadgeView(tab).setTextColor(color);
                 }
             }
 
@@ -91,8 +95,8 @@ public class WorkOrderForewarningFragment extends ButterKnifeFragment {
 
     private void initTabLayout() {
         tabLayout.setupWithViewPager(viewPager);
-        for (int i = 0; i != WorkOrderTodoPagerAdapter.titles.length; i++) {
-            String title = WorkOrderTodoPagerAdapter.titles[i];
+        for (int i = 0; i != getPagerAdapter().getCount(); i++) {
+            String title = getPagerAdapter().getPageTitle(i).toString();
             TabLayout.Tab tab = tabLayout.getTabAt(i);
             if (tab != null) {
                 tab.setCustomView(R.layout.tab);
@@ -101,24 +105,17 @@ public class WorkOrderForewarningFragment extends ButterKnifeFragment {
         }
     }
 
-    // ================================== onRefreshFinish ==================================
+
+    // ================================== showSnackBar ==================================
 
     @Bind(R.id.fl_snack_bar_container)
     FrameLayout flSnackBarContainer;
 
-    // todo
-    @Subscriber(tag = "workOrderForewarningFragment_onRefreshFinish")
-    private void onRefreshFinish(RefreshResult refreshResult) {
-        BadgeView badgeView = TabHelper.getBadgeView(tabLayout.getTabAt(refreshResult.getTabIndex()));
-        badgeView.setValue(refreshResult.getTotal(), true);
-        showSnackBar("共 " + refreshResult.getTotal() + " 条记录");
-    }
-
-    private void showSnackBar(String text) {
+    public void showSnackBar(String text) {
         SnackbarManager.show(Snackbar.with(getActivity())
                 .position(Snackbar.SnackbarPosition.TOP)
-                .color(getResources().getColor(R.color.snack_bar_color))
-                .textColor(getResources().getColor(R.color.white))
+                .color(ContextCompat.getColor(getActivity(), R.color.snack_bar_color))
+                .textColor(ContextCompat.getColor(getActivity(), R.color.white))
                 .text(text)
                 .duration(800), flSnackBarContainer);
     }

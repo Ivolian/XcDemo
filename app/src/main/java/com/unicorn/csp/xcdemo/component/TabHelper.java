@@ -9,7 +9,7 @@ import su.levenetc.android.badgeview.BadgeView;
 
 public class TabHelper {
 
-    public static TextView getTextView(TabLayout.Tab tab){
+    public static TextView getTitleView(TabLayout.Tab tab){
         LinearLayout linearLayout =  (LinearLayout) tab.getCustomView();
         return (TextView)linearLayout.getChildAt(0);
     }
