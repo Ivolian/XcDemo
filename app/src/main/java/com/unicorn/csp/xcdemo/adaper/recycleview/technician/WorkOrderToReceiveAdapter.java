@@ -49,7 +49,7 @@ public class WorkOrderToReceiveAdapter extends RecyclerView.Adapter<WorkOrderToR
 
     @Override
     public void reload(Object workOrderProcessInfoList) {
-        this.workOrderProcessInfoList.addAll((List<WorkOrderProcessInfo>)workOrderProcessInfoList);
+        this.workOrderProcessInfoList = (List<WorkOrderProcessInfo>)workOrderProcessInfoList;
         notifyDataSetChanged();
     }
 

@@ -44,6 +44,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar.NoWindow" />
 
+        <activity
+            android:name=".activity.shared.QueryActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar.NoWindow" />
+
         <!-- technician -->
         <activity
             android:name=".activity.technician.MainActivity"

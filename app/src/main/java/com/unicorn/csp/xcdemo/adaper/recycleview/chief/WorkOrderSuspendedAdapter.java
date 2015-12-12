@@ -37,7 +37,7 @@ public class WorkOrderSuspendedAdapter extends RecyclerView.Adapter<WorkOrderSus
 
     @Override
     public void reload(Object workOrderProcessInfoList) {
-        this.workOrderProcessInfoList.addAll((List<WorkOrderProcessInfo>)workOrderProcessInfoList);
+        this.workOrderProcessInfoList = (List<WorkOrderProcessInfo>)workOrderProcessInfoList;
         notifyDataSetChanged();
     }
 

@@ -30,7 +30,7 @@ public class WorkOrderAchievedAdapter extends RecyclerView.Adapter<WorkOrderAchi
 
     @Override
     public void reload(Object workOrderProcessInfoList) {
-        this.workOrderProcessInfoList.addAll((List<WorkOrderProcessInfo>)workOrderProcessInfoList);
+        this.workOrderProcessInfoList = (List<WorkOrderProcessInfo>)workOrderProcessInfoList;
         notifyDataSetChanged();
     }
 
