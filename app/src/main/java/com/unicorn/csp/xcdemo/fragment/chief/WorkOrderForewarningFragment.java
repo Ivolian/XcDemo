@@ -9,7 +9,7 @@ import android.widget.FrameLayout;
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.adaper.viewpager.chief.WorkOrderTodoPagerAdapter;
+import com.unicorn.csp.xcdemo.adaper.viewpager.chief.MyWorkFragmentPagerAdapter;
 import com.unicorn.csp.xcdemo.component.TabHelper;
 import com.unicorn.csp.xcdemo.fragment.base.ButterKnifeFragment;
 import com.unicorn.csp.xcdemo.model.RefreshResult;
@@ -64,8 +64,8 @@ public class WorkOrderForewarningFragment extends ButterKnifeFragment {
     }
 
     private void initViewPager() {
-        viewPager.setOffscreenPageLimit(WorkOrderTodoPagerAdapter.titles.length);
-        viewPager.setAdapter(new WorkOrderTodoPagerAdapter(getActivity().getSupportFragmentManager()));
+        viewPager.setOffscreenPageLimit(MyWorkFragmentPagerAdapter.titles.length);
+        viewPager.setAdapter(new MyWorkFragmentPagerAdapter(getActivity().getSupportFragmentManager()));
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -74,7 +74,7 @@ public class WorkOrderForewarningFragment extends ButterKnifeFragment {
 
             @Override
             public void onPageSelected(int position) {
-                for (int i = 0; i != WorkOrderTodoPagerAdapter.titles.length; i++) {
+                for (int i = 0; i != MyWorkFragmentPagerAdapter.titles.length; i++) {
                     TabLayout.Tab tab = tabLayout.getTabAt(i);
                     int textColor = getResources().getColor(position == i ? R.color.tab_selected_color : R.color.tab_color);
                     TabHelper.getTitleView(tab).setTextColor(textColor);
@@ -91,8 +91,8 @@ public class WorkOrderForewarningFragment extends ButterKnifeFragment {
 
     private void initTabLayout() {
         tabLayout.setupWithViewPager(viewPager);
-        for (int i = 0; i != WorkOrderTodoPagerAdapter.titles.length; i++) {
-            String title = WorkOrderTodoPagerAdapter.titles[i];
+        for (int i = 0; i != MyWorkFragmentPagerAdapter.titles.length; i++) {
+            String title = MyWorkFragmentPagerAdapter.titles[i];
             TabLayout.Tab tab = tabLayout.getTabAt(i);
             if (tab != null) {
                 tab.setCustomView(R.layout.tab);

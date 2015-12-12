@@ -10,13 +10,13 @@ import com.unicorn.csp.xcdemo.fragment.chief.WorkOrderToReviewFragment;
 
 
 // @P
-public class WorkOrderTodoPagerAdapter extends FragmentStatePagerAdapter {
+public class MyWorkFragmentPagerAdapter extends FragmentStatePagerAdapter {
 
     public static String[] titles = {
             "待指派", "待复核", "已挂起",
     };
 
-    public WorkOrderTodoPagerAdapter(FragmentManager fm) {
+    public MyWorkFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
