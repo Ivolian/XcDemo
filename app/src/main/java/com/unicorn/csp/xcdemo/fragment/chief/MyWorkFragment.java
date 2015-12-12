@@ -40,7 +40,7 @@ public class MyWorkFragment extends TabLayoutFragment {
 
     @Override
     public void onCreateOptionsMenu(android.view.Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_my_work, menu);
+        inflater.inflate(R.menu.menu_only_search, menu);
         MenuItem menuItem = menu.findItem(R.id.action_search);
         menuItem.setIcon(getSearchIconDrawable());
         initSearchView(menuItem);

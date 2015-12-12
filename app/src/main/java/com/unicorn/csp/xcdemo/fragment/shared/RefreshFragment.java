@@ -153,7 +153,7 @@ public abstract class RefreshFragment extends LazyLoadFragment {
                         RefreshResult refreshResult = new RefreshResult();
                         refreshResult.setTabIndex(getFragmentIndex());
                         refreshResult.setTotal(totalElements(response));
-                        EventBus.getDefault().post(refreshResult,"myWorkFragment_onRefreshFinish");
+                        EventBus.getDefault().post(refreshResult, "myWorkFragment_onRefreshFinish");
                     }
                 },
                 new Response.ErrorListener() {
@@ -198,7 +198,7 @@ public abstract class RefreshFragment extends LazyLoadFragment {
 
     // ========================== 基础方法 ==========================
 
-    private String getCompleteUrl(Integer pageNo) {
+    public String getCompleteUrl(Integer pageNo) {
         Uri.Builder builder = Uri.parse(ConfigUtils.getBaseUrl() + getLatterPartUrl()).buildUpon();
         builder.appendQueryParameter("pageNo", pageNo.toString());
         builder.appendQueryParameter("pageSize", PAGE_SIZE.toString());
@@ -207,7 +207,7 @@ public abstract class RefreshFragment extends LazyLoadFragment {
 
     private void checkLastPage(JSONObject response) {
         if (lastPage = isLastPage(response)) {
-//            ToastUtils.show(noData(response) ? "暂无数据" : "已加载全部数据");
+            ToastUtils.show(noData(response) ? "暂无数据" : "已加载全部数据");
         }
     }
 

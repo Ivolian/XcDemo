@@ -19,20 +19,20 @@ import butterknife.OnClick;
 
 
 
-public class QueryResultAdapter extends RecyclerView.Adapter<QueryResultAdapter.ViewHolder> {
+public class QueryResultAdapter extends RecyclerView.Adapter<QueryResultAdapter.ViewHolder> implements RefreshAdapter {
 
 
     // ================================== data ==================================
 
     private List<WorkOrderInfo> workOrderInfoList = new ArrayList<>();
 
-    public void reload(List<WorkOrderInfo> workOrderInfoList) {
-        this.workOrderInfoList = workOrderInfoList;
+    public void reload(Object workOrderInfoList) {
+        this.workOrderInfoList = (List<WorkOrderInfo>)workOrderInfoList;
         notifyDataSetChanged();
     }
 
-    public void loadMore(List<WorkOrderInfo> workOrderInfoList) {
-        this.workOrderInfoList.addAll(workOrderInfoList);
+    public void loadMore(Object workOrderInfoList) {
+this.workOrderInfoList.addAll((List<WorkOrderInfo>)workOrderInfoList);
         notifyDataSetChanged();
     }
 

@@ -1,13 +1,18 @@
 package com.unicorn.csp.xcdemo.fragment.shared;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.shared.QueryActivity;
 import com.unicorn.csp.xcdemo.activity.shared.TreeChooseActivity;
+import com.unicorn.csp.xcdemo.component.MenuUtils;
 import com.unicorn.csp.xcdemo.fragment.shared.base.ButterKnifeFragment;
 import com.unicorn.csp.xcdemo.utils.ConfigUtils;
+import com.unicorn.csp.xcdemo.utils.EditTextUtils;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.Calendar;
@@ -25,6 +30,32 @@ public class WorkOrderQueryFragment extends ButterKnifeFragment {
     @Override
     public int getLayoutResId() {
         return R.layout.fragment_work_order_query;
+    }
+
+
+    // ================================== menu ==================================
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(android.view.Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_only_search, menu);
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+        menuItem.setIcon(MenuUtils.getSearchIconDrawable(getActivity()));
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_search) {
+            query();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 
@@ -273,8 +304,7 @@ public class WorkOrderQueryFragment extends ButterKnifeFragment {
 
     // ================================== query ==================================
 
-    @OnClick(R.id.btn_query)
-    public void startQueryResultActivity() {
+    public void query() {
         Intent intent = new Intent(getActivity(), QueryActivity.class);
         intent.putExtra("queryUrl", getQueryUrl());
         getActivity().startActivity(intent);
@@ -282,33 +312,28 @@ public class WorkOrderQueryFragment extends ButterKnifeFragment {
 
     private String getQueryUrl() {
         String queryUrl = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/info?";
-        String EMPTY = "";
-        if (!getEditTextValue(etWorkOrderType).equals(EMPTY)) {
+        if (!EditTextUtils.isEmpty(etWorkOrderType)) {
             queryUrl += ("&type" + "=" + tndWorkOrderType.id);
         }
-        if (!getEditTextValue(etDepartment).equals(EMPTY)) {
+        if (!EditTextUtils.isEmpty(etDepartment)) {
             queryUrl += ("&department" + "=" + tndDepartment.id);
         }
-        if (!getEditTextValue(etEquipment).equals(EMPTY)) {
+        if (!EditTextUtils.isEmpty(etEquipment)) {
             queryUrl += ("&equipment" + "=" + tndEquipment.id);
         }
-        if (!getEditTextValue(etWorkOrderStatus).equals(EMPTY)) {
+        if (!EditTextUtils.isEmpty(etWorkOrderStatus)) {
             queryUrl += ("&status" + "=" + tndWorkOrderStatus.id);
         }
-        if (!getEditTextValue(etEmergencyDegree).equals(EMPTY)) {
+        if (!EditTextUtils.isEmpty(etEmergencyDegree)) {
             queryUrl += ("&emergencyDegree" + "=" + tndEmergencyDegree.id);
         }
-        if (!getEditTextValue(etBeginRepairDate).equals(EMPTY)) {
-            queryUrl += ("&startDate" + "=" + getEditTextValue(etBeginRepairDate));
+        if (!EditTextUtils.isEmpty(etBeginRepairDate)) {
+            queryUrl += ("&startDate" + "=" + EditTextUtils.getValue(etBeginRepairDate));
         }
-        if (!getEditTextValue(etEndRepairDate).equals(EMPTY)) {
-            queryUrl += ("&endDate" + "=" + getEditTextValue(etEndRepairDate));
+        if (!EditTextUtils.isEmpty(etEndRepairDate)) {
+            queryUrl += ("&endDate" + "=" + EditTextUtils.getValue(etEndRepairDate));
         }
         return queryUrl;
-    }
-
-    private String getEditTextValue(MaterialEditText editText) {
-        return editText.getText().toString().trim();
     }
 
 
