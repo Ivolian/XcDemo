@@ -9,7 +9,6 @@ import com.unicorn.csp.xcdemo.fragment.chief.WorkOrderSuspendedFragment;
 import com.unicorn.csp.xcdemo.fragment.chief.WorkOrderToReviewFragment;
 
 
-// @P
 public class MyWorkFragmentPagerAdapter extends FragmentStatePagerAdapter {
 
     public static String[] titles = {

@@ -170,7 +170,6 @@ public abstract class RefreshFragment extends LazyLoadFragment {
                     }
                 }
         );
-//        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(500, 1, 1.0f));
         SimpleVolley.addRequest(jsonObjectRequest);
     }
 

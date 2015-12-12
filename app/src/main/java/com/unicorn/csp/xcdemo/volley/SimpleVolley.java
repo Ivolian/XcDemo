@@ -2,6 +2,7 @@ package com.unicorn.csp.xcdemo.volley;
 
 import android.content.Context;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -24,7 +25,8 @@ public class SimpleVolley {
         mRequestQueue = Volley.newRequestQueue(context);
     }
 
-    public static void addRequest(Request request){
+    public static void addRequest(Request request) {
+        request.setRetryPolicy(new DefaultRetryPolicy(10000, 1, 1.0f));
         getRequestQueue().add(request);
     }
 
@@ -42,11 +44,10 @@ public class SimpleVolley {
             public void onErrorResponse(VolleyError volleyError) {
                 try {
                     String responseJsonString = new String(volleyError.networkResponse.data, "UTF-8");
-                    JSONObject response  = new JSONObject(responseJsonString);
+                    JSONObject response = new JSONObject(responseJsonString);
                     String errorMsg = response.getString("error");
                     ToastUtils.show(errorMsg);
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     ToastUtils.show(VolleyErrorHelper.getErrorMessage(volleyError));
                 }
             }

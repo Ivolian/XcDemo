@@ -37,14 +37,14 @@ public class WorkOrderToAssignAdapter extends RecyclerView.Adapter<WorkOrderToAs
     private List<WorkOrderProcessInfo> workOrderProcessInfoList = new ArrayList<>();
 
     @Override
-    public void reload(List<WorkOrderProcessInfo> workOrderProcessInfoList) {
-        this.workOrderProcessInfoList = workOrderProcessInfoList;
+    public void reload(Object workOrderProcessInfoList) {
+        this.workOrderProcessInfoList.addAll((List<WorkOrderProcessInfo>)workOrderProcessInfoList);
         notifyDataSetChanged();
     }
 
     @Override
-    public void loadMore(List<WorkOrderProcessInfo> workOrderProcessInfoList) {
-        this.workOrderProcessInfoList.addAll(workOrderProcessInfoList);
+    public void loadMore(Object workOrderProcessInfoList) {
+        this.workOrderProcessInfoList.addAll((List<WorkOrderProcessInfo>)workOrderProcessInfoList);
         notifyDataSetChanged();
     }
 
