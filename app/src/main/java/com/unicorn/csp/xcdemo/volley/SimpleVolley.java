@@ -9,6 +9,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
 
+import org.json.JSONObject;
+
 
 public class SimpleVolley {
 
@@ -38,7 +40,15 @@ public class SimpleVolley {
         return new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                ToastUtils.show(VolleyErrorHelper.getErrorMessage(volleyError));
+                try {
+                    String responseJsonString = new String(volleyError.networkResponse.data, "UTF-8");
+                    JSONObject response  = new JSONObject(responseJsonString);
+                    String errorMsg = response.getString("error");
+                    ToastUtils.show(errorMsg);
+                }
+                catch (Exception e){
+                    ToastUtils.show(VolleyErrorHelper.getErrorMessage(volleyError));
+                }
             }
         };
     }
