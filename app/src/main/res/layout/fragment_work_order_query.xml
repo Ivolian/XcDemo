@@ -10,7 +10,7 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="24dp">
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/et_work_order_type"
