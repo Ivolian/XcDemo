@@ -5,15 +5,21 @@
 // todo later
 1. 领料合并
 2. 如果领料太多
-3. ExpandRelativeLayout wrap_content 不生效
+3.
    onMeasure
-
+4. wifi 状态下允许上传，否则到时再传。
 
 // TODO BIG
 1.协和
 2.视频演示
 3.知网
 4.temp
+
+
+// todo Bug
+1. ExpandRelativeLayout wrap_content 不生效
+2. Drawer 点击事件传递到 fragment
+
 
 
 工单监控

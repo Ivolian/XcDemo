@@ -10,9 +10,9 @@ import java.io.File;
 
 public class ConfigUtils {
 
-    public static String ip = "192.168.1.5";
+    public static String ip = "withub.net.cn";
 
-    public static String port = "3000";
+    public static String port = "80";
 
 
 
@@ -27,8 +27,7 @@ public class ConfigUtils {
     }
 
     public static String getBaseUrl() {
-//        return "http://withub.net.cn/hems";
-        return "http://" + ip + ":" + port + "/hems";
+        return "http://" + ip + "/hems";
     }
 
     public static String getBaseDirPath() {
