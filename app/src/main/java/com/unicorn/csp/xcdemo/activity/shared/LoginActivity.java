@@ -17,6 +17,7 @@ import com.unicorn.csp.xcdemo.activity.technician.MainActivity;
 import com.unicorn.csp.xcdemo.component.TinyDB;
 import com.unicorn.csp.xcdemo.utils.ConfigUtils;
 import com.unicorn.csp.xcdemo.utils.DialogUtils;
+import com.unicorn.csp.xcdemo.utils.EditTextUtils;
 import com.unicorn.csp.xcdemo.utils.SfUtils;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
 import com.unicorn.csp.xcdemo.volley.SimpleVolley;
@@ -58,37 +59,44 @@ public class LoginActivity extends ToolbarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initToolbar("登录", false);
-        initViews();
+        restoreUserLoginInfo();
     }
 
-    private void initViews() {
-        etAccount.setText("liulinag");
-        etPassword.setText("000000");
+    private void restoreUserLoginInfo() {
+        boolean rememberMe = TinyDB.getInstance().getBoolean(SfUtils.SF_REMEMBER_ME);
+        if (rememberMe) {
+            String account = TinyDB.getInstance().getString(SfUtils.SF_ACCOUNT);
+            etAccount.setText(account);
+            String password = TinyDB.getInstance().getString(SfUtils.SF_PASSWORD);
+            etPassword.setText(password);
+            cbRememberMe.setChecked(true);
+        }
     }
 
 
     // ================================== OnClick ==================================
 
     @OnClick(R.id.btn_login)
-    public void onLoginButtonClick() {
-        if (isUserInputValid()) {
-            login(DialogUtils.showMask(this, "登录中", "请稍后"));
+    public void onLoginBtnClick() {
+        if (isUserLoginInfoValid()) {
+            login();
         }
     }
 
-    private boolean isUserInputValid() {
-        if (etAccount.getText().toString().equals("")) {
+    private boolean isUserLoginInfoValid() {
+        if (EditTextUtils.isEmpty(etAccount)) {
             ToastUtils.show("账号不能为空");
             return false;
         }
-        if (etPassword.getText().toString().equals("")) {
+        if (EditTextUtils.isEmpty(etPassword)) {
             ToastUtils.show("密码不能为空");
             return false;
         }
         return true;
     }
 
-    private void login(final MaterialDialog mask) {
+    private void login() {
+        final MaterialDialog mask = DialogUtils.showMask(this, "登录中", "请稍后");
         StringRequest stringRequest = new StringRequest(
                 Request.Method.POST,
                 ConfigUtils.getBaseUrl() + "/login",
@@ -109,14 +117,13 @@ public class LoginActivity extends ToolbarActivity {
                         mask.dismiss();
                         ToastUtils.show(VolleyErrorHelper.getErrorMessage(error));
                     }
-
                 }
         ) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = new HashMap<>();
-                map.put("username", etAccount.getText().toString().trim());
-                map.put("password", etPassword.getText().toString().trim());
+                map.put("username", EditTextUtils.getValue(etAccount));
+                map.put("password", EditTextUtils.getValue(etPassword));
                 return map;
             }
 
@@ -131,16 +138,16 @@ public class LoginActivity extends ToolbarActivity {
                 // 如果登录成功，获取角色，保存 JSessionId
                 role = response.headers.get("role");
                 ConfigUtils.saveJSessionId(response);
-                saveUserInput();
+                saveUserLoginInfo();
                 return super.parseNetworkResponse(response);
             }
         };
         SimpleVolley.getRequestQueue().add(stringRequest);
     }
 
-    private void saveUserInput() {
-        TinyDB.getInstance().putString(SfUtils.SF_ACCOUNT, etAccount.getText().toString().trim());
-        TinyDB.getInstance().putString(SfUtils.SF_PASSWORD, etPassword.getText().toString().trim());
+    private void saveUserLoginInfo() {
+        TinyDB.getInstance().putString(SfUtils.SF_ACCOUNT, EditTextUtils.getValue(etAccount));
+        TinyDB.getInstance().putString(SfUtils.SF_PASSWORD, EditTextUtils.getValue(etPassword));
         TinyDB.getInstance().putBoolean(SfUtils.SF_REMEMBER_ME, cbRememberMe.isChecked());
     }
 
