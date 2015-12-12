@@ -9,7 +9,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.f2prateek.dart.InjectExtra;
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
+import com.unicorn.csp.xcdemo.activity.shared.base.ToolbarActivity;
 import com.unicorn.csp.xcdemo.fragment.shared.TreeNodeViewHolder;
 import com.unicorn.csp.xcdemo.fragment.shared.WorkOrderQueryFragment;
 import com.unicorn.csp.xcdemo.utils.ConfigUtils;

@@ -18,7 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.github.aakira.expandablelayout.ExpandableLayoutListenerAdapter;
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.activity.base.WorkOrderCardActivity;
+import com.unicorn.csp.xcdemo.activity.shared.base.WorkOrderCardActivity;
 import com.unicorn.csp.xcdemo.activity.technician.PackActivity;
 import com.unicorn.csp.xcdemo.adaper.recycleview.shared.RefreshAdapter;
 import com.unicorn.csp.xcdemo.component.OperationUtils;

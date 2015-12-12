@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.github.aakira.expandablelayout.ExpandableLayoutListenerAdapter;
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.activity.base.WorkOrderCardActivity;
+import com.unicorn.csp.xcdemo.activity.shared.base.WorkOrderCardActivity;
 import com.unicorn.csp.xcdemo.activity.chief.AssignActivity;
 import com.unicorn.csp.xcdemo.activity.shared.SuspendActivity;
 import com.unicorn.csp.xcdemo.adaper.recycleview.shared.RefreshAdapter;

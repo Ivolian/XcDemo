@@ -1,4 +1,4 @@
-package com.unicorn.csp.xcdemo.activity.base;
+package com.unicorn.csp.xcdemo.activity.shared.base;
 
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;

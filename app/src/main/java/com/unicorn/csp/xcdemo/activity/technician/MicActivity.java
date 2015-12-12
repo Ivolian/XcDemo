@@ -18,7 +18,7 @@ import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapSize;
 import com.f2prateek.dart.InjectExtra;
 import com.liangfeizc.flowlayout.FlowLayout;
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
+import com.unicorn.csp.xcdemo.activity.shared.base.ToolbarActivity;
 import com.unicorn.csp.xcdemo.component.OptionButton;
 import com.unicorn.csp.xcdemo.component.PaperButton;
 import com.unicorn.csp.xcdemo.component.TinyDB;

@@ -14,7 +14,7 @@ import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
+import com.unicorn.csp.xcdemo.activity.shared.base.ToolbarActivity;
 import com.unicorn.csp.xcdemo.activity.shared.LoginActivity;
 import com.unicorn.csp.xcdemo.fragment.chief.MyWorkFragment;
 import com.unicorn.csp.xcdemo.fragment.chief.WorkOrderForewarningFragment;

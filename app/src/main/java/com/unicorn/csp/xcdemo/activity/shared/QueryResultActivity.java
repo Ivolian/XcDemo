@@ -10,7 +10,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.f2prateek.dart.InjectExtra;
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
+import com.unicorn.csp.xcdemo.activity.shared.base.ToolbarActivity;
 import com.unicorn.csp.xcdemo.adaper.recycleview.shared.QueryResultAdapter;
 import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
 import com.unicorn.csp.xcdemo.utils.GsonUtils;

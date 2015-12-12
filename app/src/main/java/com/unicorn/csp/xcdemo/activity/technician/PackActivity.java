@@ -22,7 +22,7 @@ import com.f2prateek.dart.InjectExtra;
 import com.google.gson.Gson;
 import com.liangfeizc.flowlayout.FlowLayout;
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.activity.base.WorkOrderCardActivity;
+import com.unicorn.csp.xcdemo.activity.shared.base.WorkOrderCardActivity;
 import com.unicorn.csp.xcdemo.component.OptionButton;
 import com.unicorn.csp.xcdemo.component.TinyDB;
 import com.unicorn.csp.xcdemo.model.Material;

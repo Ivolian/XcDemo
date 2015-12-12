@@ -20,7 +20,7 @@ import com.github.gcacace.signaturepad.views.SignaturePad;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.activity.base.WorkOrderCardActivity;
+import com.unicorn.csp.xcdemo.activity.shared.base.WorkOrderCardActivity;
 import com.unicorn.csp.xcdemo.component.TinyDB;
 import com.unicorn.csp.xcdemo.component.UploadUtils;
 import com.unicorn.csp.xcdemo.utils.ConfigUtils;

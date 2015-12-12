@@ -1,4 +1,4 @@
-package com.unicorn.csp.xcdemo.activity.base;
+package com.unicorn.csp.xcdemo.activity.shared.base;
 
 import android.content.Intent;
 import android.os.Bundle;

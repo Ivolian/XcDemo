@@ -19,7 +19,7 @@ import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapSize;
 import com.f2prateek.dart.InjectExtra;
 import com.liangfeizc.flowlayout.FlowLayout;
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.activity.base.WorkOrderCardActivity;
+import com.unicorn.csp.xcdemo.activity.shared.base.WorkOrderCardActivity;
 import com.unicorn.csp.xcdemo.component.OptionButton;
 import com.unicorn.csp.xcdemo.utils.ConfigUtils;
 import com.unicorn.csp.xcdemo.utils.DialogUtils;
