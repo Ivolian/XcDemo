@@ -29,7 +29,6 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 
-// @PP
 public class LoginActivity extends ToolbarActivity {
 
 
@@ -63,7 +62,7 @@ public class LoginActivity extends ToolbarActivity {
     }
 
     private void initViews() {
-        etAccount.setText("jishi1");
+        etAccount.setText("liulinag");
         etPassword.setText("000000");
     }
 

@@ -17,6 +17,7 @@ import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ToolbarActivity;
 import com.unicorn.csp.xcdemo.activity.shared.LoginActivity;
 import com.unicorn.csp.xcdemo.fragment.chief.MyWorkFragment;
+import com.unicorn.csp.xcdemo.fragment.chief.WorkOrderForewarningFragment;
 import com.unicorn.csp.xcdemo.fragment.shared.WorkOrderQueryFragment;
 import com.unicorn.csp.xcdemo.utils.DialogUtils;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
@@ -102,6 +103,12 @@ public class MainActivity extends ToolbarActivity {
                         if (!getToolbarTitle().equals(TITLES[1])) {
                             setToolbarTitle(TITLES[1]);
                             replaceFragment_(new WorkOrderQueryFragment());
+                        }
+                        break;
+                    case 2:
+                        if (!getToolbarTitle().equals(TITLES[2])) {
+                            setToolbarTitle(TITLES[2]);
+                            replaceFragment_(new WorkOrderForewarningFragment());
                         }
                         break;
                     case 3:

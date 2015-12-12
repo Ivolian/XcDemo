@@ -1,19 +1,11 @@
-1. 简易查询
-2. 复杂查询
-
-
 // todo later
-1. 领料合并
-2. 如果领料太多
-3.
-   onMeasure
-4. wifi 状态下允许上传，否则到时再传。
-
-// TODO BIG
-1.协和
-2.视频演示
-3.知网
-4.temp
+1. 简易查询
+2. 领料合并
+3. 如果领料太多
+4. LOGO
+5. SPLASH BG
+6. wifi 状态下允许上传，否则到时再传。
+7.temp
 
 
 // todo Bug
@@ -21,14 +13,6 @@
 2. Drawer 点击事件传递到 fragment
 
 
-
-工单监控
-抢单，指定，复核，挂单，移单，结单。
-
-
-工单预警
-黄色，红色。
-
-
+// todo => has done: sign password
 jks password: rrrjjj
 http://developer.android.com/tools/publishing/app-signing.html

@@ -7,6 +7,7 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.base.ButterKnifeActivity;
@@ -14,22 +15,17 @@ import com.unicorn.csp.xcdemo.activity.technician.MainActivity;
 import com.unicorn.csp.xcdemo.component.TinyDB;
 import com.unicorn.csp.xcdemo.utils.ConfigUtils;
 import com.unicorn.csp.xcdemo.utils.SfUtils;
+import com.unicorn.csp.xcdemo.utils.ToastUtils;
 import com.unicorn.csp.xcdemo.volley.SimpleVolley;
+import com.unicorn.csp.xcdemo.volley.VolleyErrorHelper;
 
 import java.util.HashMap;
 import java.util.Map;
 
 
-// @P
 public class SplashActivity extends ButterKnifeActivity {
 
-
-    // ================================== 全局变量 ==================================
-
     String role;
-
-
-    // ================================== onCreate ==================================
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,15 +49,22 @@ public class SplashActivity extends ButterKnifeActivity {
                         startActivityAndFinish(role.equals("Artificer") ? MainActivity.class : com.unicorn.csp.xcdemo.activity.chief.MainActivity.class);
                     }
                 },
-                SimpleVolley.getDefaultErrorListener()
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        ToastUtils.show(VolleyErrorHelper.getErrorMessage(error));
+                        startActivityAndFinish(LoginActivity.class);
+                    }
+                }
         ) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = new HashMap<>();
                 map.put("username", TinyDB.getInstance().getString(SfUtils.SF_ACCOUNT));
-                map.put("password",TinyDB.getInstance().getString(SfUtils.SF_PASSWORD));
+                map.put("password", TinyDB.getInstance().getString(SfUtils.SF_PASSWORD));
                 return map;
             }
+
             @Override
             protected Response<String> parseNetworkResponse(NetworkResponse response) {
                 role = response.headers.get("role");
