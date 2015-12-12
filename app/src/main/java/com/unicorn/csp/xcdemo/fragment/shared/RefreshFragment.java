@@ -1,6 +1,5 @@
 package com.unicorn.csp.xcdemo.fragment.shared;
 
-import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -13,9 +12,7 @@ import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.adaper.recycleview.shared.RefreshAdapter;
 import com.unicorn.csp.xcdemo.fragment.shared.base.LazyLoadFragment;
 import com.unicorn.csp.xcdemo.model.RefreshResult;
-import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
 import com.unicorn.csp.xcdemo.utils.ConfigUtils;
-import com.unicorn.csp.xcdemo.utils.GsonUtils;
 import com.unicorn.csp.xcdemo.utils.JSONUtils;
 import com.unicorn.csp.xcdemo.utils.RecycleViewUtils;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
@@ -26,8 +23,6 @@ import com.unicorn.csp.xcdemo.volley.VolleyErrorHelper;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.simple.eventbus.EventBus;
-
-import java.util.List;
 
 import butterknife.Bind;
 import kale.recycler.ExRecyclerView;
@@ -45,6 +40,8 @@ public abstract class RefreshFragment extends LazyLoadFragment {
     abstract public String getLatterPartUrl();
 
     abstract public int getFragmentIndex();
+
+    abstract public Object parseDataList(String jsonArrayString);
 
 
     // ================================== views ==================================
@@ -100,9 +97,7 @@ public abstract class RefreshFragment extends LazyLoadFragment {
     }
 
     private void initRecyclerView() {
-        int orientation = getResources().getConfiguration().orientation;
-        recyclerView.setLayoutManager(orientation == Configuration.ORIENTATION_PORTRAIT ?
-                RecycleViewUtils.getLinearLayoutManager(getActivity()) : RecycleViewUtils.getStaggeredGridLayoutManager());
+        recyclerView.setLayoutManager(RecycleViewUtils.getLinearLayoutManager(getActivity()));
         adapter = getAdapter();
         recyclerView.setAdapter((RecyclerView.Adapter) adapter);
         recyclerView.addOnScrollListener(new OnRecyclerViewScrollListener() {
@@ -152,8 +147,7 @@ public abstract class RefreshFragment extends LazyLoadFragment {
                     public void onResponse(JSONObject response) {
                         stopRefreshing();
                         JSONArray jsonArray = JSONUtils.getJSONArray(response, "content", null);
-                        List<WorkOrderProcessInfo> workOrderProcessInfoList = GsonUtils.parseWorkOrderProcessInfoList(jsonArray.toString());
-                        adapter.reload(workOrderProcessInfoList);
+                        adapter.reload(parseDataList(jsonArray.toString()));
                         checkLastPage(response);
 
                         RefreshResult refreshResult = new RefreshResult();
@@ -182,8 +176,7 @@ public abstract class RefreshFragment extends LazyLoadFragment {
                         loadingMore = false;
                         pageNo++;
                         JSONArray jsonArray = JSONUtils.getJSONArray(response, "content", null);
-                        List<WorkOrderProcessInfo> workOrderProcessInfoList = GsonUtils.parseWorkOrderProcessInfoList(jsonArray.toString());
-                        adapter.loadMore(workOrderProcessInfoList);
+                        adapter.loadMore(parseDataList(jsonArray.toString()));
                         checkLastPage(response);
                     }
                 },

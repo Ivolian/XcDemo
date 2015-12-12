@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.unicorn.csp.xcdemo.adaper.recycleview.shared.RefreshAdapter;
 import com.unicorn.csp.xcdemo.adaper.recycleview.technician.WorkOrderSuspendedAdapter;
 import com.unicorn.csp.xcdemo.fragment.shared.RefreshFragment;
+import com.unicorn.csp.xcdemo.utils.GsonUtils;
 
 import org.simple.eventbus.EventBus;
 import org.simple.eventbus.Subscriber;
@@ -27,6 +28,10 @@ public class WorkOrderSuspendedFragment extends RefreshFragment {
         return 2;
     }
 
+    @Override
+    public Object parseDataList(String jsonArrayString) {
+        return GsonUtils.parseWorkOrderProcessInfoList(jsonArrayString);
+    }
     //
 
     @Override
