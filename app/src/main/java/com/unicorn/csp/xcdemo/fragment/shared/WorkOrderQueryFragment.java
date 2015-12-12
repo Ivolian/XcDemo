@@ -6,7 +6,7 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.shared.QueryResultActivity;
 import com.unicorn.csp.xcdemo.activity.shared.TreeChooseActivity;
-import com.unicorn.csp.xcdemo.fragment.base.ButterKnifeFragment;
+import com.unicorn.csp.xcdemo.fragment.shared.base.ButterKnifeFragment;
 import com.unicorn.csp.xcdemo.utils.ConfigUtils;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 

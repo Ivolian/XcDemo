@@ -1,4 +1,4 @@
-package com.unicorn.csp.xcdemo.fragment.base;
+package com.unicorn.csp.xcdemo.fragment.shared.base;
 
 import android.os.Bundle;
 

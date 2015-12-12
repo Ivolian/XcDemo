@@ -13,7 +13,7 @@ import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.technician.MainActivity;
 import com.unicorn.csp.xcdemo.adaper.viewpager.technician.MyWorkFragmentPagerAdapter;
 import com.unicorn.csp.xcdemo.component.TabHelper;
-import com.unicorn.csp.xcdemo.fragment.base.TabLayoutFragment;
+import com.unicorn.csp.xcdemo.fragment.shared.base.TabLayoutFragment;
 import com.unicorn.csp.xcdemo.model.RefreshResult;
 
 import org.simple.eventbus.Subscriber;

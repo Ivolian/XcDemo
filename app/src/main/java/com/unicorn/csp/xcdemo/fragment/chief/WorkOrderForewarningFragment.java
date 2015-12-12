@@ -11,7 +11,7 @@ import com.nispok.snackbar.SnackbarManager;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.adaper.viewpager.chief.MyWorkFragmentPagerAdapter;
 import com.unicorn.csp.xcdemo.component.TabHelper;
-import com.unicorn.csp.xcdemo.fragment.base.ButterKnifeFragment;
+import com.unicorn.csp.xcdemo.fragment.shared.base.ButterKnifeFragment;
 import com.unicorn.csp.xcdemo.model.RefreshResult;
 
 import org.simple.eventbus.EventBus;
