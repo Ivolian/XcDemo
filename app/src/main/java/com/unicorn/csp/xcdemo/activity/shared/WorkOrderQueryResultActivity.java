@@ -9,7 +9,7 @@ import com.unicorn.csp.xcdemo.activity.shared.base.ToolbarActivity;
 import com.unicorn.csp.xcdemo.fragment.shared.WorkOrderQueryResultFragment;
 
 
-public class QueryActivity extends ToolbarActivity {
+public class WorkOrderQueryResultActivity extends ToolbarActivity {
 
     @InjectExtra("queryUrl")
     String queryUrl;
@@ -17,9 +17,10 @@ public class QueryActivity extends ToolbarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_work_item_query);
-        initToolbar("工单查询", true);
+        setContentView(R.layout.activity_work_order_query_result);
+        initToolbar("查询结果", true);
         initViews();
+        enableSlideFinish();
     }
 
     private void initViews() {

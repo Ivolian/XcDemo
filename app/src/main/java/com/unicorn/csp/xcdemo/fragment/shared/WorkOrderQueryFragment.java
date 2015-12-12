@@ -7,7 +7,7 @@ import android.view.MenuItem;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.activity.shared.QueryActivity;
+import com.unicorn.csp.xcdemo.activity.shared.WorkOrderQueryResultActivity;
 import com.unicorn.csp.xcdemo.activity.shared.TreeChooseActivity;
 import com.unicorn.csp.xcdemo.component.MenuUtils;
 import com.unicorn.csp.xcdemo.fragment.shared.base.ButterKnifeFragment;
@@ -305,7 +305,7 @@ public class WorkOrderQueryFragment extends ButterKnifeFragment {
     // ================================== query ==================================
 
     public void query() {
-        Intent intent = new Intent(getActivity(), QueryActivity.class);
+        Intent intent = new Intent(getActivity(), WorkOrderQueryResultActivity.class);
         intent.putExtra("queryUrl", getQueryUrl());
         getActivity().startActivity(intent);
     }

@@ -73,7 +73,7 @@ public abstract class RefreshFragment extends LazyLoadFragment {
 
     @Override
     public int getLayoutResId() {
-        return R.layout.fragment_basic_refresh;
+        return R.layout.fragment_refresh;
     }
 
 
