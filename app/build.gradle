@@ -58,7 +58,7 @@ dependencies {
     compile 'com.loopj.android:android-async-http:1.4.9'
     compile 'com.commit451:PhotoView:1.2.4'
     compile 'com.github.elevenetc:badgeview:v1.0.0'
-    compile 'com.github.aakira:expandable-layout:1.4.0@aar'
+    compile 'com.github.aakira:expandable-layout:1.4.1@aar'
     compile 'com.github.Kennyc1012:BottomSheet:2.0.4'
     compile(name: 'library-debug', ext: 'aar')
     compile 'commons-io:commons-io:2.4'

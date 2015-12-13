@@ -29,9 +29,11 @@ import kale.recycler.ExRecyclerView;
 import kale.recycler.OnRecyclerViewScrollListener;
 
 
-//@P
 public abstract class RefreshFragment extends LazyLoadFragment {
 
+    public String getRefreshEventTag(){
+        return  "myWorkFragment_onRefreshFinish";
+    }
 
     // ================================== abstract methods ==================================
 
@@ -153,7 +155,7 @@ public abstract class RefreshFragment extends LazyLoadFragment {
                         RefreshResult refreshResult = new RefreshResult();
                         refreshResult.setTabIndex(getFragmentIndex());
                         refreshResult.setTotal(totalElements(response));
-                        EventBus.getDefault().post(refreshResult, "myWorkFragment_onRefreshFinish");
+                        EventBus.getDefault().post(refreshResult, getRefreshEventTag());
                     }
                 },
                 new Response.ErrorListener() {

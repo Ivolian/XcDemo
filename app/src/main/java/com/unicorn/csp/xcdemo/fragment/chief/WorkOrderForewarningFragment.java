@@ -11,7 +11,7 @@ import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.chief.MainActivity;
-import com.unicorn.csp.xcdemo.adaper.viewpager.chief.MyWorkFragmentPagerAdapter;
+import com.unicorn.csp.xcdemo.adaper.viewpager.chief.WorkOrderForewarningFragmentPagerAdapter;
 import com.unicorn.csp.xcdemo.component.TabHelper;
 import com.unicorn.csp.xcdemo.fragment.shared.base.TabLayoutFragment;
 import com.unicorn.csp.xcdemo.model.RefreshResult;
@@ -30,7 +30,7 @@ public class WorkOrderForewarningFragment extends TabLayoutFragment {
     @Override
     public FragmentStatePagerAdapter getPagerAdapter() {
         if (adapter == null) {
-            adapter = new MyWorkFragmentPagerAdapter(getActivity().getSupportFragmentManager());
+            adapter = new WorkOrderForewarningFragmentPagerAdapter(getActivity().getSupportFragmentManager());
         }
         return adapter;
     }

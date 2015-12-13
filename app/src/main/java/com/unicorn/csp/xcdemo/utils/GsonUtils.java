@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
 import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
+import com.unicorn.csp.xcdemo.model.WorkOrderWarn;
 
 import java.util.List;
 
@@ -24,6 +25,15 @@ public class GsonUtils {
                 fromJson(workOrderInfoListString, new TypeToken<List<WorkOrderInfo>>() {
                 }.getType());
         return workOrderInfoList;
+    }
+
+
+    public static List<WorkOrderWarn> parseWorkOrderWarnList(String workOrderWarnListString) {
+        Gson gson = new Gson();
+        List<WorkOrderWarn> workOrderWarnList = gson.
+                fromJson(workOrderWarnListString, new TypeToken<List<WorkOrderWarn>>() {
+                }.getType());
+        return workOrderWarnList;
     }
 
 }
