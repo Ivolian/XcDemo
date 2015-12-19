@@ -1,11 +1,14 @@
 package com.unicorn.csp.xcdemo.activity.technician;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
@@ -14,6 +17,7 @@ import com.unicorn.csp.xcdemo.activity.shared.LoginActivity;
 import com.unicorn.csp.xcdemo.fragment.shared.WorkOrderQueryFragment;
 import com.unicorn.csp.xcdemo.fragment.technician.MyWorkFragment;
 import com.unicorn.csp.xcdemo.utils.DialogUtils;
+import com.unicorn.csp.xcdemo.utils.ToastUtils;
 
 import java.util.ArrayList;
 
@@ -87,6 +91,21 @@ public class MainActivity extends com.unicorn.csp.xcdemo.activity.shared.base.Ma
                 return false;
             }
         };
+    }
+
+    //
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        // 处理扫描条码返回结果
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null && result.getContents() != null) {
+            ToastUtils.show(result.getContents());
+        }
+
+
     }
 
 }

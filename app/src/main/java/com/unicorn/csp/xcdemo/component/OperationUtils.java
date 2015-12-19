@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.MenuItem;
 
+import com.google.zxing.integration.android.IntentIntegrator;
 import com.kennyc.bottomsheet.BottomSheet;
 import com.kennyc.bottomsheet.BottomSheetListener;
 import com.kennyc.bottomsheet.menu.BottomSheetMenuItem;
@@ -30,6 +31,7 @@ public class OperationUtils {
         menuItems.add(getMenuItem(activity, "拍照", GoogleMaterial.Icon.gmd_camera));
         menuItems.add(getMenuItem(activity, "录音", GoogleMaterial.Icon.gmd_mic));
         menuItems.add(getMenuItem(activity, "摄像", GoogleMaterial.Icon.gmd_videocam));
+        menuItems.add(getMenuItem(activity, "扫码", GoogleMaterial.Icon.gmd_fullscreen));
         menuItems.add(getMenuItem(activity, "结单", GoogleMaterial.Icon.gmd_check_circle));
         if (showSuspend) {
             menuItems.add(getMenuItem(activity, "挂单", GoogleMaterial.Icon.gmd_cloud_upload));
@@ -64,6 +66,9 @@ public class OperationUtils {
                                              intent = new Intent(activity, VideoConfirmActivity.class);
                                              intent.putExtra("workOrderId", workOrderProcessInfo.getWorkOrderInfo().getWorkOrderId());
                                              activity.startActivity(intent);
+                                             break;
+                                         case "扫码":
+                                             new IntentIntegrator(activity).initiateScan();
                                              break;
                                          case "结单":
                                              intent = new Intent(activity, AchieveActivity.class);
