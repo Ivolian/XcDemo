@@ -13,6 +13,7 @@ import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.unicorn.csp.xcdemo.activity.shared.EquipmentInfoActivity;
 import com.unicorn.csp.xcdemo.activity.shared.LoginActivity;
 import com.unicorn.csp.xcdemo.fragment.shared.WorkOrderQueryFragment;
 import com.unicorn.csp.xcdemo.fragment.technician.MyWorkFragment;
@@ -103,6 +104,9 @@ public class MainActivity extends com.unicorn.csp.xcdemo.activity.shared.base.Ma
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (result != null && result.getContents() != null) {
             ToastUtils.show(result.getContents());
+
+            startActivity(EquipmentInfoActivity.class);
+
         }
 
 

@@ -47,6 +47,10 @@
             android:name=".activity.shared.WorkOrderDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar.NoWindow" />
+        <activity
+            android:name=".activity.shared.EquipmentInfoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar.NoWindow" />
 
         <!-- technician -->
         <activity
