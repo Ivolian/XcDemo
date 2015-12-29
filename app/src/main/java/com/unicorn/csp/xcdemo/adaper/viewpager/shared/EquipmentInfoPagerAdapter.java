@@ -4,8 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.unicorn.csp.xcdemo.activity.shared.equipment.PrincipalFragment;
-import com.unicorn.csp.xcdemo.activity.shared.equipment.SummaryFragment;
+import com.unicorn.csp.xcdemo.equipment.CostFragment;
+import com.unicorn.csp.xcdemo.equipment.PrincipalFragment;
+import com.unicorn.csp.xcdemo.equipment.SummaryFragment;
 import com.unicorn.csp.xcdemo.fragment.technician.WorkOrderSuspendedFragment;
 
 
@@ -24,12 +25,13 @@ public class EquipmentInfoPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-        if(position==0){
-            return  new SummaryFragment();
-        }
-
-        if (position==6){
-            return  new PrincipalFragment();
+        switch (position){
+            case 0:
+                return new SummaryFragment();
+            case 5:
+                return new CostFragment();
+            case 6:
+                return new PrincipalFragment();
         }
 
         return new WorkOrderSuspendedFragment();

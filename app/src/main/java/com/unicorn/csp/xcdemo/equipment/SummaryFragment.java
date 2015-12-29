@@ -1,4 +1,4 @@
-package com.unicorn.csp.xcdemo.activity.shared.equipment;
+package com.unicorn.csp.xcdemo.equipment;
 
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.fragment.shared.base.LazyLoadFragment;

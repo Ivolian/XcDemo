@@ -1,4 +1,4 @@
-package com.unicorn.csp.xcdemo.activity.shared.equipment;
+package com.unicorn.csp.xcdemo.equipment;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;

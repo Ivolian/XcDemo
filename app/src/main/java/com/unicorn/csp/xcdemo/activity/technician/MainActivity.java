@@ -1,18 +1,17 @@
 package com.unicorn.csp.xcdemo.activity.technician;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.google.zxing.integration.android.IntentIntegrator;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.unicorn.csp.xcdemo.activity.shared.LoginActivity;
-import com.unicorn.csp.xcdemo.activity.shared.equipment.EquipmentInfoActivity;
 import com.unicorn.csp.xcdemo.fragment.shared.WorkOrderQueryFragment;
 import com.unicorn.csp.xcdemo.fragment.technician.MyWorkFragment;
 import com.unicorn.csp.xcdemo.utils.DialogUtils;
@@ -24,7 +23,7 @@ public class MainActivity extends com.unicorn.csp.xcdemo.activity.shared.base.Ma
 
     @Override
     public String[] getTitles() {
-        return new String[]{"我的工作", "工单查询", "我的收益", "用户登出"};
+        return new String[]{"我的工作", "工单查询", "我的收益", "设备扫码", "用户登出"};
     }
 
     @Override
@@ -33,6 +32,7 @@ public class MainActivity extends com.unicorn.csp.xcdemo.activity.shared.base.Ma
                 GoogleMaterial.Icon.gmd_assignment,
                 GoogleMaterial.Icon.gmd_search_in_file,
                 GoogleMaterial.Icon.gmd_assignment_account,
+                GoogleMaterial.Icon.gmd_fullscreen,
                 GoogleMaterial.Icon.gmd_sign_in
         };
     }
@@ -51,6 +51,7 @@ public class MainActivity extends com.unicorn.csp.xcdemo.activity.shared.base.Ma
         }
         drawerItems.get(2).withSelectable(false);
         drawerItems.get(3).withSelectable(false);
+        drawerItems.get(4).withSelectable(false);
         return drawerItems;
     }
 
@@ -78,6 +79,9 @@ public class MainActivity extends com.unicorn.csp.xcdemo.activity.shared.base.Ma
                     case 2:
                         return true;
                     case 3:
+                        new IntentIntegrator(MainActivity.this).initiateScan();
+                        break;
+                    case 4:
                         DialogUtils.showConfirm(MainActivity.this, "确认登出？", new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
@@ -89,24 +93,6 @@ public class MainActivity extends com.unicorn.csp.xcdemo.activity.shared.base.Ma
                 return false;
             }
         };
-    }
-
-    //
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        // 处理扫描条码返回结果
-//        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-//        if (result != null && result.getContents() != null) {
-//            ToastUtils.show(result.getContents());
-
-            startActivity(EquipmentInfoActivity.class);
-
-//        }
-
-
     }
 
 }

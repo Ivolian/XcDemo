@@ -48,7 +48,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar.NoWindow" />
         <activity
-            android:name=".activity.shared.equipment.EquipmentInfoActivity"
+            android:name=".equipment.EquipmentInfoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar.NoWindow" />
 

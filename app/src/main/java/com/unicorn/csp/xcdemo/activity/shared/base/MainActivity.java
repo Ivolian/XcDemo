@@ -1,6 +1,7 @@
 package com.unicorn.csp.xcdemo.activity.shared.base;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
@@ -10,6 +11,7 @@ import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.unicorn.csp.xcdemo.R;
+import com.unicorn.csp.xcdemo.equipment.EquipmentInfoActivity;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
 import com.unicorn.csp.xcdemo.utils.UpdateUtils;
 
@@ -101,5 +103,22 @@ public abstract class MainActivity extends ToolbarActivity {
         }
     }
 
+
+    //
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        // 处理扫描条码返回结果
+//        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+//        if (result != null && result.getContents() != null) {
+//            ToastUtils.show(result.getContents());
+
+        startActivity(EquipmentInfoActivity.class);
+
+//        }
+
+
+    }
 }
 

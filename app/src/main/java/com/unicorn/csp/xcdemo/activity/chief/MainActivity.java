@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.google.zxing.integration.android.IntentIntegrator;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
@@ -22,8 +23,8 @@ import java.util.ArrayList;
 public class MainActivity extends com.unicorn.csp.xcdemo.activity.shared.base.MainActivity {
 
     @Override
-    public Fragment getFirstFragment() {
-        return new MyWorkFragment();
+    public String[] getTitles() {
+        return new String[]{"我的工作", "工单查询", "工单预警","设备扫码", "用户登出"};
     }
 
     @Override
@@ -32,13 +33,14 @@ public class MainActivity extends com.unicorn.csp.xcdemo.activity.shared.base.Ma
                 GoogleMaterial.Icon.gmd_assignment,
                 GoogleMaterial.Icon.gmd_search_in_file,
                 GoogleMaterial.Icon.gmd_notifications_active,
+                GoogleMaterial.Icon.gmd_fullscreen,
                 GoogleMaterial.Icon.gmd_sign_in
         };
     }
 
     @Override
-    public String[] getTitles() {
-        return new String[]{"我的工作", "工单查询", "工单预警", "用户登出"};
+    public Fragment getFirstFragment() {
+        return new MyWorkFragment();
     }
 
     @Override
@@ -49,6 +51,7 @@ public class MainActivity extends com.unicorn.csp.xcdemo.activity.shared.base.Ma
             drawerItems.add(drawerItem);
         }
         drawerItems.get(3).withSelectable(false);
+        drawerItems.get(4).withSelectable(false);
         return drawerItems;
     }
 
@@ -80,6 +83,9 @@ public class MainActivity extends com.unicorn.csp.xcdemo.activity.shared.base.Ma
                         }
                         break;
                     case 3:
+                        new IntentIntegrator(MainActivity.this).initiateScan();
+                        break;
+                    case 4:
                         DialogUtils.showConfirm(MainActivity.this, "确认登出？", new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
