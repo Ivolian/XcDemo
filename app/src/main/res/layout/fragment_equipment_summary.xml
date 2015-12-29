@@ -1,42 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <TextView android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="序列号:XXXXXXXXX"/>
+        android:orientation="vertical">
 
-    <TextView android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="设备类型:空调"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/light_background"
+            android:gravity="center"
+            android:minHeight="60dp"
+            android:text="序列号: XXXXXXXXX" />
 
-    <TextView android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="制造日期:2014-12-19"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:minHeight="60dp"
+            android:text="设备类型: 空调" />
 
-    <TextView android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="安装日期:2014-12-19"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/light_background"
+            android:gravity="center"
+            android:minHeight="60dp"
+            android:text="制造日期: 2014-12-19" />
 
-    <TextView android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="制造商:A"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:minHeight="60dp"
+            android:text="安装日期: 2015-04-10" />
 
-    <TextView android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="供应商:A"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/light_background"
+            android:gravity="center"
+            android:minHeight="60dp"
+            android:text="制造商: 湿腾电器有限公司" />
 
-    <TextView android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="安装位置:XXXX"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:minHeight="60dp"
+            android:text="供应商: 菱智制冷" />
 
-    <TextView android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="所有权:XXXX"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/light_background"
+            android:gravity="center"
+            android:minHeight="60dp"
+            android:text="安装位置: 悬挂于机房朝南墙面，高度约1.8-2米" />
 
-    <TextView android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="所有者:XXXX"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:minHeight="60dp"
+            android:text="所有权: 机房" />
 
-</LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/light_background"
+            android:gravity="center"
+            android:minHeight="60dp"
+            android:text="所有者: 刘亮(设备管理员)" />
+
+    </LinearLayout>
+
+</ScrollView>

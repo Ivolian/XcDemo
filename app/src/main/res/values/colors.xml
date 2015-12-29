@@ -13,6 +13,7 @@
     <color name="snack_bar_color">@color/md_light_blue_400</color>
     <color name="label_color">@color/md_blue_400</color>
     <color name="default_background">#eee</color>
+    <color name="light_background">#ddd</color>
 
     <!-- tab layout color-->
     <color name="tab_color">#aaffffff</color>
