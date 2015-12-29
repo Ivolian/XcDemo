@@ -120,6 +120,7 @@ public abstract class MainActivity extends ToolbarActivity {
             startActivity(intent);
         }
 
+        super.onActivityResult(requestCode,resultCode,data);
     }
 
 }
