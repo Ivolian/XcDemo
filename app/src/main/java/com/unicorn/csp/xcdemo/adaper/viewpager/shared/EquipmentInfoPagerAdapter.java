@@ -6,8 +6,8 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.unicorn.csp.xcdemo.equipment.CostFragment;
 import com.unicorn.csp.xcdemo.equipment.PrincipalFragment;
+import com.unicorn.csp.xcdemo.equipment.SparePartFragment;
 import com.unicorn.csp.xcdemo.equipment.SummaryFragment;
-import com.unicorn.csp.xcdemo.fragment.technician.WorkOrderSuspendedFragment;
 
 
 // @PP
@@ -34,7 +34,7 @@ public class EquipmentInfoPagerAdapter extends FragmentStatePagerAdapter {
                 return new PrincipalFragment();
         }
 
-        return new WorkOrderSuspendedFragment();
+        return new SparePartFragment();
     }
 
     @Override

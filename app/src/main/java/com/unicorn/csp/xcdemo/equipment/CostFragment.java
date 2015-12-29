@@ -3,7 +3,6 @@ package com.unicorn.csp.xcdemo.equipment;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 
-import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
@@ -64,7 +63,6 @@ public class CostFragment extends LazyLoadFragment {
 
         // add a selection listener
 
-        mChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
         // mChart.spin(2000, 0, 360);
 
 

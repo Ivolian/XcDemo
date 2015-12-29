@@ -14,6 +14,8 @@ import butterknife.Bind;
 public class EquipmentInfoActivity extends ToolbarActivity {
 
 
+
+
     // ================================== views ==================================
 
     @Bind(R.id.tab_layout)

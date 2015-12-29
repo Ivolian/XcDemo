@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.materialdrawer.Drawer;
@@ -110,15 +112,15 @@ public abstract class MainActivity extends ToolbarActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         // 处理扫描条码返回结果
-//        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-//        if (result != null && result.getContents() != null) {
-//            ToastUtils.show(result.getContents());
-
-        startActivity(EquipmentInfoActivity.class);
-
-//        }
-
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null && result.getContents() != null) {
+            String equipmentId = result.getContents();
+            Intent intent = new Intent(this, EquipmentInfoActivity.class);
+            intent.putExtra("equipmentId", equipmentId);
+            startActivity(intent);
+        }
 
     }
+
 }
 

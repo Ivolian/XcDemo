@@ -9,6 +9,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tv_equipment_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/light_background"
