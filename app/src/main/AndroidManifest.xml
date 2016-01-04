@@ -51,6 +51,10 @@
             android:name=".equipment.EquipmentInfoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar.NoWindow" />
+        <activity
+            android:name=".activity.shared.AssistActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar.NoWindow" />
 
         <!-- technician -->
         <activity
