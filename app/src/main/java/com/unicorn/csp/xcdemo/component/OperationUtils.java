@@ -12,6 +12,7 @@ import com.kennyc.bottomsheet.menu.BottomSheetMenuItem;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.unicorn.csp.xcdemo.R;
+import com.unicorn.csp.xcdemo.activity.shared.AssistActivity;
 import com.unicorn.csp.xcdemo.activity.shared.SuspendActivity;
 import com.unicorn.csp.xcdemo.activity.technician.AchieveActivity;
 import com.unicorn.csp.xcdemo.activity.technician.MicActivity;
@@ -31,6 +32,7 @@ public class OperationUtils {
         menuItems.add(getMenuItem(activity, "拍照", GoogleMaterial.Icon.gmd_camera));
         menuItems.add(getMenuItem(activity, "录音", GoogleMaterial.Icon.gmd_mic));
         menuItems.add(getMenuItem(activity, "摄像", GoogleMaterial.Icon.gmd_videocam));
+        menuItems.add(getMenuItem(activity, "协助", GoogleMaterial.Icon.gmd_fullscreen));
         menuItems.add(getMenuItem(activity, "扫码", GoogleMaterial.Icon.gmd_fullscreen));
         menuItems.add(getMenuItem(activity, "结单", GoogleMaterial.Icon.gmd_check_circle));
         if (showSuspend) {
@@ -65,6 +67,10 @@ public class OperationUtils {
                                          case "摄像":
                                              intent = new Intent(activity, VideoConfirmActivity.class);
                                              intent.putExtra("workOrderId", workOrderProcessInfo.getWorkOrderInfo().getWorkOrderId());
+                                             activity.startActivity(intent);
+                                             break;
+                                         case "协助":
+                                             intent = new Intent(activity, AssistActivity.class);
                                              activity.startActivity(intent);
                                              break;
                                          case "扫码":
