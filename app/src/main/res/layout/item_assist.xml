@@ -1,0 +1,48 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/profile" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:gravity="center_vertical"
+            android:text="张朝"
+            android:textColor="@color/black"
+            android:textSize="17dp" />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:gravity="center_vertical"
+            android:text="13611840423"
+            android:textSize="16dp" />
+
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:background="@android:color/transparent"
+        android:clickable="false" />
+
+</LinearLayout>
