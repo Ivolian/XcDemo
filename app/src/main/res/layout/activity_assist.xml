@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <kale.recycler.ExRecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:clipToPadding="false"
+        android:scrollbars="none" />
+
+    <app.mosn.zdepthshadowlayout.ZDepthShadowLayout xmlns:shadow="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        shadow:z_depth="z_depth1"
+        shadow:z_depth_paddingBottom="z_depth1"
+        shadow:z_depth_paddingLeft="z_depth0"
+        shadow:z_depth_paddingRight="z_depth0"
+        shadow:z_depth_paddingTop="z_depth0"
+        shadow:z_depth_shape="rect">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorPrimary"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+                <TextView
+                    android:id="@+id/tv_toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textColor="@android:color/white"
+                    android:textSize="19sp" />
+
+            </android.support.v7.widget.Toolbar>
+
+            <ViewStub
+                android:id="@+id/cab_stub"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize" />
+
+        </FrameLayout>
+
+    </app.mosn.zdepthshadowlayout.ZDepthShadowLayout>
+
+</FrameLayout>
+
+
+
+
+
+
