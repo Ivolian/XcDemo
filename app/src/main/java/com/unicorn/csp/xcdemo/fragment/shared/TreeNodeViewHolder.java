@@ -41,12 +41,14 @@ public class TreeNodeViewHolder extends TreeNode.BaseNodeViewHolder<TreeNodeView
 
     public static class TreeNodeData implements Serializable{
         public String id;
+        public String objectId;
         public String name;
         public int leaf;
         public boolean hasFetchChildren;
 
-        public TreeNodeData(String id, String name, int leaf) {
+        public TreeNodeData(String id,String objectId, String name, int leaf) {
             this.id = id;
+            this.objectId = objectId;
             this.name = name;
             this.leaf = leaf;
             this.hasFetchChildren = false;

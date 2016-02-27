@@ -313,19 +313,19 @@ public class WorkOrderQueryFragment extends ButterKnifeFragment {
     private String getQueryUrl() {
         String queryUrl = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/info?";
         if (!EditTextUtils.isEmpty(etWorkOrderType)) {
-            queryUrl += ("&type" + "=" + tndWorkOrderType.id);
+            queryUrl += ("&type" + "=" + tndWorkOrderType.objectId);
         }
         if (!EditTextUtils.isEmpty(etDepartment)) {
-            queryUrl += ("&department" + "=" + tndDepartment.id);
+            queryUrl += ("&department" + "=" + tndDepartment.objectId);
         }
         if (!EditTextUtils.isEmpty(etEquipment)) {
-            queryUrl += ("&equipment" + "=" + tndEquipment.id);
+            queryUrl += ("&equipment" + "=" + tndEquipment.objectId);
         }
         if (!EditTextUtils.isEmpty(etWorkOrderStatus)) {
-            queryUrl += ("&status" + "=" + tndWorkOrderStatus.id);
+            queryUrl += ("&status" + "=" + tndWorkOrderStatus.objectId);
         }
         if (!EditTextUtils.isEmpty(etEmergencyDegree)) {
-            queryUrl += ("&emergencyDegree" + "=" + tndEmergencyDegree.id);
+            queryUrl += ("&emergencyDegree" + "=" + tndEmergencyDegree.objectId);
         }
         if (!EditTextUtils.isEmpty(etBeginRepairDate)) {
             queryUrl += ("&startDate" + "=" + EditTextUtils.getValue(etBeginRepairDate));

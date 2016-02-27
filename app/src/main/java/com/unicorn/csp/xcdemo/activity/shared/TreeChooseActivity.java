@@ -124,9 +124,10 @@ public class TreeChooseActivity extends ToolbarActivity {
 
     private TreeNode getTreeNode(JSONObject jsonObject) {
         String id = JSONUtils.getString(jsonObject, "id", "");
+        String objectId = JSONUtils.getString(jsonObject, "objectId", "");
         String name = JSONUtils.getString(jsonObject, "name", "");
         int leaf = JSONUtils.getInt(jsonObject, "leaf", 1);
-        return new TreeNode(new TreeNodeViewHolder.TreeNodeData(id, name, leaf));
+        return new TreeNode(new TreeNodeViewHolder.TreeNodeData(id, objectId, name, leaf));
     }
 
 
