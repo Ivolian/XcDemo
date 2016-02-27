@@ -97,7 +97,7 @@ public class LoginActivity extends ToolbarActivity {
     }
 
     private void login() {
-        final MaterialDialog mask = DialogUtils.showMask(this, "登录中", ConfigUtils.getBaseUrl() + "/login");
+        final MaterialDialog mask = DialogUtils.showMask(this, "登录中", "请稍后");
         StringRequest stringRequest = new StringRequest(
                 Request.Method.POST,
                 ConfigUtils.getBaseUrl() + "/login",
