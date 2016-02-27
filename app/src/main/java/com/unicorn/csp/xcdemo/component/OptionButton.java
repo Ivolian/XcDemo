@@ -13,6 +13,9 @@ public class OptionButton extends BootstrapButton {
     public String name;
     public String objectId;
     public int amount;
+    public String unit;
+
+
 
     public OptionButton(Context context) {
         super(context);

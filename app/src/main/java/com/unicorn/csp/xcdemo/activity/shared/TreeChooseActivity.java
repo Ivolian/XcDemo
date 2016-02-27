@@ -81,13 +81,13 @@ public class TreeChooseActivity extends ToolbarActivity {
                 }
             }
         });
-        treeView.setDefaultNodeLongClickListener(new TreeNode.TreeNodeLongClickListener() {
-            @Override
-            public boolean onLongClick(TreeNode node, Object value) {
-                    finishWithResult((TreeNodeViewHolder.TreeNodeData)value);
-                return true;
-            }
-        });
+//        treeView.setDefaultNodeLongClickListener(new TreeNode.TreeNodeLongClickListener() {
+//            @Override
+//            public boolean onLongClick(TreeNode node, Object value) {
+//                    finishWithResult((TreeNodeViewHolder.TreeNodeData)value);
+//                return true;
+//            }
+//        });
         treeView.setDefaultViewHolder(TreeNodeViewHolder.class);
         treeView.setDefaultAnimation(false);
         treeView.setDefaultContainerStyle(R.style.TreeNodeStyleCustom, false);

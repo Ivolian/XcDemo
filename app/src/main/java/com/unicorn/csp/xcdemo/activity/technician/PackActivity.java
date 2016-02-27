@@ -81,7 +81,7 @@ public class PackActivity extends WorkOrderCardActivity {
     private void fetchMaterialGroup() {
         JsonArrayRequest jsonArrayRequest = new JSONArrayRequestWithSessionCheck(
                 Request.Method.GET,
-                ConfigUtils.getBaseUrl() + "/api/v1/hems/material/group",
+                ConfigUtils.getBaseUrl() + "/api/v1/hems/material/supply?workOrderId=" + workOrderProcessInfo.getWorkOrderInfo().getWorkOrderId(),
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
@@ -112,7 +112,8 @@ public class PackActivity extends WorkOrderCardActivity {
                     JSONObject item = JSONUtils.getJSONObject(items, j);
                     String name = JSONUtils.getString(item, "name", "");
                     String objectId = JSONUtils.getString(item, "objectId", "");
-                    flMaterialGroup.addView(getOptionButton(name, objectId), getOptionButtonLayoutParams());
+                    String unit = JSONUtils.getString(item, "unit", "");
+                    flMaterialGroup.addView(getOptionButton(name, objectId, unit), getOptionButtonLayoutParams());
                 }
             }
             llMaterialGroupContainer.addView(flMaterialGroup, getMaterialGroupLayoutParams());
@@ -135,10 +136,11 @@ public class PackActivity extends WorkOrderCardActivity {
         return layoutParams;
     }
 
-    private OptionButton getOptionButton(final String name, final String objectId) {
+    private OptionButton getOptionButton(final String name, final String objectId, final String unit) {
         final OptionButton optionButton = new OptionButton(this);
         optionButton.name = name;
         optionButton.objectId = objectId;
+        optionButton.unit = unit;
         optionButton.setText(name);
         optionButton.setPadding(4, 4, 4, 4);
         optionButton.setBootstrapBrand(DefaultBootstrapBrand.INFO);
@@ -187,7 +189,7 @@ public class PackActivity extends WorkOrderCardActivity {
                             // todo 00008 or 10000000l
                             String input = materialDialog.getInputEditText().getText().toString();
                             int materialAmount = Integer.parseInt(input);
-                            bootstrapButton.setText(materialName + "(" + materialAmount + ")");
+                            bootstrapButton.setText(materialName + "(" + materialAmount + bootstrapButton.unit + ")");
                             bootstrapButton.amount = materialAmount;
                             bootstrapButton.setShowOutline(false);
                         }

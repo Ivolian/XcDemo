@@ -1,6 +1,7 @@
 package com.unicorn.csp.xcdemo.activity.shared;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.CheckBox;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -59,10 +60,10 @@ public class LoginActivity extends ToolbarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initToolbar("登录", false);
-        restoreUserLoginInfo();
+        initViews();
     }
 
-    private void restoreUserLoginInfo() {
+    private void initViews() {
         boolean rememberMe = TinyDB.getInstance().getBoolean(SfUtils.SF_REMEMBER_ME);
         if (rememberMe) {
             String account = TinyDB.getInstance().getString(SfUtils.SF_ACCOUNT);
@@ -74,21 +75,21 @@ public class LoginActivity extends ToolbarActivity {
     }
 
 
-    // ================================== OnClick ==================================
+    // ================================== login ==================================
 
     @OnClick(R.id.btn_login)
-    public void onLoginBtnClick() {
-        if (isUserLoginInfoValid()) {
+    public void loginOnClick() {
+        if (checkInput()) {
             login();
         }
     }
 
-    private boolean isUserLoginInfoValid() {
-        if (EditTextUtils.isEmpty(etAccount)) {
+    private boolean checkInput() {
+        if (TextUtils.isEmpty(etAccount.getText())) {
             ToastUtils.show("账号不能为空");
             return false;
         }
-        if (EditTextUtils.isEmpty(etPassword)) {
+        if (TextUtils.isEmpty(etPassword.getText())) {
             ToastUtils.show("密码不能为空");
             return false;
         }
@@ -96,7 +97,7 @@ public class LoginActivity extends ToolbarActivity {
     }
 
     private void login() {
-        final MaterialDialog mask = DialogUtils.showMask(this, "登录中", "请稍后");
+        final MaterialDialog mask = DialogUtils.showMask(this, "登录中", ConfigUtils.getBaseUrl() + "/login");
         StringRequest stringRequest = new StringRequest(
                 Request.Method.POST,
                 ConfigUtils.getBaseUrl() + "/login",
@@ -108,7 +109,10 @@ public class LoginActivity extends ToolbarActivity {
                             ToastUtils.show("账号或密码错误!");
                             return;
                         }
-                        startActivityAndFinish(role.equals("Artificer") ? MainActivity.class : com.unicorn.csp.xcdemo.activity.chief.MainActivity.class);
+                        if (role != null) {
+                            ToastUtils.show(role);
+                            startActivityAndFinish(role.equals("Artificer") ? MainActivity.class : com.unicorn.csp.xcdemo.activity.chief.MainActivity.class);
+                        }
                     }
                 },
                 new Response.ErrorListener() {

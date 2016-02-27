@@ -69,10 +69,11 @@ public class AssignActivity extends WorkOrderCardActivity {
     @Bind(R.id.fl_technician_group)
     FlowLayout flTechnicianGroup;
 
+    // todo 服务专业
     private void fetchTechnicians() {
         JsonArrayRequest jsonArrayRequest = new JSONArrayRequestWithSessionCheck(
                 Request.Method.GET,
-                ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/artificer",
+                ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/artificer?workOrderId=" + workOrderProcessInfo.getWorkOrderInfo().getWorkOrderId(),
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {

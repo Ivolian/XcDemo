@@ -294,9 +294,9 @@ public class WorkOrderQueryFragment extends ButterKnifeFragment {
 
     private String getDateString(int year, int month, int day) {
         month++;
-        String dateString = year + "-";
+        String dateString = year + " - ";
         dateString += (month > 9 ? month : "0" + month);
-        dateString += "-";
+        dateString += " - ";
         dateString += (day > 9 ? day : "0" + day);
         return dateString;
     }

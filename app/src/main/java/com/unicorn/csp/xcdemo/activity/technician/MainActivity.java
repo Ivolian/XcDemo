@@ -23,7 +23,7 @@ public class MainActivity extends com.unicorn.csp.xcdemo.activity.shared.base.Ma
 
     @Override
     public String[] getTitles() {
-        return new String[]{"我的工作", "工单查询", "我的收益", "设备扫码", "用户登出"};
+        return new String[]{"我的工作", "工单查询", "设备扫码", "用户登出"};
     }
 
     @Override
@@ -31,7 +31,6 @@ public class MainActivity extends com.unicorn.csp.xcdemo.activity.shared.base.Ma
         return new GoogleMaterial.Icon[]{
                 GoogleMaterial.Icon.gmd_assignment,
                 GoogleMaterial.Icon.gmd_search_in_file,
-                GoogleMaterial.Icon.gmd_assignment_account,
                 GoogleMaterial.Icon.gmd_fullscreen,
                 GoogleMaterial.Icon.gmd_sign_in
         };
@@ -51,7 +50,6 @@ public class MainActivity extends com.unicorn.csp.xcdemo.activity.shared.base.Ma
         }
         drawerItems.get(2).withSelectable(false);
         drawerItems.get(3).withSelectable(false);
-        drawerItems.get(4).withSelectable(false);
         return drawerItems;
     }
 
@@ -77,11 +75,9 @@ public class MainActivity extends com.unicorn.csp.xcdemo.activity.shared.base.Ma
                         }
                         break;
                     case 2:
-                        return true;
-                    case 3:
                         new IntentIntegrator(MainActivity.this).initiateScan();
                         break;
-                    case 4:
+                    case 3:
                         DialogUtils.showConfirm(MainActivity.this, "确认登出？", new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
