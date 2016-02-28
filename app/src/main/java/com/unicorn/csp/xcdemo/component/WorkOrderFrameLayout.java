@@ -19,7 +19,9 @@ import com.wangqiang.libs.labelviewlib.LabelView;
 
 import org.joda.time.DateTime;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -168,8 +170,18 @@ public class WorkOrderFrameLayout extends FrameLayout {
             tvPack.setVisibility(View.GONE);
         } else {
             String pack = "领料情况: ";
+            Map<String, Integer> map = new LinkedHashMap<>();
             for (WorkOrderSupplyInfo workOrderSupplyInfo : workOrderSupplyInfoList) {
-                pack += (workOrderSupplyInfo.getMaterial() + "(" + workOrderSupplyInfo.getAmount() + ") ");
+                String material = workOrderSupplyInfo.getMaterial();
+                if (!map.containsKey(material)) {
+                    map.put(material, workOrderSupplyInfo.getAmount());
+                } else {
+                    int amount = map.get(material) + workOrderSupplyInfo.getAmount();
+                    map.put(material, amount);
+                }
+            }
+            for (Map.Entry<String, Integer> entry : map.entrySet()) {
+                pack += (entry.getKey() + "(" + entry.getValue() + ") ");
             }
             tvPack.setText(pack);
             tvPack.setVisibility(View.VISIBLE);

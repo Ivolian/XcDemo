@@ -1,7 +1,4 @@
 // todo
-
-
-
 3.备件（小零件）
 列表
 备件类型
@@ -11,19 +8,10 @@
 备注
 
 
-
-
-
-// todo later
-1. 简易查询
-2. 领料合并
-3. 如果领料太多
-4. wifi 状态下允许上传，否则到时再传。
-
-
 // todo Bug
 1. ExpandRelativeLayout wrap_content 不生效
 2. Drawer 点击事件传递到 fragment
+3. wifi 状态下允许上传，否则到时再传。
 
 
 // todo => has done: sign password

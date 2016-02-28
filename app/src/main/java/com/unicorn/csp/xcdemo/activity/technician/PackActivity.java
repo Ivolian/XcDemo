@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.InputType;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -16,6 +17,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapSize;
 import com.f2prateek.dart.InjectExtra;
@@ -75,6 +77,7 @@ public class PackActivity extends WorkOrderCardActivity {
     }
 
     private void initViews() {
+        initDescription();
         fetchMaterialGroup();
     }
 
@@ -200,6 +203,15 @@ public class PackActivity extends WorkOrderCardActivity {
 
     }
 
+    @Bind(R.id.et_description)
+    BootstrapEditText etDescription;
+
+    private void initDescription() {
+        etDescription.setGravity(Gravity.TOP);
+        etDescription.setPadding(20, 20, 20, 20);
+        etDescription.setBootstrapSize(DefaultBootstrapSize.MD);
+    }
+
 
     // ================================== pack ==================================
 
@@ -251,7 +263,10 @@ public class PackActivity extends WorkOrderCardActivity {
                     }
                 }
                 try {
-                    String jsonString = new Gson().toJson(workOrderSupplyList);
+                    JSONObject result = new JSONObject();
+                    result.put("workOrderSupplyList", workOrderSupplyList);
+                    result.put("supplyDescription", etDescription.getText().toString().trim());
+                    String jsonString = new Gson().toJson(result);
                     return jsonString.getBytes("UTF-8");
                 } catch (Exception e) {
                     //
