@@ -262,11 +262,11 @@ public class PackActivity extends WorkOrderCardActivity {
                         }
                     }
                 }
+//                WorkOrderSupply workOrderSupply = new WorkOrderSupply();
+//                workOrderSupply.setMaterialInfo(etDescription.getText().toString().trim());
+//                workOrderSupplyList.add(workOrderSupply);
                 try {
-                    JSONObject result = new JSONObject();
-                    result.put("workOrderSupplyList", workOrderSupplyList);
-                    result.put("supplyDescription", etDescription.getText().toString().trim());
-                    String jsonString = new Gson().toJson(result);
+                    String jsonString = new Gson().toJson(workOrderSupplyList);
                     return jsonString.getBytes("UTF-8");
                 } catch (Exception e) {
                     //

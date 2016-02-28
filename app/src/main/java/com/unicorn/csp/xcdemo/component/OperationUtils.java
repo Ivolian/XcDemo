@@ -71,6 +71,7 @@ public class OperationUtils {
                                              break;
                                          case "协助":
                                              intent = new Intent(activity, AssistActivity.class);
+                                             intent.putExtra("workOrderId", workOrderProcessInfo.getWorkOrderInfo().getWorkOrderId());
                                              activity.startActivity(intent);
                                              break;
                                          case "扫码":

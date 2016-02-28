@@ -2,6 +2,7 @@ package com.unicorn.csp.xcdemo.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.unicorn.csp.xcdemo.model.AssistObject;
 import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
 import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
 import com.unicorn.csp.xcdemo.model.WorkOrderWarn;
@@ -34,6 +35,13 @@ public class GsonUtils {
                 fromJson(workOrderWarnListString, new TypeToken<List<WorkOrderWarn>>() {
                 }.getType());
         return workOrderWarnList;
+    }
+
+    public static List<AssistObject> parseAssistObjectList(String response) {
+        Gson gson = new Gson();
+        return gson.
+                fromJson(response, new TypeToken<List<AssistObject>>() {
+                }.getType());
     }
 
 }

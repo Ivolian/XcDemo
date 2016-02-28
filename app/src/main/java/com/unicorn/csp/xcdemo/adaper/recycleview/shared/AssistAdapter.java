@@ -1,12 +1,17 @@
 package com.unicorn.csp.xcdemo.adaper.recycleview.shared;
 
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.unicorn.csp.xcdemo.R;
+import com.unicorn.csp.xcdemo.model.AssistObject;
+import com.unicorn.csp.xcdemo.utils.ConfigUtils;
 
 import org.simple.eventbus.EventBus;
 
@@ -23,14 +28,22 @@ public class AssistAdapter extends RecyclerView.Adapter<AssistAdapter.ViewHolder
 
     // ================================== data ==================================
 
-    private List<Object> dataList = new ArrayList<>();
+    private List<AssistObject> dataList = new ArrayList<>();
 
     private List<Integer> selectedList = new ArrayList<>();
 
-    public AssistAdapter() {
-        for (int i = 0; i != 20; i++) {
-            dataList.add(new Object());
-        }
+
+    public AssistAdapter(List<AssistObject> dataList, List<Integer> selectedList) {
+        this.dataList = dataList;
+        this.selectedList = selectedList;
+    }
+
+    public void setDataList(List<AssistObject> dataList) {
+        this.dataList = dataList;
+    }
+
+    public void setSelectedList(List<Integer> selectedList) {
+        this.selectedList = selectedList;
     }
 
     // ================================== 公开的方法 ==================================
@@ -46,9 +59,10 @@ public class AssistAdapter extends RecyclerView.Adapter<AssistAdapter.ViewHolder
     }
 
     public void selectAll() {
-        for (int i = 0; i != 20; i++) {
-            if (!selectedList.contains(i)) {
-                selectedList.add(i);
+        for (AssistObject assistObject : dataList) {
+            int index = dataList.indexOf(assistObject);
+            if (!selectedList.contains(index)) {
+                selectedList.add(index);
             }
         }
         notifyDataSetChanged();
@@ -59,6 +73,15 @@ public class AssistAdapter extends RecyclerView.Adapter<AssistAdapter.ViewHolder
     // ================================== viewHolder ==================================
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+
+        @Bind(R.id.photo)
+        SimpleDraweeView ivPhoto;
+
+        @Bind(R.id.name)
+        TextView tvName;
+
+        @Bind(R.id.phone)
+        TextView tvPhone;
 
         @Bind(R.id.checkbox)
         CheckBox checkBox;
@@ -85,7 +108,7 @@ public class AssistAdapter extends RecyclerView.Adapter<AssistAdapter.ViewHolder
         }
     }
 
-    private void notifyCab(){
+    private void notifyCab() {
         EventBus.getDefault().post(new Object(), "assist_select");
     }
 
@@ -100,7 +123,14 @@ public class AssistAdapter extends RecyclerView.Adapter<AssistAdapter.ViewHolder
     // ================================== onBindViewHolder ==================================
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
+        AssistObject assistObject = dataList.get(position);
+        String photoUrl = ConfigUtils.getBaseUrl() + "/api/v1/hems/artificer/picture/" + assistObject.getObjectId();
+
+        Uri uri = Uri.parse(photoUrl);
+        viewHolder.ivPhoto.setImageURI(uri);
+        viewHolder.tvName.setText(assistObject.getName());
+        viewHolder.tvPhone.setText(assistObject.getTelephone());
         viewHolder.checkBox.setChecked(selectedList.contains(position));
     }
 
@@ -111,5 +141,8 @@ public class AssistAdapter extends RecyclerView.Adapter<AssistAdapter.ViewHolder
     public int getItemCount() {
         return dataList.size();
     }
+
+
+    //
 
 }

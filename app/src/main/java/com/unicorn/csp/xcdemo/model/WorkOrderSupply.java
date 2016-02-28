@@ -9,8 +9,9 @@ public class WorkOrderSupply implements Serializable{
 
     private Integer amount;
 
-    //
+    private String materialInfo = "";
 
+    //
 
     public Material getMaterial() {
         return material;
@@ -26,6 +27,14 @@ public class WorkOrderSupply implements Serializable{
 
     public void setAmount(Integer amount) {
         this.amount = amount;
+    }
+
+    public String getMaterialInfo() {
+        return materialInfo;
+    }
+
+    public void setMaterialInfo(String materialInfo) {
+        this.materialInfo = materialInfo;
     }
 
 }
