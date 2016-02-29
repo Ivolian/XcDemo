@@ -172,17 +172,27 @@ public class WorkOrderFrameLayout extends FrameLayout {
             String pack = "领料情况: ";
             Map<String, Integer> map = new LinkedHashMap<>();
             for (WorkOrderSupplyInfo workOrderSupplyInfo : workOrderSupplyInfoList) {
-                String material = workOrderSupplyInfo.getMaterial();
-                if (!map.containsKey(material)) {
-                    map.put(material, workOrderSupplyInfo.getAmount());
-                } else {
-                    int amount = map.get(material) + workOrderSupplyInfo.getAmount();
-                    map.put(material, amount);
+                String materialName = workOrderSupplyInfo.getMaterialName();
+                if (materialName != null) {
+                    if (!map.containsKey(materialName)) {
+                        map.put(materialName, workOrderSupplyInfo.getAmount());
+                    } else {
+                        int amount = map.get(materialName) + workOrderSupplyInfo.getAmount();
+                        map.put(materialName, amount);
+                    }
                 }
             }
             for (Map.Entry<String, Integer> entry : map.entrySet()) {
-                pack += (entry.getKey() + "(" + entry.getValue() + ") ");
+                pack += (entry.getKey() + "(" + entry.getValue() + ")  ");
             }
+
+            //
+            for (WorkOrderSupplyInfo workOrderSupplyInfo : workOrderSupplyInfoList) {
+                if (workOrderSupplyInfo.getMaterialName() == null) {
+                    pack += (workOrderSupplyInfo.getMaterialInfo() + " ");
+                }
+            }
+
             tvPack.setText(pack);
             tvPack.setVisibility(View.VISIBLE);
         }

@@ -2,23 +2,43 @@ package com.unicorn.csp.xcdemo.model;
 
 import java.io.Serializable;
 
-/**
- * Created by Administrator on 2015/11/17.
- */
+
 public class WorkOrderSupplyInfo implements Serializable {
 
-    private String material;
+    private String materialId;
+
+    private String materialName;
+
+    private String materialModel;
 
     private Integer amount;
 
+    private String materialInfo;
+
     //
 
-    public String getMaterial() {
-        return material;
+    public String getMaterialId() {
+        return materialId;
     }
 
-    public void setMaterial(String material) {
-        this.material = material;
+    public void setMaterialId(String materialId) {
+        this.materialId = materialId;
+    }
+
+    public String getMaterialName() {
+        return materialName;
+    }
+
+    public void setMaterialName(String materialName) {
+        this.materialName = materialName;
+    }
+
+    public String getMaterialModel() {
+        return materialModel;
+    }
+
+    public void setMaterialModel(String materialModel) {
+        this.materialModel = materialModel;
     }
 
     public Integer getAmount() {
@@ -29,4 +49,11 @@ public class WorkOrderSupplyInfo implements Serializable {
         this.amount = amount;
     }
 
+    public String getMaterialInfo() {
+        return materialInfo;
+    }
+
+    public void setMaterialInfo(String materialInfo) {
+        this.materialInfo = materialInfo;
+    }
 }
