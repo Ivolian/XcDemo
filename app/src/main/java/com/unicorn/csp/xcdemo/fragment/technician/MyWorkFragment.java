@@ -3,13 +3,11 @@ package com.unicorn.csp.xcdemo.fragment.technician;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
-import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.technician.MainActivity;
 import com.unicorn.csp.xcdemo.adaper.viewpager.technician.MyWorkFragmentPagerAdapter;
 import com.unicorn.csp.xcdemo.component.TabHelper;
@@ -39,14 +37,14 @@ public class MyWorkFragment extends TabLayoutFragment {
 
     // ================================== search ==================================
 
-    @Override
-    public void onCreateOptionsMenu(android.view.Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_only_search, menu);
-        MenuItem menuItem = menu.findItem(R.id.action_search);
-        menuItem.setIcon(getSearchIconDrawable());
-        initSearchView(menuItem);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
+//    @Override
+//    public void onCreateOptionsMenu(android.view.Menu menu, MenuInflater inflater) {
+//        inflater.inflate(R.menu.menu_only_search, menu);
+//        MenuItem menuItem = menu.findItem(R.id.action_search);
+//        menuItem.setIcon(getSearchIconDrawable());
+//        initSearchView(menuItem);
+//        super.onCreateOptionsMenu(menu, inflater);
+//    }
 
     private void initSearchView(MenuItem menuItem) {
         MainActivity mainActivity = (MainActivity) getActivity();

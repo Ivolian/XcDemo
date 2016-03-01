@@ -115,7 +115,7 @@ public abstract class MainActivity extends ToolbarActivity {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (result != null && result.getContents() != null) {
             String equipmentId = result.getContents();
-            ToastUtils.show(equipmentId);
+            ToastUtils.show("设备码: " + equipmentId);
 //            Intent intent = new Intent(this, EquipmentInfoActivity.class);
 //            intent.putExtra("equipmentId", equipmentId);
 //            startActivity(intent);

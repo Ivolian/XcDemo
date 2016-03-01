@@ -126,7 +126,9 @@ public class AssistAdapter extends RecyclerView.Adapter<AssistAdapter.ViewHolder
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
         AssistObject assistObject = dataList.get(position);
         String photoUrl = ConfigUtils.getBaseUrl() + "/api/v1/hems/artificer/picture/" + assistObject.getObjectId();
-
+//        if (assistObject.getName().equals("王春晶")){
+//            ToastUtils.show(photoUrl);
+//        }
         Uri uri = Uri.parse(photoUrl);
         viewHolder.ivPhoto.setImageURI(uri);
         viewHolder.tvName.setText(assistObject.getName());

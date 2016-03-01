@@ -24,6 +24,8 @@ import com.unicorn.csp.xcdemo.utils.ToastUtils;
 import com.unicorn.csp.xcdemo.volley.SimpleVolley;
 import com.unicorn.csp.xcdemo.volley.VolleyErrorHelper;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -109,6 +111,7 @@ public class LoginActivity extends ToolbarActivity {
                             ToastUtils.show("账号或密码错误!");
                             return;
                         }
+
                         if (role != null) {
                             ToastUtils.show(role);
                             startActivityAndFinish(role.equals("Artificer") ? MainActivity.class : com.unicorn.csp.xcdemo.activity.chief.MainActivity.class);
@@ -140,7 +143,17 @@ public class LoginActivity extends ToolbarActivity {
                     return super.parseNetworkResponse(response);
                 }
                 // 如果登录成功，获取角色，保存 JSessionId
-                role = response.headers.get("role");
+                try {
+                    String currentUserString = response.headers.get("currentUser");
+
+                    JSONObject currentUser = new JSONObject(currentUserString);
+                    role = currentUser.getString("role");
+                    ConfigUtils.saveJSessionId(response);
+                }
+                catch (Exception e){
+                    //
+                }
+
                 ConfigUtils.saveJSessionId(response);
                 saveUserLoginInfo();
                 return super.parseNetworkResponse(response);

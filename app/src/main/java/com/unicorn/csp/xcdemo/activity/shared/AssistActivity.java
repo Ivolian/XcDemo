@@ -103,10 +103,10 @@ public class AssistActivity extends ToolbarActivity {
 
     @Subscriber(tag = "assist_select")
     private void onAssistSelected(Object object) {
-        if (assistAdapter.getSelectedCount() == 0) {
-            hideCab();
-            return;
-        }
+//        if (assistAdapter.getSelectedCount() == 0) {
+//            hideCab();
+//            return;
+//        }
         if (!isCabVisible()) {
             showCab();
         }
@@ -228,6 +228,7 @@ public class AssistActivity extends ToolbarActivity {
                     @Override
                     public void onResponse(String response) {
                         ToastUtils.show("协助完成!");
+                        finish();
                     }
                 },
                 SimpleVolley.getDefaultErrorListener()

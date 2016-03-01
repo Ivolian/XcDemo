@@ -8,6 +8,6 @@
         android:layout_height="match_parent"
         android:contentDescription="@null"
         android:scaleType="fitXY"
-        android:src="@drawable/new_splash" />
+        android:src="@drawable/load" />
 
 </FrameLayout>

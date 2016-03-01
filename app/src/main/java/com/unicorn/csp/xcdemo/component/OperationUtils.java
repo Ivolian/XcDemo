@@ -9,8 +9,10 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.kennyc.bottomsheet.BottomSheet;
 import com.kennyc.bottomsheet.BottomSheetListener;
 import com.kennyc.bottomsheet.menu.BottomSheetMenuItem;
+import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
+import com.mikepenz.iconics.typeface.IIcon;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.shared.AssistActivity;
 import com.unicorn.csp.xcdemo.activity.shared.SuspendActivity;
@@ -32,13 +34,13 @@ public class OperationUtils {
         menuItems.add(getMenuItem(activity, "拍照", GoogleMaterial.Icon.gmd_camera));
         menuItems.add(getMenuItem(activity, "录音", GoogleMaterial.Icon.gmd_mic));
         menuItems.add(getMenuItem(activity, "摄像", GoogleMaterial.Icon.gmd_videocam));
-        menuItems.add(getMenuItem(activity, "协助", GoogleMaterial.Icon.gmd_fullscreen));
+        menuItems.add(getMenuItem(activity, "协助", FontAwesome.Icon.faw_users));
         menuItems.add(getMenuItem(activity, "扫码", GoogleMaterial.Icon.gmd_fullscreen));
         menuItems.add(getMenuItem(activity, "结单", GoogleMaterial.Icon.gmd_check_circle));
         if (showSuspend) {
             menuItems.add(getMenuItem(activity, "挂单", GoogleMaterial.Icon.gmd_cloud_upload));
         }
-        menuItems.add(getMenuItem(activity, "移单", GoogleMaterial.Icon.gmd_accounts_add));
+        menuItems.add(getMenuItem(activity, "移单", FontAwesome.Icon.faw_reply_all));
         menuItems.add(getMenuItem(activity, "退单", GoogleMaterial.Icon.gmd_delete));
         new BottomSheet.Builder(activity)
                 .setTitle("选择操作")
@@ -104,7 +106,7 @@ public class OperationUtils {
                 ).show();
     }
 
-    private static MenuItem getMenuItem(Context context, String title, GoogleMaterial.Icon icon) {
+    private static MenuItem getMenuItem(Context context, String title, IIcon icon) {
         return new BottomSheetMenuItem(context, title, new IconicsDrawable(context)
                 .icon(icon)
                 .colorRes(R.color.primary)

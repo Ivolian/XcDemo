@@ -3,6 +3,7 @@ package com.unicorn.csp.xcdemo.activity.technician;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -217,14 +218,39 @@ public class PackActivity extends WorkOrderCardActivity {
 
     @OnClick(R.id.btn_pack)
     public void packConfirm() {
+        if (!checkInput()) {
+            return;
+        }
         DialogUtils.showConfirm(this, "确认领料？", new MaterialDialog.SingleButtonCallback() {
             @Override
             public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                 pack();
             }
         });
-
     }
+
+    private boolean checkInput() {
+        int count = 0;
+        for (int i = 0; i != llMaterialGroupContainer.getChildCount(); i++) {
+            View child = llMaterialGroupContainer.getChildAt(i);
+            if (child instanceof FlowLayout) {
+                FlowLayout flMaterialGroup = (FlowLayout) child;
+                for (int j = 0; j != flMaterialGroup.getChildCount(); j++) {
+                    OptionButton optionButton = (OptionButton) flMaterialGroup.getChildAt(j);
+                    if (!optionButton.isShowOutline()) {
+                        count++;
+                    }
+                }
+            }
+        }
+
+        if (count == 0 && TextUtils.isEmpty(etDescription.getText())) {
+            ToastUtils.show("尚未选择领取物料或填写领料说明");
+            return false;
+        }
+        return true;
+    }
+
 
     public void pack() {
         String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderProcessInfo.getWorkOrderInfo().getWorkOrderId() + "/supply";

@@ -19,6 +19,8 @@ import com.unicorn.csp.xcdemo.utils.ToastUtils;
 import com.unicorn.csp.xcdemo.volley.SimpleVolley;
 import com.unicorn.csp.xcdemo.volley.VolleyErrorHelper;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -67,8 +69,17 @@ public class SplashActivity extends ButterKnifeActivity {
 
             @Override
             protected Response<String> parseNetworkResponse(NetworkResponse response) {
-                role = response.headers.get("role");
-                ConfigUtils.saveJSessionId(response);
+                try {
+                    String currentUserString = response.headers.get("currentUser");
+
+                    JSONObject currentUser = new JSONObject(currentUserString);
+                    role = currentUser.getString("role");
+                    ConfigUtils.saveJSessionId(response);
+                }
+                catch (Exception e){
+                    //
+                }
+
                 return super.parseNetworkResponse(response);
             }
         };
