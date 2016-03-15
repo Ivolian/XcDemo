@@ -5,6 +5,8 @@ import android.app.Application;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.unicorn.csp.xcdemo.volley.SimpleVolley;
 
+import cn.jpush.android.api.JPushInterface;
+
 
 public class SimpleApplication extends Application {
 
@@ -20,7 +22,10 @@ public class SimpleApplication extends Application {
         super.onCreate();
         instance = this;
         SimpleVolley.init(instance);
+        JPushInterface.init(instance);
+        JPushInterface.setDebugMode(true);
         Fresco.initialize(instance);
+
     }
 
 }

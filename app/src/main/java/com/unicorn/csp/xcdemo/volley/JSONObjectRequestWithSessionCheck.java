@@ -11,25 +11,25 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class JSONObjectRequestWithSessionCheck extends JsonObjectRequest {
+public class JsonObjectRequestWithSessionCheck extends JsonObjectRequest {
 
-    public JSONObjectRequestWithSessionCheck(int method, String url, JSONObject jsonRequest, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
+    public JsonObjectRequestWithSessionCheck(int method, String url, JSONObject jsonRequest, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
         super(method, url, jsonRequest, listener, errorListener);
     }
 
-    public JSONObjectRequestWithSessionCheck(int method, String url, String requestBody, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
+    public JsonObjectRequestWithSessionCheck(int method, String url, String requestBody, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
         super(method, url, requestBody, listener, errorListener);
     }
 
-    public JSONObjectRequestWithSessionCheck(String url, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
+    public JsonObjectRequestWithSessionCheck(String url, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
         super(url, listener, errorListener);
     }
 
-    public JSONObjectRequestWithSessionCheck(int method, String url, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
+    public JsonObjectRequestWithSessionCheck(int method, String url, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
         super(method, url, listener, errorListener);
     }
 
-    public JSONObjectRequestWithSessionCheck(String url, JSONObject jsonRequest, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
+    public JsonObjectRequestWithSessionCheck(String url, JSONObject jsonRequest, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
         super(url, jsonRequest, listener, errorListener);
     }
 

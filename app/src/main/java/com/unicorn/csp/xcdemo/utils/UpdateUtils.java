@@ -13,7 +13,7 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
-import com.unicorn.csp.xcdemo.volley.JSONObjectRequestWithSessionCheck;
+import com.unicorn.csp.xcdemo.volley.JsonObjectRequestWithSessionCheck;
 import com.unicorn.csp.xcdemo.volley.SimpleVolley;
 
 import org.apache.commons.io.FileUtils;
@@ -41,8 +41,8 @@ public class UpdateUtils {
     public static void checkUpdate(Activity activity) {
         init(activity);
 
-        String url = ConfigUtils.getBaseUrl() + "/api/v1/system/apk/WorkOrderApp/update";
-        JsonObjectRequest jsonObjectRequest = new JSONObjectRequestWithSessionCheck(
+        String url = ConfigUtils.getBaseUrl() + "/api/v1/system/apk/WorkOrderAppProfessional/update";
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequestWithSessionCheck(
                 Request.Method.GET,
                 url,
                 new Response.Listener<JSONObject>() {

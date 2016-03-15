@@ -103,10 +103,10 @@ public class AssistActivity extends ToolbarActivity {
 
     @Subscriber(tag = "assist_select")
     private void onAssistSelected(Object object) {
-//        if (assistAdapter.getSelectedCount() == 0) {
-//            hideCab();
-//            return;
-//        }
+        if (assistAdapter.getSelectedCount() == 0) {
+            hideCab();
+            return;
+        }
         if (!isCabVisible()) {
             showCab();
         }

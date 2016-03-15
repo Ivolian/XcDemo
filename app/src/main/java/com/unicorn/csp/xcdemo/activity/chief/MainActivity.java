@@ -11,6 +11,7 @@ import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.unicorn.csp.xcdemo.SimpleApplication;
 import com.unicorn.csp.xcdemo.activity.shared.LoginActivity;
 import com.unicorn.csp.xcdemo.fragment.chief.MyWorkFragment;
 import com.unicorn.csp.xcdemo.fragment.chief.WorkOrderForewarningFragment;
@@ -18,6 +19,11 @@ import com.unicorn.csp.xcdemo.fragment.shared.WorkOrderQueryFragment;
 import com.unicorn.csp.xcdemo.utils.DialogUtils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 
 
 public class MainActivity extends com.unicorn.csp.xcdemo.activity.shared.base.MainActivity {
@@ -89,6 +95,11 @@ public class MainActivity extends com.unicorn.csp.xcdemo.activity.shared.base.Ma
                         DialogUtils.showConfirm(MainActivity.this, "确认登出？", new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                JPushInterface.setTags(SimpleApplication.getInstance(), new HashSet<String>(), new TagAliasCallback() {
+                                    @Override
+                                    public void gotResult(int i, String s, Set<String> set) {
+                                    }
+                                });
                                 startActivityAndFinish(LoginActivity.class);
                             }
                         });

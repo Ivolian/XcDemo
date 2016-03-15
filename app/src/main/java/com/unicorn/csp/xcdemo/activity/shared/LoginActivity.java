@@ -113,8 +113,16 @@ public class LoginActivity extends ToolbarActivity {
                         }
 
                         if (role != null) {
-                            ToastUtils.show(role);
-                            startActivityAndFinish(role.equals("Artificer") ? MainActivity.class : com.unicorn.csp.xcdemo.activity.chief.MainActivity.class);
+                            switch (role) {
+                                case "Artificer":
+                                    startActivityAndFinish(MainActivity.class);
+                                    break;
+                                case "Manager":
+                                    startActivityAndFinish(com.unicorn.csp.xcdemo.activity.chief.MainActivity.class);
+                                    break;
+                                default:
+                                    ToastUtils.show("非法角色!");
+                            }
                         }
                     }
                 },
@@ -149,8 +157,7 @@ public class LoginActivity extends ToolbarActivity {
                     JSONObject currentUser = new JSONObject(currentUserString);
                     role = currentUser.getString("role");
                     ConfigUtils.saveJSessionId(response);
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     //
                 }
 

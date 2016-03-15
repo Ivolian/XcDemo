@@ -10,8 +10,10 @@ import java.io.File;
 
 public class ConfigUtils {
 
-//    final static private String IP = "withub.net.cn";
-    final static private String IP = "192.168.7.65";
+    final static private String IP = "withub.net.cn";
+//    final static private String IP = "192.168.7.65";
+
+
 
 
     final static private String PORT = "80";

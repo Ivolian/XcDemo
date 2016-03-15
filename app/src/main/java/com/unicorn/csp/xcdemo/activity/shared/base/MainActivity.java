@@ -13,6 +13,7 @@ import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.unicorn.csp.xcdemo.R;
+import com.unicorn.csp.xcdemo.login.UserInfoModuler;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
 import com.unicorn.csp.xcdemo.utils.UpdateUtils;
 
@@ -51,12 +52,16 @@ public abstract class MainActivity extends ToolbarActivity {
         setContentView(R.layout.activity_main);
         initToolbar(getTitles()[0], false);
         init();
+
+
     }
 
     private void init() {
         initDrawer();
         replaceFragment_(getFirstFragment());
         UpdateUtils.checkUpdate(this);
+        UserInfoModuler userInfoModuler = new UserInfoModuler();
+        userInfoModuler.fetchUserInfo();
     }
 
     public void replaceFragment_(Fragment fragment) {

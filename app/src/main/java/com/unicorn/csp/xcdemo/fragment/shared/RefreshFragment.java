@@ -16,7 +16,7 @@ import com.unicorn.csp.xcdemo.utils.ConfigUtils;
 import com.unicorn.csp.xcdemo.utils.JSONUtils;
 import com.unicorn.csp.xcdemo.utils.RecycleViewUtils;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
-import com.unicorn.csp.xcdemo.volley.JSONObjectRequestWithSessionCheck;
+import com.unicorn.csp.xcdemo.volley.JsonObjectRequestWithSessionCheck;
 import com.unicorn.csp.xcdemo.volley.SimpleVolley;
 import com.unicorn.csp.xcdemo.volley.VolleyErrorHelper;
 
@@ -142,7 +142,7 @@ public abstract class RefreshFragment extends LazyLoadFragment {
 
     public void reload() {
         clearPageFields();
-        JsonObjectRequest jsonObjectRequest = new JSONObjectRequestWithSessionCheck(
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequestWithSessionCheck(
                 getCompleteUrl(pageNo),
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -171,7 +171,7 @@ public abstract class RefreshFragment extends LazyLoadFragment {
 
     private void loadMore() {
         loadingMore = true;
-        JsonObjectRequest jsonObjectRequest = new JSONObjectRequestWithSessionCheck(getCompleteUrl(pageNo + 1),
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequestWithSessionCheck(getCompleteUrl(pageNo + 1),
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {

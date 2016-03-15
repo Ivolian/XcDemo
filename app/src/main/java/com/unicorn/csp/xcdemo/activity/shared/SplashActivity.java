@@ -24,6 +24,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.jpush.android.api.JPushInterface;
+
 
 public class SplashActivity extends ButterKnifeActivity {
 
@@ -71,7 +73,6 @@ public class SplashActivity extends ButterKnifeActivity {
             protected Response<String> parseNetworkResponse(NetworkResponse response) {
                 try {
                     String currentUserString = response.headers.get("currentUser");
-
                     JSONObject currentUser = new JSONObject(currentUserString);
                     role = currentUser.getString("role");
                     ConfigUtils.saveJSessionId(response);
@@ -97,4 +98,20 @@ public class SplashActivity extends ButterKnifeActivity {
         }, delay);
     }
 
+    //
+
+
+    @Override
+    protected void onPause() {
+        JPushInterface.onPause(this);
+        super.onPause();
+
+    }
+
+    @Override
+    protected void onResume() {
+        JPushInterface.onResume(this);
+        super.onResume();
+    }
 }
+

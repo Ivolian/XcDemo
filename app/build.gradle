@@ -9,7 +9,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
-        versionName "1.1"
+        versionName "1.1.1"
     }
     buildTypes {
         release {
@@ -17,6 +17,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
@@ -71,4 +78,5 @@ dependencies {
     compile 'com.yqritc:recyclerview-flexibledivider:1.2.5'
     compile 'com.facebook.fresco:fresco:0.9.0'
     compile 'com.mikepenz:fontawesome-typeface:+@aar'
+    compile files('libs/jpush-android-2.1.0.jar')
 }
