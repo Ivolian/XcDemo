@@ -2,6 +2,7 @@ package com.unicorn.csp.xcdemo.volley;
 
 import android.content.Context;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -42,6 +43,23 @@ public class SimpleVolley {
         return new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
+                try {
+                    String responseJsonString = new String(volleyError.networkResponse.data, "UTF-8");
+                    JSONObject response = new JSONObject(responseJsonString);
+                    String errorMsg = response.getString("error");
+                    ToastUtils.show(errorMsg);
+                } catch (Exception e) {
+                    ToastUtils.show(VolleyErrorHelper.getErrorMessage(volleyError));
+                }
+            }
+        };
+    }
+
+    public static Response.ErrorListener getDefaultErrorListener(final MaterialDialog mask) {
+        return new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                mask.dismiss();
                 try {
                     String responseJsonString = new String(volleyError.networkResponse.data, "UTF-8");
                     JSONObject response = new JSONObject(responseJsonString);

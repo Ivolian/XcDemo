@@ -13,7 +13,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.unicorn.csp.xcdemo.SimpleApplication;
 import com.unicorn.csp.xcdemo.activity.shared.LoginActivity;
-import com.unicorn.csp.xcdemo.activity.shared.SummaryActivity;
+import com.unicorn.csp.xcdemo.activity.shared.summary.SummaryActivity;
 import com.unicorn.csp.xcdemo.fragment.chief.MyWorkFragment;
 import com.unicorn.csp.xcdemo.fragment.chief.WorkOrderForewarningFragment;
 import com.unicorn.csp.xcdemo.fragment.shared.WorkOrderQueryFragment;
