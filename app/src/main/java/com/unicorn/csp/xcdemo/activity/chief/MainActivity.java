@@ -13,6 +13,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.unicorn.csp.xcdemo.SimpleApplication;
 import com.unicorn.csp.xcdemo.activity.shared.LoginActivity;
+import com.unicorn.csp.xcdemo.activity.shared.SummaryActivity;
 import com.unicorn.csp.xcdemo.fragment.chief.MyWorkFragment;
 import com.unicorn.csp.xcdemo.fragment.chief.WorkOrderForewarningFragment;
 import com.unicorn.csp.xcdemo.fragment.shared.WorkOrderQueryFragment;
@@ -30,7 +31,7 @@ public class MainActivity extends com.unicorn.csp.xcdemo.activity.shared.base.Ma
 
     @Override
     public String[] getTitles() {
-        return new String[]{"我的工作", "工单查询", "工单预警","设备扫码", "用户登出"};
+        return new String[]{"我的工作", "工单查询", "工单预警",  "工单总汇", "设备扫码", "用户登出"};
     }
 
     @Override
@@ -39,6 +40,7 @@ public class MainActivity extends com.unicorn.csp.xcdemo.activity.shared.base.Ma
                 GoogleMaterial.Icon.gmd_assignment,
                 GoogleMaterial.Icon.gmd_search_in_file,
                 GoogleMaterial.Icon.gmd_notifications_active,
+                GoogleMaterial.Icon.gmd_chart_donut,
                 GoogleMaterial.Icon.gmd_fullscreen,
                 GoogleMaterial.Icon.gmd_sign_in
         };
@@ -89,9 +91,13 @@ public class MainActivity extends com.unicorn.csp.xcdemo.activity.shared.base.Ma
                         }
                         break;
                     case 3:
+                        startActivity(SummaryActivity.class);
+                        break;
+
+                    case 4:
                         new IntentIntegrator(MainActivity.this).initiateScan();
                         break;
-                    case 4:
+                    case 5:
                         DialogUtils.showConfirm(MainActivity.this, "确认登出？", new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {

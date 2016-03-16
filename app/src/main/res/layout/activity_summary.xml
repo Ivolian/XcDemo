@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.zhy.android.percent.support.PercentLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:gravity="center_vertical">
+
+        <com.zhy.android.percent.support.PercentFrameLayout
+            android:id="@+id/cancel"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:layout_heightPercent="10%sh"
+            app:layout_widthPercent="10%sh">
+
+            <com.mikepenz.iconics.view.IconicsImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                app:iiv_color="@color/md_white"
+                app:iiv_icon="gmi-arrow-left"
+                app:layout_heightPercent="3.2%sh"
+                app:layout_widthPercent="3.2%sh" />
+
+        </com.zhy.android.percent.support.PercentFrameLayout>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="工单总汇"
+            android:textColor="@color/md_white"
+            app:layout_textSizePercent="3.4%sh" />
+
+        <com.zhy.android.percent.support.PercentFrameLayout
+            android:id="@+id/section"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_heightPercent="10%sh"
+            app:layout_widthPercent="10%sh">
+
+            <com.flyco.roundview.RoundTextView
+                android:id="@+id/rtv_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center_vertical"
+                android:padding="4dp"
+                android:text="最近一周"
+                android:textColor="#afffffff"
+                app:layout_textSizePercent="2%sh"
+                app:rv_strokeColor="#afffffff"
+                app:rv_strokeWidth="0.5dp" />
+
+        </com.zhy.android.percent.support.PercentFrameLayout>
+
+    </com.zhy.android.percent.support.PercentLinearLayout>
+
+
+    <com.nirhart.parallaxscroll.views.ParallaxScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        app:parallax_factor="1.9">
+
+        <com.zhy.android.percent.support.PercentLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/md_grey_300"
+            android:orientation="vertical">
+
+            <!-- 总汇部分 -->
+            <com.zhy.android.percent.support.PercentLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:orientation="vertical"
+                app:layout_paddingBottomPercent="3%sh"
+                app:layout_paddingTopPercent="3%sh">
+
+
+                <com.zhy.android.percent.support.PercentLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <com.devspark.robototextview.widget.RobotoTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:shadowColor="@color/md_teal_800"
+                        android:shadowDx="4"
+                        android:shadowDy="4"
+                        android:shadowRadius="10"
+                        android:text="450"
+                        android:textColor="@color/md_white"
+                        app:fontFamily="roboto"
+                        app:layout_textSizePercent="10%sh"
+                        app:textWeight="thin" />
+
+                    <com.zhy.android.percent.support.PercentLinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="项工单"
+                            android:textColor="#98ffffff"
+                            app:layout_textSizePercent="3.1%sh" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="服务指数 80"
+                            android:textColor="#98ffffff"
+                            app:layout_textSizePercent="3.1%sh" />
+
+                    </com.zhy.android.percent.support.PercentLinearLayout>
+
+                </com.zhy.android.percent.support.PercentLinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="平均响应时间:18小时,  平均完成时间:16小时"
+                    android:textColor="#98ffffff"
+                    app:layout_marginTopPercent="4%sh"
+                    app:layout_textSizePercent="2.5%sh" />
+
+            </com.zhy.android.percent.support.PercentLinearLayout>
+
+
+            <!---->
+
+            <com.zhy.android.percent.support.PercentLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/md_white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_heightPercent="12%sh"
+                app:layout_marginLeftPercent="1%sh"
+                app:layout_marginRightPercent="1%sh"
+                app:layout_marginTopPercent="1%sh"
+                app:layout_paddingLeftPercent="4%sw"
+                app:layout_paddingRightPercent="4%sw">
+
+                <com.zhy.android.percent.support.PercentFrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@color/md_light_blue_500"
+                    app:layout_heightPercent="6.5%sh"
+                    app:layout_widthPercent="6.5%sh">
+
+                    <com.mikepenz.iconics.view.IconicsImageView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center"
+                        app:iiv_color="@color/md_white"
+                        app:iiv_icon="gmi-assignment-returned"
+                        app:layout_heightPercent="3.4%sh"
+                        app:layout_widthPercent="3.4%sh" />
+
+                </com.zhy.android.percent.support.PercentFrameLayout>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="下单"
+                    android:textColor="@color/md_black"
+                    app:layout_marginLeftPercent="4%sw"
+                    app:layout_textSizePercent="3%sh" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="20项"
+                    android:textColor="@color/md_grey_500"
+                    app:layout_textSizePercent="2.6%sh" />
+
+            </com.zhy.android.percent.support.PercentLinearLayout>
+
+            <com.zhy.android.percent.support.PercentLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/md_white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_heightPercent="12%sh"
+                app:layout_marginLeftPercent="1%sh"
+                app:layout_marginRightPercent="1%sh"
+                app:layout_marginTopPercent="1%sh"
+                app:layout_paddingLeftPercent="4%sw"
+                app:layout_paddingRightPercent="4%sw">
+
+                <com.zhy.android.percent.support.PercentFrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@color/md_blue_400"
+                    app:layout_heightPercent="6.5%sh"
+                    app:layout_widthPercent="6.5%sh">
+
+                    <com.mikepenz.iconics.view.IconicsImageView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center"
+                        app:iiv_color="@color/md_white"
+                        app:iiv_icon="gmi-assignment"
+                        app:layout_heightPercent="3.4%sh"
+                        app:layout_widthPercent="3.4%sh" />
+
+                </com.zhy.android.percent.support.PercentFrameLayout>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="进行中"
+                    android:textColor="@color/md_black"
+                    app:layout_marginLeftPercent="4%sw"
+                    app:layout_textSizePercent="3%sh" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="20项"
+                    android:textColor="@color/md_grey_500"
+                    app:layout_textSizePercent="2.6%sh" />
+
+            </com.zhy.android.percent.support.PercentLinearLayout>
+
+
+            <com.zhy.android.percent.support.PercentLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/md_white"
+
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_heightPercent="12%sh"
+                app:layout_marginLeftPercent="1%sh"
+                app:layout_marginRightPercent="1%sh"
+                app:layout_marginTopPercent="1%sh"
+                app:layout_paddingLeftPercent="4%sw"
+                app:layout_paddingRightPercent="4%sw">
+
+                <com.zhy.android.percent.support.PercentFrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@color/md_teal_300"
+                    app:layout_heightPercent="6.5%sh"
+                    app:layout_widthPercent="6.5%sh">
+
+                    <com.mikepenz.iconics.view.IconicsImageView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center"
+                        app:iiv_color="@color/md_white"
+                        app:iiv_icon="gmi-assignment-check"
+                        app:layout_heightPercent="3.4%sh"
+                        app:layout_widthPercent="3.4%sh" />
+
+                </com.zhy.android.percent.support.PercentFrameLayout>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="已结单"
+                    android:textColor="@color/md_black"
+                    app:layout_marginLeftPercent="4%sw"
+                    app:layout_textSizePercent="3%sh" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="20项"
+                    android:textColor="@color/md_grey_500"
+                    app:layout_textSizePercent="2.6%sh" />
+
+            </com.zhy.android.percent.support.PercentLinearLayout>
+
+            <com.zhy.android.percent.support.PercentLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/md_white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_heightPercent="12%sh"
+                app:layout_marginLeftPercent="1%sh"
+                app:layout_marginRightPercent="1%sh"
+                app:layout_marginTopPercent="1%sh"
+
+                app:layout_paddingLeftPercent="4%sw"
+                app:layout_paddingRightPercent="4%sw">
+
+                <com.zhy.android.percent.support.PercentFrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@color/md_red_300"
+                    app:layout_heightPercent="6.5%sh"
+                    app:layout_widthPercent="6.5%sh">
+
+                    <com.mikepenz.iconics.view.IconicsImageView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center"
+                        app:iiv_color="@color/md_white"
+                        app:iiv_icon="gmi-assignment-alert"
+                        app:layout_heightPercent="3.4%sh"
+                        app:layout_widthPercent="3.4%sh" />
+
+                </com.zhy.android.percent.support.PercentFrameLayout>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="挂单"
+                    android:textColor="@color/md_black"
+                    app:layout_marginLeftPercent="4%sw"
+                    app:layout_textSizePercent="3%sh" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="20项"
+                    android:textColor="@color/md_grey_500"
+                    app:layout_textSizePercent="2.6%sh" />
+
+            </com.zhy.android.percent.support.PercentLinearLayout>
+
+            <!---->
+
+            <com.zhy.android.percent.support.PercentLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/md_white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_heightPercent="12%sh"
+                app:layout_marginLeftPercent="1%sh"
+                app:layout_marginRightPercent="1%sh"
+
+                app:layout_marginTopPercent="1%sh"
+                app:layout_paddingLeftPercent="4%sw"
+                app:layout_paddingRightPercent="4%sw">
+
+                <com.zhy.android.percent.support.PercentFrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@color/md_orange_300"
+                    app:layout_heightPercent="6.5%sh"
+                    app:layout_widthPercent="6.5%sh">
+
+                    <com.mikepenz.iconics.view.IconicsImageView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center"
+                        app:iiv_color="@color/md_white"
+                        app:iiv_icon="gmi-assignment-return"
+                        app:layout_heightPercent="3.4%sh"
+                        app:layout_widthPercent="3.4%sh" />
+
+                </com.zhy.android.percent.support.PercentFrameLayout>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="待复核"
+                    android:textColor="@color/md_black"
+                    app:layout_marginLeftPercent="4%sw"
+                    app:layout_textSizePercent="3%sh" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="20项"
+                    android:textColor="@color/md_grey_500"
+                    app:layout_textSizePercent="2.6%sh" />
+
+            </com.zhy.android.percent.support.PercentLinearLayout>
+
+
+
+            <!---->
+
+            <com.zhy.android.percent.support.PercentLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/md_white"
+                android:orientation="vertical"
+                android:padding="8dp"
+                app:layout_marginBottomPercent="1%sh"
+                app:layout_marginLeftPercent="1%sh"
+                app:layout_marginRightPercent="1%sh"
+                app:layout_marginTopPercent="1%sh">
+
+                <com.db.chart.view.LineChartView
+                    android:id="@+id/chart1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_heightPercent="40%sh" />
+
+                <com.zhy.android.percent.support.PercentLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_heightPercent="5%sh">
+
+                    <TextView
+                        android:id="@+id/state_two"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:drawableLeft="@drawable/order_receive_one_point_bck"
+                        android:drawablePadding="4dp"
+                        android:text="当天工单"
+                        android:textColor="#ff2b2b2b"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/state_three"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/order_acheved_point_bck"
+                        android:drawablePadding="4dp"
+                        android:text="当天结单"
+                        android:textColor="#ff2b2b2b"
+                        android:textSize="12sp" />
+
+                </com.zhy.android.percent.support.PercentLinearLayout>
+
+            </com.zhy.android.percent.support.PercentLinearLayout>
+
+        </com.zhy.android.percent.support.PercentLinearLayout>
+
+    </com.nirhart.parallaxscroll.views.ParallaxScrollView>
+
+</com.zhy.android.percent.support.PercentLinearLayout>
+
+
+
+

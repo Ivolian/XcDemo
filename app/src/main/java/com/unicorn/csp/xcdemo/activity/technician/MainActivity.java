@@ -13,6 +13,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.unicorn.csp.xcdemo.SimpleApplication;
 import com.unicorn.csp.xcdemo.activity.shared.LoginActivity;
+import com.unicorn.csp.xcdemo.activity.shared.SummaryActivity;
 import com.unicorn.csp.xcdemo.fragment.shared.WorkOrderQueryFragment;
 import com.unicorn.csp.xcdemo.fragment.technician.MyWorkFragment;
 import com.unicorn.csp.xcdemo.utils.DialogUtils;
@@ -29,7 +30,7 @@ public class MainActivity extends com.unicorn.csp.xcdemo.activity.shared.base.Ma
 
     @Override
     public String[] getTitles() {
-        return new String[]{"我的工作", "工单查询", "设备扫码", "用户登出"};
+        return new String[]{"我的工作", "工单查询","工单总汇", "设备扫码", "用户登出"};
     }
 
     @Override
@@ -37,6 +38,7 @@ public class MainActivity extends com.unicorn.csp.xcdemo.activity.shared.base.Ma
         return new GoogleMaterial.Icon[]{
                 GoogleMaterial.Icon.gmd_assignment,
                 GoogleMaterial.Icon.gmd_search_in_file,
+                GoogleMaterial.Icon.gmd_chart_donut,
                 GoogleMaterial.Icon.gmd_fullscreen,
                 GoogleMaterial.Icon.gmd_sign_in
         };
@@ -81,9 +83,12 @@ public class MainActivity extends com.unicorn.csp.xcdemo.activity.shared.base.Ma
                         }
                         break;
                     case 2:
-                        new IntentIntegrator(MainActivity.this).initiateScan();
+                            startActivity(SummaryActivity.class);
                         break;
                     case 3:
+                        new IntentIntegrator(MainActivity.this).initiateScan();
+                        break;
+                    case 4:
                         DialogUtils.showConfirm(MainActivity.this, "确认登出？", new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {

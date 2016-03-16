@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+        <item
+            android:id="@+id/nav_quotes"
+            android:title="最近一周" />
+        <item
+            android:id="@+id/nav_quote2"
+            android:title="最近一年" />
+
+        <item
+            android:id="@+id/nav_samples"
+            android:title="最近一季度" />
+    <item
+        android:id="@+id/nav_sample2s"
+        android:title="最近一年" />
+
+</menu>
+

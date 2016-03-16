@@ -77,6 +77,15 @@ dependencies {
     compile 'com.github.PhilJay:MPAndroidChart:v2.1.6'
     compile 'com.yqritc:recyclerview-flexibledivider:1.2.5'
     compile 'com.facebook.fresco:fresco:0.9.0'
-    compile 'com.mikepenz:fontawesome-typeface:+@aar'
     compile files('libs/jpush-android-2.1.0.jar')
+    compile 'com.zhy:percent-support-extends:1.1.1'
+    compile 'com.mikepenz:iconics-core:2.5.3@aar'
+    compile 'com.mikepenz:fontawesome-typeface:4.5.0.1@aar'
+    compile 'com.mikepenz:material-design-iconic-typeface:2.2.0.1@aar'
+    compile 'com.flyco.roundview:FlycoRoundView_Lib:1.1.4@aar'
+    compile 'com.github.johnkil.android-robototextview:robototextview:2.4.3'
+
+    compile(name: 'ParallaxScroll', ext: 'aar')
+    compile 'com.diogobernardino:williamchart:2.2'
+    compile 'com.shehabic.droppy:Droppy:0.5.1@aar'
 }
