@@ -4,12 +4,11 @@
     package="com.unicorn.csp.xcdemo">
 
 
-    <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="23" />
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="23" />
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
@@ -34,11 +33,9 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
 
-
-
     <application
         android:name=".SimpleApplication"
-        android:allowBackup="false"
+        android:allowBackup="true"
         android:icon="@drawable/app_logo"
         android:label="@string/app_name"
         android:theme="@style/AppTheme.NoActionBar"
@@ -89,6 +86,7 @@
         <!-- technician -->
         <activity
             android:name=".activity.technician.MainActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.technician.PackActivity"
@@ -114,6 +112,7 @@
         <!-- chief -->
         <activity
             android:name=".activity.chief.MainActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.chief.AssignActivity"
@@ -137,10 +136,11 @@
         <activity
             android:name="cn.jpush.android.ui.PushActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:theme="@android:style/Theme.NoTitleBar"
-            android:exported="false">
+            android:exported="false"
+            android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
                 <action android:name="cn.jpush.android.ui.PushActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="${applicationId}" />
             </intent-filter>
@@ -150,8 +150,7 @@
         <service
             android:name="cn.jpush.android.service.DownloadService"
             android:enabled="true"
-            android:exported="false" >
-        </service>
+            android:exported="false"></service>
 
         <!-- Required SDK 核心功能-->
         <!-- option since 2.0.5 可配置PushService，DaemonService,PushReceiver,AlarmReceiver的android:process参数 将JPush相关组件设置为一个独立进程 -->
@@ -159,7 +158,8 @@
         <service
             android:name="cn.jpush.android.service.PushService"
             android:enabled="true"
-            android:exported="false">
+            android:exported="false"
+            android:process=":process1">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.REGISTER" />
                 <action android:name="cn.jpush.android.intent.REPORT" />
@@ -169,16 +169,6 @@
             </intent-filter>
         </service>
 
-        <!-- Required SDK 核心功能 since 1.8.0 -->
-        <service
-            android:name="cn.jpush.android.service.DaemonService"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter >
-                <action android:name="cn.jpush.android.intent.DaemonService" />
-                <category android:name="${applicationId}"/>
-            </intent-filter>
-        </service>
 
         <!-- Required SDK核心功能-->
         <receiver
@@ -197,6 +187,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
@@ -221,8 +212,24 @@
         </receiver>
 
         <!-- Required . Enable it you can get statistics data with channel -->
-        <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
-        <meta-data android:name="JPUSH_APPKEY" android:value="0c94e1129354241849f4a13c" /> <!-- </>值来自开发者平台取得的AppKey-->
+        <meta-data
+            android:name="JPUSH_CHANNEL"
+            android:value="developer-default" />
+        <meta-data
+            android:name="JPUSH_APPKEY"
+            android:value="0c94e1129354241849f4a13c" /> <!-- </>值来自开发者平台取得的AppKey-->
+
+        <!---->
+        <receiver
+            android:name=".daemon.Receiver1"
+            android:process=":process1" />
+        <service
+            android:name=".daemon.Service2"
+            android:process=":process2" />
+        <receiver
+            android:name=".daemon.Receiver2"
+            android:process=":process2" />
+
 
     </application>
 

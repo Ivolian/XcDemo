@@ -114,8 +114,10 @@ public class WorkOrderFrameLayout extends FrameLayout {
 
         String requestTimeText = "报修时间: " + getDateString(workOrderInfo.getRequestTime());
         tvRequestTime.setText(requestTimeText);
-        String buildingAndAddressText = "报修地点: " + workOrderInfo.getBuilding() + "(" + workOrderInfo.getAddress() + ")";
+
+        String buildingAndAddressText = "报修地点: " + workOrderInfo.getBuilding().split("/")[0] + "/" + workOrderInfo.getRequestDepartment() + "/" + workOrderInfo.getAddress();
         tvBuildingAndAddress.setText(buildingAndAddressText);
+
         String typeText = "维修类型: " + workOrderInfo.getType();
         tvType.setText(typeText);
         String equipmentAndFaultTypeText = "维修内容: " + workOrderInfo.getEquipment() + "(" + workOrderInfo.getFaultType() + ")";

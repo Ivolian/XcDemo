@@ -26,6 +26,8 @@ import com.unicorn.csp.xcdemo.utils.DialogUtils;
 import com.unicorn.csp.xcdemo.volley.JsonObjectRequestWithSessionCheck;
 import com.unicorn.csp.xcdemo.volley.SimpleVolley;
 
+import org.joda.time.DateTime;
+import org.joda.time.Duration;
 import org.json.JSONObject;
 
 import java.util.List;
@@ -78,24 +80,64 @@ public class SummaryActivity extends ButterKnifeActivity {
     @Bind(R.id.issue)
     TextView tvIssue;
 
+    @Bind(R.id.arrive)
+    TextView tvArrive;
+
     @Bind(R.id.complete)
     TextView tvComplete;
 
+    @Bind(R.id.hangUp)
+    TextView tvHangUp;
+
+    @Bind(R.id.review)
+    TextView tvReview;
+
+    @Bind(R.id.notComplete)
+    TextView tvNotComplete;
+
+
     private void afterFetchSummaryData(SummaryData summaryData) {
         WorkOrderStatus workOrderStatus = summaryData.getWorkOrderStatus();
-        rtvSummary.setText(workOrderStatus.getIssue() + "");
-        long avgArriveTime = summaryData.getAvgArriveTime() / 3600 / 1000;
-        long avgCompleteTime = summaryData.getAvgCompleteTime() / 3600 / 1000;
-        String avg = "平均响应时间:" + avgArriveTime + "小时,  平均完成时间:" + avgCompleteTime + "小时";
+        int summary = workOrderStatus.getIssue() + workOrderStatus.getReceive() + workOrderStatus.getArrive() +
+                workOrderStatus.getReview() + workOrderStatus.getHangUp() + workOrderStatus.getComplete() + workOrderStatus.getDistribute();
+        rtvSummary.setText(summary + "");
+
+        String avg = "平均响应时间:" + getAvgTime(summaryData.getAvgArriveTime()) + ",  平均完成时间:" + getAvgTime(summaryData.getAvgCompleteTime());
         tvAvg.setText(avg);
+
         tvIssue.setText(workOrderStatus.getIssue() + "项");
+        tvArrive.setText(workOrderStatus.getArrive() + "项");
         tvComplete.setText(workOrderStatus.getComplete() + "项");
+        tvHangUp.setText(workOrderStatus.getHangUp() + "项");
+        tvReview.setText(workOrderStatus.getReview() + "项");
+        tvNotComplete.setText(summary - workOrderStatus.getComplete() +"项");
+    }
+
+    private String getAvgTime(long millis) {
+        Duration duration = Duration.millis(millis);
+        if (duration.getStandardDays() > 0) {
+            return duration.getStandardDays() + "天";
+        }
+        if (duration.getStandardHours() > 0) {
+            return duration.getStandardHours() + "小时";
+        }
+        if (duration.getStandardMinutes() > 0) {
+            return duration.getStandardMinutes() + "分钟";
+        }
+        if (duration.getStandardSeconds() > 0) {
+            return duration.getStandardSeconds() + "秒";
+        }
+        return "";
     }
 
     private String getSummaryDataUrl() {
+        DateTime dateTime = new DateTime();
+        String endDateString = dateTime.toString("yyyy-MM-dd");
+        DateTime startDate = dateTime.minusDays(7);
+        String startDateString = startDate.toString("yyyy-MM-dd");
         Uri.Builder builder = Uri.parse(ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/summary?").buildUpon();
-        builder.appendQueryParameter("startDate", "2016-01-10");
-        builder.appendQueryParameter("endDate", "2016-03-16");
+        builder.appendQueryParameter("startDate", startDateString);
+        builder.appendQueryParameter("endDate", endDateString);
         return builder.toString();
     }
 
@@ -147,11 +189,13 @@ public class SummaryActivity extends ButterKnifeActivity {
                 .setThickness(4);
         mChart.addData(datasetIssue);
 
+        float[] values2 = new float[complete.size()];
+
         for (Integer c : complete) {
             int index = complete.indexOf(c);
-            values[index] = c;
+            values2[index] = c;
         }
-        datasetIssue = new LineSet(labels, values);
+        datasetIssue = new LineSet(labels, values2);
         datasetIssue.setColor(getResources().getColor(R.color.md_teal_300))
                 .setDotsColor(getResources().getColor(R.color.md_teal_400))
                 .setThickness(4);
