@@ -29,7 +29,7 @@ import org.simple.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -64,7 +64,7 @@ public class WorkOrderToReceiveAdapter extends RecyclerView.Adapter<WorkOrderToR
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.work_order_card)
+        @BindView(R.id.work_order_card)
         WorkOrderFrameLayout workOrderCard;
 
         ViewHolder(View view) {

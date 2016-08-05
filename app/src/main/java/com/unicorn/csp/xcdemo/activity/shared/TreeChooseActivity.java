@@ -156,6 +156,7 @@ public class TreeChooseActivity extends ToolbarActivity {
             case WorkOrderQueryFragment.EQUIPMENT_TAG:
                 return "/hems/equipment";
             case WorkOrderQueryFragment.WORK_ORDER_TYPE_TAG:
+                return "/hems/workType";
             case WorkOrderQueryFragment.WORK_ORDER_STATUS_TAG:
             case WorkOrderQueryFragment.EMERGENCY_DEGREE_TAG:
                 return "/system/code";
@@ -166,15 +167,15 @@ public class TreeChooseActivity extends ToolbarActivity {
     private String getRootIdlByTag() {
         switch (tag) {
             case WorkOrderQueryFragment.WORK_ORDER_TYPE_TAG:
-                return "9193088f-940b-4305-8e7c-41cf3854c962";
+                return "4028f081545abdb301545b81e2ce0069";
             case WorkOrderQueryFragment.DEPARTMENT_TAG:
                 return "1";
             case WorkOrderQueryFragment.EQUIPMENT_TAG:
                 return "Root";
             case WorkOrderQueryFragment.WORK_ORDER_STATUS_TAG:
-                return "04810cbc-d923-4158-b0a1-a0291759fc3a";
+                return "4028f08155a0793d0155a08cca950000";
             case WorkOrderQueryFragment.EMERGENCY_DEGREE_TAG:
-                return "8573c420-8a0b-45bd-ae7d-42fda56c990e";
+                return "4028f081545abdb301545b7f24ad0068";
         }
         return null;
     }

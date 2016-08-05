@@ -123,6 +123,18 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar.NoWindow" />
 
+        <!-- supervisor -->
+        <activity
+            android:name=".activity.supervisor.MainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <!-- supervisorManager -->
+        <activity
+            android:name=".activity.supervisorManager.MainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
         <!-- Activities For Camera -->
         <activity
             android:name="com.afollestad.materialcamera.CaptureActivity"
@@ -155,11 +167,13 @@
         <!-- Required SDK 核心功能-->
         <!-- option since 2.0.5 可配置PushService，DaemonService,PushReceiver,AlarmReceiver的android:process参数 将JPush相关组件设置为一个独立进程 -->
         <!-- 如：android:process=":remote" -->
+
         <service
             android:name="cn.jpush.android.service.PushService"
             android:enabled="true"
             android:exported="false"
-            android:process=":process1">
+        android:process=":process1"
+            >
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.REGISTER" />
                 <action android:name="cn.jpush.android.intent.REPORT" />

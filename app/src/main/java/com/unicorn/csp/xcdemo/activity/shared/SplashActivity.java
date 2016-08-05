@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -29,7 +28,6 @@ import cn.jpush.android.api.JPushInterface;
 
 public class SplashActivity extends ButterKnifeActivity {
 
-    String role;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +47,37 @@ public class SplashActivity extends ButterKnifeActivity {
                 ConfigUtils.getBaseUrl() + "/login",
                 new Response.Listener<String>() {
                     @Override
-                    public void onResponse(String response) {
-                        startActivityAndFinish(role.equals("Artificer") ? MainActivity.class : com.unicorn.csp.xcdemo.activity.chief.MainActivity.class);
+                    public void onResponse(String responseString) {
+                        try {
+                            // 处理编码
+                            String original = new String(responseString.getBytes("ISO-8859-1"), "UTF-8");
+                            JSONObject response = new JSONObject(original);
+                            String jsessionid = response.getString("jsessionid");
+                            TinyDB.getInstance().putString(ConfigUtils.JSESSION_ID, jsessionid);
+
+                            JSONObject currentUser = response.getJSONObject("currentUser");
+                            String role = currentUser.getString("role");
+                            if (role != null) {
+                                switch (role) {
+                                    case "Artificer":
+                                        startActivityAndFinish(MainActivity.class);
+                                        break;
+                                    case "Manager":
+                                        startActivityAndFinish(com.unicorn.csp.xcdemo.activity.chief.MainActivity.class);
+                                        break;
+                                    case "Supervisor":
+                                        startActivityAndFinish(com.unicorn.csp.xcdemo.activity.supervisor.MainActivity.class);
+                                        break;
+                                    case "SupervisorManager":
+                                        startActivityAndFinish(com.unicorn.csp.xcdemo.activity.supervisorManager.MainActivity.class);
+                                        break;
+                                    default:
+                                        ToastUtils.show("非法角色!");
+                                }
+                            }
+                        } catch (Exception e) {
+                            //
+                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -70,21 +97,13 @@ public class SplashActivity extends ButterKnifeActivity {
             }
 
             @Override
-            protected Response<String> parseNetworkResponse(NetworkResponse response) {
-                try {
-                    String currentUserString = response.headers.get("currentUser");
-                    JSONObject currentUser = new JSONObject(currentUserString);
-                    role = currentUser.getString("role");
-                    ConfigUtils.saveJSessionId(response);
-                }
-                catch (Exception e){
-                    //
-                }
-
-                return super.parseNetworkResponse(response);
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> map = new HashMap<>();
+                map.put("Login-From", "Android");
+                return map;
             }
         };
-        SimpleVolley.addRequest(stringRequest);
+        SimpleVolley.getRequestQueue().add(stringRequest);
     }
 
     private void delayToLoginActivity() {
@@ -100,7 +119,6 @@ public class SplashActivity extends ButterKnifeActivity {
 
     //
 
-
     @Override
     protected void onPause() {
         JPushInterface.onPause(this);
@@ -113,5 +131,6 @@ public class SplashActivity extends ButterKnifeActivity {
         JPushInterface.onResume(this);
         super.onResume();
     }
+
 }
 

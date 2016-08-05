@@ -18,7 +18,7 @@ import org.simple.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -74,16 +74,16 @@ public class AssistAdapter extends RecyclerView.Adapter<AssistAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.photo)
+        @BindView(R.id.photo)
         SimpleDraweeView ivPhoto;
 
-        @Bind(R.id.name)
+        @BindView(R.id.name)
         TextView tvName;
 
-        @Bind(R.id.phone)
+        @BindView(R.id.phone)
         TextView tvPhone;
 
-        @Bind(R.id.checkbox)
+        @BindView(R.id.checkbox)
         CheckBox checkBox;
 
         ViewHolder(View view) {

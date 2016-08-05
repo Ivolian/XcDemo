@@ -2,6 +2,7 @@ package com.unicorn.csp.xcdemo.activity.shared;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,7 @@ import org.simple.eventbus.EventBus;
 import java.util.HashMap;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 
@@ -68,7 +69,7 @@ public class SuspendActivity extends WorkOrderCardActivity {
 
     // ========================== options ==========================
 
-    @Bind(R.id.fl_options)
+    @BindView(R.id.fl_options)
     FlowLayout flOptions;
 
     private void fetchOptions() {
@@ -125,7 +126,7 @@ public class SuspendActivity extends WorkOrderCardActivity {
 
     // ========================== options ==========================
 
-    @Bind(R.id.et_description)
+    @BindView(R.id.et_description)
     BootstrapEditText etDescription;
 
     private void initDescription() {
@@ -138,7 +139,26 @@ public class SuspendActivity extends WorkOrderCardActivity {
     // ========================== confrim ==========================
 
     @OnClick(R.id.btn_suspend)
-    public void suspendConfirm() {
+    public void suspendOnClick() {
+        if (isUserInputValid()) {
+            confirmSuspend();
+        }
+    }
+
+    private boolean isUserInputValid() {
+        final OptionButton optionSelected = getOptionSelected();
+        if (optionSelected == null) {
+            ToastUtils.show("请选择挂单选项");
+            return false;
+        }
+        if (TextUtils.isEmpty(etDescription.getText())) {
+            ToastUtils.show("请填写挂单说明");
+            return false;
+        }
+        return true;
+    }
+
+    private void confirmSuspend(){
         DialogUtils.showConfirm(this, "确认挂单？", new MaterialDialog.SingleButtonCallback() {
             @Override
             public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
@@ -149,10 +169,6 @@ public class SuspendActivity extends WorkOrderCardActivity {
 
     public void suspend() {
         final OptionButton optionSelected = getOptionSelected();
-        if (optionSelected == null) {
-            ToastUtils.show("请至少选择一个挂单选项");
-            return;
-        }
         String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderProcessInfo.getWorkOrderInfo().getWorkOrderId() + "/hangUp";
         StringRequest stringRequest = new StringRequest(
                 Request.Method.PUT,

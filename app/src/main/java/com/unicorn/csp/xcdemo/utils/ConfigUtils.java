@@ -2,7 +2,6 @@ package com.unicorn.csp.xcdemo.utils;
 
 import android.os.Environment;
 
-import com.android.volley.NetworkResponse;
 import com.unicorn.csp.xcdemo.component.TinyDB;
 
 import java.io.File;
@@ -10,19 +9,18 @@ import java.io.File;
 
 public class ConfigUtils {
 
-    final static private String IP = "withub.net.cn";
-//    final static private String IP = "192.168.7.65";
+//    final static private String IP = "192.168.7.68";
+    final static private String IP = "101.200.178.52";
+//    final static private String IP = "withub.net.cn";
+//    final static private String IP = "192.168.7.100";
 
 
+//    final static private String IP = "192.168.23.1";
 
 
     final static private String PORT = "80";
 
     public final static String JSESSION_ID = "jsessionid";
-
-    public static void saveJSessionId(NetworkResponse response) {
-        TinyDB.getInstance().putString(ConfigUtils.JSESSION_ID, response.headers.get(ConfigUtils.JSESSION_ID));
-    }
 
     public static String getJsessionId() {
         return TinyDB.getInstance().getString(ConfigUtils.JSESSION_ID);

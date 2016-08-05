@@ -40,7 +40,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 
@@ -79,7 +79,7 @@ public class MicActivity extends ToolbarActivity {
 
     // ========================== options ==========================
 
-    @Bind(R.id.fl_options)
+    @BindView(R.id.fl_options)
     FlowLayout flOptions;
 
     private void fetchOptions() {
@@ -137,7 +137,7 @@ public class MicActivity extends ToolbarActivity {
 
     // ========================== description ==========================
 
-    @Bind(R.id.et_description)
+    @BindView(R.id.et_description)
     BootstrapEditText etDescription;
 
     private void initEtDescription() {
@@ -149,7 +149,7 @@ public class MicActivity extends ToolbarActivity {
 
     // ========================== record ==========================
 
-    @Bind(R.id.btn_record)
+    @BindView(R.id.btn_record)
     PaperButton btnRecord;
 
     MediaRecorder mRecorder = null;

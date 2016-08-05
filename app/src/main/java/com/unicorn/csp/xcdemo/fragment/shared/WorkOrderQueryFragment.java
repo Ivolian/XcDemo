@@ -7,8 +7,8 @@ import android.view.MenuItem;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.activity.shared.WorkOrderQueryResultActivity;
 import com.unicorn.csp.xcdemo.activity.shared.TreeChooseActivity;
+import com.unicorn.csp.xcdemo.activity.shared.WorkOrderQueryResultActivity;
 import com.unicorn.csp.xcdemo.component.MenuUtils;
 import com.unicorn.csp.xcdemo.fragment.shared.base.ButterKnifeFragment;
 import com.unicorn.csp.xcdemo.utils.ConfigUtils;
@@ -17,7 +17,7 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.Calendar;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnFocusChange;
 
@@ -65,7 +65,7 @@ public class WorkOrderQueryFragment extends ButterKnifeFragment {
 
     public static final String WORK_ORDER_TYPE_TAG = "workOrderType";
 
-    @Bind(R.id.et_work_order_type)
+    @BindView(R.id.et_work_order_type)
     MaterialEditText etWorkOrderType;
 
     TreeNodeViewHolder.TreeNodeData tndWorkOrderType;
@@ -89,7 +89,7 @@ public class WorkOrderQueryFragment extends ButterKnifeFragment {
 
     public static final String DEPARTMENT_TAG = "department";
 
-    @Bind(R.id.et_department)
+    @BindView(R.id.et_department)
     MaterialEditText etDepartment;
 
     TreeNodeViewHolder.TreeNodeData tndDepartment;
@@ -113,7 +113,7 @@ public class WorkOrderQueryFragment extends ButterKnifeFragment {
 
     public static final String EQUIPMENT_TAG = "equipment";
 
-    @Bind(R.id.et_equipment)
+    @BindView(R.id.et_equipment)
     MaterialEditText etEquipment;
 
     TreeNodeViewHolder.TreeNodeData tndEquipment;
@@ -137,7 +137,7 @@ public class WorkOrderQueryFragment extends ButterKnifeFragment {
 
     public static final String WORK_ORDER_STATUS_TAG = "workOrderStatus";
 
-    @Bind(R.id.et_work_order_status)
+    @BindView(R.id.et_work_order_status)
     MaterialEditText etWorkOrderStatus;
 
     TreeNodeViewHolder.TreeNodeData tndWorkOrderStatus;
@@ -161,7 +161,7 @@ public class WorkOrderQueryFragment extends ButterKnifeFragment {
 
     public static final String EMERGENCY_DEGREE_TAG = "emergencyDegree";
 
-    @Bind(R.id.et_emergency_degree)
+    @BindView(R.id.et_emergency_degree)
     MaterialEditText etEmergencyDegree;
 
     TreeNodeViewHolder.TreeNodeData tndEmergencyDegree;
@@ -217,7 +217,7 @@ public class WorkOrderQueryFragment extends ButterKnifeFragment {
 
     // ================================== begin repair date ==================================
 
-    @Bind(R.id.et_begin_repair_date)
+    @BindView(R.id.et_begin_repair_date)
     MaterialEditText etBeginRepairDate;
 
     @OnClick(R.id.et_begin_repair_date)
@@ -256,7 +256,7 @@ public class WorkOrderQueryFragment extends ButterKnifeFragment {
 
     // ================================== end repair date ==================================
 
-    @Bind(R.id.et_end_repair_date)
+    @BindView(R.id.et_end_repair_date)
     MaterialEditText etEndRepairDate;
 
     @OnClick(R.id.et_end_repair_date)
@@ -294,9 +294,9 @@ public class WorkOrderQueryFragment extends ButterKnifeFragment {
 
     private String getDateString(int year, int month, int day) {
         month++;
-        String dateString = year + " - ";
+        String dateString = year + "-";
         dateString += (month > 9 ? month : "0" + month);
-        dateString += " - ";
+        dateString += "-";
         dateString += (day > 9 ? day : "0" + day);
         return dateString;
     }
@@ -316,7 +316,7 @@ public class WorkOrderQueryFragment extends ButterKnifeFragment {
             queryUrl += ("&type" + "=" + tndWorkOrderType.objectId);
         }
         if (!EditTextUtils.isEmpty(etDepartment)) {
-            queryUrl += ("&department" + "=" + tndDepartment.objectId);
+            queryUrl += ("&requestDepartment" + "=" + tndDepartment.objectId);
         }
         if (!EditTextUtils.isEmpty(etEquipment)) {
             queryUrl += ("&equipment" + "=" + tndEquipment.objectId);

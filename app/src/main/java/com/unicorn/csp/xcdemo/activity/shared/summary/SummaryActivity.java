@@ -32,7 +32,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 
@@ -71,28 +71,28 @@ public class SummaryActivity extends ButterKnifeActivity {
         SimpleVolley.addRequest(request);
     }
 
-    @Bind(R.id.summary)
+    @BindView(R.id.summary)
     RobotoTextView rtvSummary;
 
-    @Bind(R.id.avg)
+    @BindView(R.id.avg)
     TextView tvAvg;
 
-    @Bind(R.id.issue)
+    @BindView(R.id.issue)
     TextView tvIssue;
 
-    @Bind(R.id.arrive)
+    @BindView(R.id.arrive)
     TextView tvArrive;
 
-    @Bind(R.id.complete)
+    @BindView(R.id.complete)
     TextView tvComplete;
 
-    @Bind(R.id.hangUp)
+    @BindView(R.id.hangUp)
     TextView tvHangUp;
 
-    @Bind(R.id.review)
+    @BindView(R.id.review)
     TextView tvReview;
 
-    @Bind(R.id.notComplete)
+    @BindView(R.id.notComplete)
     TextView tvNotComplete;
 
 
@@ -162,7 +162,7 @@ public class SummaryActivity extends ButterKnifeActivity {
         SimpleVolley.addRequest(request);
     }
 
-    @Bind(R.id.chart1)
+    @BindView(R.id.chart1)
     LineChartView mChart;
 
     private void showChart(DayData dayData) {

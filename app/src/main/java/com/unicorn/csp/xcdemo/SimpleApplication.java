@@ -11,6 +11,7 @@ import com.unicorn.csp.xcdemo.daemon.Receiver2;
 import com.unicorn.csp.xcdemo.daemon.Service2;
 import com.unicorn.csp.xcdemo.volley.SimpleVolley;
 
+import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.service.PushService;
 
@@ -32,6 +33,8 @@ public class SimpleApplication extends MultiDexApplication {
         JPushInterface.init(instance);
         JPushInterface.setDebugMode(true);
         Fresco.initialize(this);
+        CustomActivityOnCrash.install(this);
+
 
     }
     private DaemonClient mDaemonClient;

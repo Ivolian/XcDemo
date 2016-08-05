@@ -26,7 +26,7 @@ import cn.jpush.android.api.TagAliasCallback;
 public class UserInfoModuler {
 
     public void fetchUserInfo() {
-        String url = ConfigUtils.getBaseUrl() + "/security/getApplicationInfo";
+        String url = ConfigUtils.getBaseUrl() + "/hems/getApplicationInfo";
         final JsonObjectRequest request = new JsonObjectRequestWithSessionCheck(
                 url,
                 new Response.Listener<JSONObject>() {

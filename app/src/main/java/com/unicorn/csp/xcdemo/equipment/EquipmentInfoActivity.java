@@ -8,7 +8,7 @@ import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.shared.base.ToolbarActivity;
 import com.unicorn.csp.xcdemo.adaper.viewpager.shared.EquipmentInfoPagerAdapter;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 
 public class EquipmentInfoActivity extends ToolbarActivity {
@@ -18,10 +18,10 @@ public class EquipmentInfoActivity extends ToolbarActivity {
 
     // ================================== views ==================================
 
-    @Bind(R.id.tab_layout)
+    @BindView(R.id.tab_layout)
     public TabLayout tabLayout;
 
-    @Bind(R.id.viewpager)
+    @BindView(R.id.viewpager)
     ViewPager viewPager;
 
 

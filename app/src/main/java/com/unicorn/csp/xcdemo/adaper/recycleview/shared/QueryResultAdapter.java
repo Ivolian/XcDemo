@@ -13,7 +13,7 @@ import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -41,7 +41,7 @@ this.workOrderInfoList.addAll((List<WorkOrderInfo>)workOrderInfoList);
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.work_order_card)
+        @BindView(R.id.work_order_card)
         WorkOrderFrameLayout workOrderCard;
 
         ViewHolder(View view) {

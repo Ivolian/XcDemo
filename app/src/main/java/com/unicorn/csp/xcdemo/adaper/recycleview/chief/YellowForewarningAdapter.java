@@ -1,6 +1,6 @@
 package com.unicorn.csp.xcdemo.adaper.recycleview.chief;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.adaper.recycleview.shared.RefreshAdapter;
 import com.unicorn.csp.xcdemo.activity.shared.WorkOrderDetailActivity;
+import com.unicorn.csp.xcdemo.adaper.recycleview.shared.RefreshAdapter;
 import com.unicorn.csp.xcdemo.model.WorkOrderWarn;
 
 import org.joda.time.DateTime;
@@ -19,7 +19,7 @@ import org.joda.time.DateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -48,10 +48,10 @@ public class YellowForewarningAdapter extends RecyclerView.Adapter<YellowForewar
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.tv_message)
+        @BindView(R.id.tv_message)
         TextView tvMessage;
 
-        @Bind(R.id.tv_create_time)
+        @BindView(R.id.tv_create_time)
         TextView tvCreateTime;
 
         ViewHolder(View view) {
@@ -61,11 +61,11 @@ public class YellowForewarningAdapter extends RecyclerView.Adapter<YellowForewar
 
         @OnClick(R.id.cardview)
         public void cardViewOnClick() {
-            Activity activity = (Activity) tvMessage.getContext();
-            Intent intent = new Intent(activity, WorkOrderDetailActivity.class);
+            Context context =tvMessage.getContext();
+            Intent intent = new Intent(context, WorkOrderDetailActivity.class);
             WorkOrderWarn workOrderWarn = workOrderWarnList.get(getAdapterPosition());
             intent.putExtra("workOrderId", workOrderWarn.getWorkOrderId());
-            activity.startActivity(intent);
+            context.startActivity(intent);
         }
     }
 

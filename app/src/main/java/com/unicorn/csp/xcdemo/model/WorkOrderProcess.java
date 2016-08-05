@@ -13,6 +13,9 @@ public class WorkOrderProcess implements Serializable {
 
     private WorkOrderReview workOrderReview;
 
+    private WorkOrderHangUp workOrderHangUp;
+
+
     //
 
 
@@ -47,4 +50,14 @@ public class WorkOrderProcess implements Serializable {
     public void setWorkOrderReview(WorkOrderReview workOrderReview) {
         this.workOrderReview = workOrderReview;
     }
+
+    public WorkOrderHangUp getWorkOrderHangUp() {
+        return workOrderHangUp;
+    }
+
+    public void setWorkOrderHangUp(WorkOrderHangUp workOrderHangUp) {
+        this.workOrderHangUp = workOrderHangUp;
+    }
+
+
 }

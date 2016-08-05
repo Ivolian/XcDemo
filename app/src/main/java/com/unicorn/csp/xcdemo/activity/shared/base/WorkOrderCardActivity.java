@@ -9,7 +9,7 @@ import com.unicorn.csp.xcdemo.component.WorkOrderFrameLayout;
 import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
 import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 
@@ -20,7 +20,7 @@ abstract public class WorkOrderCardActivity extends ToolbarActivity {
     @InjectExtra("workOrderProcessInfo")
     public WorkOrderProcessInfo workOrderProcessInfo;
 
-    @Bind(R.id.work_order_card)
+    @BindView(R.id.work_order_card)
     WorkOrderFrameLayout workOrderCard;
 
     @OnClick(R.id.work_order_card)

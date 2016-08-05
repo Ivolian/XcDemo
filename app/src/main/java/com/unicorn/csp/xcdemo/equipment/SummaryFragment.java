@@ -5,12 +5,12 @@ import android.widget.TextView;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.fragment.shared.base.LazyLoadFragment;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 
 public class SummaryFragment extends LazyLoadFragment {
 
-    @Bind(R.id.tv_equipment_id)
+    @BindView(R.id.tv_equipment_id)
     TextView tvEquipmentId;
 
     @Override

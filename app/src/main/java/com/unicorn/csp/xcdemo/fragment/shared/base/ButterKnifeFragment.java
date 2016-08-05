@@ -7,9 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 
 public abstract class ButterKnifeFragment extends Fragment {
+
+
+    private Unbinder unbinder;
 
     abstract public int getLayoutResId();
 
@@ -17,7 +21,7 @@ public abstract class ButterKnifeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(getLayoutResId(), container, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         initViews();
         return view;
     }
@@ -28,9 +32,8 @@ public abstract class ButterKnifeFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
 }

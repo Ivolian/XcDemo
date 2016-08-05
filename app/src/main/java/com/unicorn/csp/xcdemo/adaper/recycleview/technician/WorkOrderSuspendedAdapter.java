@@ -1,9 +1,5 @@
 package com.unicorn.csp.xcdemo.adaper.recycleview.technician;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,11 +8,7 @@ import android.view.ViewGroup;
 
 import com.github.aakira.expandablelayout.ExpandableLayoutListenerAdapter;
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.activity.shared.base.WorkOrderCardActivity;
-import com.unicorn.csp.xcdemo.activity.technician.PackActivity;
 import com.unicorn.csp.xcdemo.adaper.recycleview.shared.RefreshAdapter;
-import com.unicorn.csp.xcdemo.component.OperationUtils;
-import com.unicorn.csp.xcdemo.component.PaperButton;
 import com.unicorn.csp.xcdemo.component.WorkOrderFrameLayout;
 import com.unicorn.csp.xcdemo.model.WorkOrderInfo;
 import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
@@ -24,7 +16,7 @@ import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -43,13 +35,13 @@ public class WorkOrderSuspendedAdapter extends RecyclerView.Adapter<WorkOrderSus
 
     @Override
     public void reload(Object workOrderProcessInfoList) {
-        this.workOrderProcessInfoList = (List<WorkOrderProcessInfo>)workOrderProcessInfoList;
+        this.workOrderProcessInfoList = (List<WorkOrderProcessInfo>) workOrderProcessInfoList;
         notifyDataSetChanged();
     }
 
     @Override
     public void loadMore(Object workOrderProcessInfoList) {
-        this.workOrderProcessInfoList.addAll((List<WorkOrderProcessInfo>)workOrderProcessInfoList);
+        this.workOrderProcessInfoList.addAll((List<WorkOrderProcessInfo>) workOrderProcessInfoList);
         notifyDataSetChanged();
     }
 
@@ -58,7 +50,7 @@ public class WorkOrderSuspendedAdapter extends RecyclerView.Adapter<WorkOrderSus
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.work_order_card)
+        @BindView(R.id.work_order_card)
         WorkOrderFrameLayout workOrderCard;
 
         ViewHolder(View view) {
@@ -77,28 +69,12 @@ public class WorkOrderSuspendedAdapter extends RecyclerView.Adapter<WorkOrderSus
             });
         }
 
-        @Bind(R.id.cardview)
+        @BindView(R.id.cardview)
         CardView cardView;
 
         @OnClick(R.id.cardview)
         public void toggle() {
             workOrderCard.expandableLayout.toggle();
-        }
-
-        @OnClick(R.id.btn_pack)
-        public void startPackActivity(PaperButton paperButton) {
-            Activity activity = (Activity) paperButton.getContext();
-            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, cardView, WorkOrderCardActivity.SHARED_VIEW);
-            Intent intent = new Intent(paperButton.getContext(), PackActivity.class);
-            intent.putExtra("workOrderProcessInfo", workOrderProcessInfoList.get(getAdapterPosition()));
-            intent.putExtra("refreshEventTag", refreshEventTag);
-            ActivityCompat.startActivity(activity, intent, options.toBundle());
-        }
-
-
-        @OnClick(R.id.btn_operation)
-        public void showChooseOperationDialog(PaperButton btnOperation) {
-            OperationUtils.showChooseOperationDialog((Activity) btnOperation.getContext(), workOrderProcessInfoList.get(getAdapterPosition()), "workOrderSuspendedFragment_refresh", false);
         }
 
     }
@@ -117,6 +93,7 @@ public class WorkOrderSuspendedAdapter extends RecyclerView.Adapter<WorkOrderSus
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         WorkOrderInfo workOrderInfo = workOrderProcessInfoList.get(position).getWorkOrderInfo();
         workOrderInfo.setLabelText("挂");
+        viewHolder.workOrderCard.setHangupDescription(workOrderProcessInfoList.get(position).getWorkOrderProcess().getWorkOrderHangUp().getRemark());
         viewHolder.workOrderCard.setWorkOrderInfo(workOrderInfo);
         viewHolder.workOrderCard.expandableLayout.setExpanded(workOrderProcessInfoList.get(position).isExpand());
     }

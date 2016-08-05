@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 
 import com.github.aakira.expandablelayout.ExpandableLayoutListenerAdapter;
 import com.unicorn.csp.xcdemo.R;
-import com.unicorn.csp.xcdemo.activity.shared.base.WorkOrderCardActivity;
 import com.unicorn.csp.xcdemo.activity.chief.ReviewActivity;
+import com.unicorn.csp.xcdemo.activity.shared.base.WorkOrderCardActivity;
 import com.unicorn.csp.xcdemo.adaper.recycleview.shared.RefreshAdapter;
 import com.unicorn.csp.xcdemo.component.PaperButton;
 import com.unicorn.csp.xcdemo.component.WorkOrderFrameLayout;
@@ -23,7 +23,7 @@ import com.unicorn.csp.xcdemo.model.WorkOrderProcessInfo;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -52,7 +52,7 @@ public class WorkOrderToReviewAdapter extends RecyclerView.Adapter<WorkOrderToRe
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.work_order_card)
+        @BindView(R.id.work_order_card)
         WorkOrderFrameLayout workOrderCard;
 
         ViewHolder(View view) {
@@ -71,7 +71,7 @@ public class WorkOrderToReviewAdapter extends RecyclerView.Adapter<WorkOrderToRe
             });
         }
 
-        @Bind(R.id.cardview)
+        @BindView(R.id.cardview)
         CardView cardView;
 
         @OnClick(R.id.cardview)

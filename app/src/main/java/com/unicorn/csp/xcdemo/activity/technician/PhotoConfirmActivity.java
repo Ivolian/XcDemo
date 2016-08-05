@@ -43,7 +43,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
@@ -82,7 +82,7 @@ public class PhotoConfirmActivity extends ToolbarActivity {
 
     String photoPath;
 
-    @Bind(R.id.iv_photo)
+    @BindView(R.id.iv_photo)
     ImageView ivPhoto;
 
     private void autoTakePhoto() {
@@ -133,7 +133,7 @@ public class PhotoConfirmActivity extends ToolbarActivity {
 
     // ========================== options ==========================
 
-    @Bind(R.id.fl_options)
+    @BindView(R.id.fl_options)
     FlowLayout flOptions;
 
     private void fetchOptions() {
@@ -191,7 +191,7 @@ public class PhotoConfirmActivity extends ToolbarActivity {
 
     // ========================== description ==========================
 
-    @Bind(R.id.et_description)
+    @BindView(R.id.et_description)
     BootstrapEditText etDescription;
 
     private void initEtDescription() {

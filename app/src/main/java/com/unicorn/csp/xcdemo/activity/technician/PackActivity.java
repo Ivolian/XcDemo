@@ -16,7 +16,6 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand;
@@ -34,8 +33,8 @@ import com.unicorn.csp.xcdemo.utils.ConfigUtils;
 import com.unicorn.csp.xcdemo.utils.DialogUtils;
 import com.unicorn.csp.xcdemo.utils.JSONUtils;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
-import com.unicorn.csp.xcdemo.volley.JSONArrayRequestWithSessionCheck;
 import com.unicorn.csp.xcdemo.volley.SimpleVolley;
+import com.unicorn.csp.xcdemo.volley.StringRequestWithSessionCheck;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -47,7 +46,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 
@@ -62,7 +61,7 @@ public class PackActivity extends WorkOrderCardActivity {
 
     // ================================== views ==================================
 
-    @Bind(R.id.ll_material_group_container)
+    @BindView(R.id.ll_material_group_container)
     LinearLayout llMaterialGroupContainer;
 
 
@@ -83,18 +82,22 @@ public class PackActivity extends WorkOrderCardActivity {
     }
 
     private void fetchMaterialGroup() {
-        JsonArrayRequest jsonArrayRequest = new JSONArrayRequestWithSessionCheck(
+        StringRequest stringRequest = new StringRequestWithSessionCheck(
                 Request.Method.GET,
-                ConfigUtils.getBaseUrl() + "/api/v1/hems/material/supply?workOrderId=" + workOrderProcessInfo.getWorkOrderInfo().getWorkOrderId(),
-                new Response.Listener<JSONArray>() {
+                ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderProcessInfo.getWorkOrderInfo().getWorkOrderId() + "/supply",
+                new Response.Listener<String>() {
                     @Override
-                    public void onResponse(JSONArray response) {
-                        initMaterialGroup(response);
+                    public void onResponse(String response) {
+                        try {
+                            initMaterialGroup(new JSONArray(response));
+                        }catch (Exception e){
+                            //
+                        }
                     }
                 },
                 SimpleVolley.getDefaultErrorListener()
         );
-        SimpleVolley.addRequest(jsonArrayRequest);
+        SimpleVolley.addRequest(stringRequest);
     }
 
     private void initMaterialGroup(JSONArray response) {
@@ -204,7 +207,7 @@ public class PackActivity extends WorkOrderCardActivity {
 
     }
 
-    @Bind(R.id.et_description)
+    @BindView(R.id.et_description)
     BootstrapEditText etDescription;
 
     private void initDescription() {

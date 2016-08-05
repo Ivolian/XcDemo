@@ -19,7 +19,7 @@ import com.unicorn.csp.xcdemo.utils.UpdateUtils;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 
 public abstract class MainActivity extends ToolbarActivity {
@@ -40,7 +40,7 @@ public abstract class MainActivity extends ToolbarActivity {
 
     // ================================== searchView ==================================
 
-    @Bind(R.id.search_view)
+    @BindView(R.id.search_view)
     public MaterialSearchView searchView;
 
 

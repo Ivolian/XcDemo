@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.unicorn.csp.xcdemo.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 
 public abstract class ToolbarActivity extends ButterKnifeActivity {
@@ -14,10 +14,10 @@ public abstract class ToolbarActivity extends ButterKnifeActivity {
 
     // ========================== views ==========================
 
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    @Bind(R.id.tv_toolbar_title)
+    @BindView(R.id.tv_toolbar_title)
     public TextView tvToolbarTitle;
 
 

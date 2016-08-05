@@ -52,6 +52,11 @@ public class WorkOrderInfo implements Serializable {
 
     private String statusTag;
 
+    private String workOrderCode;
+
+    //  1显示 2隐藏 3待定
+    private Integer hangUpStatus;
+
     // 受理人
     private String issuer;
 
@@ -87,6 +92,9 @@ public class WorkOrderInfo implements Serializable {
 
     // 复核时间
     private long confirmTime;
+
+    // 故障原因
+    private String faultDescription;
 
     // 领料列表
     private List<WorkOrderSupplyInfo> supplyList;
@@ -351,4 +359,27 @@ public class WorkOrderInfo implements Serializable {
         this.supplyList = supplyList;
     }
 
+    public String getFaultDescription() {
+        return faultDescription;
+    }
+
+    public void setFaultDescription(String faultDescription) {
+        this.faultDescription = faultDescription;
+    }
+
+    public String getWorkOrderCode() {
+        return workOrderCode;
+    }
+
+    public void setWorkOrderCode(String workOrderCode) {
+        this.workOrderCode = workOrderCode;
+    }
+
+    public Integer getHangUpStatus() {
+        return hangUpStatus;
+    }
+
+    public void setHangUpStatus(Integer hangUpStatus) {
+        this.hangUpStatus = hangUpStatus;
+    }
 }

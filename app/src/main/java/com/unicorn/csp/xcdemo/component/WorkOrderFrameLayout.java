@@ -23,70 +23,83 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
 public class WorkOrderFrameLayout extends FrameLayout {
 
-    @Bind(R.id.labelview)
+    @BindView(R.id.labelview)
     public LabelView label;
 
-    @Bind(R.id.tv_request_user)
+    @BindView(R.id.tv_order_code)
+    TextView tvOrderCode;
+
+    @BindView(R.id.tv_request_user)
     TextView tvRequestUser;
 
-    @Bind(R.id.tv_request_time)
+    @BindView(R.id.tv_request_time)
     TextView tvRequestTime;
 
-    @Bind(R.id.tv_building_and_address)
+    @BindView(R.id.tv_building_and_address)
     TextView tvBuildingAndAddress;
 
-    @Bind(R.id.tv_type)
+    @BindView(R.id.tv_type)
     TextView tvType;
 
-    @Bind(R.id.tv_equipment_and_fault_type)
+    @BindView(R.id.tv_equipment_and_fault_type)
     TextView tvEquipmentAndFaultType;
 
-    @Bind(R.id.tv_processing_time_limit)
+    @BindView(R.id.tv_processing_time_limit)
     TextView tvProcessingTimeLimit;
 
-    @Bind(R.id.tv_issuer)
+    @BindView(R.id.tv_issuer)
     TextView tvIssuer;
 
-    @Bind(R.id.tv_issue_time)
+    @BindView(R.id.tv_issue_time)
     TextView tvIssueTime;
 
-    @Bind(R.id.tv_distributor)
+    @BindView(R.id.tv_distributor)
     TextView tvDistributor;
 
-    @Bind(R.id.tv_distribute_time)
+    @BindView(R.id.tv_distribute_time)
     TextView tvDistributeTime;
 
-    @Bind(R.id.tv_receiver)
+    @BindView(R.id.tv_receiver)
     TextView tvReceiver;
 
-    @Bind(R.id.tv_receive_time)
+    @BindView(R.id.tv_receive_time)
     TextView tvReceiverTime;
 
-    @Bind(R.id.tv_arrive_time)
+    @BindView(R.id.tv_arrive_time)
     TextView tvArriveTime;
 
-    @Bind(R.id.tv_hang_up_time)
+    @BindView(R.id.tv_hang_up_time)
     TextView tvHangUpTime;
 
-    @Bind(R.id.tv_complete_time)
+    @BindView(R.id.tv_complete_time)
     TextView tvCompleteTime;
 
-    @Bind(R.id.tv_confirm)
+    @BindView(R.id.tv_confirm)
     TextView tvConfirm;
 
-    @Bind(R.id.tv_confirm_time)
+    @BindView(R.id.tv_confirm_time)
     TextView tvConfirmTime;
 
-    @Bind(R.id.tv_pack)
+    @BindView(R.id.tv_pack)
     TextView tvPack;
 
-    @Bind(R.id.expandableLayout)
+    @BindView(R.id.tv_description)
+    TextView tvDescription;
+
+    @BindView(R.id.tv_fault_description)
+    TextView tvFaultDescription;
+
+    @BindView(R.id.tv_hangup_description)
+    TextView tvHangupDescription;
+
+
+    @BindView(R.id.expandableLayout)
     public ExpandableRelativeLayout expandableLayout;
 
     //
@@ -104,10 +117,19 @@ public class WorkOrderFrameLayout extends FrameLayout {
         ButterKnife.bind(this);
     }
 
+    private String hangupDescription;
+
+    public void setHangupDescription(String hangupDescription) {
+        this.hangupDescription = hangupDescription;
+    }
+
     public void setWorkOrderInfo(final WorkOrderInfo workOrderInfo) {
         label.setText(workOrderInfo.getLabelText());
 
         // top part
+        String orderCode = "订单编号: " + workOrderInfo.getWorkOrderCode();
+        tvOrderCode.setText(orderCode);
+
         String requestUserText = "报修人员: " + workOrderInfo.getRequestUser();
         tvRequestUser.setText(requestUserText);
         addDialLink(requestUserText, workOrderInfo.getCallNumber(), tvRequestUser);
@@ -165,6 +187,20 @@ public class WorkOrderFrameLayout extends FrameLayout {
         tvConfirmTime.setText(confirmTimeText);
         tvConfirm.setVisibility(workOrderInfo.getConfirm() == null ? GONE : VISIBLE);
         tvConfirmTime.setVisibility(workOrderInfo.getConfirm() == null ? GONE : VISIBLE);
+
+
+        String description = "备注说明: " + workOrderInfo.getDescription();
+        tvDescription.setText(description);
+        tvDescription.setVisibility(workOrderInfo.getDescription() == null ? GONE : VISIBLE);
+
+        String faultDescription = "故障原因: " + workOrderInfo.getFaultDescription();
+        tvFaultDescription.setText(faultDescription);
+        tvFaultDescription.setVisibility(workOrderInfo.getFaultDescription() == null ? GONE : VISIBLE);
+
+
+        String hangupDescriptionText = "挂单说明: " + hangupDescription;
+        tvHangupDescription.setText(hangupDescriptionText);
+        tvHangupDescription.setVisibility( hangupDescription== null ? GONE : VISIBLE);
 
         //
         List<WorkOrderSupplyInfo> workOrderSupplyInfoList = workOrderInfo.getSupplyList();

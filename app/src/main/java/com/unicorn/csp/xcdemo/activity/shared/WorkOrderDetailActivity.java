@@ -15,7 +15,7 @@ import com.unicorn.csp.xcdemo.utils.ConfigUtils;
 import com.unicorn.csp.xcdemo.volley.SimpleVolley;
 import com.unicorn.csp.xcdemo.volley.StringRequestWithSessionCheck;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 
 public class WorkOrderDetailActivity extends ToolbarActivity {
@@ -29,7 +29,7 @@ public class WorkOrderDetailActivity extends ToolbarActivity {
 
     // ================================== view ==================================
 
-    @Bind(R.id.work_order_card)
+    @BindView(R.id.work_order_card)
     WorkOrderFrameLayout workOrderCard;
 
 

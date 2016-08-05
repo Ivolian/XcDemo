@@ -24,15 +24,15 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.simple.eventbus.EventBus;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import kale.recycler.ExRecyclerView;
 import kale.recycler.OnRecyclerViewScrollListener;
 
 
 public abstract class RefreshFragment extends LazyLoadFragment {
 
-    public String getRefreshEventTag(){
-        return  "myWorkFragment_onRefreshFinish";
+    public String getRefreshEventTag() {
+        return "myWorkFragment_onRefreshFinish";
     }
 
     // ================================== abstract methods ==================================
@@ -48,10 +48,10 @@ public abstract class RefreshFragment extends LazyLoadFragment {
 
     // ================================== views ==================================
 
-    @Bind(R.id.swipeRefreshLayout)
+    @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
 
-    @Bind(R.id.recyclerView)
+    @BindView(R.id.recyclerView)
     ExRecyclerView recyclerView;
 
 

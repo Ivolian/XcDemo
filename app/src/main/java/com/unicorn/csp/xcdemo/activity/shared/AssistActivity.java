@@ -41,7 +41,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import kale.recycler.ExRecyclerView;
 
 
@@ -84,7 +84,7 @@ public class AssistActivity extends ToolbarActivity {
 
     // ================================== recyclerView ==================================
 
-    @Bind(R.id.recyclerView)
+    @BindView(R.id.recyclerView)
     ExRecyclerView recyclerView;
 
     AssistAdapter assistAdapter;

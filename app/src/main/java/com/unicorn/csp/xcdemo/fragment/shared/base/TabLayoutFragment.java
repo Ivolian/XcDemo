@@ -14,7 +14,7 @@ import com.unicorn.csp.xcdemo.component.TabHelper;
 
 import org.simple.eventbus.EventBus;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 
 public abstract class TabLayoutFragment extends ButterKnifeFragment {
@@ -35,10 +35,10 @@ public abstract class TabLayoutFragment extends ButterKnifeFragment {
 
     // ================================== views ==================================
 
-    @Bind(R.id.tab_layout)
+    @BindView(R.id.tab_layout)
     public TabLayout tabLayout;
 
-    @Bind(R.id.viewpager)
+    @BindView(R.id.viewpager)
     ViewPager viewPager;
 
 
@@ -108,7 +108,7 @@ public abstract class TabLayoutFragment extends ButterKnifeFragment {
 
     // ================================== showSnackBar ==================================
 
-    @Bind(R.id.fl_snack_bar_container)
+    @BindView(R.id.fl_snack_bar_container)
     FrameLayout flSnackBarContainer;
 
     public void showSnackBar(String text) {

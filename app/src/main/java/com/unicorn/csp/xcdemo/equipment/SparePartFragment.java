@@ -7,7 +7,7 @@ import com.unicorn.csp.xcdemo.utils.RecycleViewUtils;
 
 import java.util.Arrays;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import kale.recycler.ExRecyclerView;
 
 public class SparePartFragment extends LazyLoadFragment {
@@ -17,7 +17,7 @@ public class SparePartFragment extends LazyLoadFragment {
         return R.layout.fragment_refresh;
     }
 
-    @Bind(R.id.recyclerView)
+    @BindView(R.id.recyclerView)
     ExRecyclerView recyclerView;
 
     @Override

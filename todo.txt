@@ -17,3 +17,27 @@
 // todo => has done: sign password
 jks password: rrrjjj
 http://developer.android.com/tools/publishing/app-signing.html
+
+
+// todo new 7-20
+1. 如果登陆失败，权限验证失败，relogin 会不会死循环。
+2.
+
+//
+
+主管 已挂起 按钮
+挂单说明 null
+
+2. 退出时，清空下所有通知。
+1. 照片上传失败后返回
+2. 上传卡主了做处理
+
+//
+0.返回派单
+1.技师挂单申请
+2.主管提交
+3.监管主管确认
+4.监管经理确认
+
+1. 上传文件的没有进度
+2.

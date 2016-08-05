@@ -1,15 +1,17 @@
 apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion '23.0.2'
+    buildToolsVersion '23.0.3'
 
     defaultConfig {
         applicationId "com.unicorn.csp.xcdemo"
         minSdkVersion 16
-        targetSdkVersion 23
+        targetSdkVersion 22
         versionCode 1
-        versionName "1.1.1"
+        versionName "1.3.1"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -32,20 +34,33 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.android.support:design:23.1.1'
-    compile 'com.android.support:cardview-v7:23.1.1'
-    compile 'com.jakewharton:butterknife:7.0.1'
+    // 依赖方法数过多
+    compile 'com.android.support:multidex:1.0.1'
+
+    // 基本
+    compile 'com.android.support:appcompat-v7:23.3.0'
+    compile 'com.android.support:design:23.3.0'
+    compile 'com.android.support:cardview-v7:23.3.0'
+
+    // butterknife
+    compile 'com.jakewharton:butterknife:8.2.1'
+    apt 'com.jakewharton:butterknife-compiler:8.2.1'
+
+//  矢量图标
+    compile 'com.mikepenz:iconics-core:2.5.3@aar'
+    compile 'com.mikepenz:fontawesome-typeface:4.5.0.1@aar'
+    compile 'com.mikepenz:material-design-iconic-typeface:2.2.0.1@aar'
+    compile 'com.mikepenz:google-material-typeface:2.2.0.1@aar'
+
+
     compile 'com.github.ShogoMizumoto:ZDepthShadowLayout:1.0.4'
     compile('com.mikepenz:materialdrawer:4.5.1@aar') {
         transitive = true
     }
-    compile 'com.mikepenz:google-material-typeface:2.2.0.1@aar'
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
     compile('com.github.afollestad.material-dialogs:core:0.8.5.1@aar') {
         transitive = true
     }
-    compile 'com.github.tianzhijiexian:ExRecyclerView:1.1.1'
     compile 'de.hdodenhof:circleimageview:2.0.0'
     compile 'com.wangqiang.libs:labelviewlib:1.0.1'
     compile 'com.r0adkll:slidableactivity:2.0.4'
@@ -54,7 +69,7 @@ dependencies {
     compile 'com.wada811:android-material-design-colors:2.0.0'
     compile 'org.simple:androideventbus:1.0.5'
     compile 'com.beardedhen:androidbootstrap:2.0.0'
-    compile 'com.liangfeizc:flowlayout:1.0.0@aar'
+//    compile 'com.liangfeizc:flowlayout:1.0.0@aar'
     compile 'com.nispok:snackbar:2.11.0'
     compile(name: 'ratingbar', ext: 'aar')
     compile 'com.mcxiaoke.volley:library:1.0.19'
@@ -74,18 +89,27 @@ dependencies {
     compile 'com.wdullaer:materialdatetimepicker:2.0.2'
     compile 'com.journeyapps:zxing-android-embedded:3.0.3@aar'
     compile 'com.google.zxing:core:3.2.0'
-    compile 'com.github.PhilJay:MPAndroidChart:v2.1.6'
     compile 'com.yqritc:recyclerview-flexibledivider:1.2.5'
     compile 'com.facebook.fresco:fresco:0.9.0'
     compile files('libs/jpush-android-2.1.0.jar')
     compile 'com.zhy:percent-support-extends:1.1.1'
-    compile 'com.mikepenz:iconics-core:2.5.3@aar'
-    compile 'com.mikepenz:fontawesome-typeface:4.5.0.1@aar'
-    compile 'com.mikepenz:material-design-iconic-typeface:2.2.0.1@aar'
+
     compile 'com.flyco.roundview:FlycoRoundView_Lib:1.1.4@aar'
     compile 'com.github.johnkil.android-robototextview:robototextview:2.4.3'
 
     compile(name: 'ParallaxScroll', ext: 'aar')
     compile 'com.diogobernardino:williamchart:2.2'
     compile 'com.shehabic.droppy:Droppy:0.5.1@aar'
+    compile(name: 'LibMarsdaemon', ext: 'aar')
+
+    // 因为 jcenter 上的库被删了，只能引用本地的了
+    compile(name: 'ExRecyclerView-1.1.1', ext: 'aar')
+    compile(name: 'CommonAdapter-1.1.4', ext: 'aar')
+    compile 'cat.ereza:customactivityoncrash:1.5.0'
+
+
+
+
+
+
 }

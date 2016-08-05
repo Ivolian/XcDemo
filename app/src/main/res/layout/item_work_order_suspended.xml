@@ -16,36 +16,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp"
-            android:orientation="horizontal">
-
-            <com.unicorn.csp.xcdemo.component.PaperButton
-                android:id="@+id/btn_pack"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:paper_color="@color/white"
-                app:paper_text="领料"
-                app:paper_text_color="@color/black"
-                app:paper_text_size="15dp" />
-
-            <com.unicorn.csp.xcdemo.component.PaperButton
-                android:id="@+id/btn_operation"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:paper_color="@color/colorPrimary"
-                app:paper_text="操作"
-                app:paper_text_color="@color/white"
-                app:paper_text_size="15dp" />
-
-        </LinearLayout>
-
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

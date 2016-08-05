@@ -10,7 +10,6 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapSize;
@@ -24,8 +23,8 @@ import com.unicorn.csp.xcdemo.utils.ConfigUtils;
 import com.unicorn.csp.xcdemo.utils.DialogUtils;
 import com.unicorn.csp.xcdemo.utils.JSONUtils;
 import com.unicorn.csp.xcdemo.utils.ToastUtils;
-import com.unicorn.csp.xcdemo.volley.JSONArrayRequestWithSessionCheck;
 import com.unicorn.csp.xcdemo.volley.SimpleVolley;
+import com.unicorn.csp.xcdemo.volley.StringRequestWithSessionCheck;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -34,7 +33,7 @@ import org.simple.eventbus.EventBus;
 import java.util.HashMap;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 
@@ -66,28 +65,33 @@ public class AssignActivity extends WorkOrderCardActivity {
 
     // ================================== fetch technicians ==================================
 
-    @Bind(R.id.fl_technician_group)
+    @BindView(R.id.fl_technician_group)
     FlowLayout flTechnicianGroup;
 
     // todo 服务专业
     private void fetchTechnicians() {
-        JsonArrayRequest jsonArrayRequest = new JSONArrayRequestWithSessionCheck(
+        StringRequest stringRequest = new StringRequestWithSessionCheck(
                 Request.Method.GET,
                 ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/artificer?workOrderId=" + workOrderProcessInfo.getWorkOrderInfo().getWorkOrderId(),
-                new Response.Listener<JSONArray>() {
+                new Response.Listener<String>() {
                     @Override
-                    public void onResponse(JSONArray response) {
-                        for (int i = 0; i != response.length(); i++) {
-                            JSONObject jsonObject = JSONUtils.getJSONObject(response, i);
-                            String name = JSONUtils.getString(jsonObject, "name", "");
-                            String objectId = JSONUtils.getString(jsonObject, "objectId", "");
-                            flTechnicianGroup.addView(getOptionButton(name, objectId), getOptionButtonLayoutParams());
+                    public void onResponse(String responseString) {
+                        try {
+                            JSONArray response = new JSONArray(responseString);
+                            for (int i = 0; i != response.length(); i++) {
+                                JSONObject jsonObject = JSONUtils.getJSONObject(response, i);
+                                String name = JSONUtils.getString(jsonObject, "name", "");
+                                String objectId = JSONUtils.getString(jsonObject, "objectId", "");
+                                flTechnicianGroup.addView(getOptionButton(name, objectId), getOptionButtonLayoutParams());
+                            }
+                        } catch (Exception e) {
+                            //
                         }
                     }
                 },
                 SimpleVolley.getDefaultErrorListener()
         );
-        SimpleVolley.addRequest(jsonArrayRequest);
+        SimpleVolley.addRequest(stringRequest);
     }
 
     private OptionButton getOptionButton(String name, String objectId) {

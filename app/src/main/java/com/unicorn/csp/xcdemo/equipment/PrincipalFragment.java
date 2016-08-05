@@ -9,7 +9,7 @@ import com.klinker.android.link_builder.LinkBuilder;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.fragment.shared.base.LazyLoadFragment;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 
 public class PrincipalFragment extends LazyLoadFragment {
@@ -19,7 +19,7 @@ public class PrincipalFragment extends LazyLoadFragment {
         return R.layout.fragment_equipment_principal;
     }
 
-    @Bind(R.id.tv_telephone)
+    @BindView(R.id.tv_telephone)
     TextView tvTelephone;
 
 

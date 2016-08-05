@@ -2,6 +2,8 @@ package com.unicorn.csp.xcdemo.activity.technician;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
+import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -21,6 +23,7 @@ import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.unicorn.csp.xcdemo.R;
 import com.unicorn.csp.xcdemo.activity.shared.base.WorkOrderCardActivity;
+import com.unicorn.csp.xcdemo.component.PaperButton;
 import com.unicorn.csp.xcdemo.component.TinyDB;
 import com.unicorn.csp.xcdemo.component.UploadUtils;
 import com.unicorn.csp.xcdemo.utils.ConfigUtils;
@@ -34,10 +37,11 @@ import org.simple.eventbus.Subscriber;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import io.techery.properratingbar.ProperRatingBar;
 
@@ -71,7 +75,7 @@ public class AchieveActivity extends WorkOrderCardActivity {
     }
 
     private void initViews() {
-        initRatingBar();
+        initRatingBars();
         initDescription();
     }
 
@@ -120,7 +124,7 @@ public class AchieveActivity extends WorkOrderCardActivity {
 
     // ================================== upload ==================================
 
-    private String signTempFileName;
+    private String signTempFileName = "";
 
     private void uploadSign(String signPath) {
         UploadUtils.upload(new File(signPath), "achieveActivity_onUploadFinish", DialogUtils.showMask(this, "上传签名中", "请稍后"));
@@ -134,10 +138,30 @@ public class AchieveActivity extends WorkOrderCardActivity {
 
     // ================================== rating ==================================
 
-    @Bind(R.id.ratingBar)
-    ProperRatingBar ratingBar;
+    @BindView(R.id.rbResponseSpeed)
+    ProperRatingBar rbResponseSpeed;
 
-    private void initRatingBar() {
+    @BindView(R.id.rbServiceAttitude)
+    ProperRatingBar rbServiceAttitude;
+
+    @BindView(R.id.rbPreservation)
+    ProperRatingBar rbPreservation;
+
+    @BindView(R.id.rbSkillLevel)
+    ProperRatingBar rbSkillLevel;
+
+    @BindView(R.id.rbEvaluate)
+    ProperRatingBar rbEvaluate;
+
+    private void initRatingBars() {
+        initRatingBar(rbResponseSpeed);
+        initRatingBar(rbServiceAttitude);
+        initRatingBar(rbPreservation);
+        initRatingBar(rbSkillLevel);
+        initRatingBar(rbEvaluate);
+    }
+
+    private void initRatingBar(ProperRatingBar ratingBar) {
         ratingBar.setTickNormalDrawable(getNormalDrawable());
         ratingBar.setTickSelectedDrawable(getSelectedDrawable());
         ratingBar.redrawChildren();
@@ -160,7 +184,7 @@ public class AchieveActivity extends WorkOrderCardActivity {
 
     // ================================== description ==================================
 
-    @Bind(R.id.et_description)
+    @BindView(R.id.et_description)
     BootstrapEditText etDescription;
 
     private void initDescription() {
@@ -173,30 +197,38 @@ public class AchieveActivity extends WorkOrderCardActivity {
     // ================================== achieve ==================================
 
     @OnClick(R.id.btn_achieve)
-    public void achieveConfrim() {
-        DialogUtils.showConfirm(this, "确认结单？", new MaterialDialog.SingleButtonCallback() {
-            @Override
-            public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                achieve("/complete");
-            }
-        });
+    public void achieveConfirm() {
+        if (isUserInputValid()) {
+            DialogUtils.showConfirm(this, "确认结单？", new MaterialDialog.SingleButtonCallback() {
+                @Override
+                public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+                    achieve("/complete");
+                }
+            });
+        }
     }
 
     @OnClick(R.id.btn_review)
     public void receiveConfrim() {
-        DialogUtils.showConfirm(this, "确认待复核？", new MaterialDialog.SingleButtonCallback() {
-            @Override
-            public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                achieve("/review");
-            }
-        });
+        if (isUserInputValid()) {
+            DialogUtils.showConfirm(this, "确认待复核？", new MaterialDialog.SingleButtonCallback() {
+                @Override
+                public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+                    achieve("/review");
+                }
+            });
+        }
+    }
+
+    private boolean isUserInputValid() {
+        if (recordTempFileName.equals("") && signTempFileName.equals("")) {
+            ToastUtils.show("需要报修人签名或录音");
+            return false;
+        }
+        return true;
     }
 
     private void achieve(final String lastPartUrl) {
-        if (signTempFileName == null) {
-            ToastUtils.show("请先签字");
-            return;
-        }
         String url = ConfigUtils.getBaseUrl() + "/api/v1/hems/workOrder/" + workOrderProcessInfo.getWorkOrderInfo().getWorkOrderId() + lastPartUrl;
         StringRequest stringRequest = new StringRequest(
                 Request.Method.PUT,
@@ -204,7 +236,7 @@ public class AchieveActivity extends WorkOrderCardActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        ToastUtils.show(lastPartUrl.equals("/review") ? "带复核成功" : "结单成功!");
+                        ToastUtils.show(lastPartUrl.equals("/review") ? "待复核成功" : "结单成功!");
                         EventBus.getDefault().post(new Object(), refreshEventTag);
                         finish();
                     }
@@ -215,8 +247,13 @@ public class AchieveActivity extends WorkOrderCardActivity {
             public byte[] getBody() throws AuthFailureError {
                 try {
                     JSONObject result = new JSONObject();
+                    result.put("soundRecord", recordTempFileName);
                     result.put("sign", signTempFileName);
-                    result.put("evaluate", ratingBar.getRating());
+                    result.put("responseSpeed", rbResponseSpeed.getRating());
+                    result.put("serviceAttitude", rbServiceAttitude.getRating());
+                    result.put("preservation", rbPreservation.getRating());
+                    result.put("skillLevel", rbSkillLevel.getRating());
+                    result.put("evaluate", rbEvaluate.getRating());
                     result.put("remark", etDescription.getText().toString().trim());
                     String jsonString = result.toString();
                     return jsonString.getBytes("UTF-8");
@@ -237,6 +274,94 @@ public class AchieveActivity extends WorkOrderCardActivity {
             }
         };
         SimpleVolley.addRequest(stringRequest);
+    }
+
+
+    // 录音
+
+    @BindView(R.id.btn_record)
+    PaperButton btnRecord;
+
+    MediaRecorder mRecorder = null;
+
+    MediaPlayer mPlayer = null;
+
+    @OnClick(R.id.btn_record)
+    public void record() {
+        switch (btnRecord.getText()) {
+            case "录音":
+                startRecording();
+                break;
+            case "停止录音":
+                stopRecording();
+                break;
+            case "播放":
+                startPlaying();
+                break;
+            case "停止播放":
+                stopPlaying();
+                break;
+        }
+    }
+
+    private void startRecording() {
+        mRecorder = new MediaRecorder();
+        mRecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
+        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
+        mRecorder.setOutputFile(getRecordFilePath());
+        // 编码问题可能会导致有些播放器无法播放
+        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+        try {
+            mRecorder.prepare();
+        } catch (IOException e) {
+            //
+        }
+        mRecorder.start();
+        btnRecord.setText("停止录音");
+    }
+
+    private String getRecordFilePath() {
+        return ConfigUtils.getBaseDirPath() + File.separator + "record.mp3";
+    }
+
+    private void stopRecording() {
+        mRecorder.stop();
+        mRecorder.release();
+        mRecorder = null;
+        btnRecord.setText("播放");
+        uploadRecord();
+    }
+
+    private void startPlaying() {
+        mPlayer = new MediaPlayer();
+        try {
+            mPlayer.setDataSource(getRecordFilePath());
+            mPlayer.prepare();
+            mPlayer.start();
+        } catch (IOException e) {
+            //
+        }
+        btnRecord.setText("停止播放");
+    }
+
+    private void stopPlaying() {
+        mPlayer.release();
+        mPlayer = null;
+        btnRecord.setText("录音");
+    }
+
+
+    // ========================== upload ==========================
+
+    String recordTempFileName = "";
+
+    private void uploadRecord() {
+        UploadUtils.upload(new File(getRecordFilePath()), "achieve_onUploadFinish", DialogUtils.showMask2(this, "上传录音中", "请稍后"));
+    }
+
+    @Subscriber(tag = "achieve_onUploadFinish")
+    private void onAchieveUploadFinish(String tempFileName) {
+        recordTempFileName = tempFileName;
     }
 
 }

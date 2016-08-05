@@ -47,4 +47,5 @@ public class WorkOrderProcessInfo implements Serializable {
     public void setExpand(boolean expand) {
         this.expand = expand;
     }
+
 }
